@@ -12,7 +12,7 @@
     "lint": "tsc --noEmit && eslint --ext .js,.jsx,.ts,.tsx ./src",
     "prettier:write": "prettier --write .",
     "test": "jest --coverage=false --passWithNoTests --silent --noStackTrace --runInBand",
-    "test:unit": "npm test -- --watch",
+    "test:watch": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests ./src/**",
     "test:ci": "npm test -- --coverage",
     "test:update:snap": "npm test -- -u"
