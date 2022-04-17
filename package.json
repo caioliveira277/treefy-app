@@ -11,7 +11,7 @@
     "prepare": "husky install",
     "lint": "tsc --noEmit && eslint --ext .js,.jsx,.ts,.tsx ./src",
     "prettier:write": "prettier --write .",
-    "test": "jest --coverage=false --passWithNoTests --silent --noStackTrace --runInBand",
+    "test": "jest --coverage=false --passWithNoTests --silent",
     "test:watch": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests ./src/**",
     "test:ci": "npm test -- --coverage",
@@ -59,15 +59,6 @@
     ],
     "./src/**": [
       "prettier --write ."
-    ]
-  },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "@testing-library/jest-native/extend-expect"
-    ],
-    "preset": "jest-expo",
-    "transformIgnorePatterns": [
-      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
     ]
   }
 }
