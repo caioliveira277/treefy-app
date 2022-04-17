@@ -13,7 +13,7 @@ export class HttpPostClientSpy implements HttpPostClient {
   body?: object;
 
   response: HttpResponse = {
-    statuCode: HttpStatusCode.noContent,
+    statuCode: HttpStatusCode.ok,
   };
 
   post(params: HttpPostParams): Promise<HttpResponse> {
