@@ -6,9 +6,10 @@ module.exports = function (api) {
       [
         'module-resolver',
         {
-          extensions: ['.js', 'jsx', '.ts', '.tsx', '.json'],
+          extensions: ['.js', 'jsx', '.ts', '.tsx', '.json', '.png', '.jpg'],
           alias: {
             '@': './src',
+            '@assets': './assets',
           },
         },
       ],
