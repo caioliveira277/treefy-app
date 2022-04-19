@@ -10,6 +10,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "entryPoint": "./src/main/App.tsx",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
