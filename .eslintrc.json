@@ -24,7 +24,8 @@
     ],
     "react/react-in-jsx-scope": "off",
     "import/extensions": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "react/prop-types": "off"
   },
   "ignorePatterns": "/*.js",
   "settings": {
