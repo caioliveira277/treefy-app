@@ -2,7 +2,7 @@ import React from 'react';
 import { ButtonComponent, TextInputComponent } from '@/presentation/components';
 import { AuthenticationViewModel } from '@/presentation/view-models';
 import { Container, Content, Ilustation, Title, spacing } from './styles';
-import initialIlustration from '@assets/initial-ilustration.png';
+import initialIlustration from '@assets/images/initial-ilustration.png';
 
 export interface AuthenticationViewProps {
   authenticationViewModel: AuthenticationViewModel;
