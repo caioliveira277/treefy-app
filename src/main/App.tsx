@@ -1,7 +1,7 @@
 import { ThemeProvider } from 'styled-components';
 import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
-import { primaryTheme } from '@/presentation/theme';
+import { currentTheme } from '@/presentation/theme';
 import { AuthenticationView } from '@/presentation/views';
 import { AuthenticationViewModelImpl } from '@/presentation/view-models';
 import {
@@ -18,7 +18,7 @@ function App() {
   const authenticationViewModel = new AuthenticationViewModelImpl();
 
   return fontsLoaded ? (
-    <ThemeProvider theme={primaryTheme}>
+    <ThemeProvider theme={currentTheme}>
       <AuthenticationView authenticationViewModel={authenticationViewModel} />
       <StatusBar style="auto" translucent />
     </ThemeProvider>

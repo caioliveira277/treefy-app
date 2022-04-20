@@ -3,6 +3,7 @@ import 'styled-components';
 type ThemeColors = {
   primary: string;
   secondary: string;
+  body: string;
   white: string;
   contrast: string;
   placeholder: string;
