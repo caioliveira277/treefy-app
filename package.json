@@ -9,8 +9,8 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "prepare": "husky install",
-    "lint": "tsc --noEmit && eslint --ext .js,.jsx,.ts,.tsx ./src",
-    "prettier:write": "prettier --write .",
+    "lint": "eslint --ext .ts,.tsx src/* --fix",
+    "prettier": "prettier --write src/*",
     "test": "jest --coverage=false --passWithNoTests --runInBand",
     "test:watch": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests ./src/**",
@@ -61,13 +61,5 @@
     "react-test-renderer": "^17.0.1",
     "typescript": "~4.3.5"
   },
-  "private": true,
-  "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "eslint --ext .tsx --ext .ts src/ --fix"
-    ],
-    "./src/**": [
-      "prettier --write ."
-    ]
-  }
+  "private": true
 }

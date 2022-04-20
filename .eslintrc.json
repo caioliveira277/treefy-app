@@ -27,7 +27,7 @@
     "import/no-extraneous-dependencies": "off",
     "react/prop-types": "off"
   },
-  "ignorePatterns": "/*.js",
+  "ignorePatterns": ["*.snap"],
   "settings": {
     "react": {
       "version": "17.0.1"
