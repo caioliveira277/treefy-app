@@ -30,12 +30,12 @@ const makeSut = ({
 };
 
 describe('ButtonComponent', () => {
-  test('Should match with a snapshot', async () => {
+  test('Should match with a snapshot', () => {
     const { sut } = makeSut({});
     const { toJSON } = sut;
     expect(toJSON()).toMatchSnapshot();
   });
-  test('Should trigger the press event', async () => {
+  test('Should trigger the press event', () => {
     const handlePress = jest.fn();
     const { sut } = makeSut({
       onPress: handlePress,
@@ -45,7 +45,7 @@ describe('ButtonComponent', () => {
     fireEvent.press(button);
     expect(handlePress).toHaveBeenCalledTimes(1);
   });
-  test('should change the style according to its type', async () => {
+  test('should change the style according to its type', () => {
     const { sut } = makeSut({
       type: 'outline',
     });
@@ -59,7 +59,7 @@ describe('ButtonComponent', () => {
     );
     expect(text).toHaveStyleRule('color', currentTheme.colors.body);
   });
-  test('Should match with a snapshot', async () => {
+  test('Should match with a snapshot', () => {
     const anyText = faker.datatype.string();
     const { sut } = makeSut({
       text: anyText,
