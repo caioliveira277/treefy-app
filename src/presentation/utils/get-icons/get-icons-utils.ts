@@ -1,6 +1,6 @@
-export type IconeName = 'mail' | 'lock' | 'eye-open' | 'eye-close';
+export type IconName = 'mail' | 'lock' | 'eye-open' | 'eye-close';
 
-export const getIcon = (iconName: IconeName) => {
+export const getIcon = (iconName: IconName) => {
   switch (iconName) {
     case 'mail':
       return require('@assets/icons/mail.png');

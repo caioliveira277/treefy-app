@@ -17,12 +17,12 @@ export class AuthenticationView extends React.Component<AuthenticationViewProps>
           <Title style={spacing.title}>Entre com a sua conta</Title>
           <TextInputComponent
             style={spacing.input}
-            iconeName="mail"
+            iconName="mail"
             label="Email cadastrado:"
             placeholderText="Email cadastrado"
           />
           <TextInputComponent
-            iconeName="lock"
+            iconName="lock"
             type="password"
             label="Senha cadastrada:"
             placeholderText="Senha secreta"
