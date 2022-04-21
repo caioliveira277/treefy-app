@@ -1,0 +1,211 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonComponent Should match with a snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#253239",
+          "fontFamily": "RobotoSlab_500Medium",
+          "fontSize": 16,
+          "marginBottom": 10,
+        },
+      ]
+    }
+    testID="label"
+    theme={
+      Object {
+        "borders": Object {
+          "border_radius_md": "10px",
+          "border_radius_sm": "5px",
+        },
+        "colors": Object {
+          "body": "#585960",
+          "contrast": "#FCFDFF",
+          "placeholder": "#C6C6C6",
+          "placeholder_light": "#EEEEEE",
+          "primary": "#4ABC86",
+          "rate": "#D56D6D",
+          "secondary": "#253239",
+          "white": "#ffffff",
+        },
+        "fonts": Object {
+          "families": Object {
+            "medium": "RobotoSlab_500Medium",
+            "regular": "RobotoSlab_400Regular",
+          },
+          "sizes": Object {
+            "paragraph": "12px",
+            "small": "10px",
+            "subtitle": "16px",
+            "title": "18px",
+          },
+        },
+        "shadows": Object {
+          "sm": Object {
+            "elevation": 4,
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 2,
+              "width": 0,
+            },
+            "shadowOpacity": 0.23,
+            "shadowRadius": 2.62,
+          },
+        },
+      }
+    }
+  >
+    anyLabel
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#ffffff",
+          "borderColor": "#EEEEEE",
+          "borderRadius": 5,
+          "borderStyle": "solid",
+          "borderWidth": 1.5,
+          "flexDirection": "row",
+          "minHeight": 45,
+          "position": "relative",
+          "width": "100%",
+        },
+      ]
+    }
+    theme={
+      Object {
+        "borders": Object {
+          "border_radius_md": "10px",
+          "border_radius_sm": "5px",
+        },
+        "colors": Object {
+          "body": "#585960",
+          "contrast": "#FCFDFF",
+          "placeholder": "#C6C6C6",
+          "placeholder_light": "#EEEEEE",
+          "primary": "#4ABC86",
+          "rate": "#D56D6D",
+          "secondary": "#253239",
+          "white": "#ffffff",
+        },
+        "fonts": Object {
+          "families": Object {
+            "medium": "RobotoSlab_500Medium",
+            "regular": "RobotoSlab_400Regular",
+          },
+          "sizes": Object {
+            "paragraph": "12px",
+            "small": "10px",
+            "subtitle": "16px",
+            "title": "18px",
+          },
+        },
+        "shadows": Object {
+          "sm": Object {
+            "elevation": 4,
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 2,
+              "width": 0,
+            },
+            "shadowOpacity": 0.23,
+            "shadowRadius": 2.62,
+          },
+        },
+      }
+    }
+  >
+    <Image
+      resizeMode="center"
+      source={1}
+      style={
+        Array [
+          Object {
+            "left": 10,
+            "position": "absolute",
+            "width": 24,
+          },
+        ]
+      }
+      testID="genericIcon"
+    />
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      placeholder="anyPlaceholder"
+      placeholderTextColor="#C6C6C6"
+      rejectResponderTermination={true}
+      secureTextEntry={false}
+      style={
+        Array [
+          Object {
+            "color": "#253239",
+            "fontFamily": "RobotoSlab_400Regular",
+            "fontSize": 14,
+            "paddingLeft": 38,
+            "paddingRight": 42,
+            "width": "100%",
+          },
+        ]
+      }
+      testID="input"
+      theme={
+        Object {
+          "borders": Object {
+            "border_radius_md": "10px",
+            "border_radius_sm": "5px",
+          },
+          "colors": Object {
+            "body": "#585960",
+            "contrast": "#FCFDFF",
+            "placeholder": "#C6C6C6",
+            "placeholder_light": "#EEEEEE",
+            "primary": "#4ABC86",
+            "rate": "#D56D6D",
+            "secondary": "#253239",
+            "white": "#ffffff",
+          },
+          "fonts": Object {
+            "families": Object {
+              "medium": "RobotoSlab_500Medium",
+              "regular": "RobotoSlab_400Regular",
+            },
+            "sizes": Object {
+              "paragraph": "12px",
+              "small": "10px",
+              "subtitle": "16px",
+              "title": "18px",
+            },
+          },
+          "shadows": Object {
+            "sm": Object {
+              "elevation": 4,
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 2,
+                "width": 0,
+              },
+              "shadowOpacity": 0.23,
+              "shadowRadius": 2.62,
+            },
+          },
+        }
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>
+</View>
+`;
