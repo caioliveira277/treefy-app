@@ -62,7 +62,10 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
           onChangeText={handleChangeTextValue}
         />
         {type === 'password' ? (
-          <VisibilityPasswordButton onPress={handlePasswordVisible}>
+          <VisibilityPasswordButton
+            testID="visibilityPasswordButton"
+            onPress={handlePasswordVisible}
+          >
             <PasswordIcon
               source={
                 passwordVisible ? getIcon('eye-close') : getIcon('eye-open')

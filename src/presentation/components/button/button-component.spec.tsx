@@ -45,7 +45,7 @@ describe('ButtonComponent', () => {
     fireEvent.press(button);
     expect(handlePress).toHaveBeenCalledTimes(1);
   });
-  test('should change the style according to its type', () => {
+  test('Should change the style according to its type', () => {
     const { sut } = makeSut({
       type: 'outline',
     });

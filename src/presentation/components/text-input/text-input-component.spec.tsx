@@ -1,7 +1,7 @@
 import { mockRender } from '@/presentation/test';
 import { TextInputComponent } from './text-input-component';
 import faker from '@faker-js/faker';
-import { fireEvent, RenderAPI } from '@testing-library/react-native';
+import { fireEvent, RenderAPI, waitFor } from '@testing-library/react-native';
 import { IconName } from '@/presentation/utils';
 import 'jest-styled-components/native';
 
@@ -13,6 +13,7 @@ type MakeSutProps = {
   placeholderText?: string;
   iconName?: IconName;
   initialValue?: string;
+  type?: 'text' | 'password';
   onChangeText?: () => void;
 };
 
@@ -21,11 +22,13 @@ const makeSut = ({
   placeholderText = 'anyPlaceholder',
   iconName = 'mail',
   initialValue = '',
+  type,
   onChangeText = () => null,
 }: MakeSutProps): SutTypes => {
   const sut = mockRender(
     <TextInputComponent
       label={label}
+      type={type}
       placeholderText={placeholderText}
       iconName={iconName}
       initialValue={initialValue}
@@ -84,5 +87,16 @@ describe('ButtonComponent', () => {
     const { getByTestId } = sut;
     const genericIcon = getByTestId('genericIcon');
     expect(genericIcon.props.source).toEqual(1);
+  });
+  test('Should change password field visibility', async () => {
+    const { sut } = makeSut({
+      type: 'password',
+    });
+    const { getByTestId } = sut;
+    const input = getByTestId('input');
+    const visibilityPasswordButton = getByTestId('visibilityPasswordButton');
+    expect(input.props.secureTextEntry).toBeTruthy();
+    await waitFor(() => fireEvent.press(visibilityPasswordButton));
+    expect(input.props.secureTextEntry).toBeFalsy();
   });
 });
