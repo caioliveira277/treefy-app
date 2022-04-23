@@ -25,20 +25,23 @@ export interface TextInputComponentProps {
 export const TextInputComponent: React.FC<TextInputComponentProps> = ({
   iconName,
   label,
-  placeholderText = '',
+  placeholderText,
   type = 'text',
   style,
-  initialValue = '',
-  onChangeText = () => null,
+  initialValue,
+  onChangeText,
 }) => {
   const theme = useTheme();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>(initialValue);
+  const [inputValue, setInputValue] = useState<string>(initialValue || '');
 
   const handlePasswordVisible = () => setPasswordVisible(!passwordVisible);
   const handleChangeTextValue = (value: string) => {
     setInputValue(value);
-    onChangeText(value);
+    /* istanbul ignore else */
+    if (typeof onChangeText === 'function') {
+      onChangeText(value);
+    }
   };
 
   return (
