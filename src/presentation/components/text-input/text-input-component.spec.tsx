@@ -1,21 +1,16 @@
 import { mockRender } from '@/presentation/test';
-import { TextInputComponent } from './text-input-component';
+import {
+  TextInputComponent,
+  TextInputComponentProps,
+} from './text-input-component';
 import faker from '@faker-js/faker';
 import { fireEvent, RenderAPI, waitFor } from '@testing-library/react-native';
-import { IconName } from '@/presentation/utils';
 import 'jest-styled-components/native';
 
 type SutTypes = {
   sut: RenderAPI;
 };
-type MakeSutProps = {
-  label?: string;
-  placeholderText?: string;
-  iconName?: IconName;
-  initialValue?: string;
-  type?: 'text' | 'password';
-  onChangeText?: () => void;
-};
+interface MakeSutProps extends Partial<TextInputComponentProps> {}
 
 const makeSut = ({
   label = 'anyLabel',
@@ -40,7 +35,7 @@ const makeSut = ({
   };
 };
 
-describe('ButtonComponent', () => {
+describe('TextInputComponent', () => {
   test('Should match with a snapshot', () => {
     const { sut } = makeSut({});
     const { toJSON } = sut;

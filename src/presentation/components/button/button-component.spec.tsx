@@ -1,5 +1,5 @@
 import { mockRender } from '@/presentation/test';
-import { ButtonComponent, ButtonType } from './button-component';
+import { ButtonComponent, ButtonComponentProps } from './button-component';
 import faker from '@faker-js/faker';
 import { fireEvent, RenderAPI } from '@testing-library/react-native';
 import { currentTheme } from '@/presentation/theme';
@@ -8,20 +8,16 @@ import 'jest-styled-components/native';
 type SutTypes = {
   sut: RenderAPI;
 };
-type MakeSutProps = {
-  text?: string;
-  onPress?: () => void;
-  type?: ButtonType;
-};
+interface MakeSutProps extends Partial<ButtonComponentProps> {}
 
 const makeSut = ({
-  text = 'anyText',
+  children = 'anyText',
   onPress,
   type,
 }: MakeSutProps): SutTypes => {
   const sut = mockRender(
     <ButtonComponent type={type} onPress={onPress}>
-      {text}
+      {children}
     </ButtonComponent>
   );
   return {
@@ -59,10 +55,10 @@ describe('ButtonComponent', () => {
     );
     expect(text).toHaveStyleRule('color', currentTheme.colors.body);
   });
-  test('Should match with a snapshot', () => {
+  test('Should display the text passed by children', () => {
     const anyText = faker.datatype.string();
     const { sut } = makeSut({
-      text: anyText,
+      children: anyText,
     });
     const { getByTestId } = sut;
     const text = getByTestId('text');
