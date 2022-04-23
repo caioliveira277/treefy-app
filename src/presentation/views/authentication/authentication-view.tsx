@@ -1,5 +1,9 @@
 import React from 'react';
-import { ButtonComponent, TextInputComponent } from '@/presentation/components';
+import {
+  ButtonComponent,
+  LinkComponent,
+  TextInputComponent,
+} from '@/presentation/components';
 import { AuthenticationViewModel } from '@/presentation/view-models';
 import { Container, Content, Ilustation, Title, spacing } from './styles';
 import initialIlustration from '@assets/images/initial-ilustration.png';
@@ -27,6 +31,9 @@ export class AuthenticationView extends React.Component<AuthenticationViewProps>
             label="Senha cadastrada:"
             placeholderText="Senha secreta"
           />
+          <LinkComponent style={spacing.link}>
+            Esqueceu sua senha?
+          </LinkComponent>
           <ButtonComponent style={spacing.button}>Entrar</ButtonComponent>
         </Content>
       </Container>

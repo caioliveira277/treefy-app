@@ -33,4 +33,8 @@ export const spacing = StyleSheet.create({
     marginTop: 40,
     marginBottom: 40,
   },
+  link: {
+    marginTop: 10,
+    alignItems: 'flex-end',
+  },
 });
