@@ -31,6 +31,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@commitlint/cli": "^16.2.4",
+    "@commitlint/config-conventional": "^16.2.4",
     "@faker-js/faker": "^6.1.2",
     "@testing-library/jest-native": "^4.0.4",
     "@testing-library/react-native": "^9.1.0",
