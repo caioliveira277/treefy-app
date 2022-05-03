@@ -16,7 +16,7 @@ const makeSut = ({
   label = 'anyLabel',
   placeholderText = 'anyPlaceholder',
   iconName = 'mail',
-  initialValue = '',
+  value = '',
   type,
   onChangeText = () => null,
 }: MakeSutProps): SutTypes => {
@@ -26,7 +26,7 @@ const makeSut = ({
       type={type}
       placeholderText={placeholderText}
       iconName={iconName}
-      initialValue={initialValue}
+      value={value}
       onChangeText={onChangeText}
     />
   );
@@ -58,7 +58,7 @@ describe('TextInputComponent', () => {
   test('Should contain the initial value', () => {
     const anyText = faker.datatype.string();
     const { sut } = makeSut({
-      initialValue: anyText,
+      value: anyText,
     });
     const { getByDisplayValue } = sut;
     const input = getByDisplayValue(anyText);

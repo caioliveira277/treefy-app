@@ -18,7 +18,7 @@ export interface TextInputComponentProps {
   placeholderText?: string;
   type?: 'text' | 'password';
   style?: StyleProp<ViewStyle>;
-  initialValue?: string;
+  value?: string;
   onChangeText?: (value: string) => void;
 }
 
@@ -28,21 +28,13 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
   placeholderText,
   type = 'text',
   style,
-  initialValue,
+  value,
   onChangeText,
 }) => {
   const theme = useTheme();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>(initialValue || '');
 
   const handlePasswordVisible = () => setPasswordVisible(!passwordVisible);
-  const handleChangeTextValue = (value: string) => {
-    setInputValue(value);
-    /* istanbul ignore else */
-    if (typeof onChangeText === 'function') {
-      onChangeText(value);
-    }
-  };
 
   return (
     <Container style={style}>
@@ -61,8 +53,8 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
           secureTextEntry={type === 'password' && !passwordVisible}
           placeholder={placeholderText}
           placeholderTextColor={theme.colors.placeholder}
-          value={inputValue}
-          onChangeText={handleChangeTextValue}
+          value={value}
+          onChangeText={onChangeText}
         />
         {type === 'password' ? (
           <VisibilityPasswordButton
