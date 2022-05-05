@@ -1,5 +1,5 @@
 import faker from '@faker-js/faker';
-import { validateEmail, validateStrongPassword } from './validations-utils';
+import { validateEmail, validateStrongPassword } from './validations';
 
 type SutTypes = {
   sut: () => boolean;

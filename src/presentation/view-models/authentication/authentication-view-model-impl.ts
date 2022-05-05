@@ -1,7 +1,7 @@
 import {
   validateEmail,
   validateStrongPassword,
-} from '@/presentation/utils/validations/validations-utils';
+} from '@/validations/validations';
 import { BaseView } from '@/presentation/views/base-view';
 import { Alert } from 'react-native';
 import { AuthenticationViewModel } from './authentication-view-model';
