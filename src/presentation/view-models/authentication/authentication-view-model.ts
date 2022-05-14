@@ -1,4 +1,4 @@
-import { BaseViewModel } from '../base-view';
+import { BaseViewModel } from '../base-view-model';
 
 export interface AuthenticationViewModel extends BaseViewModel {
   emailValue: string;

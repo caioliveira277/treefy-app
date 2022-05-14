@@ -2,29 +2,23 @@ import {
   validateEmail,
   validateStrongPassword,
 } from '@/validations/validations';
-import { BaseView } from '@/presentation/views/base-view';
 import { Alert } from 'react-native';
 import { AuthenticationViewModel } from './authentication-view-model';
+import { BaseViewModelImpl } from '../base-view-model-impl';
 
-export class AuthenticationViewModelImpl implements AuthenticationViewModel {
+export class AuthenticationViewModelImpl
+  extends BaseViewModelImpl
+  implements AuthenticationViewModel
+{
   public emailValue: string;
 
   public passwordValue: string;
 
-  private baseView?: BaseView;
-
   public constructor() {
+    super();
     this.emailValue = '';
     this.passwordValue = '';
   }
-
-  public attachView = (baseView: BaseView): void => {
-    this.baseView = baseView;
-  };
-
-  public detachView = (): void => {
-    this.baseView = undefined;
-  };
 
   public handleEmailInputChange(value: string): void {
     this.emailValue = value;
@@ -42,12 +36,6 @@ export class AuthenticationViewModelImpl implements AuthenticationViewModel {
 
     if (!emailValid || !passwordValid) {
       Alert.alert('Ops!', 'Invalid fields');
-    }
-  }
-
-  private notifyViewAboutChanges(): void {
-    if (this.baseView) {
-      this.baseView.onViewModelChanged();
     }
   }
 }
