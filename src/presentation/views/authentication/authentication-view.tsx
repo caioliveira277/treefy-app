@@ -65,7 +65,7 @@ export class AuthenticationView
             placeholderText="Email cadastrado"
             value={emailValue}
             onChangeText={(text) =>
-              this.authenticationViewModel.onEmailInputChange(text)
+              this.authenticationViewModel.handleEmailInputChange(text)
             }
           />
           <TextInputComponent
@@ -75,7 +75,7 @@ export class AuthenticationView
             placeholderText="Senha secreta"
             value={passwordValue}
             onChangeText={(text) =>
-              this.authenticationViewModel.onPasswordInputChange(text)
+              this.authenticationViewModel.handlePasswordInputChange(text)
             }
           />
           <LinkComponent style={spacing.link}>
@@ -83,7 +83,7 @@ export class AuthenticationView
           </LinkComponent>
           <ButtonComponent
             style={spacing.button}
-            onPress={() => this.authenticationViewModel.onSubmit()}
+            onPress={() => this.authenticationViewModel.handleSubmit()}
           >
             Entrar
           </ButtonComponent>

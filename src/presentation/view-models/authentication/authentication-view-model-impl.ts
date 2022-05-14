@@ -26,17 +26,17 @@ export class AuthenticationViewModelImpl implements AuthenticationViewModel {
     this.baseView = undefined;
   };
 
-  public onEmailInputChange(value: string): void {
+  public handleEmailInputChange(value: string): void {
     this.emailValue = value;
     this.notifyViewAboutChanges();
   }
 
-  public onPasswordInputChange(value: string): void {
+  public handlePasswordInputChange(value: string): void {
     this.passwordValue = value;
     this.notifyViewAboutChanges();
   }
 
-  public onSubmit(): void {
+  public handleSubmit(): void {
     const emailValid = validateEmail(this.emailValue);
     const passwordValid = validateStrongPassword(this.passwordValue);
 

@@ -4,7 +4,7 @@ export interface AuthenticationViewModel extends BaseViewModel {
   emailValue: string;
   passwordValue: string;
 
-  onEmailInputChange(value: string): void;
-  onPasswordInputChange(value: string): void;
-  onSubmit(): void;
+  handleEmailInputChange(value: string): void;
+  handlePasswordInputChange(value: string): void;
+  handleSubmit(): void;
 }
