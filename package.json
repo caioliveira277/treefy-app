@@ -12,9 +12,8 @@
     "lint": "eslint --ext .ts,.tsx src/* --fix",
     "prettier": "prettier --write src/*",
     "test": "jest --coverage=false --passWithNoTests --runInBand",
-    "test:watch": "npm test -- --watch",
-    "test:staged": "npm test -- --findRelatedTests ./src/**",
-    "test:ci": "npm test -- --coverage",
+    "test:unit:dev": "npm test -- --watch",
+    "test:unit:ci": "npm test -- --coverage",
     "test:update:snap": "npm test -- -u"
   },
   "dependencies": {
