@@ -1,6 +1,6 @@
 {
   "*.{ts,tsx}": [
-    "npm run lint",
-    "npm run prettier"
+    "eslint --ext .ts,.tsx src/* --fix",
+    "prettier --write src/*"
   ]
 }
