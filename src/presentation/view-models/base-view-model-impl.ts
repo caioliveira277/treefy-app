@@ -13,8 +13,6 @@ export class BaseViewModelImpl implements BaseViewModel {
   };
 
   public notifyViewAboutChanges(): void {
-    if (this.baseView) {
-      this.baseView.onViewModelChanged();
-    }
+    this?.baseView?.onViewModelChanged();
   }
 }
