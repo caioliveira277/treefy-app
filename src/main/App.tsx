@@ -2,8 +2,7 @@ import { ThemeProvider } from 'styled-components';
 import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
 import { currentTheme } from '@/presentation/theme';
-import { AuthenticationView } from '@/presentation/views';
-import { AuthenticationViewModelImpl } from '@/presentation/view-models';
+import { Router } from '@/presentation/routes/router';
 import {
   useFonts,
   RobotoSlab_400Regular,
@@ -15,11 +14,10 @@ function App() {
     RobotoSlab_400Regular,
     RobotoSlab_500Medium,
   });
-  const authenticationViewModel = new AuthenticationViewModelImpl();
 
   return fontsLoaded ? (
     <ThemeProvider theme={currentTheme}>
-      <AuthenticationView authenticationViewModel={authenticationViewModel} />
+      <Router />
       <StatusBar style="auto" translucent />
     </ThemeProvider>
   ) : null;
