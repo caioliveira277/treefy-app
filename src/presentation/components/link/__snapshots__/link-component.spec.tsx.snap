@@ -58,14 +58,15 @@ exports[`LinkComponent Should match with a snapshot 1`] = `
           },
           "fonts": Object {
             "families": Object {
+              "bold": "RobotoSlab_700Bold",
               "medium": "RobotoSlab_500Medium",
               "regular": "RobotoSlab_400Regular",
             },
             "sizes": Object {
-              "paragraph": "12px",
-              "small": "10px",
-              "subtitle": "16px",
-              "title": "18px",
+              "lg": "16px",
+              "md": "14px",
+              "sm": "12px",
+              "xl": "18px",
             },
           },
           "shadows": Object {
