@@ -42,13 +42,13 @@ export class AccessView
       >
         <ButtonComponent
           style={spacing.buttonAccessAccount}
-          onPress={() => this.accessViewModel.handleAccessAccount()}
+          onPress={() => this.accessViewModel.handleMoveToAuthentication()}
         >
           Acessar conta
         </ButtonComponent>
         <ButtonComponent
           type="outline"
-          onPress={() => this.accessViewModel.handleSignup()}
+          onPress={() => this.accessViewModel.handleMoveToSignup()}
         >
           Cadastrar
         </ButtonComponent>

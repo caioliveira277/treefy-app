@@ -5,11 +5,11 @@ export class AccessViewModelImpl
   extends BaseViewModelImpl
   implements AccessViewModel
 {
-  public handleAccessAccount(): void {
+  public handleMoveToAuthentication(): void {
     this.baseView?.props.navigation?.navigate('Authentication');
   }
 
-  public handleSignup(): void {
+  public handleMoveToSignup(): void {
     // this.baseView?.navigation.navigate('Access');
     console.log('signup');
   }
