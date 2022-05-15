@@ -48,6 +48,7 @@ export class AccessView
         </ButtonComponent>
         <ButtonComponent
           type="outline"
+          style={spacing.buttonSignup}
           onPress={() => this.accessViewModel.handleMoveToSignup()}
         >
           Cadastrar
