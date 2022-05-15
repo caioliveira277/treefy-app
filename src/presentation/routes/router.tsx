@@ -6,10 +6,6 @@ import {
   AccessViewModelImpl,
 } from '@/presentation/view-models';
 
-type StackParamList = {
-  Access: undefined;
-  Authentication: undefined;
-};
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export const Router: React.FC = () => {
