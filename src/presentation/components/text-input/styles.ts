@@ -5,7 +5,7 @@ export const Container = styled.View`
 `;
 
 export const Label = styled.Text`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fonts.sizes.lg};
   color: ${({ theme }) => theme.colors.secondary};
   font-family: ${({ theme }) => theme.fonts.families.medium};
   margin-bottom: 10px;
@@ -44,7 +44,7 @@ export const VisibilityPasswordButton = styled.TouchableOpacity`
 
 export const Input = styled.TextInput`
   width: 100%;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizes.md};
   padding-left: 38px;
   padding-right: 42px;
   font-family: ${({ theme }) => theme.fonts.families.regular};

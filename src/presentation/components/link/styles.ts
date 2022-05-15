@@ -4,7 +4,7 @@ export const Container = styled.View``;
 export const Link = styled.TouchableOpacity``;
 
 export const Text = styled.Text`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizes.md};
   color: ${({ theme }) => theme.colors.primary};
   font-family: ${({ theme }) => theme.fonts.families.regular};
   text-decoration: underline;

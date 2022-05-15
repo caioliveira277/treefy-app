@@ -17,14 +17,14 @@ export const Content = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fonts.sizes.xl};
   color: ${({ theme }) => theme.colors.secondary};
   font-family: ${({ theme }) => theme.fonts.families.medium};
   text-align: center;
 `;
 
 export const Paragraph = styled.Text`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizes.md};
   color: ${({ theme }) => theme.colors.body};
   font-family: ${({ theme }) => theme.fonts.families.regular};
   text-align: center;

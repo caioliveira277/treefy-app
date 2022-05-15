@@ -21,7 +21,7 @@ export const Button = styled.TouchableOpacity<{ type: ButtonType }>`
 `;
 
 export const Text = styled.Text<{ type: ButtonType }>`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fonts.sizes.lg};
   color: ${({ theme, type }) =>
     type === 'outline' ? theme.colors.body : theme.colors.white};
   font-family: ${({ theme }) => theme.fonts.families.medium};
