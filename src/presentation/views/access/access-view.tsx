@@ -1,8 +1,15 @@
 import React from 'react';
 import { ButtonComponent } from '@/presentation/components';
 import { AccessViewModel } from '@/presentation/view-models';
-import { Container } from './styles';
-// import initialIlustration from '@assets/images/initial-ilustration.png';
+import {
+  Container,
+  Content,
+  Ilustation,
+  Title,
+  spacing,
+  Paragraph,
+} from './styles';
+import initialIlustration from '@assets/images/initial-ilustration.png';
 import { BaseView } from '../base-view';
 
 export interface AccessViewProps {
@@ -35,11 +42,26 @@ export class AccessView
   render() {
     return (
       <Container>
-        <ButtonComponent
-          onPress={() => this.accessViewModel.handleAccessAccount}
-        >
-          Acessar conta
-        </ButtonComponent>
+        <Ilustation source={initialIlustration} resizeMode="cover" />
+        <Content>
+          <Title style={spacing.title}>O que você gostaria de fazer?</Title>
+          <Paragraph style={spacing.paragraph}>
+            Você pode acessar a sua conta já cadastrada ou se for novo por aqui,
+            pode cadastrar uma conta
+          </Paragraph>
+          <ButtonComponent
+            style={spacing.buttonAccessAccount}
+            onPress={() => this.accessViewModel.handleAccessAccount}
+          >
+            Acessar conta
+          </ButtonComponent>
+          <ButtonComponent
+            type="outline"
+            onPress={() => this.accessViewModel.handleSignup}
+          >
+            Cadastrar
+          </ButtonComponent>
+        </Content>
       </Container>
     );
   }
