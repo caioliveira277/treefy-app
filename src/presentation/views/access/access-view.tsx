@@ -11,14 +11,15 @@ import {
 } from './styles';
 import initialIlustration from '@assets/images/initial-ilustration.png';
 import { BaseView } from '../base-view';
-
-export interface AccessViewProps {
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+export interface AccessViewProps
+  extends NativeStackScreenProps<StackParamList, 'Access'> {
   accessViewModel: AccessViewModel;
 }
 
 export class AccessView
   extends React.Component<AccessViewProps>
-  implements BaseView
+  implements BaseView<AccessViewProps>
 {
   private accessViewModel: AccessViewModel;
 
@@ -51,13 +52,13 @@ export class AccessView
           </Paragraph>
           <ButtonComponent
             style={spacing.buttonAccessAccount}
-            onPress={() => this.accessViewModel.handleAccessAccount}
+            onPress={() => this.accessViewModel.handleAccessAccount()}
           >
             Acessar conta
           </ButtonComponent>
           <ButtonComponent
             type="outline"
-            onPress={() => this.accessViewModel.handleSignup}
+            onPress={() => this.accessViewModel.handleSignup()}
           >
             Cadastrar
           </ButtonComponent>
