@@ -1,15 +1,8 @@
 import React from 'react';
 import { ButtonComponent } from '@/presentation/components';
 import { AccessViewModel } from '@/presentation/view-models';
-import {
-  Container,
-  Content,
-  Ilustation,
-  Title,
-  spacing,
-  Paragraph,
-} from './styles';
-import initialIlustration from '@assets/images/initial-ilustration.png';
+import { PublicLayout } from '@/presentation/layouts';
+import { spacing } from './styles';
 import { BaseView } from '../base-view';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 export interface AccessViewProps
@@ -42,28 +35,24 @@ export class AccessView
 
   render() {
     return (
-      <Container>
-        <Ilustation source={initialIlustration} resizeMode="cover" />
-        <Content>
-          <Title style={spacing.title}>O que você gostaria de fazer?</Title>
-          <Paragraph style={spacing.paragraph}>
-            Você pode acessar a sua conta já cadastrada ou se for novo por aqui,
-            pode cadastrar uma conta
-          </Paragraph>
-          <ButtonComponent
-            style={spacing.buttonAccessAccount}
-            onPress={() => this.accessViewModel.handleAccessAccount()}
-          >
-            Acessar conta
-          </ButtonComponent>
-          <ButtonComponent
-            type="outline"
-            onPress={() => this.accessViewModel.handleSignup()}
-          >
-            Cadastrar
-          </ButtonComponent>
-        </Content>
-      </Container>
+      <PublicLayout
+        title="O que você gostaria de fazer?"
+        paragraph="Você pode acessar a sua conta já cadastrada ou se for novo por aqui,
+      pode cadastrar uma conta"
+      >
+        <ButtonComponent
+          style={spacing.buttonAccessAccount}
+          onPress={() => this.accessViewModel.handleAccessAccount()}
+        >
+          Acessar conta
+        </ButtonComponent>
+        <ButtonComponent
+          type="outline"
+          onPress={() => this.accessViewModel.handleSignup()}
+        >
+          Cadastrar
+        </ButtonComponent>
+      </PublicLayout>
     );
   }
 }

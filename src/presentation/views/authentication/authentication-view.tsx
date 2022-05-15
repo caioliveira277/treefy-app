@@ -5,8 +5,8 @@ import {
   TextInputComponent,
 } from '@/presentation/components';
 import { AuthenticationViewModel } from '@/presentation/view-models';
-import { Container, Content, Ilustation, Title, spacing } from './styles';
-import initialIlustration from '@assets/images/initial-ilustration.png';
+import { PublicLayout } from '@/presentation/layouts';
+import { spacing } from './styles';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
 
@@ -56,41 +56,35 @@ export class AuthenticationView
   render() {
     const { emailValue, passwordValue } = this.state;
     return (
-      <Container>
-        <Ilustation source={initialIlustration} resizeMode="cover" />
-        <Content>
-          <Title style={spacing.title}>Entre com a sua conta</Title>
-          <TextInputComponent
-            style={spacing.input}
-            iconName="mail"
-            label="Email cadastrado:"
-            placeholderText="Email cadastrado"
-            value={emailValue}
-            onChangeText={(text) =>
-              this.authenticationViewModel.handleEmailInputChange(text)
-            }
-          />
-          <TextInputComponent
-            iconName="lock"
-            type="password"
-            label="Senha cadastrada:"
-            placeholderText="Senha secreta"
-            value={passwordValue}
-            onChangeText={(text) =>
-              this.authenticationViewModel.handlePasswordInputChange(text)
-            }
-          />
-          <LinkComponent style={spacing.link}>
-            Esqueceu sua senha?
-          </LinkComponent>
-          <ButtonComponent
-            style={spacing.button}
-            onPress={() => this.authenticationViewModel.handleSubmit()}
-          >
-            Entrar
-          </ButtonComponent>
-        </Content>
-      </Container>
+      <PublicLayout title="Entre com a sua conta">
+        <TextInputComponent
+          style={spacing.input}
+          iconName="mail"
+          label="Email cadastrado:"
+          placeholderText="Email cadastrado"
+          value={emailValue}
+          onChangeText={(text) =>
+            this.authenticationViewModel.handleEmailInputChange(text)
+          }
+        />
+        <TextInputComponent
+          iconName="lock"
+          type="password"
+          label="Senha cadastrada:"
+          placeholderText="Senha secreta"
+          value={passwordValue}
+          onChangeText={(text) =>
+            this.authenticationViewModel.handlePasswordInputChange(text)
+          }
+        />
+        <LinkComponent style={spacing.link}>Esqueceu sua senha?</LinkComponent>
+        <ButtonComponent
+          style={spacing.button}
+          onPress={() => this.authenticationViewModel.handleSubmit()}
+        >
+          Entrar
+        </ButtonComponent>
+      </PublicLayout>
     );
   }
 }
