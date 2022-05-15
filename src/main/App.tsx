@@ -1,7 +1,7 @@
 import { ThemeProvider } from 'styled-components';
 import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
-import { currentTheme } from '@/presentation/theme';
+import { currentTheme } from '@/presentation/themes';
 import { Router } from '@/presentation/routes/router';
 import {
   useFonts,

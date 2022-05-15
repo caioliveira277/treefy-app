@@ -2,7 +2,7 @@ import { mockRender } from '@/presentation/test';
 import { LinkComponent, LinkComponentProps } from './link-component';
 import faker from '@faker-js/faker';
 import { fireEvent, RenderAPI } from '@testing-library/react-native';
-import { currentTheme } from '@/presentation/theme';
+import { currentTheme } from '@/presentation/themes';
 import 'jest-styled-components/native';
 
 type SutTypes = {
