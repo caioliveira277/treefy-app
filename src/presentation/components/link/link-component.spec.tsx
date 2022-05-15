@@ -1,4 +1,4 @@
-import { mockRender } from '@/presentation/test';
+import { mockRender } from '@/presentation/tests';
 import { LinkComponent, LinkComponentProps } from './link-component';
 import faker from '@faker-js/faker';
 import { fireEvent, RenderAPI } from '@testing-library/react-native';

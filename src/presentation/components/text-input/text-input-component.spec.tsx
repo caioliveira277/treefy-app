@@ -1,4 +1,4 @@
-import { mockRender } from '@/presentation/test';
+import { mockRender } from '@/presentation/tests';
 import {
   TextInputComponent,
   TextInputComponentProps,
