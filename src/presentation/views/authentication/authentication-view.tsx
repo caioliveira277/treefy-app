@@ -7,9 +7,11 @@ import {
 import { AuthenticationViewModel } from '@/presentation/view-models';
 import { Container, Content, Ilustation, Title, spacing } from './styles';
 import initialIlustration from '@assets/images/initial-ilustration.png';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
 
-export interface AuthenticationViewProps {
+export interface AuthenticationViewProps
+  extends NativeStackScreenProps<StackParamList, 'Authentication'> {
   authenticationViewModel: AuthenticationViewModel;
 }
 
@@ -20,7 +22,7 @@ export interface AuthenticationViewState {
 
 export class AuthenticationView
   extends React.Component<AuthenticationViewProps, AuthenticationViewState>
-  implements BaseView
+  implements BaseView<AuthenticationViewProps>
 {
   private authenticationViewModel: AuthenticationViewModel;
 
