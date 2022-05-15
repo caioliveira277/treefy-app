@@ -18,14 +18,15 @@ type ThemeBorders = {
 
 type ThemeFonts = {
   sizes: {
-    title: string;
-    subtitle: string;
-    paragraph: string;
-    small: string;
+    xl: string;
+    lg: string;
+    md: string;
+    sm: string;
   };
   families: {
     regular: string;
     medium: string;
+    bold: string;
   };
 };
 

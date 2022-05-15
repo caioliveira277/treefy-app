@@ -17,14 +17,15 @@ export const primaryTheme: DefaultTheme = {
   },
   fonts: {
     sizes: {
-      title: '18px',
-      subtitle: '16px',
-      paragraph: '12px',
-      small: '10px',
+      xl: '18px',
+      lg: '16px',
+      md: '14px',
+      sm: '12px',
     },
     families: {
       regular: 'RobotoSlab_400Regular',
       medium: 'RobotoSlab_500Medium',
+      bold: 'RobotoSlab_700Bold',
     },
   },
   shadows: {
