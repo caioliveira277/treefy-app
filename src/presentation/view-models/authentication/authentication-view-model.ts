@@ -6,5 +6,6 @@ export interface AuthenticationViewModel extends BaseViewModel {
 
   handleEmailInputChange(value: string): void;
   handlePasswordInputChange(value: string): void;
+  handleMoveToEmailConfirmation(): void;
   handleSubmit(): void;
 }

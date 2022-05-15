@@ -77,7 +77,14 @@ export class AuthenticationView
             this.authenticationViewModel.handlePasswordInputChange(text)
           }
         />
-        <LinkComponent style={spacing.link}>Esqueceu sua senha?</LinkComponent>
+        <LinkComponent
+          style={spacing.link}
+          onPress={() =>
+            this.authenticationViewModel.handleMoveToEmailConfirmation()
+          }
+        >
+          Esqueceu sua senha?
+        </LinkComponent>
         <ButtonComponent
           style={spacing.button}
           onPress={() => this.authenticationViewModel.handleSubmit()}

@@ -30,6 +30,10 @@ export class AuthenticationViewModelImpl
     this.notifyViewAboutChanges();
   }
 
+  public handleMoveToEmailConfirmation(): void {
+    this.baseView?.props.navigation.navigate('EmailConfirmation');
+  }
+
   public handleSubmit(): void {
     const emailValid = validateEmail(this.emailValue);
     const passwordValid = validateStrongPassword(this.passwordValue);
