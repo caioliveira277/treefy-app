@@ -3,13 +3,14 @@ import { useTheme } from 'styled-components';
 import { Container, Point } from './styles';
 
 export interface SlideControlProps {
-  onPress?: () => void;
+  onPress?: (index: number) => void;
   countOfItems: number;
   activeSlideIndex?: number;
   style?: StyleProp<ViewStyle>;
 }
 
 export const SlideControlComponent: React.FC<SlideControlProps> = ({
+  onPress = () => null,
   countOfItems,
   activeSlideIndex = 0,
   style,
@@ -21,6 +22,8 @@ export const SlideControlComponent: React.FC<SlideControlProps> = ({
         .fill(null)
         .map((_v, index) => (
           <Point
+            onPress={() => onPress(index)}
+            disabled={activeSlideIndex === index}
             theme={theme}
             active={activeSlideIndex === index}
             key={index}

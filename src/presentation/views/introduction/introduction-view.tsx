@@ -35,11 +35,15 @@ export class IntrodutionView
 {
   private introductionViewModel: IntroductionViewModel;
 
+  private pagerViewRef: React.RefObject<PagerView>;
+
   constructor(props: IntrodutionViewProps) {
     super(props);
 
     const { introductionViewModel } = this.props;
     this.introductionViewModel = introductionViewModel;
+
+    this.pagerViewRef = React.createRef();
 
     this.state = {
       activeSlideIndex: 0,
@@ -66,6 +70,7 @@ export class IntrodutionView
       <Container>
         <Ilustation source={blackLogo} resizeMode="cover" />
         <PagerView
+          ref={this.pagerViewRef}
           style={styles.pagerView}
           initialPage={0}
           onPageSelected={({ nativeEvent: { position } }) => {
@@ -86,6 +91,7 @@ export class IntrodutionView
           <SlideControlComponent
             activeSlideIndex={activeSlideIndex}
             countOfItems={3}
+            onPress={(index) => this.pagerViewRef.current?.setPage(index)}
           />
           <ButtonComponent
             style={styles.button}

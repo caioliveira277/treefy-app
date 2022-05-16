@@ -6,7 +6,7 @@ export const Container = styled.View`
   flex-direction: row;
 `;
 
-export const Point = styled.View<{ active: boolean }>`
+export const Point = styled.TouchableOpacity<{ active: boolean }>`
   width: ${({ active }) => (active ? '54px' : '16px')};
   height: 16px;
   border-radius: 30px;
