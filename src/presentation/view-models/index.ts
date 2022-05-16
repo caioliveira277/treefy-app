@@ -12,3 +12,6 @@ export * from './change-password/change-password-view-model-impl';
 
 export * from './signup/signup-view-model';
 export * from './signup/signup-view-model-impl';
+
+export * from './introduction/introduction-view-model';
+export * from './introduction/introduction-view-model-impl';
