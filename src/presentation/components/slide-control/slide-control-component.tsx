@@ -10,7 +10,7 @@ export interface SlideControlProps {
 }
 
 export const SlideControlComponent: React.FC<SlideControlProps> = ({
-  onPress = () => null,
+  onPress,
   countOfItems,
   activeSlideIndex = 0,
   style,
@@ -23,7 +23,7 @@ export const SlideControlComponent: React.FC<SlideControlProps> = ({
         .map((_v, index) => (
           <Point
             testID="point"
-            onPress={() => onPress(index)}
+            onPress={() => (onPress ? onPress(index) : null)}
             disabled={activeSlideIndex === index}
             theme={theme}
             active={activeSlideIndex === index}
