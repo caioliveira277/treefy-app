@@ -64,7 +64,7 @@ describe('TextInputComponent', () => {
     const input = getByDisplayValue(anyText);
     expect(input).toBeTruthy();
   });
-  test('Should trigger the change text event', () => {
+  test('Should trigger the change text event', async () => {
     const handleChangeText = jest.fn();
     const anyText = faker.datatype.string();
     const { sut } = makeSut({
@@ -72,7 +72,7 @@ describe('TextInputComponent', () => {
     });
     const { getByTestId } = sut;
     const input = getByTestId('input');
-    fireEvent.changeText(input, anyText);
+    await fireEvent.changeText(input, anyText);
     expect(handleChangeText).toHaveBeenCalledWith(anyText);
   });
   test('Should find icon path by name', () => {

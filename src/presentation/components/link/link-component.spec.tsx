@@ -41,7 +41,7 @@ describe('LinkComponent', () => {
     });
     const { getByTestId } = sut;
     const link = getByTestId('link');
-    fireEvent.press(link);
+    await fireEvent.press(link);
     expect(handlePress).toHaveBeenCalledTimes(1);
   });
   test('Should apply the primary color in the text', () => {
