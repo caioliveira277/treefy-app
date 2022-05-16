@@ -1,5 +1,9 @@
 import faker from '@faker-js/faker';
-import { validateEmail, validateStrongPassword } from './validations';
+import {
+  validateEmail,
+  validateStrongPassword,
+  validateCompleteName,
+} from './validations';
 
 type SutTypes = {
   sut: () => boolean;
@@ -47,6 +51,27 @@ describe('Validation Strong Password', () => {
   it('Should return false if password is not strong', () => {
     const anyPassword = faker.internet.password(4);
     const { sut } = makeSut({ text: anyPassword });
+    expect(sut()).toBeFalsy();
+  });
+});
+
+describe('Validation Complete Name', () => {
+  const makeSut = ({ text }: MakeSutProps): SutTypes => {
+    const sut = () => validateCompleteName(text);
+    return {
+      sut,
+    };
+  };
+
+  it('Should return true if name is a complete name', () => {
+    const anyNameComplete = `${faker.name.firstName()} ${faker.name.lastName()}`;
+    const { sut } = makeSut({ text: anyNameComplete });
+    expect(sut()).toBeTruthy();
+  });
+
+  it('Should return false if name does not contain last name', () => {
+    const anyName = faker.name.firstName();
+    const { sut } = makeSut({ text: anyName });
     expect(sut()).toBeFalsy();
   });
 });
