@@ -18,3 +18,9 @@ export const validateStrongPassword: ValidateFunction = (text: string) => {
     text.length > 5
   );
 };
+
+export const validateCompleteName: ValidateFunction = (text: string) => {
+  const parts = text.split(' ');
+
+  return parts.length >= 2;
+};
