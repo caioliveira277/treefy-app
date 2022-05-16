@@ -54,6 +54,7 @@ export class ChangePasswordView
     return (
       <PublicLayout title="Redefina sua senha">
         <TextInputComponent
+          style={spacing.input}
           iconName="lock"
           type="password"
           label="Senha:"
@@ -62,7 +63,6 @@ export class ChangePasswordView
           onChangeText={(text) =>
             this.changePasswordViewModel.handlePasswordInputChange(text)
           }
-          style={spacing.input}
         />
         <TextInputComponent
           iconName="lock"
