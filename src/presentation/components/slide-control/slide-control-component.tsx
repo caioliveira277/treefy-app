@@ -22,6 +22,7 @@ export const SlideControlComponent: React.FC<SlideControlProps> = ({
         .fill(null)
         .map((_v, index) => (
           <Point
+            testID="point"
             onPress={() => onPress(index)}
             disabled={activeSlideIndex === index}
             theme={theme}
