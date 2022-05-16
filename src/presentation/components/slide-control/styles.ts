@@ -7,7 +7,7 @@ export const Container = styled.View`
 `;
 
 export const Point = styled.TouchableOpacity<{ active: boolean }>`
-  width: ${({ active }) => (active ? '54px' : '16px')};
+  width: 16px;
   height: 16px;
   border-radius: 30px;
   background-color: ${({ theme, active }) =>
