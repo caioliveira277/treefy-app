@@ -10,7 +10,6 @@ export class AccessViewModelImpl
   }
 
   public handleMoveToSignup(): void {
-    // this.baseView?.navigation.navigate('Access');
-    console.log('signup');
+    this.baseView?.props.navigation.navigate('Signup');
   }
 }
