@@ -6,7 +6,7 @@ import {
   Paragraph,
   spacing,
 } from './styles';
-import initialIlustration from '@assets/images/initial-ilustration.png';
+import palmTreesIlustration from '@assets/images/palm-trees-ilustration.png';
 
 export interface PublicLayoutProps {
   children: React.ReactNode;
@@ -20,7 +20,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({
 }) => {
   return (
     <Container>
-      <Ilustation source={initialIlustration} resizeMode="cover" />
+      <Ilustation source={palmTreesIlustration} resizeMode="cover" />
       <Content>
         <Title style={spacing.title}>{title}</Title>
         {paragraph ? (
