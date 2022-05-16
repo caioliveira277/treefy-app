@@ -16,12 +16,18 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 80
+      }
+    ],
     "react/react-in-jsx-scope": "off",
     "import/extensions": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "react/prop-types": "off"
   },
-  "ignorePatterns": "/*.js",
+  "ignorePatterns": ["*.snap"],
   "settings": {
     "react": {
       "version": "17.0.1"

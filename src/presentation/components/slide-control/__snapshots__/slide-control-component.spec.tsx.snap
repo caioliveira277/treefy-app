@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LinkComponent Should match with a snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+      },
+    ]
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#4ABC86",
+        "borderRadius": 30,
+        "height": 16,
+        "marginBottom": 0,
+        "marginLeft": 8,
+        "marginRight": 8,
+        "marginTop": 0,
+        "opacity": 1,
+        "width": 16,
+      }
+    }
+    testID="point"
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#EEEEEE",
+        "borderRadius": 30,
+        "height": 16,
+        "marginBottom": 0,
+        "marginLeft": 8,
+        "marginRight": 8,
+        "marginTop": 0,
+        "opacity": 1,
+        "width": 16,
+      }
+    }
+    testID="point"
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#EEEEEE",
+        "borderRadius": 30,
+        "height": 16,
+        "marginBottom": 0,
+        "marginLeft": 8,
+        "marginRight": 8,
+        "marginTop": 0,
+        "opacity": 1,
+        "width": 16,
+      }
+    }
+    testID="point"
+  />
+</View>
+`;

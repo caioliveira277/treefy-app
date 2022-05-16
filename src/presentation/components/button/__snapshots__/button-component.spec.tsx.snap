@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonComponent Should match with a snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+      },
+    ]
+  }
+>
+  <View
+    accessible={true}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#4ABC86",
+        "borderColor": "#4ABC86",
+        "borderRadius": 5,
+        "borderStyle": "solid",
+        "borderWidth": 1,
+        "elevation": 4,
+        "justifyContent": "center",
+        "minWidth": 200,
+        "opacity": 1,
+        "paddingBottom": 10,
+        "paddingLeft": 46,
+        "paddingRight": 46,
+        "paddingTop": 10,
+        "shadowColor": "#000",
+        "shadowOffset": Object {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.23,
+        "shadowRadius": 2.62,
+      }
+    }
+    testID="button"
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#ffffff",
+            "fontFamily": "RobotoSlab_500Medium",
+            "fontSize": 16,
+          },
+        ]
+      }
+      testID="text"
+      theme={
+        Object {
+          "borders": Object {
+            "border_radius_md": "10px",
+            "border_radius_sm": "5px",
+          },
+          "colors": Object {
+            "body": "#585960",
+            "contrast": "#FCFDFF",
+            "placeholder": "#C6C6C6",
+            "placeholder_light": "#EEEEEE",
+            "primary": "#4ABC86",
+            "rate": "#D56D6D",
+            "secondary": "#253239",
+            "white": "#ffffff",
+          },
+          "fonts": Object {
+            "families": Object {
+              "bold": "RobotoSlab_700Bold",
+              "medium": "RobotoSlab_500Medium",
+              "regular": "RobotoSlab_400Regular",
+            },
+            "sizes": Object {
+              "lg": "16px",
+              "md": "14px",
+              "sm": "12px",
+              "xl": "18px",
+            },
+          },
+          "shadows": Object {
+            "sm": Object {
+              "elevation": 4,
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 2,
+                "width": 0,
+              },
+              "shadowOpacity": 0.23,
+              "shadowRadius": 2.62,
+            },
+          },
+        }
+      }
+      type="default"
+    >
+      anyText
+    </Text>
+  </View>
+</View>
+`;
