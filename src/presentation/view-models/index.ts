@@ -6,3 +6,6 @@ export * from './access/access-view-model-impl';
 
 export * from './email-confirmation/email-confirmation-view-model';
 export * from './email-confirmation/email-confirmation-view-model-impl';
+
+export * from './change-password/change-password-view-model';
+export * from './change-password/change-password-view-model-impl';
