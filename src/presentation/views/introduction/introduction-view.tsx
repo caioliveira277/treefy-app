@@ -13,16 +13,24 @@ import {
   Ilustation,
   IntroIlustation,
   styles,
+  Footer,
 } from './styles';
-import { ButtonComponent } from '@/presentation/components';
+import {
+  ButtonComponent,
+  SlideControlComponent,
+} from '@/presentation/components';
 
 export interface IntrodutionViewProps
   extends NativeStackScreenProps<StackParamList, 'Introduction'> {
   introductionViewModel: IntroductionViewModel;
 }
 
+export interface IntroductionViewState {
+  activeSlideIndex: number;
+}
+
 export class IntrodutionView
-  extends React.Component<IntrodutionViewProps>
+  extends React.Component<IntrodutionViewProps, IntroductionViewState>
   implements BaseView<IntrodutionViewProps>
 {
   private introductionViewModel: IntroductionViewModel;
@@ -32,6 +40,10 @@ export class IntrodutionView
 
     const { introductionViewModel } = this.props;
     this.introductionViewModel = introductionViewModel;
+
+    this.state = {
+      activeSlideIndex: 0,
+    };
   }
 
   public componentDidMount(): void {
@@ -42,29 +54,46 @@ export class IntrodutionView
     this.introductionViewModel.detachView();
   }
 
-  public onViewModelChanged(): void {}
+  public onViewModelChanged() {
+    this.setState({
+      activeSlideIndex: this.introductionViewModel.activeSlideIndex,
+    });
+  }
 
   render() {
+    const { activeSlideIndex } = this.state;
     return (
       <Container>
         <Ilustation source={blackLogo} resizeMode="cover" />
-        <PagerView style={styles.pagerView} initialPage={0}>
-          <IntroContainer key="1">
+        <PagerView
+          style={styles.pagerView}
+          initialPage={0}
+          onPageSelected={({ nativeEvent: { position } }) => {
+            this.introductionViewModel.handlePageSelected(position);
+          }}
+        >
+          <IntroContainer key="0">
             <IntroIlustation source={introIlustration1} resizeMode="cover" />
           </IntroContainer>
-          <IntroContainer key="2">
+          <IntroContainer key="1">
             <IntroIlustation source={introIlustration2} resizeMode="cover" />
           </IntroContainer>
-          <IntroContainer key="3">
+          <IntroContainer key="2">
             <IntroIlustation source={introIlustration3} resizeMode="cover" />
           </IntroContainer>
         </PagerView>
-        <ButtonComponent
-          style={styles.button}
-          onPress={() => this.introductionViewModel.handleMoveToAccess()}
-        >
-          Pular apresentação
-        </ButtonComponent>
+        <Footer>
+          <SlideControlComponent
+            activeSlideIndex={activeSlideIndex}
+            countOfItems={3}
+          />
+          <ButtonComponent
+            style={styles.button}
+            onPress={() => this.introductionViewModel.handleMoveToAccess()}
+          >
+            Pular apresentação
+          </ButtonComponent>
+        </Footer>
       </Container>
     );
   }

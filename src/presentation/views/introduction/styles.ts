@@ -11,13 +11,20 @@ export const IntroContainer = styled.View`
   align-items: center;
   justify-content: center;
   background-color: transparent;
+  margin-bottom: 40px;
+`;
+
+export const Footer = styled.View`
+  position: absolute;
+  bottom: 40px;
+  align-self: center;
 `;
 
 export const Ilustation = styled.Image`
   width: 147px;
   height: 64px;
   align-self: center;
-  margin-top: 30px;
+  top: 40px;
   position: absolute;
 `;
 
@@ -31,8 +38,6 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
-    position: 'absolute',
-    bottom: 40,
-    alignSelf: 'center',
+    marginTop: 50,
   },
 });
