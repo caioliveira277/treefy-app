@@ -6,6 +6,7 @@ import {
   EmailConfirmationView,
   ChangePasswordView,
   SignupView,
+  IntrodutionView,
 } from '@/presentation/views';
 import {
   AuthenticationViewModelImpl,
@@ -13,6 +14,7 @@ import {
   EmailConfirmationViewModelImpl,
   ChangePasswordViewModelImpl,
   SignupViewModelImpl,
+  IntroductionViewModelImpl,
 } from '@/presentation/view-models';
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -23,14 +25,23 @@ export const Router: React.FC = () => {
   const emailConfirmationViewModel = new EmailConfirmationViewModelImpl();
   const changePasswordViewModel = new ChangePasswordViewModelImpl();
   const signupViewModelImpl = new SignupViewModelImpl();
+  const introductionViewModel = new IntroductionViewModelImpl();
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Access"
+        initialRouteName="Introduction"
         screenOptions={{
           headerShown: false,
         }}
       >
+        <Stack.Screen name="Introduction">
+          {(props) => (
+            <IntrodutionView
+              {...props}
+              introductionViewModel={introductionViewModel}
+            />
+          )}
+        </Stack.Screen>
         <Stack.Screen name="Access">
           {(props) => (
             <AccessView {...props} accessViewModel={accessViewModel} />

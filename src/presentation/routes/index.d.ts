@@ -1,4 +1,5 @@
 type StackParamList = {
+  Introduction: undefined;
   Access: undefined;
   Authentication: undefined;
   EmailConfirmation: undefined;
