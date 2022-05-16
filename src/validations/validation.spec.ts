@@ -39,12 +39,7 @@ describe('Validation Strong Password', () => {
     };
   };
   it('Should return true if password is strong', () => {
-    const anyPassword = faker.internet.password(
-      9,
-      false,
-      /[A-Za-z]/,
-      faker.internet.password(3, false, /[0-9]/)
-    );
+    const anyPassword = 'Strong@Password2221';
     const { sut } = makeSut({ text: anyPassword });
     expect(sut()).toBeTruthy();
   });
