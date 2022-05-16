@@ -35,6 +35,14 @@ export class EmailConfirmationView
     };
   }
 
+  public componentDidMount(): void {
+    this.emailConfirmationViewModel.attachView(this);
+  }
+
+  public componentWillUnmount(): void {
+    this.emailConfirmationViewModel.detachView();
+  }
+
   public onViewModelChanged() {
     this.setState({
       emailValue: this.emailConfirmationViewModel.emailValue,
