@@ -33,7 +33,7 @@ export class ChangePasswordViewModelImpl
     if (!(this.passwordValue === this.confirmPasswordValue) || !passwordValid) {
       Alert.alert('Ops!', 'Invalid fields');
     } else {
-      this.baseView?.props.navigation.navigate('Access');
+      this.baseView?.props.navigation.navigate('Public', { screen: 'Access' });
     }
   }
 }

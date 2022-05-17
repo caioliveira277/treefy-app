@@ -30,7 +30,9 @@ export class AuthenticationViewModelImpl
   }
 
   public handleMoveToEmailConfirmation(): void {
-    this.baseView?.props.navigation.navigate('EmailConfirmation');
+    this.baseView?.props.navigation.navigate('Public', {
+      screen: 'EmailConfirmation',
+    });
   }
 
   public handleSubmit(): void {
@@ -40,6 +42,6 @@ export class AuthenticationViewModelImpl
     if (!emailValid || !passwordValid) {
       // TODO: add validation
     }
-    this.baseView?.props.navigation.navigate('Home');
+    this.baseView?.props.navigation.navigate('Main', { screen: 'Home' });
   }
 }
