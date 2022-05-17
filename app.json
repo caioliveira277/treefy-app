@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "treefy",
-    "slug": "treefy",
+    "slug": "Treefy",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -16,9 +16,13 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.treefy.treefy",
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "package": "com.treefy.treefy",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FCFDFF"
