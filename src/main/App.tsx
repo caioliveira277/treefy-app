@@ -2,7 +2,7 @@ import { ThemeProvider } from 'styled-components';
 import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
 import { currentTheme } from '@/presentation/themes';
-import { Router } from '@/presentation/routes/router';
+import { Router } from '@/presentation/routes/routes';
 import {
   useFonts,
   RobotoSlab_400Regular,
