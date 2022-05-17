@@ -15,3 +15,6 @@ export * from './signup/signup-view-model-impl';
 
 export * from './introduction/introduction-view-model';
 export * from './introduction/introduction-view-model-impl';
+
+export * from './home/home-view-model';
+export * from './home/home-view-model-impl';
