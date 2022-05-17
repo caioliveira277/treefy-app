@@ -7,6 +7,7 @@ import {
   ChangePasswordView,
   SignupView,
   IntrodutionView,
+  HomeView,
 } from '@/presentation/views';
 import {
   AuthenticationViewModelImpl,
@@ -15,6 +16,7 @@ import {
   ChangePasswordViewModelImpl,
   SignupViewModelImpl,
   IntroductionViewModelImpl,
+  HomeViewModelImpl,
 } from '@/presentation/view-models';
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -26,6 +28,7 @@ export const Router: React.FC = () => {
   const changePasswordViewModel = new ChangePasswordViewModelImpl();
   const signupViewModelImpl = new SignupViewModelImpl();
   const introductionViewModel = new IntroductionViewModelImpl();
+  const homeViewModel = new HomeViewModelImpl();
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -75,6 +78,9 @@ export const Router: React.FC = () => {
           {(props) => (
             <SignupView {...props} signupViewModel={signupViewModelImpl} />
           )}
+        </Stack.Screen>
+        <Stack.Screen name="Home">
+          {(props) => <HomeView {...props} homeViewModel={homeViewModel} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

@@ -5,6 +5,7 @@ type StackParamList = {
   EmailConfirmation: undefined;
   ChangePassword: undefined;
   Signup: undefined;
+  Home: undefined;
 };
 declare global {
   namespace ReactNavigation {
