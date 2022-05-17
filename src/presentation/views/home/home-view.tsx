@@ -1,8 +1,16 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { HomeViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
+import {
+  Container,
+  ContainerProfile,
+  ImageProfile,
+  ProfileSalute,
+  ProfileSaluteContainer,
+} from './styles';
+// TODO: remove image after implementation
+import temporaryImageProfile from '@assets/images/profile.png';
 
 export interface HomeViewProps
   extends NativeStackScreenProps<StackParamList, 'Home'> {
@@ -36,9 +44,15 @@ export class HomeView
 
   render() {
     return (
-      <View>
-        <Text>Home</Text>
-      </View>
+      <Container>
+        <ContainerProfile>
+          <ImageProfile source={temporaryImageProfile} />
+          <ProfileSaluteContainer>
+            <ProfileSalute>Olá Vanessa,</ProfileSalute>
+            <ProfileSalute>que bom que voltou 🌱</ProfileSalute>
+          </ProfileSaluteContainer>
+        </ContainerProfile>
+      </Container>
     );
   }
 }
