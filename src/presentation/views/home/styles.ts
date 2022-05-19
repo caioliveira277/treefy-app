@@ -28,31 +28,3 @@ export const ProfileSalute = styled.Text`
   color: ${({ theme }) => theme.colors.secondary};
   font-size: ${({ theme }) => theme.fonts.sizes.xl};
 `;
-
-export const SearchContainer = styled(ContainerPadding)`
-  margin-top: 30px;
-`;
-
-export const SearchLabel = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.families.medium};
-  color: ${({ theme }) => theme.colors.secondary};
-  font-size: ${({ theme }) => theme.fonts.sizes.xl};
-`;
-
-export const SearchInputContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  overflow: hidden;
-  background: red;
-  border-radius: 5px;
-`;
-
-export const SearchInput = styled.TextInput``;
-
-export const SearchButton = styled.TouchableOpacity``;
-
-export const SearchInformativeText = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.families.regular};
-  color: ${({ theme }) => theme.colors.body};
-  font-size: ${({ theme }) => theme.fonts.sizes.sm};
-`;

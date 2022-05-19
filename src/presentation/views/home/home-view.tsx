@@ -2,18 +2,13 @@ import React from 'react';
 import { HomeViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
+import { SearchInputComponent } from './components';
 import {
   Container,
   ContainerProfile,
   ImageProfile,
   ProfileSalute,
   ProfileSaluteContainer,
-  SearchContainer,
-  SearchLabel,
-  SearchInputContainer,
-  SearchInput,
-  SearchButton,
-  SearchInformativeText,
 } from './styles';
 // TODO: remove image after implementation
 import temporaryImageProfile from '@assets/images/profile.png';
@@ -58,16 +53,7 @@ export class HomeView
             <ProfileSalute>que bom que voltou 🌱</ProfileSalute>
           </ProfileSaluteContainer>
         </ContainerProfile>
-        <SearchContainer>
-          <SearchLabel>Buscar:</SearchLabel>
-          <SearchInputContainer>
-            <SearchInput />
-            <SearchButton></SearchButton>
-          </SearchInputContainer>
-          <SearchInformativeText>
-            Ex: Cacto, Samambaia, Manjericão...
-          </SearchInformativeText>
-        </SearchContainer>
+        <SearchInputComponent />
       </Container>
     );
   }
