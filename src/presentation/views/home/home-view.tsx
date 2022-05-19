@@ -2,16 +2,8 @@ import React from 'react';
 import { HomeViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
-import { SearchInputComponent } from './components';
-import {
-  Container,
-  ContainerProfile,
-  ImageProfile,
-  ProfileSalute,
-  ProfileSaluteContainer,
-} from './styles';
-// TODO: remove image after implementation
-import temporaryImageProfile from '@assets/images/profile.png';
+import { SearchInputComponent, SalutationComponent } from './components';
+import { Container } from './styles';
 
 export interface HomeViewProps
   extends NativeStackScreenProps<StackParamList, 'Home'> {
@@ -46,13 +38,7 @@ export class HomeView
   render() {
     return (
       <Container>
-        <ContainerProfile>
-          <ImageProfile source={temporaryImageProfile} />
-          <ProfileSaluteContainer>
-            <ProfileSalute>Olá Vanessa,</ProfileSalute>
-            <ProfileSalute>que bom que voltou 🌱</ProfileSalute>
-          </ProfileSaluteContainer>
-        </ContainerProfile>
+        <SalutationComponent />
         <SearchInputComponent />
       </Container>
     );
