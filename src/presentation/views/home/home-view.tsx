@@ -2,7 +2,11 @@ import React from 'react';
 import { HomeViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
-import { SearchInputComponent, SalutationComponent } from './components';
+import {
+  SearchInputComponent,
+  SalutationComponent,
+  CategoriesCarrouselComponent,
+} from './components';
 import { Container } from './styles';
 
 export interface HomeViewProps
@@ -40,6 +44,7 @@ export class HomeView
       <Container>
         <SalutationComponent />
         <SearchInputComponent />
+        <CategoriesCarrouselComponent />
       </Container>
     );
   }
