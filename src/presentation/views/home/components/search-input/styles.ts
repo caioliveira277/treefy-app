@@ -3,7 +3,7 @@ import { ContainerPadding } from '../../styles';
 import * as InputComponents from '@/presentation/components/text-input/styles';
 
 export const Container = styled(ContainerPadding)`
-  margin-top: 30px;
+  margin-bottom: 30px;
 `;
 
 export const Label = styled.Text`
