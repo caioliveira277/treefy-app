@@ -2,7 +2,6 @@ import {
   validateEmail,
   validateStrongPassword,
 } from '@/validations/validations';
-import { Alert } from 'react-native';
 import { AuthenticationViewModel } from './authentication-view-model';
 import { BaseViewModelImpl } from '../base-view-model-impl';
 
@@ -31,7 +30,9 @@ export class AuthenticationViewModelImpl
   }
 
   public handleMoveToEmailConfirmation(): void {
-    this.baseView?.props.navigation.navigate('EmailConfirmation');
+    this.baseView?.props.navigation.navigate('Public', {
+      screen: 'EmailConfirmation',
+    });
   }
 
   public handleSubmit(): void {
@@ -39,7 +40,8 @@ export class AuthenticationViewModelImpl
     const passwordValid = validateStrongPassword(this.passwordValue);
 
     if (!emailValid || !passwordValid) {
-      Alert.alert('Ops!', 'Invalid fields');
+      // TODO: add validation
     }
+    this.baseView?.props.navigation.navigate('Main', { screen: 'Home' });
   }
 }

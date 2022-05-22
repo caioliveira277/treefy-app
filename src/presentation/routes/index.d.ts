@@ -1,4 +1,4 @@
-type StackParamList = {
+type PublicRoutesParamsList = {
   Introduction: undefined;
   Access: undefined;
   Authentication: undefined;
@@ -6,6 +6,19 @@ type StackParamList = {
   ChangePassword: undefined;
   Signup: undefined;
 };
+
+type MainRoutesParamsList = {
+  Profile: undefined;
+  Home: undefined;
+  MyGarden: undefined;
+};
+
+type StackParamList = PublicRoutesParamsList &
+  MainRoutesParamsList & {
+    Public: { screen: keyof PublicRoutesParamsList };
+    Main: { screen: keyof MainRoutesParamsList };
+  };
+
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends StackParamList {}

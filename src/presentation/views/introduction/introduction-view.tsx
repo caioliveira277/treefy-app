@@ -15,10 +15,8 @@ import {
   styles,
   Footer,
 } from './styles';
-import {
-  ButtonComponent,
-  SlideControlComponent,
-} from '@/presentation/components';
+import { ButtonComponent } from '@/presentation/components';
+import { SlideControlComponent } from './components';
 
 export interface IntrodutionViewProps
   extends NativeStackScreenProps<StackParamList, 'Introduction'> {

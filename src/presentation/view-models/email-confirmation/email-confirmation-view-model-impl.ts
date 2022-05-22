@@ -25,7 +25,9 @@ export class EmailConfirmationViewModelImpl
     if (!emailValid) {
       Alert.alert('Ops!', 'Invalid fields');
     } else {
-      this.baseView?.props.navigation.navigate('ChangePassword');
+      this.baseView?.props.navigation.navigate('Public', {
+        screen: 'ChangePassword',
+      });
     }
   }
 }
