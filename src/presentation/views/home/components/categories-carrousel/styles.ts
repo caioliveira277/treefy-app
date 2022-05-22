@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
+import * as HomeStyles from '../../styles';
 
 export const Container = styled.View`
   margin-bottom: 30px;
@@ -15,11 +16,8 @@ export const ItemContainer = styled.View<{ active: boolean }>`
   opacity: ${({ active }) => (active ? 1 : 0.6)};
 `;
 
-export const Title = styled.Text`
+export const Title = styled(HomeStyles.Title)`
   margin-left: 20px;
-  font-family: ${({ theme }) => theme.fonts.families.regular};
-  color: ${({ theme }) => theme.colors.secondary};
-  font-size: ${({ theme }) => theme.fonts.sizes.xl};
   margin-bottom: 15px;
 `;
 

@@ -1,15 +1,12 @@
 import styled from 'styled-components/native';
-import { ContainerPadding } from '../../styles';
+import * as HomeStyles from '../../styles';
 import * as InputComponents from '@/presentation/components/text-input/styles';
 
-export const Container = styled(ContainerPadding)`
+export const Container = styled(HomeStyles.ContainerPadding)`
   margin-bottom: 30px;
 `;
 
-export const Label = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.families.medium};
-  color: ${({ theme }) => theme.colors.secondary};
-  font-size: ${({ theme }) => theme.fonts.sizes.xl};
+export const Label = styled(HomeStyles.Title)`
   margin-bottom: 10px;
 `;
 
