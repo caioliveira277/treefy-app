@@ -6,6 +6,7 @@ import {
   SearchInputComponent,
   SalutationComponent,
   CategoriesCarrouselComponent,
+  InformativeContentsComponent,
 } from './components';
 import { Container } from './styles';
 
@@ -45,6 +46,7 @@ export class HomeView
         <SalutationComponent />
         <SearchInputComponent />
         <CategoriesCarrouselComponent />
+        <InformativeContentsComponent />
       </Container>
     );
   }
