@@ -7,7 +7,7 @@ export const Container = styled.View`
 `;
 
 export const Corrousel = styled.ScrollView`
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 `;
 
 export const ItemContainer = styled.View<{ active: boolean }>`
