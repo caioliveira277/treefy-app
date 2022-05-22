@@ -5,7 +5,7 @@ import temporaryImageProfile from '@assets/images/profile.png';
 export const SalutationComponent: React.FC = () => {
   return (
     <Container>
-      <Image source={temporaryImageProfile} />
+      <Image source={temporaryImageProfile} resizeMode="center" />
       <SaluteContainer>
         <SaluteText>Olá Vanessa,</SaluteText>
         <SaluteText>que bom que voltou 🌱</SaluteText>
