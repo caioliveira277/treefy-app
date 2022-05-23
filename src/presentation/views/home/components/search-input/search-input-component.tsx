@@ -19,7 +19,7 @@ export const SearchInputComponent: React.FC = () => {
       <InputContainer style={{ ...theme.shadows.sm }}>
         <Input
           placeholderTextColor={theme.colors.placeholder}
-          placeholder="Nome e sobrenome"
+          placeholder="Encontre pelo nome"
         />
         <Button>
           <Icon resizeMode="center" source={getIcon('search')} />
