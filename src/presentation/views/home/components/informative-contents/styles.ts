@@ -1,7 +1,9 @@
 import styled from 'styled-components/native';
 import * as HomeStyles from '../../styles';
 
-export const Container = styled(HomeStyles.ContainerPadding)``;
+export const Container = styled(HomeStyles.ContainerPadding)`
+  margin-bottom: 20px;
+`;
 
 export const Title = styled(HomeStyles.Title)`
   font-family: ${({ theme }) => theme.fonts.families.medium};
