@@ -63,7 +63,7 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
           >
             <PasswordIcon
               source={
-                passwordVisible ? getIcon('eye-close') : getIcon('eye-open')
+                passwordVisible ? getIcon('eye-open') : getIcon('eye-close')
               }
               resizeMode="center"
             />
