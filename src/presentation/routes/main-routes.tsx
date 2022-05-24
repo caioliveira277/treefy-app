@@ -1,5 +1,8 @@
-import { HomeView } from '@/presentation/views';
-import { HomeViewModelImpl } from '@/presentation/view-models';
+import { HomeView, ProfileView } from '@/presentation/views';
+import {
+  HomeViewModelImpl,
+  ProfileViewModelImpl,
+} from '@/presentation/view-models';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image, View, Text } from 'react-native';
 import { useTheme } from 'styled-components';
@@ -15,6 +18,7 @@ const Tab = createBottomTabNavigator<StackParamList>();
 
 export const MainRoutes: React.FC = () => {
   const homeViewModel = new HomeViewModelImpl();
+  const profileViewModel = new ProfileViewModelImpl();
   const theme = useTheme();
   const ActivePoint: React.FC<{ focused: boolean; topPosition?: number }> = ({
     focused,
@@ -62,12 +66,8 @@ export const MainRoutes: React.FC = () => {
           ),
         }}
       >
-        {() => (
-          <View
-            style={{ justifyContent: 'center', flex: 1, alignItems: 'center' }}
-          >
-            <Text>Profile</Text>
-          </View>
+        {(props) => (
+          <ProfileView {...props} profileViewModel={profileViewModel} />
         )}
       </Tab.Screen>
       <Tab.Screen
