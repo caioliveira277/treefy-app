@@ -18,3 +18,6 @@ export * from './introduction/introduction-view-model-impl';
 
 export * from './home/home-view-model';
 export * from './home/home-view-model-impl';
+
+export * from './profile/profile-view-model';
+export * from './profile/profile-view-model-impl';
