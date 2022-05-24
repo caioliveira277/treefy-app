@@ -5,3 +5,4 @@ export * from './change-password/change-password-view';
 export * from './signup/signup-view';
 export * from './introduction/introduction-view';
 export * from './home/home-view';
+export * from './profile/profile-view';
