@@ -2,11 +2,12 @@ import React from 'react';
 import { ProfileLayout } from '@/presentation/layouts';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
-import { Separator } from './styles';
-import { ProfileComponent } from './components';
+import { Separator, spacing } from './styles';
+import { NavigationComponent, ProfileComponent } from './components';
 import { ProfileViewModel } from '@/presentation/view-models';
 // TODO: remove image after implementation
 import temporaryImageProfile from '@assets/images/profile.png';
+import { ButtonComponent } from '@/presentation/components';
 
 export interface ProfileViewProps
   extends NativeStackScreenProps<StackParamList, 'Profile'> {
@@ -60,6 +61,10 @@ export class ProfileView
       <ProfileLayout title="Vanessa da Mata" image={temporaryImageProfile}>
         <ProfileComponent />
         <Separator />
+        <NavigationComponent style={spacing.nav} />
+        <ButtonComponent type="outline" style={spacing.button}>
+          Sair
+        </ButtonComponent>
       </ProfileLayout>
     );
   }
