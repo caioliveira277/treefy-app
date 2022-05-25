@@ -1,8 +1,11 @@
 import React from 'react';
+import { ProfileLayout } from '@/presentation/layouts';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
 import { Container } from './styles';
 import { ProfileViewModel } from '@/presentation/view-models';
+// TODO: remove image after implementation
+import temporaryImageProfile from '@assets/images/profile.png';
 
 export interface ProfileViewProps
   extends NativeStackScreenProps<StackParamList, 'Profile'> {
@@ -52,6 +55,10 @@ export class ProfileView
 
   render() {
     // const { completeName, countFeedback, viewedArticles } = this.state;
-    return <Container></Container>;
+    return (
+      <ProfileLayout title="Vanessa da Mata" image={temporaryImageProfile}>
+        <Container></Container>
+      </ProfileLayout>
+    );
   }
 }
