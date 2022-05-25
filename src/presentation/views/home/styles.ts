@@ -1,3 +1,4 @@
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 export const Container = styled.ScrollView`
@@ -14,3 +15,19 @@ export const Title = styled.Text`
 export const ContainerPadding = styled.View`
   padding: 0 20px;
 `;
+
+export const spacing = StyleSheet.create({
+  salutation: {
+    marginTop: 50,
+    marginBottom: 30,
+  },
+  searchInput: {
+    marginBottom: 30,
+  },
+  carrousel: {
+    marginBottom: 30,
+  },
+  informativeContents: {
+    marginBottom: 20,
+  },
+});

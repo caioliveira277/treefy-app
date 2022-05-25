@@ -2,9 +2,7 @@ import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import * as HomeStyles from '../../styles';
 
-export const Container = styled.View`
-  margin-bottom: 30px;
-`;
+export const Container = styled.View``;
 
 export const Corrousel = styled.ScrollView`
   padding-bottom: 10px;
@@ -53,7 +51,7 @@ export const ActivePoint = styled.View`
   margin-bottom: 5px;
 `;
 
-export const style = StyleSheet.create({
+export const customStyle = StyleSheet.create({
   active: {
     marginLeft: 20,
   },

@@ -10,10 +10,15 @@ import {
 } from './styles';
 import statusBackground1 from '@assets/images/status-background-1.png';
 import statusBackground2 from '@assets/images/status-background-2.png';
+import { StyleProp, ViewStyle } from 'react-native';
 
-export const ProfileComponent: React.FC = () => {
+export interface StatusComponentProps {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const StatusComponent: React.FC<StatusComponentProps> = ({ style }) => {
   return (
-    <Container>
+    <Container style={style}>
       <Title>Seus status:</Title>
       <StatusContainer>
         <StatusItemContainer>
