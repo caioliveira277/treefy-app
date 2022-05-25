@@ -7,8 +7,7 @@ export type IconName =
   | 'search'
   | 'rate'
   | 'calendar'
-  | 'arrow-right'
-  | 'exit';
+  | 'arrow-right';
 
 export const getIcon = (iconName: IconName) => {
   switch (iconName) {
@@ -30,7 +29,5 @@ export const getIcon = (iconName: IconName) => {
       return require('@assets/icons/calendar.png');
     case 'arrow-right':
       return require('@assets/icons/arrow-right.png');
-    case 'exit':
-      return require('@assets/icons/exit.png');
   }
 };
