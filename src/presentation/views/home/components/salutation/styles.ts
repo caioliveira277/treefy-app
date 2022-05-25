@@ -4,8 +4,6 @@ import { ContainerPadding } from '../../styles';
 export const Container = styled(ContainerPadding)`
   flex-direction: row;
   align-items: center;
-  margin-top: 50px;
-  margin-bottom: 30px;
 `;
 
 export const Image = styled.Image`

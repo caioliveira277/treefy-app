@@ -2,9 +2,7 @@ import styled from 'styled-components/native';
 import * as HomeStyles from '../../styles';
 import * as InputComponents from '@/presentation/components/text-input/styles';
 
-export const Container = styled(HomeStyles.ContainerPadding)`
-  margin-bottom: 30px;
-`;
+export const Container = styled(HomeStyles.ContainerPadding)``;
 
 export const Label = styled(HomeStyles.Title)`
   margin-bottom: 10px;

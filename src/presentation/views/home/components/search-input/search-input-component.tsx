@@ -9,12 +9,19 @@ import {
 } from './styles';
 import { useTheme } from 'styled-components';
 import { getIcon } from '@/presentation/utils';
+import { StyleProp, ViewStyle } from 'react-native';
 
-export const SearchInputComponent: React.FC = () => {
+export interface SearchInputComponentProps {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const SearchInputComponent: React.FC<SearchInputComponentProps> = ({
+  style,
+}) => {
   const theme = useTheme();
 
   return (
-    <Container>
+    <Container style={style}>
       <Label>Buscar:</Label>
       <InputContainer style={{ ...theme.shadows.sm }}>
         <Input

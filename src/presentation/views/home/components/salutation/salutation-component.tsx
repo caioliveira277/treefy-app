@@ -1,10 +1,17 @@
 import { Container, Image, SaluteContainer, SaluteText } from './styles';
 // TODO: remove image after implementation
 import temporaryImageProfile from '@assets/images/profile.png';
+import { StyleProp, ViewStyle } from 'react-native';
 
-export const SalutationComponent: React.FC = () => {
+export interface SalutationComponentProps {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const SalutationComponent: React.FC<SalutationComponentProps> = ({
+  style,
+}) => {
   return (
-    <Container>
+    <Container style={style}>
       <Image source={temporaryImageProfile} resizeMode="center" />
       <SaluteContainer>
         <SaluteText>Olá Vanessa,</SaluteText>

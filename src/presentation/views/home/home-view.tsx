@@ -8,7 +8,7 @@ import {
   CategoriesCarrouselComponent,
   InformativeContentsComponent,
 } from './components';
-import { Container } from './styles';
+import { Container, spacing } from './styles';
 
 export interface HomeViewProps
   extends NativeStackScreenProps<StackParamList, 'Home'> {
@@ -43,10 +43,10 @@ export class HomeView
   render() {
     return (
       <Container>
-        <SalutationComponent />
-        <SearchInputComponent />
-        <CategoriesCarrouselComponent />
-        <InformativeContentsComponent />
+        <SalutationComponent style={spacing.salutation} />
+        <SearchInputComponent style={spacing.searchInput} />
+        <CategoriesCarrouselComponent style={spacing.carrousel} />
+        <InformativeContentsComponent style={spacing.informativeContents} />
       </Container>
     );
   }

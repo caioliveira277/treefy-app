@@ -1,5 +1,8 @@
-import { HomeView } from '@/presentation/views';
-import { HomeViewModelImpl } from '@/presentation/view-models';
+import { HomeView, ProfileView } from '@/presentation/views';
+import {
+  HomeViewModelImpl,
+  ProfileViewModelImpl,
+} from '@/presentation/view-models';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image, View, Text } from 'react-native';
 import { useTheme } from 'styled-components';
@@ -15,11 +18,13 @@ const Tab = createBottomTabNavigator<StackParamList>();
 
 export const MainRoutes: React.FC = () => {
   const homeViewModel = new HomeViewModelImpl();
+  const profileViewModel = new ProfileViewModelImpl();
   const theme = useTheme();
-  const ActivePoint: React.FC<{ focused: boolean; topPosition?: number }> = ({
-    focused,
-    topPosition = -4,
-  }) =>
+  const ActivePoint: React.FC<{
+    focused: boolean;
+    topPosition?: number;
+    marginLeft?: number;
+  }> = ({ focused, topPosition = -7, marginLeft = 0 }) =>
     focused ? (
       <View
         style={{
@@ -28,6 +33,7 @@ export const MainRoutes: React.FC = () => {
           borderRadius: 12,
           borderWidth: 1.5,
           top: topPosition,
+          marginLeft: marginLeft,
           borderColor: theme.colors.secondary,
           backgroundColor: theme.colors.primary,
         }}
@@ -57,17 +63,13 @@ export const MainRoutes: React.FC = () => {
                 width={12}
                 height={12}
               />
-              <ActivePoint focused={focused} />
+              <ActivePoint focused={focused} marginLeft={2} />
             </>
           ),
         }}
       >
-        {() => (
-          <View
-            style={{ justifyContent: 'center', flex: 1, alignItems: 'center' }}
-          >
-            <Text>Profile</Text>
-          </View>
+        {(props) => (
+          <ProfileView {...props} profileViewModel={profileViewModel} />
         )}
       </Tab.Screen>
       <Tab.Screen
@@ -81,7 +83,7 @@ export const MainRoutes: React.FC = () => {
                 width={19}
                 height={19}
               />
-              <ActivePoint focused={focused} />
+              <ActivePoint focused={focused} topPosition={-4} />
             </>
           ),
         }}
@@ -99,7 +101,7 @@ export const MainRoutes: React.FC = () => {
                 width={19}
                 height={19}
               />
-              <ActivePoint focused={focused} topPosition={-7} />
+              <ActivePoint focused={focused} />
             </>
           ),
         }}

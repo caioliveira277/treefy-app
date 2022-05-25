@@ -60,10 +60,16 @@ const temporaryData = [
   },
 ];
 
-export const InformativeContentsComponent: React.FC = () => {
+export interface InformativeContentsComponentProps {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const InformativeContentsComponent: React.FC<
+  InformativeContentsComponentProps
+> = ({ style }) => {
   const theme = useTheme();
   return (
-    <Container>
+    <Container style={style}>
       <Title>Conteúdos informativos</Title>
       {temporaryData.map((item, indexData) => (
         <TransparentContainer key={indexData}>

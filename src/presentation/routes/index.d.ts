@@ -11,6 +11,7 @@ type MainRoutesParamsList = {
   Profile: undefined;
   Home: undefined;
   MyGarden: undefined;
+  Profile: undefined;
 };
 
 type StackParamList = PublicRoutesParamsList &
