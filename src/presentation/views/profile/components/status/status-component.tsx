@@ -11,7 +11,7 @@ import {
 import statusBackground1 from '@assets/images/status-background-1.png';
 import statusBackground2 from '@assets/images/status-background-2.png';
 
-export const SalutationComponent: React.FC = () => {
+export const ProfileComponent: React.FC = () => {
   return (
     <Container>
       <Title>Seus status:</Title>
