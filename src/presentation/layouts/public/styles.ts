@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 export const Container = styled.ScrollView`
@@ -21,6 +20,7 @@ export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.secondary};
   font-family: ${({ theme }) => theme.fonts.families.medium};
   text-align: center;
+  margin-bottom: 20px;
 `;
 
 export const Paragraph = styled.Text`
@@ -28,13 +28,5 @@ export const Paragraph = styled.Text`
   color: ${({ theme }) => theme.colors.body};
   font-family: ${({ theme }) => theme.fonts.families.regular};
   text-align: center;
+  margin-bottom: 20px;
 `;
-
-export const spacing = StyleSheet.create({
-  title: {
-    marginBottom: 20,
-  },
-  paragraph: {
-    marginBottom: 40,
-  },
-});
