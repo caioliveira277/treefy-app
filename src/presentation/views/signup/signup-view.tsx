@@ -1,9 +1,13 @@
 import React from 'react';
-import { ButtonComponent, TextInputComponent } from '@/presentation/components';
+import {
+  ButtonComponent,
+  TextInputComponent,
+  LegendComponent,
+} from '@/presentation/components';
 import { PublicLayout } from '@/presentation/layouts';
 import { SignupViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { spacing, Legend } from './styles';
+import { spacing } from './styles';
 import { BaseView } from '../base-view';
 
 export interface SignupViewProps
@@ -64,7 +68,7 @@ export class SignupView
     } = this.state;
     return (
       <PublicLayout title="Cadastre-se para ter acesso">
-        <Legend>Seu perfil:</Legend>
+        <LegendComponent>Seu perfil:</LegendComponent>
         <TextInputComponent
           style={spacing.inputGroup}
           iconName="user"
@@ -75,7 +79,7 @@ export class SignupView
             this.signupViewModel.handleCompleteNameInputChange(text)
           }
         />
-        <Legend>Campos de acesso:</Legend>
+        <LegendComponent>Campos de acesso:</LegendComponent>
         <TextInputComponent
           style={spacing.input}
           iconName="mail"
@@ -97,7 +101,7 @@ export class SignupView
             this.signupViewModel.handlePasswordInputChange(text)
           }
         />
-        <Legend>Confirmação:</Legend>
+        <LegendComponent>Confirmação:</LegendComponent>
         <TextInputComponent
           iconName="lock"
           type="password"
