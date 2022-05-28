@@ -19,10 +19,12 @@ import { ImageSourcePropType, StyleProp, ViewStyle } from 'react-native';
 
 export interface NavigationComponentProps {
   style?: StyleProp<ViewStyle>;
+  onPress: (routeName: keyof MainRoutesParamsList) => void;
 }
 
 export const NavigationComponent: React.FC<NavigationComponentProps> = ({
   style,
+  onPress,
 }) => {
   const theme = useTheme();
 
@@ -30,8 +32,9 @@ export const NavigationComponent: React.FC<NavigationComponentProps> = ({
     icon: ImageSourcePropType;
     title: string;
     description: string;
-  }> = ({ icon, title, description }) => (
-    <ItemContainer>
+    routeName: keyof MainRoutesParamsList;
+  }> = ({ icon, title, description, routeName }) => (
+    <ItemContainer onPress={() => onPress(routeName)}>
       <IconContainer>
         <Icon source={icon} resizeMode="center" />
       </IconContainer>
@@ -49,14 +52,21 @@ export const NavigationComponent: React.FC<NavigationComponentProps> = ({
         icon={userIcon}
         title="Alterar informações pessoais"
         description="Nome, senha, foto..."
+        routeName="ChangeProfile"
       />
       <ItemSeparator />
-      <NavItem icon={headsetIcon} title="Ajuda" description="Fale conosco..." />
+      <NavItem
+        icon={headsetIcon}
+        title="Ajuda"
+        description="Fale conosco..."
+        routeName="Profile"
+      />
       <ItemSeparator />
       <NavItem
         icon={documentCheckIcon}
         title="Termos de uso"
         description="Termos, condições, privacidade..."
+        routeName="Profile"
       />
     </Container>
   );
