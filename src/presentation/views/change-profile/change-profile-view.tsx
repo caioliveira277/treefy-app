@@ -7,10 +7,12 @@ import {
 import { ProfileLayout } from '@/presentation/layouts';
 import { ChangeProfileViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { spacing } from './styles';
+import { spacing, EditProfileImageButton, EditIcon } from './styles';
 import { BaseView } from '../base-view';
 // TODO: remove image after implementation
 import temporaryImageProfile from '@assets/images/profile.png';
+import { currentTheme } from '@/presentation/themes';
+import { getIcon } from '@/presentation/utils';
 
 export interface ChangeProfileViewProps
   extends NativeStackScreenProps<StackParamList, 'ChangeProfile'> {
@@ -68,8 +70,17 @@ export class ChangeProfileView
       passwordValue,
       confirmPasswordValue,
     } = this.state;
+    const theme = currentTheme;
     return (
-      <ProfileLayout title="Alterar informações" image={temporaryImageProfile}>
+      <ProfileLayout
+        title="Alterar informações"
+        image={temporaryImageProfile}
+        slotHeader={
+          <EditProfileImageButton style={{ ...theme.shadows.sm }}>
+            <EditIcon source={getIcon('edit')} resizeMode="center" />
+          </EditProfileImageButton>
+        }
+      >
         <LegendComponent>Seu perfil:</LegendComponent>
         <TextInputComponent
           style={spacing.inputGroup}
