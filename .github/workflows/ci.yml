@@ -36,6 +36,9 @@ jobs:
   Unit-tests:
     runs-on: ubuntu-latest
     needs: Node-build
+    defaults:
+      run:
+        working-directory: ./
     steps:
       - name: Run unit tests 🧪
         run: npm run test:unit:ci
