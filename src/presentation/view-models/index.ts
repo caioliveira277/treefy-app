@@ -21,3 +21,6 @@ export * from './home/home-view-model-impl';
 
 export * from './profile/profile-view-model';
 export * from './profile/profile-view-model-impl';
+
+export * from './change-profile/change-profile-model';
+export * from './change-profile/change-profile-model-impl';

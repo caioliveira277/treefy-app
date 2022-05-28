@@ -1,5 +1,6 @@
 import { ProfileViewModel } from './profile-view-model';
 import { BaseViewModelImpl } from '../base-view-model-impl';
+import { Alert } from 'react-native';
 
 export class ProfileViewModelImpl
   extends BaseViewModelImpl
@@ -18,7 +19,17 @@ export class ProfileViewModelImpl
     this.countFeedback = 0;
   }
 
+  public handleNavigation(routeName: keyof MainSubRoutes): void {
+    this.baseView?.props.navigation.navigate('Main', {
+      screen: 'ProfileGroup',
+      params: {
+        screen: routeName,
+      },
+    });
+  }
+
   public handleLoggout(): void {
-    console.log('loggout');
+    Alert.alert('Loggout!');
+    this.baseView?.props.navigation.navigate('Public', { screen: 'Access' });
   }
 }

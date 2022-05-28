@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { PublicRoutes } from './public-routes';
-import { MainRoutes } from './main-routes';
+import { PublicRoutes } from './public';
+import { MainRoutes } from './main';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 

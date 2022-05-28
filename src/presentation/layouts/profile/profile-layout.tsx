@@ -4,11 +4,13 @@ import { ImageSourcePropType } from 'react-native';
 
 export interface ProfileLayoutProps {
   children: React.ReactNode;
+  slotHeader?: React.ReactNode;
   title: string;
   image: ImageSourcePropType;
 }
 export const ProfileLayout: React.FC<ProfileLayoutProps> = ({
   children,
+  slotHeader,
   title,
   image,
 }) => {
@@ -19,6 +21,7 @@ export const ProfileLayout: React.FC<ProfileLayoutProps> = ({
         <Header>
           <Image source={image} />
           <Title>{title}</Title>
+          {slotHeader || null}
         </Header>
         {children}
       </Content>

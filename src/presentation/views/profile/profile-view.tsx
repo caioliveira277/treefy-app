@@ -61,8 +61,17 @@ export class ProfileView
       <ProfileLayout title="Vanessa da Mata" image={temporaryImageProfile}>
         <StatusComponent />
         <Separator />
-        <NavigationComponent style={spacing.nav} />
-        <ButtonComponent type="outline" style={spacing.button}>
+        <NavigationComponent
+          onPress={(routeName) =>
+            this.profileViewModel.handleNavigation(routeName)
+          }
+          style={spacing.nav}
+        />
+        <ButtonComponent
+          type="outline"
+          style={spacing.button}
+          onPress={() => this.profileViewModel.handleLoggout()}
+        >
           Sair
         </ButtonComponent>
       </ProfileLayout>

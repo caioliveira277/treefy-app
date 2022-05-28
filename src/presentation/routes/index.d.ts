@@ -7,8 +7,12 @@ type PublicRoutesParamsList = {
   Signup: undefined;
 };
 
-type MainRoutesParamsList = {
+type MainSubRoutes = {
+  ChangeProfile: undefined;
   Profile: undefined;
+};
+type MainRoutesParamsList = MainSubRoutes & {
+  ProfileGroup: MainSubRoutes;
   Home: undefined;
   MyGarden: undefined;
   Profile: undefined;
@@ -17,7 +21,10 @@ type MainRoutesParamsList = {
 type StackParamList = PublicRoutesParamsList &
   MainRoutesParamsList & {
     Public: { screen: keyof PublicRoutesParamsList };
-    Main: { screen: keyof MainRoutesParamsList };
+    Main: {
+      screen: keyof MainRoutesParamsList;
+      params?: { screen: keyof MainSubRoutes };
+    };
   };
 
 declare global {
