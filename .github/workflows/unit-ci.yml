@@ -5,9 +5,11 @@ on:
     branches: [main]
 
 jobs:
+  Use-node:
+    uses: ./.github/workflows/node-build.yml
   Tests-unit:
     runs-on: ubuntu-latest
     steps:
+      needs: Use-node
       - name: Run unit tests 🧪
-        uses: ./.github/workflows/node-build.yml
         run: npm run test:unit:ci
