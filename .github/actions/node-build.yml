@@ -1,0 +1,26 @@
+name: "Node build"
+jobs:
+  runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: './package-lock.json'
+      - name: Install dependencies 📦
+        run: npm install
+      # - name: Run prettier 💅
+      #   run: npm run prettier
+      # - name: Run linter ✔️
+      #   run: npm run lint
+      # - name: Run unit tests 🧪
+      #   run: npm run test:unit:ci
