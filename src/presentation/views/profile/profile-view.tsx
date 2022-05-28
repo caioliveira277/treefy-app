@@ -62,7 +62,9 @@ export class ProfileView
         <StatusComponent />
         <Separator />
         <NavigationComponent
-          onPress={this.profileViewModel.handleNavigation}
+          onPress={(routeName) =>
+            this.profileViewModel.handleNavigation(routeName)
+          }
           style={spacing.nav}
         />
         <ButtonComponent
