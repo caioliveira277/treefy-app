@@ -1,10 +1,7 @@
 name: Treefy - CI
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_call:
 
 jobs:
   Node-build:
@@ -26,21 +23,9 @@ jobs:
           cache-dependency-path: './package-lock.json'
       - name: Install dependencies 📦
         run: npm install
-      - name: Run prettier 💅
-        run: npm run prettier
-      - name: Run linter ✔️
-        run: npm run lint
+      # - name: Run prettier 💅
+      #   run: npm run prettier
+      # - name: Run linter ✔️
+      #   run: npm run lint
       # - name: Run unit tests 🧪
       #   run: npm run test:unit:ci
-
-  Unit-tests:
-    runs-on: ubuntu-latest
-    needs: Node-build
-    defaults:
-      run:
-        working-directory: ./
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Run unit tests 🧪
-        run: npm run test:unit:ci
