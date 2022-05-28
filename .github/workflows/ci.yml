@@ -3,8 +3,6 @@ name: Treefy - CI
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
   Build:
@@ -18,17 +16,47 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
           cache-dependency-path: './package-lock.json'
+
       - name: Install dependencies 📦
         run: npm ci
+
       - name: Run prettier 💅
         run: npm run prettier
+
       - name: Run linter ✔️
         run: npm run lint
+
       - name: Run unit tests 🧪
         run: npm run test:unit:ci
+
+  Publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: './package-lock.json'
+
+      - name: 🏗 Setup Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies 📦
+        run: npm ci
+
+      - name: 🚀 Publish app
+        run: expo publish --non-interactive
