@@ -9,7 +9,7 @@ jobs:
     uses: ./.github/workflows/node-build.yml
   Tests-unit:
     runs-on: ubuntu-latest
+    needs: Use-node
     steps:
-      needs: Use-node
       - name: Run unit tests 🧪
         run: npm run test:unit:ci
