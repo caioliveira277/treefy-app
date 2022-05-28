@@ -1,13 +1,25 @@
-name: Node.js CI
+name: Treefy - CI
 
 on:
   push:
-    branches: [main]
+    branches: [$default-branch]
   pull_request:
-    branches: [main]
+    branches: [$default-branch]
 
 jobs:
-  build:
+  Information:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event. 🎉"
+      - run: echo "The name of your branch is ${{ github.ref }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+  Node build:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -23,7 +35,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+          cache-dependency-path: './package-lock.json'
+      - run: npm run prettier
+      - run: npm run lint
+      - run: npm run test:unit:ci
