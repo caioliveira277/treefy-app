@@ -119,7 +119,7 @@ export class ChangeProfileView
           onPress={() => this.changeProfileViewModel.handleSubmit()}
           style={spacing.button}
         >
-          Cadastrar
+          Atualizar
         </ButtonComponent>
       </ProfileLayout>
     );
