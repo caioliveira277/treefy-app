@@ -1,9 +1,11 @@
-name: 'Treefy - CI'
+name: Treefy - CI
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
   Build:
     runs-on: ubuntu-latest
