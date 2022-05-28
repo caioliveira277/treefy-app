@@ -1,0 +1,13 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  Tests-unit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run unit tests 🧪
+        uses: ./.github/workflows/node-build.yml
+        run: npm run test:unit:ci
