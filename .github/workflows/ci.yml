@@ -2,8 +2,9 @@ name: Treefy - CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   Build:
@@ -45,6 +46,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
+    needs: Build
     steps:
       - name: Checkout
         uses: actions/checkout@v3
