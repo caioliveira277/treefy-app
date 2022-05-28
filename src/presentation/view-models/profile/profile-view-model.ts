@@ -5,6 +5,6 @@ export interface ProfileViewModel extends BaseViewModel {
   viewedArticles: number;
   countFeedback: number;
 
-  handleNavigation(routeName: keyof MainRoutesParamsList): void;
+  handleNavigation(routeName: keyof MainSubRoutes): void;
   handleLoggout(): void;
 }
