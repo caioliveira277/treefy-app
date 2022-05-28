@@ -40,5 +40,7 @@ jobs:
       run:
         working-directory: ./
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Run unit tests 🧪
         run: npm run test:unit:ci
