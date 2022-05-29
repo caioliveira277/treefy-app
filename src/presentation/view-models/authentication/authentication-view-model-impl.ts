@@ -42,6 +42,11 @@ export class AuthenticationViewModelImpl
     if (!emailValid || !passwordValid) {
       // TODO: add validation
     }
-    this.baseView?.props.navigation.navigate('Main', { screen: 'Home' });
+    this.baseView?.props.navigation.navigate('Main', {
+      screen: 'HomeGroup',
+      props: {
+        screen: 'Home',
+      },
+    });
   }
 }

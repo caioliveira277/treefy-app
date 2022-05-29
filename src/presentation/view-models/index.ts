@@ -30,3 +30,6 @@ export * from './help/help-view-model-impl';
 
 export * from './terms-use/terms-use-view-model';
 export * from './terms-use/terms-use-view-model-impl';
+
+export * from './article/article-view-model';
+export * from './article/article-view-model-impl';
