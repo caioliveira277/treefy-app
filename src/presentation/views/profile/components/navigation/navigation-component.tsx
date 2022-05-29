@@ -19,7 +19,7 @@ import { ImageSourcePropType, StyleProp, ViewStyle } from 'react-native';
 
 export interface NavigationComponentProps {
   style?: StyleProp<ViewStyle>;
-  onPress: (routeName: keyof MainRoutesParamsList) => void;
+  onPress: (routeName: keyof MainSubRoutes) => void;
 }
 
 export const NavigationComponent: React.FC<NavigationComponentProps> = ({
@@ -32,7 +32,7 @@ export const NavigationComponent: React.FC<NavigationComponentProps> = ({
     icon: ImageSourcePropType;
     title: string;
     description: string;
-    routeName: keyof MainRoutesParamsList;
+    routeName: keyof MainSubRoutes;
   }> = ({ icon, title, description, routeName }) => (
     <ItemContainer onPress={() => onPress(routeName)}>
       <IconContainer>
@@ -59,7 +59,7 @@ export const NavigationComponent: React.FC<NavigationComponentProps> = ({
         icon={headsetIcon}
         title="Ajuda"
         description="Fale conosco..."
-        routeName="Profile"
+        routeName="Help"
       />
       <ItemSeparator />
       <NavItem
