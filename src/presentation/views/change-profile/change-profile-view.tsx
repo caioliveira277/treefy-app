@@ -80,6 +80,7 @@ export class ChangeProfileView
             <EditIcon source={getIcon('edit')} resizeMode="center" />
           </EditProfileImageButton>
         }
+        imageRounded
       >
         <LegendComponent>Seu perfil:</LegendComponent>
         <TextInputComponent
