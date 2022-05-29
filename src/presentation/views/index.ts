@@ -7,3 +7,4 @@ export * from './introduction/introduction-view';
 export * from './home/home-view';
 export * from './profile/profile-view';
 export * from './change-profile/change-profile-view';
+export * from './help/help-view';

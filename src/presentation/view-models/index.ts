@@ -24,3 +24,6 @@ export * from './profile/profile-view-model-impl';
 
 export * from './change-profile/change-profile-model';
 export * from './change-profile/change-profile-model-impl';
+
+export * from './help/help-view-model';
+export * from './help/help-view-model-impl';

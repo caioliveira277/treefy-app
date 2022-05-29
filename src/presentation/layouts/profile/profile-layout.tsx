@@ -19,7 +19,7 @@ export const ProfileLayout: React.FC<ProfileLayoutProps> = ({
       <Ilustation source={profileHeaderLayout} resizeMode="cover" />
       <Content>
         <Header>
-          <Image source={image} />
+          <Image source={image} resizeMode="center" />
           <Title>{title}</Title>
           {slotHeader || null}
         </Header>
