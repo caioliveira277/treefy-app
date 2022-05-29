@@ -66,7 +66,7 @@ export const NavigationComponent: React.FC<NavigationComponentProps> = ({
         icon={documentCheckIcon}
         title="Termos de uso"
         description="Termos, condições, privacidade..."
-        routeName="Profile"
+        routeName="TermsUse"
       />
     </Container>
   );
