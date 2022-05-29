@@ -17,10 +17,10 @@ export const Header = styled.View`
   margin: 40px 0px;
 `;
 
-export const Image = styled.Image`
+export const Image = styled.Image<{ imageRounded: boolean }>`
   width: 127px;
   height: 127px;
-  border-radius: 252px;
+  border-radius: ${({ imageRounded }) => (imageRounded ? '252px' : '0px')};
   margin-bottom: 25px;
 `;
 
