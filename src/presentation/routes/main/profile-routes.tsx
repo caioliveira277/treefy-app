@@ -1,8 +1,9 @@
 import {
   ChangeProfileModelImpl,
+  HelpViewModelImpl,
   ProfileViewModelImpl,
 } from '@/presentation/view-models';
-import { ChangeProfileView, ProfileView } from '@/presentation/views';
+import { ChangeProfileView, ProfileView, HelpView } from '@/presentation/views';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator<MainSubRoutes>();
@@ -10,6 +11,7 @@ const Stack = createNativeStackNavigator<MainSubRoutes>();
 export const ProfileRoutes: React.FC = () => {
   const profileViewModel = new ProfileViewModelImpl();
   const changeProfileViewModel = new ChangeProfileModelImpl();
+  const helpViewModel = new HelpViewModelImpl();
   return (
     <Stack.Navigator
       initialRouteName="Profile"
@@ -29,6 +31,9 @@ export const ProfileRoutes: React.FC = () => {
             changeProfileViewModel={changeProfileViewModel}
           />
         )}
+      </Stack.Screen>
+      <Stack.Screen name="Help">
+        {(props) => <HelpView {...props} helpViewModel={helpViewModel} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

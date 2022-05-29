@@ -10,6 +10,7 @@ type PublicRoutesParamsList = {
 type MainSubRoutes = {
   ChangeProfile: undefined;
   Profile: undefined;
+  Help: undefined;
 };
 type MainRoutesParamsList = MainSubRoutes & {
   ProfileGroup: MainSubRoutes;
