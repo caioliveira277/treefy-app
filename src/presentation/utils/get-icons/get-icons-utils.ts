@@ -10,7 +10,8 @@ export type IconName =
   | 'arrow-right'
   | 'edit'
   | 'headset'
-  | 'tel';
+  | 'tel'
+  | 'document-check';
 
 export const getIcon = (iconName: IconName) => {
   switch (iconName) {
@@ -38,5 +39,7 @@ export const getIcon = (iconName: IconName) => {
       return require('@assets/icons/headset.png');
     case 'tel':
       return require('@assets/icons/tel.png');
+    case 'document-check':
+      return require('@assets/icons/document-check.png');
   }
 };
