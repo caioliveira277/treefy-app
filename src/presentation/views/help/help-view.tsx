@@ -7,6 +7,7 @@ import {
   SubTitle,
   Paragraph,
   ContainerComunicationChannel,
+  ContainerLink,
   ContainerLabelIcon,
   Icon,
   Label,
@@ -60,40 +61,44 @@ export class HelpView
             <Icon source={getIcon('mail')} resizeMode="center" />
             <Label>Email:</Label>
           </ContainerLabelIcon>
-          <LinkComponent
-            color={currentTheme.colors.body}
-            fontSize={currentTheme.fonts.sizes.sm}
-            style={spacing.link}
-          >
-            contato@treefy.com.br
-          </LinkComponent>
-          <LinkComponent
-            color={currentTheme.colors.body}
-            fontSize={currentTheme.fonts.sizes.sm}
-            style={spacing.link}
-          >
-            sugestoes@treefy.com.br
-          </LinkComponent>
+          <ContainerLink>
+            <LinkComponent
+              color={currentTheme.colors.body}
+              fontSize={currentTheme.fonts.sizes.sm}
+              style={spacing.link}
+            >
+              contato@treefy.com.br
+            </LinkComponent>
+            <LinkComponent
+              color={currentTheme.colors.body}
+              fontSize={currentTheme.fonts.sizes.sm}
+              style={spacing.link}
+            >
+              sugestoes@treefy.com.br
+            </LinkComponent>
+          </ContainerLink>
         </ContainerComunicationChannel>
         <ContainerComunicationChannel>
           <ContainerLabelIcon>
             <Icon source={getIcon('tel')} resizeMode="center" />
             <Label>Telefone:</Label>
           </ContainerLabelIcon>
-          <LinkComponent
-            color={currentTheme.colors.body}
-            fontSize={currentTheme.fonts.sizes.sm}
-            style={spacing.link}
-          >
-            (39) 9 8781-8187
-          </LinkComponent>
-          <LinkComponent
-            color={currentTheme.colors.body}
-            fontSize={currentTheme.fonts.sizes.sm}
-            style={spacing.link}
-          >
-            (39) 3030-3030
-          </LinkComponent>
+          <ContainerLink>
+            <LinkComponent
+              color={currentTheme.colors.body}
+              fontSize={currentTheme.fonts.sizes.sm}
+              style={spacing.link}
+            >
+              (39) 9 8781-8187
+            </LinkComponent>
+            <LinkComponent
+              color={currentTheme.colors.body}
+              fontSize={currentTheme.fonts.sizes.sm}
+              style={spacing.link}
+            >
+              (39) 3030-3030
+            </LinkComponent>
+          </ContainerLink>
         </ContainerComunicationChannel>
         <ButtonComponent
           type="outline"

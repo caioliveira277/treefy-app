@@ -5,6 +5,7 @@ export const SubTitle = styled.Text`
   font-size: ${({ theme }) => theme.fonts.sizes.lg};
   color: ${({ theme }) => theme.colors.secondary};
   font-family: ${({ theme }) => theme.fonts.families.medium};
+  margin-bottom: 10px;
 `;
 
 export const Paragraph = styled.Text`
@@ -13,39 +14,9 @@ export const Paragraph = styled.Text`
   font-family: ${({ theme }) => theme.fonts.families.regular};
 `;
 
-export const ContainerComunicationChannel = styled.View`
-  margin-bottom: 20px;
-`;
-
-export const ContainerLink = styled.View`
-  align-items: flex-start;
-`;
-
-export const ContainerLabelIcon = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 8px;
-`;
-
-export const Icon = styled.Image`
-  width: 15px;
-  height: 15px;
-  margin-right: 8px;
-`;
-
-export const Label = styled(Paragraph)`
-  font-size: ${({ theme }) => theme.fonts.sizes.md};
-`;
-
 export const spacing = StyleSheet.create({
-  subTitle: {
-    marginBottom: 20,
-  },
   paragraph: {
-    marginBottom: 20,
-  },
-  link: {
-    marginBottom: 8,
+    marginBottom: 30,
   },
   button: {
     marginTop: 40,

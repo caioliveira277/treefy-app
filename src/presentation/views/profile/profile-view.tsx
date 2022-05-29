@@ -58,7 +58,11 @@ export class ProfileView
   render() {
     // const { completeName, countFeedback, viewedArticles } = this.state;
     return (
-      <ProfileLayout title="Vanessa da Mata" image={temporaryImageProfile}>
+      <ProfileLayout
+        title="Vanessa da Mata"
+        image={temporaryImageProfile}
+        imageRounded
+      >
         <StatusComponent />
         <Separator />
         <NavigationComponent
