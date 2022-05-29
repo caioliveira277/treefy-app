@@ -17,9 +17,10 @@ export const ContainerComunicationChannel = styled.View`
   margin-bottom: 20px;
 `;
 
-export const ContainerTextIcon = styled.View`
+export const ContainerLabelIcon = styled.View`
   flex-direction: row;
   align-items: center;
+  margin-bottom: 8px;
 `;
 
 export const Icon = styled.Image`
@@ -32,20 +33,15 @@ export const Label = styled(Paragraph)`
   font-size: ${({ theme }) => theme.fonts.sizes.md};
 `;
 
-export const Link = styled.TouchableOpacity`
-  padding: 8px 0px;
-`;
-
-export const SmallText = styled(Paragraph)`
-  text-decoration: underline;
-`;
-
 export const spacing = StyleSheet.create({
   subTitle: {
     marginBottom: 20,
   },
   paragraph: {
     marginBottom: 20,
+  },
+  link: {
+    marginBottom: 8,
   },
   button: {
     marginTop: 40,

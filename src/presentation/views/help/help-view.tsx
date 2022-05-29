@@ -7,21 +7,24 @@ import {
   SubTitle,
   Paragraph,
   ContainerComunicationChannel,
-  ContainerTextIcon,
+  ContainerLabelIcon,
   Icon,
   Label,
-  SmallText,
-  Link,
   spacing,
 } from './styles';
-import { ButtonComponent } from '@/presentation/components';
+import { currentTheme } from '@/presentation/themes';
+import { ButtonComponent, LinkComponent } from '@/presentation/components';
+import { BaseView } from '../base-view';
 
 export interface HelpViewProps
   extends NativeStackScreenProps<StackParamList, 'Help'> {
   helpViewModel: HelpViewModel;
 }
 
-export class HelpView extends React.Component<HelpViewProps> {
+export class HelpView
+  extends React.Component<HelpViewProps>
+  implements BaseView<HelpViewProps>
+{
   private helpViewModel: HelpViewModel;
 
   constructor(props: HelpViewProps) {
@@ -30,6 +33,16 @@ export class HelpView extends React.Component<HelpViewProps> {
     const { helpViewModel } = this.props;
     this.helpViewModel = helpViewModel;
   }
+
+  public componentDidMount(): void {
+    this.helpViewModel.attachView(this);
+  }
+
+  public componentWillUnmount(): void {
+    this.helpViewModel.detachView();
+  }
+
+  public onViewModelChanged(): void {}
 
   render() {
     return (
@@ -43,28 +56,44 @@ export class HelpView extends React.Component<HelpViewProps> {
         </Paragraph>
         <SubTitle style={spacing.subTitle}>Canais de comunicação:</SubTitle>
         <ContainerComunicationChannel>
-          <ContainerTextIcon>
+          <ContainerLabelIcon>
             <Icon source={getIcon('mail')} resizeMode="center" />
             <Label>Email:</Label>
-          </ContainerTextIcon>
-          <Link>
-            <SmallText>contato@treefy.com.br</SmallText>
-          </Link>
-          <Link>
-            <SmallText>sugestoes@treefy.com.br</SmallText>
-          </Link>
+          </ContainerLabelIcon>
+          <LinkComponent
+            color={currentTheme.colors.body}
+            fontSize={currentTheme.fonts.sizes.sm}
+            style={spacing.link}
+          >
+            contato@treefy.com.br
+          </LinkComponent>
+          <LinkComponent
+            color={currentTheme.colors.body}
+            fontSize={currentTheme.fonts.sizes.sm}
+            style={spacing.link}
+          >
+            sugestoes@treefy.com.br
+          </LinkComponent>
         </ContainerComunicationChannel>
         <ContainerComunicationChannel>
-          <ContainerTextIcon>
+          <ContainerLabelIcon>
             <Icon source={getIcon('tel')} resizeMode="center" />
             <Label>Telefone:</Label>
-          </ContainerTextIcon>
-          <Link>
-            <SmallText>(39) 9 8781-8187</SmallText>
-          </Link>
-          <Link>
-            <SmallText>(39) 3030-3030</SmallText>
-          </Link>
+          </ContainerLabelIcon>
+          <LinkComponent
+            color={currentTheme.colors.body}
+            fontSize={currentTheme.fonts.sizes.sm}
+            style={spacing.link}
+          >
+            (39) 9 8781-8187
+          </LinkComponent>
+          <LinkComponent
+            color={currentTheme.colors.body}
+            fontSize={currentTheme.fonts.sizes.sm}
+            style={spacing.link}
+          >
+            (39) 3030-3030
+          </LinkComponent>
         </ContainerComunicationChannel>
         <ButtonComponent
           type="outline"
