@@ -11,6 +11,7 @@ type MainSubRoutes = {
   ChangeProfile: undefined;
   Profile: undefined;
   Help: undefined;
+  TermsUse: undefined;
 };
 type MainRoutesParamsList = MainSubRoutes & {
   ProfileGroup: MainSubRoutes;
