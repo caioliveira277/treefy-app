@@ -8,7 +8,9 @@ export type IconName =
   | 'rate'
   | 'calendar'
   | 'arrow-right'
-  | 'edit';
+  | 'edit'
+  | 'headset'
+  | 'tel';
 
 export const getIcon = (iconName: IconName) => {
   switch (iconName) {
@@ -32,5 +34,9 @@ export const getIcon = (iconName: IconName) => {
       return require('@assets/icons/arrow-right.png');
     case 'edit':
       return require('@assets/icons/edit.png');
+    case 'headset':
+      return require('@assets/icons/headset.png');
+    case 'tel':
+      return require('@assets/icons/tel.png');
   }
 };
