@@ -17,6 +17,10 @@ export const ContainerComunicationChannel = styled.View`
   margin-bottom: 20px;
 `;
 
+export const ContainerLink = styled.View`
+  align-items: flex-start;
+`;
+
 export const ContainerLabelIcon = styled.View`
   flex-direction: row;
   align-items: center;
