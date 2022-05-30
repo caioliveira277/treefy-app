@@ -1,38 +1,51 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { ArticleViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
+import { Container } from './styles';
+import { WebView } from 'react-native-webview';
 
 export interface ArticleViewProps
   extends NativeStackScreenProps<StackParamList, 'Article'> {
-  helpViewModel: ArticleViewModel;
+  articleViewModel: ArticleViewModel;
 }
 
 export class ArticleView
   extends React.Component<ArticleViewProps>
   implements BaseView<ArticleViewProps>
 {
-  private helpViewModel: ArticleViewModel;
+  private articleViewModel: ArticleViewModel;
 
   constructor(props: ArticleViewProps) {
     super(props);
 
-    const { helpViewModel } = this.props;
-    this.helpViewModel = helpViewModel;
+    const { articleViewModel } = this.props;
+    this.articleViewModel = articleViewModel;
   }
 
   public componentDidMount(): void {
-    this.helpViewModel.attachView(this);
+    this.articleViewModel.attachView(this);
   }
 
   public componentWillUnmount(): void {
-    this.helpViewModel.detachView();
+    this.articleViewModel.detachView();
   }
 
   public onViewModelChanged(): void {}
 
   render() {
-    return <Text>Teste</Text>;
+    return (
+      <Container>
+        <WebView
+          style={{
+            flex: 1,
+          }}
+          source={{
+            uri: 'https://caioliveira277.github.io/todo-list/public/assets/temp/article-example.html',
+          }}
+          scalesPageToFit={false}
+        />
+      </Container>
+    );
   }
 }
