@@ -22,6 +22,7 @@
         "printWidth": 80
       }
     ],
+    "no-console": "warn",
     "react/react-in-jsx-scope": "off",
     "import/extensions": "off",
     "import/no-extraneous-dependencies": "off",
