@@ -46,7 +46,10 @@ export class HomeView
         <SalutationComponent style={spacing.salutation} />
         <SearchInputComponent style={spacing.searchInput} />
         <CategoriesCarrouselComponent style={spacing.carrousel} />
-        <InformativeContentsComponent style={spacing.informativeContents} />
+        <InformativeContentsComponent
+          style={spacing.informativeContents}
+          onPress={() => this.homeViewModel.handleNavigateToArticle()}
+        />
       </Container>
     );
   }

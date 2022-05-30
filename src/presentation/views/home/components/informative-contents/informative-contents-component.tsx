@@ -29,6 +29,7 @@ import backgroundCardIlustration from '@assets/images/background-card-ilustratio
 import postImage1 from '@assets/images/post-1.png';
 import postImage2 from '@assets/images/post-2.png';
 import postImage3 from '@assets/images/post-3.png';
+import { StyleProp, ViewStyle } from 'react-native';
 
 const temporaryData = [
   {
@@ -62,18 +63,23 @@ const temporaryData = [
 
 export interface InformativeContentsComponentProps {
   style?: StyleProp<ViewStyle>;
+  onPress: () => void;
 }
 
 export const InformativeContentsComponent: React.FC<
   InformativeContentsComponentProps
-> = ({ style }) => {
+> = ({ style, onPress }) => {
   const theme = useTheme();
   return (
     <Container style={style}>
       <Title>Conteúdos informativos</Title>
       {temporaryData.map((item, indexData) => (
         <TransparentContainer key={indexData}>
-          <CardContainer activeOpacity={0.8} style={{ ...theme.shadows.sm }}>
+          <CardContainer
+            activeOpacity={0.8}
+            style={{ ...theme.shadows.sm }}
+            onPress={() => onPress()}
+          >
             <CardContainerColumnContent>
               <CardTitle>{item.title}</CardTitle>
               <CardDescription>{item.description}</CardDescription>

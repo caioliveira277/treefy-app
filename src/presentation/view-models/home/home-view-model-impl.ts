@@ -3,4 +3,14 @@ import { BaseViewModelImpl } from '../base-view-model-impl';
 
 export class HomeViewModelImpl
   extends BaseViewModelImpl
-  implements HomeViewModel {}
+  implements HomeViewModel
+{
+  public handleNavigateToArticle(): void {
+    this.baseView?.props.navigation.navigate('Main', {
+      screen: 'HomeGroup',
+      params: {
+        screen: 'Article',
+      },
+    });
+  }
+}
