@@ -9,3 +9,4 @@ export * from './profile/profile-view';
 export * from './change-profile/change-profile-view';
 export * from './help/help-view';
 export * from './terms-use/terms-use-view';
+export * from './article/article-view';

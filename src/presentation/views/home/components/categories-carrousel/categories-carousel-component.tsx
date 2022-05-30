@@ -53,7 +53,7 @@ export const CategoriesCarrouselComponent: React.FC<
   return (
     <Container style={style}>
       <Title>Categorias</Title>
-      <Corrousel horizontal={true}>
+      <Corrousel horizontal={true} showsHorizontalScrollIndicator={false}>
         {temporaryData.map((item, index) => (
           <ItemContainer
             active={item.active}

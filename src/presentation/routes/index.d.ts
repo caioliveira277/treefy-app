@@ -12,9 +12,12 @@ type MainSubRoutes = {
   Profile: undefined;
   Help: undefined;
   TermsUse: undefined;
+  Home: undefined;
+  Article: undefined;
 };
 type MainRoutesParamsList = MainSubRoutes & {
   ProfileGroup: MainSubRoutes;
+  HomeGroup: MainSubRoutes;
   Home: undefined;
   MyGarden: undefined;
   Profile: undefined;

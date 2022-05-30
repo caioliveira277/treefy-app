@@ -1,6 +1,5 @@
-import { HomeView } from '@/presentation/views';
-import { HomeViewModelImpl } from '@/presentation/view-models';
 import { ProfileRoutes } from './profile-routes';
+import { HomeRoutes } from './home-routes';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image, View, Text } from 'react-native';
 import { useTheme } from 'styled-components';
@@ -15,7 +14,6 @@ import plantInactiveImage from '@assets/icons/navbar/plant-inactive.png';
 const Tab = createBottomTabNavigator<StackParamList>();
 
 export const MainRoutes: React.FC = () => {
-  const homeViewModel = new HomeViewModelImpl();
   const theme = useTheme();
   const ActivePoint: React.FC<{
     focused: boolean;
@@ -38,7 +36,7 @@ export const MainRoutes: React.FC = () => {
     ) : null;
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeGroup"
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
@@ -68,7 +66,7 @@ export const MainRoutes: React.FC = () => {
         {() => <ProfileRoutes />}
       </Tab.Screen>
       <Tab.Screen
-        name="Home"
+        name="HomeGroup"
         options={{
           tabBarIcon: ({ focused }) => (
             <>
@@ -83,7 +81,7 @@ export const MainRoutes: React.FC = () => {
           ),
         }}
       >
-        {(props) => <HomeView {...props} homeViewModel={homeViewModel} />}
+        {() => <HomeRoutes />}
       </Tab.Screen>
       <Tab.Screen
         name="MyGarden"

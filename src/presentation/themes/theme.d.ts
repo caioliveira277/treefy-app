@@ -8,7 +8,8 @@ type ThemeColors = {
   contrast: string;
   placeholder: string;
   placeholder_light: string;
-  rate: string;
+  rate_active: string;
+  rate_inactive: string;
 };
 
 type ThemeBorders = {
