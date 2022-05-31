@@ -26,7 +26,8 @@
     "react/react-in-jsx-scope": "off",
     "import/extensions": "off",
     "import/no-extraneous-dependencies": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "unknownProperties": "off"
   },
   "ignorePatterns": ["*.snap"],
   "settings": {
