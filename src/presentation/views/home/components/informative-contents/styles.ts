@@ -133,5 +133,5 @@ export const CardFooterRateContainer = styled.View`
 export const CardFooterRateText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.families.regular};
   font-size: ${({ theme }) => theme.fonts.sizes.sm};
-  color: ${({ theme }) => theme.colors.rate};
+  color: ${({ theme }) => theme.colors.rate_active};
 `;
