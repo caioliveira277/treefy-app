@@ -11,7 +11,8 @@ export type IconName =
   | 'edit'
   | 'headset'
   | 'tel'
-  | 'document-check';
+  | 'document-check'
+  | 'heart';
 
 export const getIcon = (iconName: IconName) => {
   switch (iconName) {
@@ -41,5 +42,7 @@ export const getIcon = (iconName: IconName) => {
       return require('@assets/icons/tel.png');
     case 'document-check':
       return require('@assets/icons/document-check.png');
+    case 'heart':
+      return require('@assets/icons/heart.png');
   }
 };
