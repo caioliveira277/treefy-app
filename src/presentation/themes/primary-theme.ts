@@ -9,7 +9,8 @@ export const primaryTheme: DefaultTheme = {
     contrast: '#FCFDFF',
     placeholder: '#C6C6C6',
     placeholder_light: '#EEEEEE',
-    rate: '#D56D6D',
+    rate_active: '#D56D6D',
+    rate_inactive: '#E5A6A7',
   },
   borders: {
     border_radius_sm: '5px',
