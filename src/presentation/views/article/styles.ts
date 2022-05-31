@@ -8,4 +8,5 @@ export const Container = styled.ScrollView`
 
 export const SafeContainer = styled.View`
   margin-bottom: 80px;
+  padding: 0px 20px;
 `;

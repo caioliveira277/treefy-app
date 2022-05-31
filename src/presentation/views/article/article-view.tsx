@@ -5,6 +5,7 @@ import { BaseView } from '../base-view';
 import { Container, SafeContainer } from './styles';
 import { WebView } from 'react-native-webview';
 import { Dimensions } from 'react-native';
+import { RateComponent } from './components';
 
 export interface ArticleViewProps
   extends NativeStackScreenProps<StackParamList, 'Article'> {
@@ -66,7 +67,9 @@ export class ArticleView
               true;
             `}
         />
-        <SafeContainer></SafeContainer>
+        <SafeContainer>
+          <RateComponent />
+        </SafeContainer>
       </Container>
     );
   }
