@@ -10,7 +10,7 @@
 </p>
 <br>
 
-## Idea 💡:
+## Idea: 💡
 Develop an app to help grow plants
 
 ## Functionalities:
@@ -43,8 +43,6 @@ The scripts below run the project.
    expo start # execute in developer mode
    expo build # to build project
    ```
-   
-   <br>
 
 ### Code validation:
 The scripts below run prettier and lint.
@@ -52,8 +50,6 @@ The scripts below run prettier and lint.
    npm run lint # run lint validation
    npm run prettier # run and fix non-standard code
    ```
-   
-   <br>
 
 ### Tests:
 The scripts below run jest tests.
