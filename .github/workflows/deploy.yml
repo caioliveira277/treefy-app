@@ -31,7 +31,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies 📦
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Publish app 🚀
         run: expo publish --non-interactive
