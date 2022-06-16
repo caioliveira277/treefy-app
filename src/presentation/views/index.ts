@@ -10,3 +10,4 @@ export * from './change-profile/change-profile-view';
 export * from './help/help-view';
 export * from './terms-use/terms-use-view';
 export * from './article/article-view';
+export * from './code-confirmation/code-confirmation-view';
