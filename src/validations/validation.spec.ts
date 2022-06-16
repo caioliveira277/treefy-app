@@ -3,6 +3,7 @@ import {
   validateEmail,
   validateStrongPassword,
   validateCompleteName,
+  validateConfirmationCode,
 } from './validations';
 
 type SutTypes = {
@@ -67,6 +68,25 @@ describe('Validation Complete Name', () => {
   it('Should return false if name does not contain last name', () => {
     const anyName = faker.name.firstName();
     const { sut } = makeSut({ text: anyName });
+    expect(sut()).toBeFalsy();
+  });
+});
+
+describe('Validation Confirmation Code', () => {
+  const makeSut = ({ text }: MakeSutProps): SutTypes => {
+    const sut = () => validateConfirmationCode(text);
+    return {
+      sut,
+    };
+  };
+  it('Should return true if code has a valid format', () => {
+    const anyEmail = faker.datatype.string(8);
+    const { sut } = makeSut({ text: anyEmail });
+    expect(sut()).toBeTruthy();
+  });
+  it('Should return false if code has a invalid format', () => {
+    const anyText = faker.datatype.string(2);
+    const { sut } = makeSut({ text: anyText });
     expect(sut()).toBeFalsy();
   });
 });
