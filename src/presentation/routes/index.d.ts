@@ -5,6 +5,7 @@ type PublicRoutesParamsList = {
   EmailConfirmation: undefined;
   ChangePassword: undefined;
   Signup: undefined;
+  CodeConfirmation: undefined;
 };
 
 type MainSubRoutes = {

@@ -33,3 +33,6 @@ export * from './terms-use/terms-use-view-model-impl';
 
 export * from './article/article-view-model';
 export * from './article/article-view-model-impl';
+
+export * from './code-confirmation/code-confirmation-view-model';
+export * from './code-confirmation/code-confirmation-view-model-impl';

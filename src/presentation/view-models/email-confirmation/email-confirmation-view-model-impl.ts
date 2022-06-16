@@ -26,7 +26,7 @@ export class EmailConfirmationViewModelImpl
       Alert.alert('Ops!', 'Invalid fields');
     } else {
       this.baseView?.props.navigation.navigate('Public', {
-        screen: 'ChangePassword',
+        screen: 'CodeConfirmation',
       });
     }
   }
