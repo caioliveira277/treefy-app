@@ -18,7 +18,8 @@ export type IconName =
   | 'home-active'
   | 'home-inactive'
   | 'plant-active'
-  | 'plant-inactive';
+  | 'plant-inactive'
+  | 'add-circle';
 
 export const getIcon = (iconName: IconName) => {
   switch (iconName) {
@@ -62,5 +63,7 @@ export const getIcon = (iconName: IconName) => {
       return require('@assets/icons/navbar/plant-active.png');
     case 'plant-inactive':
       return require('@assets/icons/navbar/plant-inactive.png');
+    case 'add-circle':
+      return require('@assets/icons/add-circle.png');
   }
 };
