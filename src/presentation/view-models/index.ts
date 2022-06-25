@@ -36,3 +36,6 @@ export * from './article/article-view-model-impl';
 
 export * from './code-confirmation/code-confirmation-view-model';
 export * from './code-confirmation/code-confirmation-view-model-impl';
+
+export * from './my-garden/my-garden-view-model';
+export * from './my-garden/my-garden-view-model-impl';
