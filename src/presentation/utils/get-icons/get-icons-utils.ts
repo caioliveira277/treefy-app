@@ -12,7 +12,13 @@ export type IconName =
   | 'headset'
   | 'tel'
   | 'document-check'
-  | 'heart';
+  | 'heart'
+  | 'user-active'
+  | 'user-inactive'
+  | 'home-active'
+  | 'home-inactive'
+  | 'plant-active'
+  | 'plant-inactive';
 
 export const getIcon = (iconName: IconName) => {
   switch (iconName) {
@@ -44,5 +50,17 @@ export const getIcon = (iconName: IconName) => {
       return require('@assets/icons/document-check.png');
     case 'heart':
       return require('@assets/icons/heart.png');
+    case 'user-active':
+      return require('@assets/icons/navbar/user-active.png');
+    case 'user-inactive':
+      return require('@assets/icons/navbar/user-inactive.png');
+    case 'home-active':
+      return require('@assets/icons/navbar/home-active.png');
+    case 'home-inactive':
+      return require('@assets/icons/navbar/home-inactive.png');
+    case 'plant-active':
+      return require('@assets/icons/navbar/plant-active.png');
+    case 'plant-inactive':
+      return require('@assets/icons/navbar/plant-inactive.png');
   }
 };
