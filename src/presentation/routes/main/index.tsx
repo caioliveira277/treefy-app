@@ -1,7 +1,8 @@
 import { ProfileRoutes } from './profile-routes';
 import { HomeRoutes } from './home-routes';
+import { MyGardenRoutes } from './my-garden-routes';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, View, Text } from 'react-native';
+import { Image, View } from 'react-native';
 import { useTheme } from 'styled-components';
 import { getIcon } from '@/presentation/utils';
 
@@ -82,7 +83,7 @@ export const MainRoutes: React.FC = () => {
         {() => <HomeRoutes />}
       </Tab.Screen>
       <Tab.Screen
-        name="MyGarden"
+        name="MyGardenGroup"
         options={{
           tabBarIcon: ({ focused }) => (
             <>
@@ -99,13 +100,7 @@ export const MainRoutes: React.FC = () => {
           ),
         }}
       >
-        {() => (
-          <View
-            style={{ justifyContent: 'center', flex: 1, alignItems: 'center' }}
-          >
-            <Text>My garden</Text>
-          </View>
-        )}
+        {() => <MyGardenRoutes />}
       </Tab.Screen>
     </Tab.Navigator>
   );
