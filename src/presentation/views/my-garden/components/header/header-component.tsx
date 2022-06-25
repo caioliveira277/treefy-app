@@ -1,11 +1,10 @@
 import { StyleProp, ViewStyle } from 'react-native';
+import { ButtonNewPlant, Container } from './styles';
 import {
-  ButtonNewPlant,
-  ContainerHeader,
   ContainerTitleIcon,
   Icon,
   Title,
-} from './styles';
+} from '@/presentation/views/my-garden/styles';
 import { getIcon } from '@/presentation/utils';
 import { useTheme } from 'styled-components';
 
@@ -17,14 +16,14 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ style }) => {
   const theme = useTheme();
 
   return (
-    <ContainerHeader style={style}>
+    <Container style={style}>
       <ContainerTitleIcon>
         <Title>Meu jardim</Title>
-        <Icon source={getIcon('plant-active')} />
+        <Icon source={getIcon('plant-active')} resizeMode="center" />
       </ContainerTitleIcon>
       <ButtonNewPlant style={{ ...theme.shadows.sm }}>
-        <Icon source={getIcon('add-circle')} />
+        <Icon source={getIcon('add-circle')} resizeMode="center" />
       </ButtonNewPlant>
-    </ContainerHeader>
+    </Container>
   );
 };

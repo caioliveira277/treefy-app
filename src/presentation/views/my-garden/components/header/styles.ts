@@ -1,28 +1,10 @@
 import styled from 'styled-components/native';
 
-export const ContainerHeader = styled.View`
-  margin-top: 40px;
+export const Container = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 0px 20px;
-`;
-
-export const ContainerTitleIcon = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const Title = styled.Text`
-  font-size: ${({ theme }) => theme.fonts.sizes.xl};
-  color: ${({ theme }) => theme.colors.secondary};
-  font-family: ${({ theme }) => theme.fonts.families.medium};
-  margin-right: 8px;
-`;
-
-export const Icon = styled.Image`
-  width: 18px;
-  height: 18px;
 `;
 
 export const ButtonNewPlant = styled.TouchableOpacity`
