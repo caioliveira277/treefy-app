@@ -2,8 +2,8 @@ import React from 'react';
 import { MyGardenViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
-import { Container } from './styles';
-import { HeaderComponent } from './components';
+import { Container, spacing } from './styles';
+import { HeaderComponent, NextCareComponent } from './components';
 
 export interface MyGardenViewProps
   extends NativeStackScreenProps<StackParamList, 'MyGarden'> {
@@ -36,7 +36,8 @@ export class MyGardenView
   render() {
     return (
       <Container>
-        <HeaderComponent />
+        <HeaderComponent style={spacing.header} />
+        <NextCareComponent />
       </Container>
     );
   }
