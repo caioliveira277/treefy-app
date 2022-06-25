@@ -11,3 +11,4 @@ export * from './help/help-view';
 export * from './terms-use/terms-use-view';
 export * from './article/article-view';
 export * from './code-confirmation/code-confirmation-view';
+export * from './my-garden/my-garden-view';
