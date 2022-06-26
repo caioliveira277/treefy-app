@@ -20,7 +20,7 @@ export const ContainerItem = styled.View<{ type: 'sun' | 'water' }>`
   border-color: ${({ type }) => (type === 'sun' ? '#F6F8E3' : '#ebf6ff')};
   border-width: 1.5px;
   border-style: solid;
-  margin-bottom: 10px;
+  margin-bottom: ${({ type }) => (type === 'water' ? '10px' : '0px')}; ;
 `;
 
 export const ConteinerText = styled.View`
