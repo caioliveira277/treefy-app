@@ -13,6 +13,7 @@ export const ContainerTitleIcon = styled.View`
 export const ContainerHiddenItem = styled.View`
   background-color: #f5f5f5;
   border-radius: ${({ theme }) => theme.borders.border_radius_md};
-  height: 62px;
+  height: 58px;
   padding: 10px;
+  margin: 2px;
 `;
