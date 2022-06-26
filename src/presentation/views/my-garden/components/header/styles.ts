@@ -1,10 +1,15 @@
 import styled from 'styled-components/native';
+import { Title } from '@/presentation/views/my-garden/styles';
 
 export const Container = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 0px 20px;
+`;
+
+export const HeaderTitle = styled(Title)`
+  font-size: ${({ theme }) => theme.fonts.sizes.xl};
 `;
 
 export const ButtonNewPlant = styled.TouchableOpacity`

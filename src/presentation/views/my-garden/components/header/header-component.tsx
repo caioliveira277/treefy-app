@@ -1,9 +1,8 @@
 import { StyleProp, ViewStyle } from 'react-native';
-import { ButtonNewPlant, Container } from './styles';
+import { ButtonNewPlant, Container, HeaderTitle } from './styles';
 import {
   ContainerTitleIcon,
   Icon,
-  Title,
 } from '@/presentation/views/my-garden/styles';
 import { getIcon } from '@/presentation/utils';
 import { useTheme } from 'styled-components';
@@ -18,7 +17,7 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({ style }) => {
   return (
     <Container style={style}>
       <ContainerTitleIcon>
-        <Title>Meu jardim</Title>
+        <HeaderTitle>Meu jardim</HeaderTitle>
         <Icon source={getIcon('plant-active')} resizeMode="center" />
       </ContainerTitleIcon>
       <ButtonNewPlant style={{ ...theme.shadows.sm }}>
