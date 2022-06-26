@@ -62,8 +62,9 @@ export const WateringComponent: React.FC<WateringComponentProps> = ({
       imageSize="36px"
       title={item.title}
       smallText={item.time}
-      description={item.description}
-    />
+    >
+      {item.description}
+    </ItemListComponent>
   );
 
   const renderHiddenItem = ({

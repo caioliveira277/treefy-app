@@ -23,6 +23,12 @@ export const Icon = styled.Image`
   height: 18px;
 `;
 
+export const DescriptionBold = styled.Text`
+  font-size: ${({ theme }) => theme.fonts.sizes.sm};
+  color: ${({ theme }) => theme.colors.body};
+  font-family: ${({ theme }) => theme.fonts.families.bold};
+`;
+
 export const spacing = StyleSheet.create({
   header: {
     marginTop: 40,

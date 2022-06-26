@@ -15,7 +15,6 @@ export interface ItemListComponentProps {
   imageSize?: string;
   title: string;
   smallText?: string;
-  description: string;
   borderDashed?: boolean;
 }
 
@@ -25,8 +24,8 @@ export const ItemListComponent: React.FC<ItemListComponentProps> = ({
   imageSize = '18px',
   title,
   smallText,
-  description,
   borderDashed = true,
+  children,
 }) => {
   return (
     <ContainerItem type={type} borderDashed={borderDashed}>
@@ -36,7 +35,7 @@ export const ItemListComponent: React.FC<ItemListComponentProps> = ({
           <ItemTitle>{title}</ItemTitle>
           {smallText ? <ItemSmallText>{smallText}</ItemSmallText> : null}
         </ContainerItemTitle>
-        <ItemDescription>{description}</ItemDescription>
+        <ItemDescription>{children}</ItemDescription>
       </ConteinerItemText>
     </ContainerItem>
   );
