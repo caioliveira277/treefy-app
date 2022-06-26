@@ -6,7 +6,7 @@ import { Container, spacing } from './styles';
 import {
   HeaderComponent,
   NextCareComponent,
-  WateringComponent,
+  ListComponent,
 } from './components';
 
 export interface MyGardenViewProps
@@ -42,7 +42,13 @@ export class MyGardenView
       <Container>
         <HeaderComponent style={spacing.header} />
         <NextCareComponent style={spacing.nextCare} />
-        <WateringComponent />
+        <ListComponent
+          style={spacing.list}
+          title="Regagem"
+          iconName="water-drop"
+          typeItem="water"
+        />
+        <ListComponent title="Exposição ao sol" iconName="sun" typeItem="sun" />
       </Container>
     );
   }

@@ -6,11 +6,6 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.contrast};
 `;
 
-export const ContainerTitleIcon = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
 export const Title = styled.Text`
   font-size: ${({ theme }) => theme.fonts.sizes.lg};
   color: ${({ theme }) => theme.colors.secondary};
@@ -35,6 +30,9 @@ export const spacing = StyleSheet.create({
     marginBottom: 30,
   },
   nextCare: {
+    marginBottom: 40,
+  },
+  list: {
     marginBottom: 40,
   },
 });

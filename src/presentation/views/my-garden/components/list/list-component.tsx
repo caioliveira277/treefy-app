@@ -5,18 +5,21 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import { Container, ContainerWateringTitleIcon } from './styles';
-import { ItemListComponent } from '../';
+import { Container, ContainerTitleIcon, ContainerHiddenItem } from './styles';
+import { ItemListComponent, TypeItem } from '../';
 import { Icon, Title } from '@/presentation/views/my-garden/styles';
-import { getIcon } from '@/presentation/utils';
+import { getIcon, IconName } from '@/presentation/utils';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Plant1Image from '@assets/images/plant1.png';
 
-export interface WateringComponentProps {
+export interface ListComponentProps {
   style?: StyleProp<ViewStyle>;
+  title: string;
+  typeItem: TypeItem;
+  iconName: IconName;
 }
 
-export interface WateringComponentListState {
+export interface ListComponentListState {
   image: ImageSourcePropType;
   title: string;
   time: string;
@@ -48,16 +51,17 @@ const temporaryData = [
   },
 ];
 
-export const WateringComponent: React.FC<WateringComponentProps> = ({
+export const ListComponent: React.FC<ListComponentProps> = ({
   style,
+  title,
+  iconName,
+  typeItem,
 }) => {
-  const [list] = useState<WateringComponentListState[]>(temporaryData);
+  const [list] = useState<ListComponentListState[]>(temporaryData);
 
-  const renderItem = ({
-    item,
-  }: ListRenderItemInfo<WateringComponentListState>) => (
+  const renderItem = ({ item }: ListRenderItemInfo<ListComponentListState>) => (
     <ItemListComponent
-      type="water"
+      type={typeItem}
       image={item.image}
       title={item.title}
       smallText={item.time}
@@ -68,18 +72,18 @@ export const WateringComponent: React.FC<WateringComponentProps> = ({
 
   const renderHiddenItem = ({
     item,
-  }: ListRenderItemInfo<WateringComponentListState>) => (
-    <Container>
+  }: ListRenderItemInfo<ListComponentListState>) => (
+    <ContainerHiddenItem>
       <Title>I am {item.title} in a SwipeListVidsaew</Title>
-    </Container>
+    </ContainerHiddenItem>
   );
 
   return (
     <Container style={style}>
-      <ContainerWateringTitleIcon>
-        <Title>Próximos cuidados:</Title>
-        <Icon source={getIcon('water-drop')} resizeMode="center" />
-      </ContainerWateringTitleIcon>
+      <ContainerTitleIcon>
+        <Title>{title}:</Title>
+        <Icon source={getIcon(iconName)} resizeMode="center" />
+      </ContainerTitleIcon>
       <SwipeListView
         data={list}
         renderItem={renderItem}

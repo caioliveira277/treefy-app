@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { TypeItem } from './item-list-component';
 
 export const ConteinerItemText = styled.View`
   margin-left: 8px;
@@ -37,7 +38,7 @@ export const ItemImage = styled.Image<{ imageSize: string }>`
 `;
 
 export const ContainerItem = styled.View<{
-  type: 'sun' | 'water';
+  type: TypeItem;
   borderDashed: boolean;
 }>`
   flex-direction: row;

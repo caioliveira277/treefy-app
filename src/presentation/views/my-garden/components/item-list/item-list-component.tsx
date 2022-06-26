@@ -9,8 +9,9 @@ import {
   ItemSmallText,
 } from './styles';
 
+export type TypeItem = 'water' | 'sun';
 export interface ItemListComponentProps {
-  type: 'water' | 'sun';
+  type: TypeItem;
   image: ImageSourcePropType;
   imageSize?: string;
   title: string;
