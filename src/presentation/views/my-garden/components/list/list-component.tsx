@@ -10,56 +10,32 @@ import { ItemListComponent, TypeItem } from '../';
 import { Icon, Title } from '@/presentation/views/my-garden/styles';
 import { getIcon, IconName } from '@/presentation/utils';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import Plant1Image from '@assets/images/plant1.png';
 
+type Data = {
+  key: number;
+  image: ImageSourcePropType;
+  title: string;
+  time: string;
+  description: string;
+};
 export interface ListComponentProps {
   style?: StyleProp<ViewStyle>;
   title: string;
   typeItem: TypeItem;
   iconName: IconName;
+  data: Data[];
 }
-
-export interface ListComponentListState {
-  image: ImageSourcePropType;
-  title: string;
-  time: string;
-  description: string;
-}
-
-// TODO: remove after implementation
-const temporaryData = [
-  {
-    key: 1,
-    image: Plant1Image,
-    title: 'Planta 1',
-    time: 'hoje ás 12:43h',
-    description: 'Lorem Ipsum is simply dummy ext of the...',
-  },
-  {
-    key: 2,
-    image: Plant1Image,
-    title: 'Planta 1',
-    time: 'hoje ás 12:43h',
-    description: 'Lorem Ipsum is simply dummy ext of the...',
-  },
-  {
-    key: 3,
-    image: Plant1Image,
-    title: 'Planta 1',
-    time: 'hoje ás 12:43h',
-    description: 'Lorem Ipsum is simply dummy ext of the...',
-  },
-];
 
 export const ListComponent: React.FC<ListComponentProps> = ({
   style,
   title,
   iconName,
   typeItem,
+  data,
 }) => {
-  const [list] = useState<ListComponentListState[]>(temporaryData);
+  const [list] = useState<Data[]>(data);
 
-  const renderItem = ({ item }: ListRenderItemInfo<ListComponentListState>) => (
+  const renderItem = ({ item }: ListRenderItemInfo<Data>) => (
     <ItemListComponent
       type={typeItem}
       image={item.image}
@@ -70,9 +46,7 @@ export const ListComponent: React.FC<ListComponentProps> = ({
     </ItemListComponent>
   );
 
-  const renderHiddenItem = ({
-    item,
-  }: ListRenderItemInfo<ListComponentListState>) => (
+  const renderHiddenItem = ({ item }: ListRenderItemInfo<Data>) => (
     <ContainerHiddenItem>
       <Title>I am {item.title} in a SwipeListVidsaew</Title>
     </ContainerHiddenItem>

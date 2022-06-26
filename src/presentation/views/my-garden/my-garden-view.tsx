@@ -8,6 +8,56 @@ import {
   NextCareComponent,
   ListComponent,
 } from './components';
+import Plant1Image from '@assets/images/plant1.png';
+import Plant2Image from '@assets/images/plant2.png';
+
+// TODO: remove after implementation
+const temporaryData1 = [
+  {
+    key: 1,
+    image: Plant1Image,
+    title: 'Planta 1',
+    time: 'hoje ás 12:43h',
+    description: 'Lorem Ipsum is simply dummy ext of the...',
+  },
+  {
+    key: 2,
+    image: Plant1Image,
+    title: 'Planta 1',
+    time: 'hoje ás 12:43h',
+    description: 'Lorem Ipsum is simply dummy ext of the...',
+  },
+  {
+    key: 3,
+    image: Plant1Image,
+    title: 'Planta 1',
+    time: 'hoje ás 12:43h',
+    description: 'Lorem Ipsum is simply dummy ext of the...',
+  },
+];
+const temporaryData2 = [
+  {
+    key: 1,
+    image: Plant2Image,
+    title: 'Planta 1',
+    time: 'hoje ás 12:43h',
+    description: 'Lorem Ipsum is simply dummy ext of the...',
+  },
+  {
+    key: 2,
+    image: Plant2Image,
+    title: 'Planta 1',
+    time: 'hoje ás 12:43h',
+    description: 'Lorem Ipsum is simply dummy ext of the...',
+  },
+  {
+    key: 3,
+    image: Plant2Image,
+    title: 'Planta 1',
+    time: 'hoje ás 12:43h',
+    description: 'Lorem Ipsum is simply dummy ext of the...',
+  },
+];
 
 export interface MyGardenViewProps
   extends NativeStackScreenProps<StackParamList, 'MyGarden'> {
@@ -47,8 +97,14 @@ export class MyGardenView
           title="Regagem"
           iconName="water-drop"
           typeItem="water"
+          data={temporaryData1}
         />
-        <ListComponent title="Exposição ao sol" iconName="sun" typeItem="sun" />
+        <ListComponent
+          title="Exposição ao sol"
+          iconName="sun"
+          typeItem="sun"
+          data={temporaryData2}
+        />
       </Container>
     );
   }
