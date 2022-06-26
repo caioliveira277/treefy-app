@@ -21,7 +21,7 @@ export interface ItemListComponentProps {
 export const ItemListComponent: React.FC<ItemListComponentProps> = ({
   type,
   image,
-  imageSize = '18px',
+  imageSize = '36px',
   title,
   smallText,
   borderDashed = true,

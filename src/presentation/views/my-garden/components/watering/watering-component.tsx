@@ -59,7 +59,6 @@ export const WateringComponent: React.FC<WateringComponentProps> = ({
     <ItemListComponent
       type="water"
       image={item.image}
-      imageSize="36px"
       title={item.title}
       smallText={item.time}
     >

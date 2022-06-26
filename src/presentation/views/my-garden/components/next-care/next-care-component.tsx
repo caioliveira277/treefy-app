@@ -19,11 +19,19 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
           type="water"
           image={getIcon('water-drop')}
           title="Planta 1"
+          imageSize="18px"
+          borderDashed={false}
         >
           Regagem <DescriptionBold>hoje</DescriptionBold> ás{' '}
           <DescriptionBold>18:23h</DescriptionBold>
         </ItemListComponent>
-        <ItemListComponent type="sun" image={getIcon('sun')} title="Planta 1">
+        <ItemListComponent
+          type="sun"
+          image={getIcon('sun')}
+          title="Planta 1"
+          imageSize="18px"
+          borderDashed={false}
+        >
           Regagem <DescriptionBold>hoje</DescriptionBold> ás{' '}
           <DescriptionBold>18:23h</DescriptionBold>
         </ItemListComponent>
