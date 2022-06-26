@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 export const ConteinerItemText = styled.View`
   margin-left: 8px;
+  flex: 1;
 `;
 
 export const ContainerItemTitle = styled.View`
