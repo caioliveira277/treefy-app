@@ -50,9 +50,10 @@ export const ListComponent: React.FC<ListComponentProps> = ({
     </ItemListComponent>
   );
 
-  const renderHiddenItem = ({ item }: ListRenderItemInfo<Data>) => (
+  const renderHiddenItem = ({}: ListRenderItemInfo<Data>) => (
     <ContainerHiddenItem>
-      <Title>I am {item.title} in a SwipeListVidsaew</Title>
+      <Icon source={getIcon('edit')} resizeMode="center" />
+      <Icon source={getIcon('check-circle')} resizeMode="center" />
     </ContainerHiddenItem>
   );
 
@@ -63,9 +64,12 @@ export const ListComponent: React.FC<ListComponentProps> = ({
         <Icon source={getIcon(iconName)} resizeMode="center" />
       </ContainerTitleIcon>
       <SwipeListView
+        style={{ height: 240 }}
         data={list}
         renderItem={renderItem}
         renderHiddenItem={renderHiddenItem}
+        stopLeftSwipe={80}
+        stopRightSwipe={-80}
       />
     </Container>
   );
