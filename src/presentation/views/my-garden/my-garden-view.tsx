@@ -34,6 +34,13 @@ const temporaryData1 = [
     time: 'hoje ás 12:43h',
     description: 'Lorem Ipsum is simply dummy ext of the...',
   },
+  {
+    key: 4,
+    image: Plant1Image,
+    title: 'Planta 1',
+    time: 'hoje ás 12:43h',
+    description: 'Lorem Ipsum is simply dummy ext of the...',
+  },
 ];
 const temporaryData2 = [
   {
@@ -52,6 +59,13 @@ const temporaryData2 = [
   },
   {
     key: 3,
+    image: Plant2Image,
+    title: 'Planta 1',
+    time: 'hoje ás 12:43h',
+    description: 'Lorem Ipsum is simply dummy ext of the...',
+  },
+  {
+    key: 4,
     image: Plant2Image,
     title: 'Planta 1',
     time: 'hoje ás 12:43h',
@@ -89,7 +103,7 @@ export class MyGardenView
 
   render() {
     return (
-      <Container>
+      <Container nestedScrollEnabled={true}>
         <HeaderComponent style={spacing.header} />
         <NextCareComponent style={spacing.nextCare} />
         <ListComponent
