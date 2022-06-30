@@ -21,7 +21,8 @@ export type IconName =
   | 'plant-inactive'
   | 'add-circle'
   | 'water-drop'
-  | 'sun';
+  | 'sun'
+  | 'check-circle';
 
 export const getIcon = (iconName: IconName) => {
   switch (iconName) {
@@ -71,5 +72,7 @@ export const getIcon = (iconName: IconName) => {
       return require('@assets/icons/water-drop.png');
     case 'sun':
       return require('@assets/icons/sun.png');
+    case 'check-circle':
+      return require('@assets/icons/check-circle.png');
   }
 };
