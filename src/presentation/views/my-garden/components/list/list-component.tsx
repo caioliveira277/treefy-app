@@ -5,9 +5,13 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import { Container, ContainerTitleIcon, ContainerHiddenItem } from './styles';
+import { Container, ContainerHiddenItem } from './styles';
 import { ItemListComponent, TypeItem } from '../';
-import { Icon, Title } from '@/presentation/views/my-garden/styles';
+import {
+  Icon,
+  Title,
+  ContainerTitleIcon,
+} from '@/presentation/views/my-garden/styles';
 import { getIcon, IconName } from '@/presentation/utils';
 import { SwipeListView } from 'react-native-swipe-list-view';
 

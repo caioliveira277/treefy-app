@@ -13,6 +13,12 @@ export const Title = styled.Text`
   margin-right: 8px;
 `;
 
+export const ContainerTitleIcon = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
 export const Icon = styled.Image`
   width: 18px;
   height: 18px;
