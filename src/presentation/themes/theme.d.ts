@@ -10,6 +10,10 @@ type ThemeColors = {
   placeholder_light: string;
   rate_active: string;
   rate_inactive: string;
+  water: string;
+  sun: string;
+  edit: string;
+  complete: string;
 };
 
 type ThemeBorders = {

@@ -89,7 +89,7 @@ export const ContainerHiddenContent = styled.View<{
   type: 'edit' | 'complete';
 }>`
   background-color: ${({ type, theme }) =>
-    type === 'edit' ? '#4ABCBC' : theme.colors.primary};
+    type === 'edit' ? theme.colors.edit : theme.colors.complete};
   justify-content: center;
   align-items: ${({ type }) => (type === 'edit' ? 'flex-start' : 'flex-end')};
   padding: 0px 30px;
@@ -105,7 +105,8 @@ export const ContainerItem = styled.View<{
   padding: 10px;
   height: 85px;
   border-radius: ${({ theme }) => theme.borders.border_radius_md};
-  border-color: ${({ type }) => (type === 'sun' ? '#F6F8E3' : '#ebf6ff')};
+  border-color: ${({ type, theme }) =>
+    type === 'sun' ? theme.colors.sun : theme.colors.water};
   border-width: 1.5px;
   border-style: dashed;
 `;
