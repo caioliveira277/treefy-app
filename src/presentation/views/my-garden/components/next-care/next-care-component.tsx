@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import {
   Container,
-  Content,
   Title,
   Description,
   TextBold,
@@ -114,18 +113,16 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
         <TextBold>concluir</TextBold> e para o lado <TextBold>direto</TextBold>{' '}
         para <TextBold>editar</TextBold>
       </Description>
-      <Content>
-        <SwipeListView
-          data={list}
-          renderItem={renderItem}
-          renderHiddenItem={renderHiddenItem}
-          stopLeftSwipe={75}
-          stopRightSwipe={-75}
-          contentContainerStyle={{
-            paddingBottom: 285,
-          }}
-        />
-      </Content>
+      <SwipeListView
+        data={list}
+        renderItem={renderItem}
+        renderHiddenItem={renderHiddenItem}
+        stopLeftSwipe={75}
+        stopRightSwipe={-75}
+        contentContainerStyle={{
+          paddingBottom: 190,
+        }}
+      />
     </Container>
   );
 };

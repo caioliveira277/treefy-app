@@ -15,15 +15,13 @@ export const Description = styled.Text`
   font-size: ${({ theme }) => theme.fonts.sizes.sm};
   font-family: ${({ theme }) => theme.fonts.families.regular};
   color: ${({ theme }) => theme.colors.body};
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 0px 20px;
 `;
 
 export const TextBold = styled(Description)`
   font-family: ${({ theme }) => theme.fonts.families.bold};
 `;
-
-export const Content = styled.View``;
 
 export const Icon = styled.Image<{ width: number; height: number }>`
   width: ${({ width }) => width}px;
