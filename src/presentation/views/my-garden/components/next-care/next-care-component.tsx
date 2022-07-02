@@ -121,6 +121,9 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
           renderHiddenItem={renderHiddenItem}
           stopLeftSwipe={75}
           stopRightSwipe={-75}
+          contentContainerStyle={{
+            paddingBottom: 285,
+          }}
         />
       </Content>
     </Container>

@@ -40,6 +40,46 @@ const temporaryData: ItemData[] = [
     description: 'Vazo azul escuro ao lado da escada...',
     type: 'sun',
   },
+  {
+    key: 5,
+    image: Plant1Image,
+    title: 'Primavera bougainvillea',
+    time: 'hoje ás 12:43h',
+    description: 'Vazo azul escuro ao lado da escada...',
+    type: 'water',
+  },
+  {
+    key: 6,
+    image: Plant1Image,
+    title: 'Primavera bougainvillea',
+    time: 'hoje ás 12:43h',
+    description: 'Vazo azul escuro ao lado da escada...',
+    type: 'sun',
+  },
+  {
+    key: 7,
+    image: Plant1Image,
+    title: 'Primavera bougainvillea',
+    time: 'hoje ás 12:43h',
+    description: 'Vazo azul escuro ao lado da escada...',
+    type: 'water',
+  },
+  {
+    key: 8,
+    image: Plant1Image,
+    title: 'Primavera bougainvillea',
+    time: 'hoje ás 12:43h',
+    description: 'Vazo azul escuro ao lado da escada...',
+    type: 'sun',
+  },
+  {
+    key: 9,
+    image: Plant1Image,
+    title: 'Primavera bougainvillea',
+    time: 'hoje ás 12:43h',
+    description: 'Vazo azul escuro ao lado da escada...',
+    type: 'water',
+  },
 ];
 export interface MyGardenViewProps
   extends NativeStackScreenProps<StackParamList, 'MyGarden'> {
