@@ -6,30 +6,6 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.contrast};
 `;
 
-export const Title = styled.Text`
-  font-size: ${({ theme }) => theme.fonts.sizes.lg};
-  color: ${({ theme }) => theme.colors.secondary};
-  font-family: ${({ theme }) => theme.fonts.families.medium};
-  margin-right: 8px;
-`;
-
-export const ContainerTitleIcon = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-export const Icon = styled.Image`
-  width: 18px;
-  height: 18px;
-`;
-
-export const DescriptionBold = styled.Text`
-  font-size: ${({ theme }) => theme.fonts.sizes.sm};
-  color: ${({ theme }) => theme.colors.body};
-  font-family: ${({ theme }) => theme.fonts.families.bold};
-`;
-
 export const spacing = StyleSheet.create({
   header: {
     marginTop: 40,
@@ -37,8 +13,5 @@ export const spacing = StyleSheet.create({
   },
   nextCare: {
     marginBottom: 30,
-  },
-  list: {
-    marginBottom: 40,
   },
 });

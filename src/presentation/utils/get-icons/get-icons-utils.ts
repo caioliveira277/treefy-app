@@ -22,6 +22,7 @@ export type IconName =
   | 'add-circle'
   | 'water-drop'
   | 'sun'
+  | 'edit-white'
   | 'check-circle';
 
 export const getIcon = (iconName: IconName) => {
@@ -74,5 +75,7 @@ export const getIcon = (iconName: IconName) => {
       return require('@assets/icons/sun.png');
     case 'check-circle':
       return require('@assets/icons/check-circle.png');
+    case 'edit-white':
+      return require('@assets/icons/edit-white.png');
   }
 };

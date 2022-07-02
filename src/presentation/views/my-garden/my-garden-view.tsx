@@ -3,76 +3,44 @@ import { MyGardenViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
 import { Container, spacing } from './styles';
-import {
-  HeaderComponent,
-  NextCareComponent,
-  ListComponent,
-} from './components';
+import { HeaderComponent, NextCareComponent, ItemData } from './components';
 import Plant1Image from '@assets/images/plant1.png';
-import Plant2Image from '@assets/images/plant2.png';
 
 // TODO: remove after implementation
-const temporaryData1 = [
+const temporaryData: ItemData[] = [
   {
     key: 1,
     image: Plant1Image,
-    title: 'Planta 1',
+    title: 'Primavera bougainvillea',
     time: 'hoje ás 12:43h',
-    description: 'Lorem Ipsum is simply dummy ext of the...',
+    description: 'Vazo azul escuro ao lado da escada...',
+    type: 'water',
   },
   {
     key: 2,
     image: Plant1Image,
-    title: 'Planta 1',
+    title: 'Primavera bougainvillea',
     time: 'hoje ás 12:43h',
-    description: 'Lorem Ipsum is simply dummy ext of the...',
+    description: 'Vazo azul escuro ao lado da escada...',
+    type: 'sun',
   },
   {
     key: 3,
     image: Plant1Image,
-    title: 'Planta 1',
+    title: 'Primavera bougainvillea',
     time: 'hoje ás 12:43h',
-    description: 'Lorem Ipsum is simply dummy ext of the...',
+    description: 'Vazo azul escuro ao lado da escada...',
+    type: 'water',
   },
   {
     key: 4,
     image: Plant1Image,
-    title: 'Planta 1',
+    title: 'Primavera bougainvillea',
     time: 'hoje ás 12:43h',
-    description: 'Lorem Ipsum is simply dummy ext of the...',
+    description: 'Vazo azul escuro ao lado da escada...',
+    type: 'sun',
   },
 ];
-const temporaryData2 = [
-  {
-    key: 1,
-    image: Plant2Image,
-    title: 'Planta 1',
-    time: 'hoje ás 12:43h',
-    description: 'Lorem Ipsum is simply dummy ext of the...',
-  },
-  {
-    key: 2,
-    image: Plant2Image,
-    title: 'Planta 1',
-    time: 'hoje ás 12:43h',
-    description: 'Lorem Ipsum is simply dummy ext of the...',
-  },
-  {
-    key: 3,
-    image: Plant2Image,
-    title: 'Planta 1',
-    time: 'hoje ás 12:43h',
-    description: 'Lorem Ipsum is simply dummy ext of the...',
-  },
-  {
-    key: 4,
-    image: Plant2Image,
-    title: 'Planta 1',
-    time: 'hoje ás 12:43h',
-    description: 'Lorem Ipsum is simply dummy ext of the...',
-  },
-];
-
 export interface MyGardenViewProps
   extends NativeStackScreenProps<StackParamList, 'MyGarden'> {
   myGardenViewModel: MyGardenViewModel;
@@ -103,22 +71,9 @@ export class MyGardenView
 
   render() {
     return (
-      <Container nestedScrollEnabled={true}>
+      <Container>
         <HeaderComponent style={spacing.header} />
-        <NextCareComponent style={spacing.nextCare} />
-        <ListComponent
-          style={spacing.list}
-          title="Regagem"
-          iconName="water-drop"
-          typeItem="water"
-          data={temporaryData1}
-        />
-        <ListComponent
-          title="Exposição ao sol"
-          iconName="sun"
-          typeItem="sun"
-          data={temporaryData2}
-        />
+        <NextCareComponent style={spacing.nextCare} data={temporaryData} />
       </Container>
     );
   }

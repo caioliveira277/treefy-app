@@ -1,9 +1,11 @@
 import { StyleProp, ViewStyle } from 'react-native';
-import { ButtonNewPlant, Container, HeaderTitle } from './styles';
 import {
+  ButtonNewPlant,
+  Container,
+  HeaderTitle,
   ContainerTitleIcon,
   Icon,
-} from '@/presentation/views/my-garden/styles';
+} from './styles';
 import { getIcon } from '@/presentation/utils';
 import { useTheme } from 'styled-components';
 
