@@ -80,7 +80,8 @@ export const ContainerContent = styled.View`
   height: 85px;
   border-radius: ${({ theme }) => theme.borders.border_radius_md};
   overflow: hidden;
-  padding: 0.2px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ContainerHiddenContent = styled.View<{
