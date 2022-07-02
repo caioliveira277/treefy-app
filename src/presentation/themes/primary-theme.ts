@@ -11,6 +11,10 @@ export const primaryTheme: DefaultTheme = {
     placeholder_light: '#EEEEEE',
     rate_active: '#D56D6D',
     rate_inactive: '#E5A6A7',
+    sun: '#FEF3A7',
+    water: '#B0D8FE',
+    edit: '#4ABCBC',
+    complete: '#4ABC86',
   },
   borders: {
     border_radius_sm: '5px',

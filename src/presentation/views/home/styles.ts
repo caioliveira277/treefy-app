@@ -18,7 +18,7 @@ export const ContainerPadding = styled.View`
 
 export const spacing = StyleSheet.create({
   salutation: {
-    marginTop: 50,
+    marginTop: 40,
     marginBottom: 30,
   },
   searchInput: {

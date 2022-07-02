@@ -18,10 +18,11 @@ type MainSubRoutes = {
 };
 type MainRoutesParamsList = MainSubRoutes & {
   ProfileGroup: MainSubRoutes;
+  Profile: undefined;
   HomeGroup: MainSubRoutes;
   Home: undefined;
+  MyGardenGroup: undefined;
   MyGarden: undefined;
-  Profile: undefined;
 };
 
 type StackParamList = PublicRoutesParamsList &

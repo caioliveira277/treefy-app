@@ -1,15 +1,10 @@
 import { ProfileRoutes } from './profile-routes';
 import { HomeRoutes } from './home-routes';
+import { MyGardenRoutes } from './my-garden-routes';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, View, Text } from 'react-native';
+import { Image, View } from 'react-native';
 import { useTheme } from 'styled-components';
-
-import userActiveImage from '@assets/icons/navbar/user-active.png';
-import userInactiveImage from '@assets/icons/navbar/user-inactive.png';
-import homeActiveImage from '@assets/icons/navbar/home-active.png';
-import homeInactiveImage from '@assets/icons/navbar/home-inactive.png';
-import plantActiveImage from '@assets/icons/navbar/plant-active.png';
-import plantInactiveImage from '@assets/icons/navbar/plant-inactive.png';
+import { getIcon } from '@/presentation/utils';
 
 const Tab = createBottomTabNavigator<StackParamList>();
 
@@ -53,7 +48,9 @@ export const MainRoutes: React.FC = () => {
           tabBarIcon: ({ focused }) => (
             <>
               <Image
-                source={focused ? userActiveImage : userInactiveImage}
+                source={
+                  focused ? getIcon('user-active') : getIcon('user-inactive')
+                }
                 resizeMode="center"
                 width={12}
                 height={12}
@@ -71,7 +68,9 @@ export const MainRoutes: React.FC = () => {
           tabBarIcon: ({ focused }) => (
             <>
               <Image
-                source={focused ? homeActiveImage : homeInactiveImage}
+                source={
+                  focused ? getIcon('home-active') : getIcon('home-inactive')
+                }
                 resizeMode="center"
                 width={19}
                 height={19}
@@ -84,12 +83,14 @@ export const MainRoutes: React.FC = () => {
         {() => <HomeRoutes />}
       </Tab.Screen>
       <Tab.Screen
-        name="MyGarden"
+        name="MyGardenGroup"
         options={{
           tabBarIcon: ({ focused }) => (
             <>
               <Image
-                source={focused ? plantActiveImage : plantInactiveImage}
+                source={
+                  focused ? getIcon('plant-active') : getIcon('plant-inactive')
+                }
                 resizeMode="center"
                 width={19}
                 height={19}
@@ -99,13 +100,7 @@ export const MainRoutes: React.FC = () => {
           ),
         }}
       >
-        {() => (
-          <View
-            style={{ justifyContent: 'center', flex: 1, alignItems: 'center' }}
-          >
-            <Text>My garden</Text>
-          </View>
-        )}
+        {() => <MyGardenRoutes />}
       </Tab.Screen>
     </Tab.Navigator>
   );
