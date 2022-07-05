@@ -3,7 +3,14 @@ import { MyGardenViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
 import { Container, spacing } from './styles';
-import { HeaderComponent, NextCareComponent, ItemData } from './components';
+import { BottomModalProvider } from 'react-native-bottom-modal';
+import {
+  HeaderComponent,
+  NextCareComponent,
+  ItemData,
+  BackdropFormComponent,
+} from './components';
+import { ModalState } from '@/presentation/@types/generics';
 import Plant1Image from '@assets/images/plant1.png';
 
 // TODO: remove after implementation
@@ -86,8 +93,12 @@ export interface MyGardenViewProps
   myGardenViewModel: MyGardenViewModel;
 }
 
+export interface MyGardenViewState {
+  modalState: ModalState;
+}
+
 export class MyGardenView
-  extends React.Component<MyGardenViewProps>
+  extends React.Component<MyGardenViewProps, MyGardenViewState>
   implements BaseView<MyGardenViewProps>
 {
   private myGardenViewModel: MyGardenViewModel;
@@ -97,6 +108,10 @@ export class MyGardenView
 
     const { myGardenViewModel } = this.props;
     this.myGardenViewModel = myGardenViewModel;
+
+    this.state = {
+      modalState: ModalState.close,
+    };
   }
 
   public componentDidMount(): void {
@@ -107,14 +122,27 @@ export class MyGardenView
     this.myGardenViewModel.detachView();
   }
 
-  public onViewModelChanged() {}
+  public onViewModelChanged() {
+    this.setState({
+      modalState: this.myGardenViewModel.modalState,
+    });
+  }
 
   render() {
+    const { modalState } = this.state;
     return (
-      <Container>
-        <HeaderComponent style={spacing.header} />
-        <NextCareComponent style={spacing.nextCare} data={temporaryData} />
-      </Container>
+      <BottomModalProvider>
+        <Container>
+          <HeaderComponent
+            style={spacing.header}
+            toggleModal={(state) =>
+              this.myGardenViewModel.handleModalState(state)
+            }
+          />
+          <NextCareComponent style={spacing.nextCare} data={temporaryData} />
+          <BackdropFormComponent modalState={modalState} />
+        </Container>
+      </BottomModalProvider>
     );
   }
 }
