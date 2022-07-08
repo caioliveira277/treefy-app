@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { ThemeProvider } from 'styled-components';
 import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
@@ -9,6 +10,7 @@ import {
   RobotoSlab_500Medium,
   RobotoSlab_700Bold,
 } from '@expo-google-fonts/roboto-slab';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 function App() {
   const [fontsLoaded] = useFonts({
@@ -19,7 +21,9 @@ function App() {
 
   return fontsLoaded ? (
     <ThemeProvider theme={currentTheme}>
-      <Router />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Router />
+      </GestureHandlerRootView>
       <StatusBar style="auto" translucent />
     </ThemeProvider>
   ) : null;

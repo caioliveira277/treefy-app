@@ -3,7 +3,6 @@ import { MyGardenViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
 import { Container, spacing } from './styles';
-import { BottomModalProvider } from 'react-native-bottom-modal';
 import {
   HeaderComponent,
   NextCareComponent,
@@ -131,18 +130,21 @@ export class MyGardenView
   render() {
     const { modalState } = this.state;
     return (
-      <BottomModalProvider>
-        <Container>
-          <HeaderComponent
-            style={spacing.header}
-            toggleModal={(state) =>
-              this.myGardenViewModel.handleModalState(state)
-            }
-          />
-          <NextCareComponent style={spacing.nextCare} data={temporaryData} />
-          <BackdropFormComponent modalState={modalState} />
-        </Container>
-      </BottomModalProvider>
+      <Container>
+        <HeaderComponent
+          style={spacing.header}
+          toggleModal={(state) =>
+            this.myGardenViewModel.handleModalState(state)
+          }
+        />
+        <NextCareComponent style={spacing.nextCare} data={temporaryData} />
+        <BackdropFormComponent
+          modalState={modalState}
+          onClose={(closeState) =>
+            this.myGardenViewModel.handleModalState(closeState)
+          }
+        />
+      </Container>
     );
   }
 }

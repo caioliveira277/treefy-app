@@ -12,7 +12,7 @@ import { useTheme } from 'styled-components';
 
 export interface HeaderComponentProps {
   style?: StyleProp<ViewStyle>;
-  toggleModal: (state: ModalState) => void;
+  toggleModal: (openState: ModalState) => void;
 }
 
 export const HeaderComponent: React.FC<HeaderComponentProps> = ({
