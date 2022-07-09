@@ -5,6 +5,7 @@ export const Container = styled.View`
   align-items: center;
   justify-content: space-between;
   padding: 0px 20px;
+  z-index: -1;
 `;
 
 export const ContainerTitleIcon = styled.View`

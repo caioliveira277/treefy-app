@@ -7,6 +7,7 @@ exports[`TextInputComponent Should match with a snapshot 1`] = `
       Object {
         "width": "100%",
       },
+      Object {},
     ]
   }
 >
@@ -88,6 +89,7 @@ exports[`TextInputComponent Should match with a snapshot 1`] = `
           "position": "relative",
           "width": "100%",
         },
+        Object {},
       ]
     }
     theme={
@@ -140,6 +142,7 @@ exports[`TextInputComponent Should match with a snapshot 1`] = `
     }
   >
     <Image
+      iconSize={24}
       resizeMode="center"
       source={1}
       style={
@@ -149,12 +152,15 @@ exports[`TextInputComponent Should match with a snapshot 1`] = `
             "position": "absolute",
             "width": 24,
           },
+          Object {},
         ]
       }
       testID="genericIcon"
     />
     <TextInput
       allowFontScaling={true}
+      keyboardType="default"
+      multiline={false}
       onChangeText={[Function]}
       placeholder="anyPlaceholder"
       placeholderTextColor="#C6C6C6"
@@ -170,6 +176,7 @@ exports[`TextInputComponent Should match with a snapshot 1`] = `
             "paddingRight": 42,
             "width": "100%",
           },
+          Object {},
         ]
       }
       testID="input"

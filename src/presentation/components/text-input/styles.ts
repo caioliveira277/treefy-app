@@ -1,3 +1,4 @@
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -22,15 +23,14 @@ export const ContainerInput = styled.View`
   position: relative;
 `;
 
-const iconSize = '24px';
-export const GenericIcon = styled.Image`
-  width: ${iconSize};
+export const GenericIcon = styled.Image<{ iconSize: number }>`
+  width: ${({ iconSize }) => `${iconSize}px`};
   position: absolute;
   left: 10px;
 `;
 
-export const PasswordIcon = styled.Image`
-  width: ${iconSize};
+export const PasswordIcon = styled.Image<{ iconSize: number }>`
+  width: ${({ iconSize }) => `${iconSize}px`};
 `;
 
 export const VisibilityPasswordButton = styled.TouchableOpacity`
@@ -50,3 +50,16 @@ export const Input = styled.TextInput`
   font-family: ${({ theme }) => theme.fonts.families.regular};
   color: ${({ theme }) => theme.colors.secondary};
 `;
+
+export const textareaStyles = StyleSheet.create({
+  input: {
+    textAlignVertical: 'top',
+    paddingTop: 10,
+  },
+  icon: {
+    top: 5,
+  },
+  container: {
+    alignItems: undefined,
+  },
+});

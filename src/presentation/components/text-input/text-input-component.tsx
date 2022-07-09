@@ -1,6 +1,6 @@
 import { getIcon, IconName } from '@/presentation/utils';
 import { useState } from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import { KeyboardType, StyleProp, ViewStyle } from 'react-native';
 import { useTheme } from 'styled-components';
 import {
   Container,
@@ -10,15 +10,19 @@ import {
   GenericIcon,
   PasswordIcon,
   VisibilityPasswordButton,
+  textareaStyles,
 } from './styles';
 
 export interface TextInputComponentProps {
   iconName: IconName;
-  label: string;
+  iconSize?: number;
+  label?: React.ReactNode | string;
   placeholderText?: string;
-  type?: 'text' | 'password';
+  type?: 'text' | 'password' | 'textarea';
   style?: StyleProp<ViewStyle>;
+  styleInput?: StyleProp<ViewStyle>;
   value?: string;
+  keyboardType?: KeyboardType;
   onChangeText?: (value: string) => void;
 }
 
@@ -26,8 +30,11 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
   iconName,
   label,
   placeholderText,
+  iconSize = 24,
   type = 'text',
-  style,
+  style = {},
+  styleInput = {},
+  keyboardType = 'default',
   value,
   onChangeText,
 }) => {
@@ -35,17 +42,26 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   const handlePasswordVisible = () => setPasswordVisible(!passwordVisible);
+  const isTextarea = () => type === 'textarea';
 
   return (
     <Container style={style}>
-      <Label testID="label" theme={theme}>
-        {label}
-      </Label>
-      <ContainerInput theme={theme}>
+      {label ? (
+        <Label testID="label" theme={theme}>
+          {label}
+        </Label>
+      ) : null}
+
+      <ContainerInput
+        theme={theme}
+        style={isTextarea() ? textareaStyles.container : {}}
+      >
         <GenericIcon
+          iconSize={iconSize}
           testID="genericIcon"
           source={getIcon(iconName)}
           resizeMode="center"
+          style={isTextarea() ? textareaStyles.icon : {}}
         />
         <Input
           testID="input"
@@ -55,6 +71,13 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
           placeholderTextColor={theme.colors.placeholder}
           value={value}
           onChangeText={onChangeText}
+          multiline={isTextarea()}
+          numberOfLines={isTextarea() ? 6 : undefined}
+          keyboardType={keyboardType}
+          style={{
+            ...(isTextarea() ? textareaStyles.input : {}),
+            ...(styleInput as Object),
+          }}
         />
         {type === 'password' ? (
           <VisibilityPasswordButton
@@ -62,6 +85,7 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
             onPress={handlePasswordVisible}
           >
             <PasswordIcon
+              iconSize={iconSize}
               source={
                 passwordVisible ? getIcon('eye-open') : getIcon('eye-close')
               }
