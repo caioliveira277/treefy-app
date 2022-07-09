@@ -1,6 +1,6 @@
 import { getIcon, IconName } from '@/presentation/utils';
 import { useState } from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import { KeyboardType, StyleProp, ViewStyle } from 'react-native';
 import { useTheme } from 'styled-components';
 import {
   Container,
@@ -16,11 +16,13 @@ import {
 export interface TextInputComponentProps {
   iconName: IconName;
   iconSize?: number;
-  label: React.ReactNode | string;
+  label?: React.ReactNode | string;
   placeholderText?: string;
   type?: 'text' | 'password' | 'textarea';
   style?: StyleProp<ViewStyle>;
+  styleInput?: StyleProp<ViewStyle>;
   value?: string;
+  keyboardType?: KeyboardType;
   onChangeText?: (value: string) => void;
 }
 
@@ -30,7 +32,9 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
   placeholderText,
   iconSize = 24,
   type = 'text',
-  style,
+  style = {},
+  styleInput = {},
+  keyboardType = 'default',
   value,
   onChangeText,
 }) => {
@@ -42,9 +46,12 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
 
   return (
     <Container style={style}>
-      <Label testID="label" theme={theme}>
-        {label}
-      </Label>
+      {label ? (
+        <Label testID="label" theme={theme}>
+          {label}
+        </Label>
+      ) : null}
+
       <ContainerInput
         theme={theme}
         style={isTextarea() ? textareaStyles.container : {}}
@@ -66,7 +73,11 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
           onChangeText={onChangeText}
           multiline={isTextarea()}
           numberOfLines={isTextarea() ? 6 : undefined}
-          style={isTextarea() ? textareaStyles.input : {}}
+          keyboardType={keyboardType}
+          style={{
+            ...(isTextarea() ? textareaStyles.input : {}),
+            ...(styleInput as Object),
+          }}
         />
         {type === 'password' ? (
           <VisibilityPasswordButton
