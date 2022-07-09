@@ -7,6 +7,7 @@ exports[`TextInputComponent Should match with a snapshot 1`] = `
       Object {
         "width": "100%",
       },
+      Object {},
     ]
   }
 >
@@ -158,6 +159,7 @@ exports[`TextInputComponent Should match with a snapshot 1`] = `
     />
     <TextInput
       allowFontScaling={true}
+      keyboardType="default"
       multiline={false}
       onChangeText={[Function]}
       placeholder="anyPlaceholder"
