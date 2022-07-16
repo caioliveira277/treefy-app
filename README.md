@@ -1,4 +1,4 @@
-# Treefy 🌱
+# Treefy - APP 🌱
 ## The plant app ***Fatec - SR TCC***
 
 <br>
@@ -71,4 +71,5 @@ The scripts below run jest tests.
 [<ins>React navigation docs</ins>](https://reactnavigation.org/)
 
 ---
-
+## License
+This project is licensed under the [APACHE 2.0] license - see the LICENSE file for details
