@@ -6,11 +6,14 @@ import {
   validateCompleteName,
 } from '@/validations/validations';
 import { Alert } from 'react-native';
+import { Signup } from '@/domain/usecases';
 
 export class SignupViewModelImpl
   extends BaseViewModelImpl
   implements SignupViewModel
 {
+  public signup: Signup;
+
   public completeNameValue: string;
 
   public emailValue: string;
@@ -19,8 +22,9 @@ export class SignupViewModelImpl
 
   public confirmPasswordValue: string;
 
-  constructor() {
+  constructor(signup: Signup) {
     super();
+    this.signup = signup;
     this.completeNameValue = '';
     this.emailValue = '';
     this.passwordValue = '';
@@ -47,20 +51,31 @@ export class SignupViewModelImpl
     this.notifyViewAboutChanges();
   }
 
-  public handleSubmit(): void {
-    const completeNameValid = validateCompleteName(this.completeNameValue);
-    const emailValid = validateEmail(this.emailValue);
-    const passwordValid = validateStrongPassword(this.passwordValue);
-    const confirmPasswordValid =
+  public async handleSubmit(): Promise<void> {
+    const validCompleteName = validateCompleteName(this.completeNameValue);
+    const validEmail = validateEmail(this.emailValue);
+    const validPassword = validateStrongPassword(this.passwordValue);
+    const validConfirmPassword =
       this.passwordValue === this.confirmPasswordValue;
-
     if (
-      !completeNameValid ||
-      !emailValid ||
-      !passwordValid ||
-      !confirmPasswordValid
+      !validCompleteName ||
+      !validEmail ||
+      !validPassword ||
+      !validConfirmPassword
     ) {
       Alert.alert('Ops!', 'Invalid fields');
+    } else {
+      if (
+        await this.signup.signup({
+          email: this.emailValue,
+          password: this.passwordValue,
+          name: this.completeNameValue,
+        })
+      ) {
+        Alert.alert('Success!', 'Registered successfully');
+      } else {
+        Alert.alert('Error!', 'failed to register');
+      }
     }
   }
 }

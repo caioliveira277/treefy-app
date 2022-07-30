@@ -1,4 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { RemoteSignup } from '@/data/usecases';
+import { AWSCognitoIdentityProvider } from '@/infra/aws';
 import {
   AuthenticationView,
   AccessView,
@@ -25,7 +27,9 @@ export const PublicRoutes: React.FC = () => {
   const accessViewModel = new AccessViewModelImpl();
   const emailConfirmationViewModel = new EmailConfirmationViewModelImpl();
   const changePasswordViewModel = new ChangePasswordViewModelImpl();
-  const signupViewModel = new SignupViewModelImpl();
+  const signupViewModel = new SignupViewModelImpl(
+    new RemoteSignup(AWSCognitoIdentityProvider)
+  );
   const introductionViewModel = new IntroductionViewModelImpl();
   const codeConfirmationViewModel = new CodeConfirmationViewModelImpl();
   return (
