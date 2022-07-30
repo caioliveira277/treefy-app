@@ -6,6 +6,7 @@ import {
   validateCompleteName,
 } from '@/validations/validations';
 import { Alert } from 'react-native';
+import { Auth } from 'aws-amplify';
 
 export class SignupViewModelImpl
   extends BaseViewModelImpl
@@ -47,20 +48,27 @@ export class SignupViewModelImpl
     this.notifyViewAboutChanges();
   }
 
-  public handleSubmit(): void {
-    const completeNameValid = validateCompleteName(this.completeNameValue);
-    const emailValid = validateEmail(this.emailValue);
-    const passwordValid = validateStrongPassword(this.passwordValue);
-    const confirmPasswordValid =
+  public async handleSubmit(): Promise<void> {
+    const validCompleteName = validateCompleteName(this.completeNameValue);
+    const validEmail = validateEmail(this.emailValue);
+    const validPassword = validateStrongPassword(this.passwordValue);
+    const validConfirmPassword =
       this.passwordValue === this.confirmPasswordValue;
-
     if (
-      !completeNameValid ||
-      !emailValid ||
-      !passwordValid ||
-      !confirmPasswordValid
+      !validCompleteName ||
+      !validEmail ||
+      !validPassword ||
+      !validConfirmPassword
     ) {
       Alert.alert('Ops!', 'Invalid fields');
+    } else {
+      await Auth.signUp({
+        username: this.emailValue,
+        password: this.passwordValue,
+        attributes: {
+          name: this.completeNameValue,
+        },
+      });
     }
   }
 }
