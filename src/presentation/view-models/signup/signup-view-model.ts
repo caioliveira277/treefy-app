@@ -1,6 +1,9 @@
 import { BaseViewModel } from '../base-view-model';
+import { Signup } from '@/domain/usecases';
 
 export interface SignupViewModel extends BaseViewModel {
+  signup: Signup;
+
   completeNameValue: string;
 
   emailValue: string;

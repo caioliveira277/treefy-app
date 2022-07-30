@@ -4,13 +4,16 @@ import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
 import { currentTheme } from '@/presentation/themes';
 import { Router } from '@/presentation/routes/routes';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { AWSCognitoIdentityProvider } from '@/infra/aws';
 import {
   useFonts,
   RobotoSlab_400Regular,
   RobotoSlab_500Medium,
   RobotoSlab_700Bold,
 } from '@expo-google-fonts/roboto-slab';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+AWSCognitoIdentityProvider.configure();
 
 function App() {
   const [fontsLoaded] = useFonts({
