@@ -1,5 +1,3 @@
-// import { AccountModel } from '@/domain/models/account-model';
-
 export type SignupParams = {
   email: string;
   password: string;
