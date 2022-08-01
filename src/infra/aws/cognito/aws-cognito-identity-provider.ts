@@ -1,8 +1,8 @@
-import {
-  IdentityProvider,
-  SignupIdentityProviderParams,
-} from '@/data/protocols/identity';
+import { IdentityProvider } from '@/data/protocols/identity';
+import { AccountModel } from '@/domain/models';
+import { AuthenticationParams, SignupParams } from '@/domain/usecases';
 import { Amplify, Auth } from 'aws-amplify';
+import { CognitoUser } from 'amazon-cognito-identity-js';
 
 class AWSCognitoIdentityProviderClass implements IdentityProvider {
   configure(): void {
@@ -15,7 +15,7 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
     });
   }
 
-  async signup(params: SignupIdentityProviderParams): Promise<boolean> {
+  async signup(params: SignupParams): Promise<boolean> {
     try {
       await Auth.signUp({
         username: params.email,
@@ -28,6 +28,21 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
     } catch (_error) {
       return false;
     }
+  }
+
+  async signin(params: AuthenticationParams): Promise<AccountModel> {
+    const auth = (await Auth.signIn(
+      params.email,
+      params.password
+    )) as CognitoUser;
+    const currentUser = auth.getSignInUserSession()?.getIdToken().payload;
+
+    return {
+      clientId: currentUser!['cognito:username'],
+      email: currentUser?.email,
+      name: currentUser?.name,
+      accessToken: auth.getSignInUserSession()?.getAccessToken().getJwtToken(),
+    };
   }
 }
 export const AWSCognitoIdentityProvider = new AWSCognitoIdentityProviderClass();

@@ -1,10 +1,8 @@
-export type SignupIdentityProviderParams = {
-  email: string;
-  password: string;
-  name: string;
-};
+import { AccountModel } from '@/domain/models';
+import { AuthenticationParams, SignupParams } from '@/domain/usecases';
 
 export interface IdentityProvider {
   configure(): void;
-  signup(params: SignupIdentityProviderParams): Promise<boolean>;
+  signup(params: SignupParams): Promise<boolean>;
+  signin(params: AuthenticationParams): Promise<AccountModel>;
 }
