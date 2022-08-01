@@ -3,6 +3,15 @@ name: Treefy - CI/CD Publish
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_OPTIONS: '--max_old_space_size=8192'
+  REGION: ${{ secrets.REGION }}
+  USERPOOLID: ${{ secrets.USERPOOLID }}
+  IDENTITYPOOLID: ${{ secrets.IDENTITYPOOLID }}
+  USERPOOLWEBCLIENTID: ${{ secrets.USERPOOLWEBCLIENTID }}
 
 jobs:
   Publish:
