@@ -4,49 +4,63 @@ import {
 } from '@/validations/validations';
 import { AuthenticationViewModel } from './authentication-view-model';
 import { BaseViewModelImpl } from '../base-view-model-impl';
+import { Authentication } from '@/domain/usecases';
+import { Alert } from 'react-native';
 
 export class AuthenticationViewModelImpl
   extends BaseViewModelImpl
   implements AuthenticationViewModel
 {
-  public emailValue: string;
+  authentication: Authentication;
 
-  public passwordValue: string;
+  emailValue: string;
 
-  public constructor() {
+  passwordValue: string;
+
+  constructor(authentication: Authentication) {
     super();
     this.emailValue = '';
     this.passwordValue = '';
+    this.authentication = authentication;
   }
 
-  public handleEmailInputChange(value: string): void {
+  handleEmailInputChange(value: string): void {
     this.emailValue = value;
     this.notifyViewAboutChanges();
   }
 
-  public handlePasswordInputChange(value: string): void {
+  handlePasswordInputChange(value: string): void {
     this.passwordValue = value;
     this.notifyViewAboutChanges();
   }
 
-  public handleMoveToEmailConfirmation(): void {
+  handleMoveToEmailConfirmation(): void {
     this.baseView?.props.navigation.navigate('Public', {
       screen: 'EmailConfirmation',
     });
   }
 
-  public handleSubmit(): void {
+  async handleSubmit(): Promise<void> {
     const emailValid = validateEmail(this.emailValue);
     const passwordValid = validateStrongPassword(this.passwordValue);
 
     if (!emailValid || !passwordValid) {
-      // TODO: add validation
+      Alert.alert('Ops!', 'Invalid fields');
+    } else {
+      const auth = await this.authentication.auth({
+        email: this.emailValue,
+        password: this.passwordValue,
+      });
+      if (auth.clientId) {
+        this.baseView?.props.navigation.navigate('Main', {
+          screen: 'HomeGroup',
+          params: {
+            screen: 'Home',
+          },
+        });
+      } else {
+        Alert.alert('Authentication failed');
+      }
     }
-    this.baseView?.props.navigation.navigate('Main', {
-      screen: 'HomeGroup',
-      props: {
-        screen: 'Home',
-      },
-    });
   }
 }
