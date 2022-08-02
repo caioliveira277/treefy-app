@@ -1,4 +1,4 @@
-import { Signup, SignupParams } from '@/domain/usecases/signup';
+import { Signup, SignupParams } from '@/domain/usecases';
 import { IdentityProvider } from '@/data/protocols/identity';
 
 export class RemoteSignup implements Signup {
@@ -8,8 +8,8 @@ export class RemoteSignup implements Signup {
     this.identityProvider = identityProvider;
   }
 
-  public async signup(parms: SignupParams): Promise<boolean> {
-    const response = await this.identityProvider.signup(parms);
+  public async signup(params: SignupParams): Promise<boolean> {
+    const response = await this.identityProvider.signup(params);
     return response;
   }
 }
