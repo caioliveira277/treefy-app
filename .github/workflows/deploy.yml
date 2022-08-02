@@ -4,6 +4,13 @@ on:
   push:
     branches: [main]
 
+env:
+  NODE_OPTIONS: '--max_old_space_size=8192'
+  REGION: ${{ secrets.REGION }}
+  USERPOOLID: ${{ secrets.USERPOOLID }}
+  IDENTITYPOOLID: ${{ secrets.IDENTITYPOOLID }}
+  USERPOOLWEBCLIENTID: ${{ secrets.USERPOOLWEBCLIENTID }}
+
 jobs:
   Publish:
     runs-on: ubuntu-latest
