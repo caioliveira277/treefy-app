@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="beeDJHBER2gLGEk_ROQv" name="architecture">
-        <mxGraphModel dx="524" dy="328" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="524" dy="492" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -20,7 +20,7 @@
                     <mxGeometry x="555" y="130" width="40" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="11" value="" style="whiteSpace=wrap;html=1;rounded=0;sketch=1;fillColor=#d80073;strokeColor=#A50040;fontColor=#FFFFFF;labelBorderColor=none;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="275" y="250" width="320" height="140" as="geometry"/>
+                    <mxGeometry x="275" y="250" width="320" height="150" as="geometry"/>
                 </mxCell>
                 <mxCell id="12" value="Data" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#A50040;fillColor=#d80073;fontColor=#FFFFFF;sketch=1;labelBorderColor=none;labelBackgroundColor=default;" parent="1" vertex="1">
                     <mxGeometry x="555" y="230" width="40" height="20" as="geometry"/>
@@ -50,10 +50,10 @@
                     <mxGeometry x="205" y="90" width="40" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="20" value="" style="whiteSpace=wrap;html=1;rounded=0;sketch=1;fillColor=#60a917;strokeColor=#2D7600;fontColor=#FFFFFF;labelBorderColor=none;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="425" y="430" width="340" height="150" as="geometry"/>
+                    <mxGeometry x="425" y="600" width="340" height="150" as="geometry"/>
                 </mxCell>
                 <mxCell id="21" value="Presentation" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#2D7600;fillColor=#60a917;fontColor=#FFFFFF;sketch=1;labelBorderColor=none;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="685" y="410" width="80" height="20" as="geometry"/>
+                    <mxGeometry x="685" y="580" width="80" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="31" style="edgeStyle=none;sketch=1;html=1;fontColor=#FFFFFF;labelBorderColor=none;labelBackgroundColor=default;" parent="1" source="22" target="24" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -61,45 +61,46 @@
                 <mxCell id="32" style="edgeStyle=none;sketch=1;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;fontColor=#FFFFFF;labelBorderColor=none;labelBackgroundColor=default;" parent="1" source="22" target="4" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="534" y="410"/>
-                            <mxPoint x="605" y="410"/>
-                            <mxPoint x="605" y="230"/>
+                            <mxPoint x="534" y="490"/>
+                            <mxPoint x="620" y="490"/>
+                            <mxPoint x="620" y="410"/>
+                            <mxPoint x="620" y="230"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="22" value="Authentication" style="whiteSpace=wrap;html=1;rounded=0;sketch=1;fontColor=#FFFFFF;labelBorderColor=none;labelBackgroundColor=default;fontStyle=1" parent="1" vertex="1">
-                    <mxGeometry x="465" y="441" width="138" height="44" as="geometry"/>
+                    <mxGeometry x="465" y="611" width="138" height="44" as="geometry"/>
                 </mxCell>
                 <mxCell id="24" value="Validation" style="whiteSpace=wrap;html=1;rounded=1;sketch=1;dashed=1;fontColor=#FFFFFF;labelBorderColor=none;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="624" y="485" width="95" height="40" as="geometry"/>
+                    <mxGeometry x="624" y="655" width="95" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="30" style="edgeStyle=none;sketch=1;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#FFFFFF;exitX=0.5;exitY=0;exitDx=0;exitDy=0;labelBorderColor=none;labelBackgroundColor=default;" parent="1" source="27" target="24" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="242" y="400"/>
-                            <mxPoint x="672" y="400"/>
+                            <mxPoint x="242" y="570"/>
+                            <mxPoint x="672" y="570"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="25" value="" style="whiteSpace=wrap;html=1;rounded=0;sketch=1;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#FFFFFF;labelBorderColor=none;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="85" y="430" width="313" height="150" as="geometry"/>
+                    <mxGeometry x="85" y="600" width="313" height="150" as="geometry"/>
                 </mxCell>
                 <mxCell id="26" value="Validation" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#006EAF;fillColor=#1ba1e2;fontColor=#FFFFFF;sketch=1;labelBorderColor=none;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="323" y="410" width="70" height="20" as="geometry"/>
+                    <mxGeometry x="323" y="580" width="70" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="27" value="EmailValidation" style="whiteSpace=wrap;html=1;rounded=0;sketch=1;fontColor=#FFFFFF;labelBorderColor=none;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="172.5" y="450" width="138" height="44" as="geometry"/>
+                    <mxGeometry x="172.5" y="620" width="138" height="44" as="geometry"/>
                 </mxCell>
                 <mxCell id="29" style="edgeStyle=none;sketch=1;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontColor=#FFFFFF;labelBorderColor=none;labelBackgroundColor=default;" parent="1" source="28" target="24" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="242" y="610"/>
-                            <mxPoint x="672" y="610"/>
+                            <mxPoint x="242" y="780"/>
+                            <mxPoint x="672" y="780"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="28" value="PasswordValidation" style="whiteSpace=wrap;html=1;rounded=0;sketch=1;fontColor=#FFFFFF;labelBorderColor=none;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="172.5" y="510" width="138" height="44" as="geometry"/>
+                    <mxGeometry x="172.5" y="680" width="138" height="44" as="geometry"/>
                 </mxCell>
                 <mxCell id="34" value="App" style="whiteSpace=wrap;html=1;rounded=0;sketch=1;fontColor=#FFFFFF;labelBorderColor=none;labelBackgroundColor=default;" parent="1" vertex="1">
                     <mxGeometry x="96" y="200" width="138" height="44" as="geometry"/>
@@ -143,11 +144,11 @@
                 <mxCell id="41" value="AWSCognito" style="whiteSpace=wrap;html=1;rounded=0;sketch=1;fillColor=#647687;strokeColor=#314354;fontColor=#FFFFFF;labelBorderColor=none;shadow=0;labelBackgroundColor=default;" parent="1" vertex="1">
                     <mxGeometry x="387" y="58" width="76" height="44" as="geometry"/>
                 </mxCell>
-                <mxCell id="45" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;sketch=1;" edge="1" parent="1" source="44" target="24">
+                <mxCell id="45" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;sketch=1;" parent="1" source="44" target="24" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="44" value="Signup" style="whiteSpace=wrap;html=1;rounded=0;sketch=1;fontColor=#FFFFFF;labelBorderColor=none;labelBackgroundColor=default;fontStyle=1" vertex="1" parent="1">
-                    <mxGeometry x="465" y="510" width="138" height="44" as="geometry"/>
+                <mxCell id="44" value="Signup" style="whiteSpace=wrap;html=1;rounded=0;sketch=1;fontColor=#FFFFFF;labelBorderColor=none;labelBackgroundColor=default;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="465" y="680" width="138" height="44" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
