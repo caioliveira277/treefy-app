@@ -33,7 +33,10 @@ export const PublicRoutes: React.FC = () => {
     new RemoteSignup(AWSCognitoIdentityProvider)
   );
   const introductionViewModel = new IntroductionViewModelImpl();
-  const codeConfirmationViewModel = new CodeConfirmationViewModelImpl();
+  const codeConfirmationViewModel = new CodeConfirmationViewModelImpl(
+    new RemoteSignup(AWSCognitoIdentityProvider),
+    new RemoteAuthentication(AWSCognitoIdentityProvider)
+  );
   return (
     <Stack.Navigator
       initialRouteName="Introduction"

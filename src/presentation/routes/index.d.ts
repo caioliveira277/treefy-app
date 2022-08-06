@@ -1,3 +1,5 @@
+import type { NavigatorScreenParams } from '@react-navigation/native';
+
 type PublicRoutesParamsList = {
   Introduction: undefined;
   Access: undefined;
@@ -5,7 +7,11 @@ type PublicRoutesParamsList = {
   EmailConfirmation: undefined;
   ChangePassword: undefined;
   Signup: undefined;
-  CodeConfirmation: undefined;
+  CodeConfirmation: {
+    email: string;
+    password?: string;
+    flow: 'Signup';
+  };
 };
 
 type MainSubRoutes = {
@@ -25,16 +31,15 @@ type MainRoutesParamsList = MainSubRoutes & {
   MyGarden: undefined;
 };
 
-type StackParamList = PublicRoutesParamsList &
-  MainRoutesParamsList & {
-    Public: { screen: keyof PublicRoutesParamsList };
-    Main: {
-      screen: keyof MainRoutesParamsList;
-      params?: { screen: keyof MainSubRoutes };
-    };
-  };
-
 declare global {
+  type StackParamList = PublicRoutesParamsList &
+    MainRoutesParamsList & {
+      Public: NavigatorScreenParams<PublicRoutesParamsList>;
+      Main: {
+        screen: keyof MainRoutesParamsList;
+        params?: { screen: keyof MainSubRoutes };
+      };
+    };
   namespace ReactNavigation {
     interface RootParamList extends StackParamList {}
   }
