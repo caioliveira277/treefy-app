@@ -8,6 +8,8 @@ import {
 import { Alert } from 'react-native';
 import { Signup } from '@/domain/usecases';
 
+import { TempUser } from '@/temp/user';
+
 export class SignupViewModelImpl
   extends BaseViewModelImpl
   implements SignupViewModel
@@ -25,10 +27,10 @@ export class SignupViewModelImpl
   constructor(signup: Signup) {
     super();
     this.signup = signup;
-    this.completeNameValue = '';
+    this.completeNameValue = TempUser.completeName;
     this.emailValue = '';
-    this.passwordValue = '';
-    this.confirmPasswordValue = '';
+    this.passwordValue = TempUser.password;
+    this.confirmPasswordValue = TempUser.password;
   }
 
   handleCompleteNameInputChange(value: string): void {
@@ -63,19 +65,26 @@ export class SignupViewModelImpl
       !validPassword ||
       !validConfirmPassword
     ) {
-      Alert.alert('Ops!', 'Invalid fields');
-    } else {
-      if (
-        await this.signup.signup({
+      return Alert.alert('Ops!', 'Invalid fields');
+    }
+
+    const signup = await this.signup.signup({
+      email: this.emailValue,
+      password: this.passwordValue,
+      name: this.completeNameValue,
+    });
+
+    if (signup) {
+      this.baseView?.props.navigation.navigate('Public', {
+        screen: 'CodeConfirmation',
+        params: {
           email: this.emailValue,
           password: this.passwordValue,
-          name: this.completeNameValue,
-        })
-      ) {
-        Alert.alert('Success!', 'Registered successfully');
-      } else {
-        Alert.alert('Error!', 'failed to register');
-      }
+          flow: 'Signup',
+        },
+      });
+    } else {
+      Alert.alert('Error!', 'failed to register');
     }
   }
 }
