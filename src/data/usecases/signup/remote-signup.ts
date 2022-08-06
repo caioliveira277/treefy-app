@@ -1,4 +1,9 @@
-import { Signup, SignupParams } from '@/domain/usecases';
+import {
+  ConfirmByCodeParms,
+  SendConfirmationCodeParams,
+  Signup,
+  SignupParams,
+} from '@/domain/usecases';
 import { IdentityProvider } from '@/data/protocols/identity';
 
 export class RemoteSignup implements Signup {
@@ -10,6 +15,18 @@ export class RemoteSignup implements Signup {
 
   public async signup(params: SignupParams): Promise<boolean> {
     const response = await this.identityProvider.signup(params);
+    return response;
+  }
+
+  public async sendConfirmationCode(
+    params: SendConfirmationCodeParams
+  ): Promise<boolean> {
+    const response = await this.identityProvider.sendConfirmationCode(params);
+    return response;
+  }
+
+  public async confirmByCode(params: ConfirmByCodeParms): Promise<boolean> {
+    const response = await this.identityProvider.confirmSignup(params);
     return response;
   }
 }
