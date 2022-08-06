@@ -1,4 +1,4 @@
 export enum ModalState {
-  close = false,
-  open = true,
+  close = 0,
+  open = 1,
 }
