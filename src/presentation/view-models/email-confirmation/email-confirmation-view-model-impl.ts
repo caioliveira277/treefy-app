@@ -27,6 +27,10 @@ export class EmailConfirmationViewModelImpl
     } else {
       this.baseView?.props.navigation.navigate('Public', {
         screen: 'CodeConfirmation',
+        params: {
+          email: this.emailValue,
+          flow: 'ForgotPassword',
+        },
       });
     }
   }

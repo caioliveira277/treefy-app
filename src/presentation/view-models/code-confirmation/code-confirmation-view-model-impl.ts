@@ -53,6 +53,19 @@ export class CodeConfirmationViewModelImpl
           screen: 'Home',
         });
         break;
+
+      case 'ForgotPassword':
+        await this.authentication.sendCodeToChangePassword({
+          email: params.email,
+        });
+        this.baseView?.props.navigation.navigate('Public', {
+          screen: 'ChangePassword',
+          params: {
+            email: params.email,
+            code: this.codeValue,
+          },
+        });
+        break;
     }
   }
 }
