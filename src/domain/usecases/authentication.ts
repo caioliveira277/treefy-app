@@ -5,6 +5,20 @@ export type AuthenticationParams = {
   password: string;
 };
 
+export type SendCodeToChangePasswordParams = {
+  email: string;
+};
+
+export type ChangePasswordParams = {
+  email: string;
+  newPassword: string;
+  code: string;
+};
+
 export interface Authentication {
   auth(params: AuthenticationParams): Promise<AccountModel>;
+  sendCodeToChangePassword(
+    params: SendCodeToChangePasswordParams
+  ): Promise<boolean>;
+  changePassword(params: ChangePasswordParams): Promise<boolean>;
 }
