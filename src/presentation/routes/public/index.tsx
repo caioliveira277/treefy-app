@@ -19,12 +19,16 @@ import {
   IntroductionViewModelImpl,
   CodeConfirmationViewModelImpl,
 } from '@/presentation/view-models';
+import { CompositeValidator, BuilderValidator } from '@/validations/validators';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export const PublicRoutes: React.FC = () => {
   const authenticationViewModel = new AuthenticationViewModelImpl(
-    new RemoteAuthentication(AWSCognitoIdentityProvider)
+    new RemoteAuthentication(AWSCognitoIdentityProvider),
+    CompositeValidator.build([
+      ...BuilderValidator.field('email').required().email().build(),
+    ])
   );
   const accessViewModel = new AccessViewModelImpl();
   const emailConfirmationViewModel = new EmailConfirmationViewModelImpl(

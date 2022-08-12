@@ -1,36 +1,36 @@
-import {
-  validateEmail,
-  validateStrongPassword,
-} from '@/validations/validations';
 import { AuthenticationViewModel } from './authentication-view-model';
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { Authentication } from '@/domain/usecases';
 import { Alert } from 'react-native';
+import { Validation } from '@/presentation/protocols/validation';
 
 export class AuthenticationViewModelImpl
   extends BaseViewModelImpl
   implements AuthenticationViewModel
 {
+  public readonly validation: Validation;
+
   public readonly authentication: Authentication;
 
-  public emailValue: string;
+  public formErrors = { email: '', password: '' };
 
-  public passwordValue: string;
+  public form = { email: '', password: '' };
 
-  constructor(authentication: Authentication) {
+  constructor(authentication: Authentication, validation: Validation) {
     super();
-    this.emailValue = '';
-    this.passwordValue = '';
     this.authentication = authentication;
+    this.validation = validation;
   }
 
   public handleEmailInputChange(value: string): void {
-    this.emailValue = value;
+    this.form.email = value;
+    this.formErrors.email = this.validation.validate('email', this.form);
     this.notifyViewAboutChanges();
   }
 
   public handlePasswordInputChange(value: string): void {
-    this.passwordValue = value;
+    this.form.password = value;
+    this.formErrors.password = this.validation.validate('password', this.form);
     this.notifyViewAboutChanges();
   }
 
@@ -41,26 +41,30 @@ export class AuthenticationViewModelImpl
   }
 
   public async handleSubmit(): Promise<void> {
-    const emailValid = validateEmail(this.emailValue);
-    const passwordValid = validateStrongPassword(this.passwordValue);
+    const validation = this.validation.validateAll(
+      ['email', 'password'],
+      this.form
+    );
 
-    if (!emailValid || !passwordValid) {
-      Alert.alert('Ops!', 'Invalid fields');
-    } else {
-      const auth = await this.authentication.auth({
-        email: this.emailValue,
-        password: this.passwordValue,
+    if (validation.hasError) {
+      this.formErrors =
+        validation.errors as AuthenticationViewModel['formErrors'];
+      this.notifyViewAboutChanges();
+    }
+
+    const auth = await this.authentication.auth({
+      email: this.form.email,
+      password: this.form.password,
+    });
+    if (auth.clientId) {
+      this.baseView?.props.navigation.navigate('Main', {
+        screen: 'HomeGroup',
+        params: {
+          screen: 'Home',
+        },
       });
-      if (auth.clientId) {
-        this.baseView?.props.navigation.navigate('Main', {
-          screen: 'HomeGroup',
-          params: {
-            screen: 'Home',
-          },
-        });
-      } else {
-        Alert.alert('Authentication failed');
-      }
+    } else {
+      Alert.alert('Authentication failed');
     }
   }
 }
