@@ -2,7 +2,9 @@ import { IdentityProvider } from '@/data/protocols/identity';
 import { AccountModel } from '@/domain/models';
 import {
   AuthenticationParams,
+  ChangePasswordParams,
   ConfirmByCodeParms,
+  SendCodeToChangePasswordParams,
   SendConfirmationCodeParams,
   SignupParams,
 } from '@/domain/usecases';
@@ -59,6 +61,24 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
 
   public async confirmSignup(params: ConfirmByCodeParms): Promise<boolean> {
     await Auth.confirmSignUp(params.email, params.code);
+    return true;
+  }
+
+  public async forgotPassword(
+    params: SendCodeToChangePasswordParams
+  ): Promise<boolean> {
+    await Auth.forgotPassword(params.email);
+    return true;
+  }
+
+  public async forgotPasswordSubmit(
+    params: ChangePasswordParams
+  ): Promise<boolean> {
+    await Auth.forgotPasswordSubmit(
+      params.email,
+      params.code,
+      params.newPassword
+    );
     return true;
   }
 }

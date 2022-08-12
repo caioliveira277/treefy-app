@@ -2,19 +2,23 @@ import { validateStrongPassword } from '@/validations/validations';
 import { Alert } from 'react-native';
 import { ChangePasswordViewModel } from './change-password-view-model';
 import { BaseViewModelImpl } from '../base-view-model-impl';
+import { Authentication } from '@/domain/usecases';
 
 export class ChangePasswordViewModelImpl
   extends BaseViewModelImpl
   implements ChangePasswordViewModel
 {
-  passwordValue: string;
+  public authentication: Authentication;
 
-  confirmPasswordValue: string;
+  public passwordValue: string;
 
-  constructor() {
+  public confirmPasswordValue: string;
+
+  constructor(authentication: Authentication) {
     super();
     this.passwordValue = '';
     this.confirmPasswordValue = '';
+    this.authentication = authentication;
   }
 
   public handlePasswordInputChange(value: string): void {
@@ -27,13 +31,22 @@ export class ChangePasswordViewModelImpl
     this.notifyViewAboutChanges();
   }
 
-  handleSubmit(): void {
+  public async handleSubmit(): Promise<void> {
     const passwordValid = validateStrongPassword(this.passwordValue);
+    const params = this.baseView?.props.route
+      .params as StackParamList['ChangePassword'];
 
     if (!(this.passwordValue === this.confirmPasswordValue) || !passwordValid) {
       Alert.alert('Ops!', 'Invalid fields');
     } else {
-      this.baseView?.props.navigation.navigate('Public', { screen: 'Access' });
+      await this.authentication.changePassword({
+        email: params.email,
+        newPassword: this.passwordValue,
+        code: params.code,
+      });
+      this.baseView?.props.navigation.navigate('Public', {
+        screen: 'Authentication',
+      });
     }
   }
 }

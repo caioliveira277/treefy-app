@@ -35,15 +35,15 @@ export class CodeConfirmationViewModelImpl
       return Alert.alert('Ops!', 'Invalid code');
     }
 
-    const confirmedCode = await this.signup.confirmByCode({
-      email: params.email,
-      code: this.codeValue,
-    });
-
-    if (!confirmedCode) Alert.alert('Error!', 'failed to confirm code');
-
     switch (params.flow) {
       case 'Signup':
+        const confirmedCode = await this.signup.confirmByCode({
+          email: params.email,
+          code: this.codeValue,
+        });
+        if (!confirmedCode)
+          return Alert.alert('Error!', 'failed to confirm code');
+
         Alert.alert('Success!', 'Account confimed successfully');
         await this.authentication.auth({
           email: params.email,
@@ -51,6 +51,16 @@ export class CodeConfirmationViewModelImpl
         });
         this.baseView?.props.navigation.navigate('Main', {
           screen: 'Home',
+        });
+        break;
+
+      case 'ForgotPassword':
+        this.baseView?.props.navigation.navigate('Public', {
+          screen: 'ChangePassword',
+          params: {
+            email: params.email,
+            code: this.codeValue,
+          },
         });
         break;
     }

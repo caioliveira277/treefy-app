@@ -11,11 +11,11 @@ export class AuthenticationViewModelImpl
   extends BaseViewModelImpl
   implements AuthenticationViewModel
 {
-  authentication: Authentication;
+  public readonly authentication: Authentication;
 
-  emailValue: string;
+  public emailValue: string;
 
-  passwordValue: string;
+  public passwordValue: string;
 
   constructor(authentication: Authentication) {
     super();
@@ -24,23 +24,23 @@ export class AuthenticationViewModelImpl
     this.authentication = authentication;
   }
 
-  handleEmailInputChange(value: string): void {
+  public handleEmailInputChange(value: string): void {
     this.emailValue = value;
     this.notifyViewAboutChanges();
   }
 
-  handlePasswordInputChange(value: string): void {
+  public handlePasswordInputChange(value: string): void {
     this.passwordValue = value;
     this.notifyViewAboutChanges();
   }
 
-  handleMoveToEmailConfirmation(): void {
+  public async handleMoveToForgotPassword(): Promise<void> {
     this.baseView?.props.navigation.navigate('Public', {
       screen: 'EmailConfirmation',
     });
   }
 
-  async handleSubmit(): Promise<void> {
+  public async handleSubmit(): Promise<void> {
     const emailValid = validateEmail(this.emailValue);
     const passwordValid = validateStrongPassword(this.passwordValue);
 

@@ -27,8 +27,12 @@ export const PublicRoutes: React.FC = () => {
     new RemoteAuthentication(AWSCognitoIdentityProvider)
   );
   const accessViewModel = new AccessViewModelImpl();
-  const emailConfirmationViewModel = new EmailConfirmationViewModelImpl();
-  const changePasswordViewModel = new ChangePasswordViewModelImpl();
+  const emailConfirmationViewModel = new EmailConfirmationViewModelImpl(
+    new RemoteAuthentication(AWSCognitoIdentityProvider)
+  );
+  const changePasswordViewModel = new ChangePasswordViewModelImpl(
+    new RemoteAuthentication(AWSCognitoIdentityProvider)
+  );
   const signupViewModel = new SignupViewModelImpl(
     new RemoteSignup(AWSCognitoIdentityProvider)
   );

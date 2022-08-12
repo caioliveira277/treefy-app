@@ -5,12 +5,15 @@ type PublicRoutesParamsList = {
   Access: undefined;
   Authentication: undefined;
   EmailConfirmation: undefined;
-  ChangePassword: undefined;
+  ChangePassword: {
+    email: string;
+    code: string;
+  };
   Signup: undefined;
   CodeConfirmation: {
     email: string;
     password?: string;
-    flow: 'Signup';
+    flow: 'Signup' | 'ForgotPassword';
   };
 };
 

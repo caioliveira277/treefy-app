@@ -80,7 +80,7 @@ export class AuthenticationView
         <LinkComponent
           style={spacing.link}
           onPress={() =>
-            this.authenticationViewModel.handleMoveToEmailConfirmation()
+            this.authenticationViewModel.handleMoveToForgotPassword()
           }
         >
           Esqueceu sua senha?
