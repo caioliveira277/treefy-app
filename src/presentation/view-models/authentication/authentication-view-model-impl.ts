@@ -34,7 +34,7 @@ export class AuthenticationViewModelImpl
     this.notifyViewAboutChanges();
   }
 
-  public async handleMoveToForgotPassword(): Promise<void> {
+  public handleMoveToForgotPassword(): void {
     this.baseView?.props.navigation.navigate('Public', {
       screen: 'EmailConfirmation',
     });
