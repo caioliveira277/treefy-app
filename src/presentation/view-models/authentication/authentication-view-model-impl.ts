@@ -50,6 +50,7 @@ export class AuthenticationViewModelImpl
       this.formErrors =
         validation.errors as AuthenticationViewModel['formErrors'];
       this.notifyViewAboutChanges();
+      return;
     }
 
     const auth = await this.authentication.auth({

@@ -14,6 +14,7 @@ type ThemeColors = {
   sun: string;
   edit: string;
   complete: string;
+  danger: string;
 };
 
 type ThemeBorders = {

@@ -12,12 +12,14 @@ export const Label = styled.Text`
   margin-bottom: 10px;
 `;
 
-export const ContainerInput = styled.View`
+export const ContainerInput = styled.View<{ hasError: boolean }>`
   width: 100%;
   align-items: center;
   flex-direction: row;
-  border: 1.5px solid ${({ theme }) => theme.colors.placeholder_light};
+  border: 1.5px solid;
   border-radius: ${({ theme }) => theme.borders.border_radius_sm};
+  border-color: ${({ theme, hasError }) =>
+    hasError ? theme.colors.danger : theme.colors.placeholder_light};
   background: ${({ theme }) => theme.colors.white};
   min-height: 45px;
   position: relative;
@@ -49,6 +51,13 @@ export const Input = styled.TextInput`
   padding-right: 42px;
   font-family: ${({ theme }) => theme.fonts.families.regular};
   color: ${({ theme }) => theme.colors.secondary};
+`;
+
+export const TextError = styled.Text`
+  margin-top: 3px;
+  font-family: ${({ theme }) => theme.fonts.families.regular};
+  color: ${({ theme }) => theme.colors.danger};
+  font-size: ${({ theme }) => theme.fonts.sizes.sm};
 `;
 
 export const textareaStyles = StyleSheet.create({

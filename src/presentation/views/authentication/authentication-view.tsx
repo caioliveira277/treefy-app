@@ -61,6 +61,8 @@ export class AuthenticationView
 
   render() {
     const { email, password } = this.state.form;
+    const { email: emailError, password: passwordError } =
+      this.state.formErrors;
     return (
       <PublicLayout title="Entre com a sua conta">
         <TextInputComponent
@@ -69,6 +71,7 @@ export class AuthenticationView
           label="Email cadastrado:"
           placeholderText="Email cadastrado"
           value={email}
+          errorMessage={emailError}
           onChangeText={(text) =>
             this.authenticationViewModel.handleEmailInputChange(text)
           }
@@ -79,6 +82,7 @@ export class AuthenticationView
           label="Senha cadastrada:"
           placeholderText="Senha secreta"
           value={password}
+          errorMessage={passwordError}
           onChangeText={(text) =>
             this.authenticationViewModel.handlePasswordInputChange(text)
           }
