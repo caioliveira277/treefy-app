@@ -7,6 +7,7 @@ import {
   MinLengthValidator,
   ContainsNumberValidator,
   ContainsUppercaseValidator,
+  SameAsValidator,
 } from '@/validations/validators';
 
 export class BuilderValidator {
@@ -55,6 +56,16 @@ export class BuilderValidator {
 
   public containsUppercase(): BuilderValidator {
     this.validations.push(new ContainsUppercaseValidator(this.fieldName));
+    return this;
+  }
+
+  public sameAs(
+    sameFieldName: string,
+    sameFieldLabel: string
+  ): BuilderValidator {
+    this.validations.push(
+      new SameAsValidator(this.fieldName, sameFieldName, sameFieldLabel)
+    );
     return this;
   }
 
