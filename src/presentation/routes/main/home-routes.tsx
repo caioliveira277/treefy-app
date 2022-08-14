@@ -4,6 +4,7 @@ import {
   ArticleViewModelImpl,
 } from '@/presentation/view-models';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { MainSubRoutes } from '..';
 
 const Stack = createNativeStackNavigator<MainSubRoutes>();
 
