@@ -12,7 +12,12 @@ export interface EmailConfirmationViewProps
 }
 
 export interface EmailConfirmationViewState {
-  emailValue: string;
+  form: {
+    email: string;
+  };
+  formErrors: {
+    email: string;
+  };
 }
 
 export class EmailConfirmationView
@@ -31,7 +36,8 @@ export class EmailConfirmationView
     this.emailConfirmationViewModel = emailConfirmationViewModel;
 
     this.state = {
-      emailValue: emailConfirmationViewModel.emailValue,
+      form: emailConfirmationViewModel.form,
+      formErrors: emailConfirmationViewModel.formErrors,
     };
   }
 
@@ -45,12 +51,14 @@ export class EmailConfirmationView
 
   public onViewModelChanged() {
     this.setState({
-      emailValue: this.emailConfirmationViewModel.emailValue,
+      form: this.emailConfirmationViewModel.form,
+      formErrors: this.emailConfirmationViewModel.formErrors,
     });
   }
 
   render() {
-    const { emailValue } = this.state;
+    const { email } = this.state.form;
+    const { email: emailError } = this.state.formErrors;
     return (
       <PublicLayout
         title="Confirme o seu email"
@@ -61,7 +69,8 @@ export class EmailConfirmationView
           iconName="mail"
           label="Email cadastrado:"
           placeholderText="Email cadastrado"
-          value={emailValue}
+          value={email}
+          errorMessage={emailError}
           onChangeText={(text) =>
             this.emailConfirmationViewModel.handleEmailInputChange(text)
           }

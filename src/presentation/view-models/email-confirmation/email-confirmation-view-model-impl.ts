@@ -1,44 +1,60 @@
-import { validateEmail } from '@/validations/validations';
 import { Alert } from 'react-native';
 import { EmailConfirmationViewModel } from './email-confirmation-view-model';
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { Authentication } from '@/domain/usecases';
+import { Validation } from '@/presentation/protocols/validation';
 
 export class EmailConfirmationViewModelImpl
   extends BaseViewModelImpl
   implements EmailConfirmationViewModel
 {
-  public authentication: Authentication;
+  public readonly validation: Validation;
 
-  public emailValue: string;
+  public readonly authentication: Authentication;
 
-  public constructor(authentication: Authentication) {
+  public form = { email: '' };
+
+  public formErrors = { email: '' };
+
+  public constructor(authentication: Authentication, validation: Validation) {
     super();
     this.authentication = authentication;
-    this.emailValue = '';
+    this.validation = validation;
   }
 
   public handleEmailInputChange(value: string): void {
-    this.emailValue = value;
+    this.form.email = value;
+    this.formErrors.email = this.validation.validate('email', this.form);
     this.notifyViewAboutChanges();
   }
 
   public async handleSubmit(): Promise<void> {
-    const emailValid = validateEmail(this.emailValue);
+    const validation = this.validation.validateAll(
+      ['email', 'password'],
+      this.form
+    );
 
-    if (!emailValid) {
-      Alert.alert('Ops!', 'Invalid fields');
-    } else {
-      await this.authentication.sendCodeToChangePassword({
-        email: this.emailValue,
-      });
+    if (validation.hasError) {
+      this.formErrors =
+        validation.errors as EmailConfirmationViewModel['formErrors'];
+      this.notifyViewAboutChanges();
+      return;
+    }
+
+    const codeSent = await this.authentication.sendCodeToChangePassword({
+      email: this.form.email,
+    });
+
+    if (codeSent) {
       this.baseView?.props.navigation.navigate('Public', {
         screen: 'CodeConfirmation',
         params: {
-          email: this.emailValue,
+          email: this.form.email,
           flow: 'ForgotPassword',
         },
       });
+    } else {
+      Alert.alert('Error sending code');
     }
   }
 }

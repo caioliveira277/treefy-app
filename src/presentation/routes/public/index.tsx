@@ -39,7 +39,10 @@ export const PublicRoutes: React.FC = () => {
   );
   const accessViewModel = new AccessViewModelImpl();
   const emailConfirmationViewModel = new EmailConfirmationViewModelImpl(
-    new RemoteAuthentication(AWSCognitoIdentityProvider)
+    new RemoteAuthentication(AWSCognitoIdentityProvider),
+    CompositeValidator.build([
+      ...BuilderValidator.field('email').required().email().build(),
+    ])
   );
   const changePasswordViewModel = new ChangePasswordViewModelImpl(
     new RemoteAuthentication(AWSCognitoIdentityProvider)
