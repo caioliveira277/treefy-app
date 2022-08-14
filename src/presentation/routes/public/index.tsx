@@ -45,7 +45,20 @@ export const PublicRoutes: React.FC = () => {
     ])
   );
   const changePasswordViewModel = new ChangePasswordViewModelImpl(
-    new RemoteAuthentication(AWSCognitoIdentityProvider)
+    new RemoteAuthentication(AWSCognitoIdentityProvider),
+    CompositeValidator.build([
+      ...BuilderValidator.field('password')
+        .required()
+        .minLength(5)
+        .containsLowercase()
+        .containsUppercase()
+        .containsNumber()
+        .build(),
+      ...BuilderValidator.field('confirmPassword')
+        .required()
+        .sameAs('password', 'Senha')
+        .build(),
+    ])
   );
   const signupViewModel = new SignupViewModelImpl(
     new RemoteSignup(AWSCognitoIdentityProvider)

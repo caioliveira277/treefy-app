@@ -12,8 +12,14 @@ export interface ChangePasswordViewProps
 }
 
 export interface ChangePasswordViewState {
-  passwordValue: string;
-  confirmPasswordValue: string;
+  form: {
+    password: string;
+    confirmPassword: string;
+  };
+  formErrors: {
+    password: string;
+    confirmPassword: string;
+  };
 }
 
 export class ChangePasswordView
@@ -29,8 +35,8 @@ export class ChangePasswordView
     this.changePasswordViewModel = changePasswordViewModel;
 
     this.state = {
-      passwordValue: changePasswordViewModel.passwordValue,
-      confirmPasswordValue: changePasswordViewModel.confirmPasswordValue,
+      form: changePasswordViewModel.form,
+      formErrors: changePasswordViewModel.formErrors,
     };
   }
 
@@ -44,13 +50,15 @@ export class ChangePasswordView
 
   public onViewModelChanged() {
     this.setState({
-      passwordValue: this.changePasswordViewModel.passwordValue,
-      confirmPasswordValue: this.changePasswordViewModel.confirmPasswordValue,
+      form: this.changePasswordViewModel.form,
+      formErrors: this.changePasswordViewModel.form,
     });
   }
 
   render() {
-    const { passwordValue, confirmPasswordValue } = this.state;
+    const { password, confirmPassword } = this.state.form;
+    const { password: passwordError, confirmPassword: confirmPasswordError } =
+      this.state.formErrors;
     return (
       <PublicLayout title="Redefina sua senha">
         <TextInputComponent
@@ -59,7 +67,8 @@ export class ChangePasswordView
           type="password"
           label="Senha:"
           placeholderText="Senha secreta"
-          value={passwordValue}
+          value={password}
+          errorMessage={passwordError}
           onChangeText={(text) =>
             this.changePasswordViewModel.handlePasswordInputChange(text)
           }
@@ -69,7 +78,8 @@ export class ChangePasswordView
           type="password"
           label="Confirme a senha:"
           placeholderText="Senha secreta"
-          value={confirmPasswordValue}
+          value={confirmPassword}
+          errorMessage={confirmPasswordError}
           onChangeText={(text) =>
             this.changePasswordViewModel.handleConfirmPasswordInputChange(text)
           }
