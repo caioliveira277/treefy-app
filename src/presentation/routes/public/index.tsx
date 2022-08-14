@@ -61,7 +61,25 @@ export const PublicRoutes: React.FC = () => {
     ])
   );
   const signupViewModel = new SignupViewModelImpl(
-    new RemoteSignup(AWSCognitoIdentityProvider)
+    new RemoteSignup(AWSCognitoIdentityProvider),
+    CompositeValidator.build([
+      ...BuilderValidator.field('completeName')
+        .required()
+        .completeName()
+        .build(),
+      ...BuilderValidator.field('email').required().email().build(),
+      ...BuilderValidator.field('password')
+        .required()
+        .minLength(5)
+        .containsLowercase()
+        .containsUppercase()
+        .containsNumber()
+        .build(),
+      ...BuilderValidator.field('confirmPassword')
+        .required()
+        .sameAs('password', 'Senha')
+        .build(),
+    ])
   );
   const introductionViewModel = new IntroductionViewModelImpl();
   const codeConfirmationViewModel = new CodeConfirmationViewModelImpl(
