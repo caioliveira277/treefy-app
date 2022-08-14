@@ -1,57 +1,71 @@
-import { validateConfirmationCode } from '@/validations/validations';
 import { Alert } from 'react-native';
 import { CodeConfirmationViewModel } from './code-confirmation-view-model';
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { Authentication, Signup } from '@/domain/usecases';
+import { Validation } from '@/presentation/protocols/validation';
 
 export class CodeConfirmationViewModelImpl
   extends BaseViewModelImpl
   implements CodeConfirmationViewModel
 {
-  public signup: Signup;
+  public readonly validation: Validation;
 
-  public authentication: Authentication;
+  public readonly signup: Signup;
 
-  public codeValue: string;
+  public readonly authentication: Authentication;
 
-  public constructor(signup: Signup, authentication: Authentication) {
+  public form = { code: '' };
+
+  public formErrors = this.form;
+
+  public constructor(
+    signup: Signup,
+    authentication: Authentication,
+    validation: Validation
+  ) {
     super();
-    this.codeValue = '';
     this.signup = signup;
     this.authentication = authentication;
+    this.validation = validation;
   }
 
   public handleCodeInputChange(value: string): void {
-    this.codeValue = value;
+    this.form.code = value;
+    this.formErrors.code = this.validation.validate('code', this.form);
     this.notifyViewAboutChanges();
   }
 
   public async handleSubmit(): Promise<void> {
-    const codeValid = validateConfirmationCode(this.codeValue);
+    const validation = this.validation.validateAll(['code'], this.form);
+
+    if (validation.hasError) {
+      this.formErrors =
+        validation.errors as CodeConfirmationViewModel['formErrors'];
+      this.notifyViewAboutChanges();
+      return;
+    }
+
     const params = this.baseView?.props.route
       .params as StackParamList['CodeConfirmation'];
 
-    if (!codeValid) {
-      return Alert.alert('Ops!', 'Invalid code');
-    }
-
     switch (params.flow) {
       case 'Signup':
-        const confirmedCode = await this.signup.confirmByCode({
+        const codeConfirmed = await this.signup.confirmByCode({
           email: params.email,
-          code: this.codeValue,
+          code: this.form.code,
         });
-        if (!confirmedCode)
-          return Alert.alert('Error!', 'failed to confirm code');
-
-        Alert.alert('Success!', 'Account confimed successfully');
-        await this.authentication.auth({
-          email: params.email,
-          password: params.password || '',
-        });
-        this.baseView?.props.navigation.navigate('Main', {
-          screen: 'Home',
-        });
+        if (!codeConfirmed) {
+          Alert.alert('Error!', 'failed to confirm code');
+        } else {
+          Alert.alert('Success!', 'Account confimed successfully');
+          await this.authentication.auth({
+            email: params.email,
+            password: params.password || '',
+          });
+          this.baseView?.props.navigation.navigate('Main', {
+            screen: 'Home',
+          });
+        }
         break;
 
       case 'ForgotPassword':
@@ -59,7 +73,7 @@ export class CodeConfirmationViewModelImpl
           screen: 'ChangePassword',
           params: {
             email: params.email,
-            code: this.codeValue,
+            code: this.form.code,
           },
         });
         break;

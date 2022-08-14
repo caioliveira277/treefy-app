@@ -84,7 +84,10 @@ export const PublicRoutes: React.FC = () => {
   const introductionViewModel = new IntroductionViewModelImpl();
   const codeConfirmationViewModel = new CodeConfirmationViewModelImpl(
     new RemoteSignup(AWSCognitoIdentityProvider),
-    new RemoteAuthentication(AWSCognitoIdentityProvider)
+    new RemoteAuthentication(AWSCognitoIdentityProvider),
+    CompositeValidator.build([
+      ...BuilderValidator.field('code').required().minLength(5).build(),
+    ])
   );
   return (
     <Stack.Navigator
