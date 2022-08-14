@@ -12,9 +12,9 @@ export class AuthenticationViewModelImpl
 
   public readonly authentication: Authentication;
 
-  public formErrors = { email: '', password: '' };
-
   public form = { email: '', password: '' };
+
+  public formErrors = this.form;
 
   constructor(authentication: Authentication, validation: Validation) {
     super();

@@ -7,7 +7,7 @@ export interface ChangePasswordViewModel extends BaseViewModel {
   authentication: Authentication;
 
   form: { password: string; confirmPassword: string };
-  formErrors: { password: string; confirmPassword: string };
+  formErrors: ChangePasswordViewModel['form'];
 
   handlePasswordInputChange(value: string): void;
   handleConfirmPasswordInputChange(value: string): void;

@@ -9,10 +9,7 @@ export interface AuthenticationViewModel extends BaseViewModel {
     email: string;
     password: string;
   };
-  formErrors: {
-    email: string;
-    password: string;
-  };
+  formErrors: AuthenticationViewModel['form'];
 
   handleEmailInputChange(value: string): void;
   handlePasswordInputChange(value: string): void;

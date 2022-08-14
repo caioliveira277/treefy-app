@@ -14,7 +14,7 @@ export class EmailConfirmationViewModelImpl
 
   public form = { email: '' };
 
-  public formErrors = { email: '' };
+  public formErrors = this.form;
 
   public constructor(authentication: Authentication, validation: Validation) {
     super();

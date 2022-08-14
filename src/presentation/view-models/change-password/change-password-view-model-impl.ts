@@ -14,7 +14,7 @@ export class ChangePasswordViewModelImpl
 
   public form = { password: '', confirmPassword: '' };
 
-  public formErrors = { password: '', confirmPassword: '' };
+  public formErrors = this.form;
 
   constructor(authentication: Authentication, validation: Validation) {
     super();

@@ -7,7 +7,7 @@ export interface EmailConfirmationViewModel extends BaseViewModel {
   authentication: Authentication;
 
   form: { email: string };
-  formErrors: { email: string };
+  formErrors: EmailConfirmationViewModel['form'];
 
   handleEmailInputChange(value: string): void;
   handleSubmit(): void;

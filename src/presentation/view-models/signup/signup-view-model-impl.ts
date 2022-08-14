@@ -19,12 +19,7 @@ export class SignupViewModelImpl
     confirmPassword: '',
   };
 
-  public formErrors = {
-    completeName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  };
+  public formErrors = this.form;
 
   constructor(signup: Signup, validation: Validation) {
     super();

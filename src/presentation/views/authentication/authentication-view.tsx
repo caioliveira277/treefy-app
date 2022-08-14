@@ -20,10 +20,7 @@ export interface AuthenticationViewState {
     email: string;
     password: string;
   };
-  formErrors: {
-    email: string;
-    password: string;
-  };
+  formErrors: AuthenticationViewState['form'];
 }
 
 export class AuthenticationView

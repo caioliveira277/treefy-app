@@ -16,10 +16,7 @@ export interface ChangePasswordViewState {
     password: string;
     confirmPassword: string;
   };
-  formErrors: {
-    password: string;
-    confirmPassword: string;
-  };
+  formErrors: ChangePasswordViewState['form'];
 }
 
 export class ChangePasswordView

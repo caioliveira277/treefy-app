@@ -15,9 +15,7 @@ export interface EmailConfirmationViewState {
   form: {
     email: string;
   };
-  formErrors: {
-    email: string;
-  };
+  formErrors: EmailConfirmationViewState['form'];
 }
 
 export class EmailConfirmationView

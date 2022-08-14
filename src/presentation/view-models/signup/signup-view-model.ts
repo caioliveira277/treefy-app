@@ -13,12 +13,7 @@ export interface SignupViewModel extends BaseViewModel {
     confirmPassword: string;
   };
 
-  formErrors: {
-    completeName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  };
+  formErrors: SignupViewModel['form'];
 
   handleCompleteNameInputChange(value: string): void;
   handleEmailInputChange(value: string): void;
