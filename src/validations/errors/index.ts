@@ -5,3 +5,4 @@ export * from './contains-lowercase-field-error';
 export * from './contains-number-field-error';
 export * from './complete-name-field-error';
 export * from './min-length-field-error';
+export * from './same-as-field-error';
