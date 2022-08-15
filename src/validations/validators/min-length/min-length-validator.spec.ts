@@ -32,11 +32,11 @@ describe('MinLengthValidator', () => {
   });
 
   test('Should return falsy if string is empty', () => {
-    const field = '';
+    const field = faker.database.column();
     const minLength = faker.datatype.number({ min: 1, max: 150 });
     const { sut } = makeSut({ field, minLength });
     const error = sut.validate({
-      [field]: faker.datatype.string(minLength + 2),
+      [field]: '',
     });
     expect(error).toBeFalsy();
   });
