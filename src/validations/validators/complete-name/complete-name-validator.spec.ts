@@ -15,7 +15,7 @@ describe('CompleteNameValidator', () => {
     const field = faker.database.column();
     const { sut } = makeSut({ field });
     const error = sut.validate({
-      [field]: faker.internet.userName(),
+      [field]: faker.name.firstName(),
     });
     expect(error).toEqual(new CompleteNameFieldError());
   });
@@ -24,7 +24,7 @@ describe('CompleteNameValidator', () => {
     const field = faker.database.column();
     const { sut } = makeSut({ field });
     const error = sut.validate({
-      [field]: faker.finance.accountName(),
+      [field]: faker.name.findName(),
     });
     expect(error).toBeFalsy();
   });
