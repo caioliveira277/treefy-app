@@ -28,13 +28,7 @@ export const PublicRoutes: React.FC = () => {
     new RemoteAuthentication(AWSCognitoIdentityProvider),
     CompositeValidator.build([
       ...BuilderValidator.field('email').required().email().build(),
-      ...BuilderValidator.field('password')
-        .required()
-        .minLength(5)
-        .containsLowercase()
-        .containsUppercase()
-        .containsNumber()
-        .build(),
+      ...BuilderValidator.field('password').required().build(),
     ])
   );
   const accessViewModel = new AccessViewModelImpl();
