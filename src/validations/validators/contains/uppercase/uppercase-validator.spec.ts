@@ -24,7 +24,7 @@ describe('ContainsUppercaseValidator', () => {
     const field = faker.database.column();
     const { sut } = makeSut({ field });
     const error = sut.validate({
-      [field]: faker.name.findName(),
+      [field]: faker.random.alpha({ count: 10, upcase: true }),
     });
     expect(error).toBeFalsy();
   });
