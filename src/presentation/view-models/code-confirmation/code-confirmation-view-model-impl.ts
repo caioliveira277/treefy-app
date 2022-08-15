@@ -16,7 +16,7 @@ export class CodeConfirmationViewModelImpl
 
   public form = { code: '' };
 
-  public formErrors = this.form;
+  public formErrors = { code: '' };
 
   public constructor(
     signup: Signup,

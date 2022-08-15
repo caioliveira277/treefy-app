@@ -14,7 +14,7 @@ export class AuthenticationViewModelImpl
 
   public form = { email: '', password: '' };
 
-  public formErrors = this.form;
+  public formErrors = { email: '', password: '' };
 
   constructor(authentication: Authentication, validation: Validation) {
     super();
