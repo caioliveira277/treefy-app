@@ -25,7 +25,7 @@ export class CompositeValidator implements Validation {
 
   public validateAll(
     fieldNames: string[],
-    object: Record<string, string>
+    object: Record<string, any>
   ): { errors: Record<string, string>; hasError: boolean } {
     const result = { errors: { ...object }, hasError: false };
     fieldNames.forEach((fieldName) => {
