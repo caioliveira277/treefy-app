@@ -12,7 +12,11 @@ export interface CodeConfirmationViewProps
 }
 
 export interface CodeConfirmationViewState {
-  codeValue: string;
+  form: {
+    code: string;
+  };
+  formErrors: CodeConfirmationViewState['form'];
+  isLoading: boolean;
 }
 
 export class CodeConfirmationView
@@ -28,7 +32,9 @@ export class CodeConfirmationView
     this.codeConfirmationViewModel = codeConfirmationViewModel;
 
     this.state = {
-      codeValue: codeConfirmationViewModel.codeValue,
+      form: codeConfirmationViewModel.form,
+      formErrors: codeConfirmationViewModel.formErrors,
+      isLoading: codeConfirmationViewModel.isLoading,
     };
   }
 
@@ -42,24 +48,31 @@ export class CodeConfirmationView
 
   public onViewModelChanged() {
     this.setState({
-      codeValue: this.codeConfirmationViewModel.codeValue,
+      form: this.codeConfirmationViewModel.form,
+      formErrors: this.codeConfirmationViewModel.formErrors,
+      isLoading: this.codeConfirmationViewModel.isLoading,
     });
   }
 
   render() {
-    const { codeValue } = this.state;
+    const {
+      form: { code },
+      isLoading,
+    } = this.state;
+    const { code: codeError } = this.state.formErrors;
     return (
-      <PublicLayout title="Informe o código recebido">
+      <PublicLayout title="Informe o código recebido" isLoading={isLoading}>
         <TextInputComponent
           style={spacing.input}
+          type="password"
           iconName="lock"
           label="Código recebido:"
           placeholderText="Código"
-          value={codeValue}
+          value={code}
+          errorMessage={codeError}
           onChangeText={(text) =>
             this.codeConfirmationViewModel.handleCodeInputChange(text)
           }
-          type="password"
         />
         <ButtonComponent
           onPress={() => this.codeConfirmationViewModel.handleSubmit()}
