@@ -16,6 +16,8 @@ export class AuthenticationViewModelImpl
 
   public formErrors = { email: '', password: '' };
 
+  public isLoading = false;
+
   constructor(authentication: Authentication, validation: Validation) {
     super();
     this.authentication = authentication;
@@ -40,6 +42,11 @@ export class AuthenticationViewModelImpl
     });
   }
 
+  public handleChangeLoadingState(state: boolean): void {
+    this.isLoading = state;
+    this.notifyViewAboutChanges();
+  }
+
   public async handleSubmit(): Promise<void> {
     const validation = this.validation.validateAll(
       ['email', 'password'],
@@ -53,12 +60,14 @@ export class AuthenticationViewModelImpl
       return;
     }
 
+    this.handleChangeLoadingState(true);
+
     const auth = await this.authentication.auth({
       email: this.form.email,
       password: this.form.password,
     });
     if (auth.clientId) {
-      this.baseView?.props.navigation.navigate('Main', {
+      this.baseView?.props.navigation.replace('Main', {
         screen: 'HomeGroup',
         params: {
           screen: 'Home',
@@ -67,5 +76,6 @@ export class AuthenticationViewModelImpl
     } else {
       Alert.alert('Authentication failed');
     }
+    this.handleChangeLoadingState(false);
   }
 }
