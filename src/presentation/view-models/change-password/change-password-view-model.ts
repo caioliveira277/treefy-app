@@ -8,8 +8,10 @@ export interface ChangePasswordViewModel extends BaseViewModel {
 
   form: { password: string; confirmPassword: string };
   formErrors: ChangePasswordViewModel['form'];
+  isLoading: boolean;
 
   handlePasswordInputChange(value: string): void;
   handleConfirmPasswordInputChange(value: string): void;
+  handleChangeLoadingState(state: boolean): void;
   handleSubmit(): void;
 }
