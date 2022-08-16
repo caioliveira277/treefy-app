@@ -16,6 +16,7 @@ export interface EmailConfirmationViewState {
     email: string;
   };
   formErrors: EmailConfirmationViewState['form'];
+  isLoading: boolean;
 }
 
 export class EmailConfirmationView
@@ -36,6 +37,7 @@ export class EmailConfirmationView
     this.state = {
       form: emailConfirmationViewModel.form,
       formErrors: emailConfirmationViewModel.formErrors,
+      isLoading: emailConfirmationViewModel.isLoading,
     };
   }
 
@@ -51,16 +53,21 @@ export class EmailConfirmationView
     this.setState({
       form: this.emailConfirmationViewModel.form,
       formErrors: this.emailConfirmationViewModel.formErrors,
+      isLoading: this.emailConfirmationViewModel.isLoading,
     });
   }
 
   render() {
-    const { email } = this.state.form;
+    const {
+      form: { email },
+      isLoading,
+    } = this.state;
     const { email: emailError } = this.state.formErrors;
     return (
       <PublicLayout
         title="Confirme o seu email"
         paragraph="Você receberá um email contendo um código para confirmação"
+        isLoading={isLoading}
       >
         <TextInputComponent
           style={spacing.input}

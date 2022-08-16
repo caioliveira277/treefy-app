@@ -16,6 +16,8 @@ export class EmailConfirmationViewModelImpl
 
   public formErrors = { email: '' };
 
+  public isLoading = false;
+
   public constructor(authentication: Authentication, validation: Validation) {
     super();
     this.authentication = authentication;
@@ -25,6 +27,11 @@ export class EmailConfirmationViewModelImpl
   public handleEmailInputChange(value: string): void {
     this.form.email = value;
     this.formErrors.email = this.validation.validate('email', this.form);
+    this.notifyViewAboutChanges();
+  }
+
+  public handleChangeLoadingState(state: boolean): void {
+    this.isLoading = state;
     this.notifyViewAboutChanges();
   }
 
@@ -41,6 +48,8 @@ export class EmailConfirmationViewModelImpl
       return;
     }
 
+    this.handleChangeLoadingState(true);
+
     const codeSent = await this.authentication.sendCodeToChangePassword({
       email: this.form.email,
     });
@@ -56,5 +65,6 @@ export class EmailConfirmationViewModelImpl
     } else {
       Alert.alert('Error sending code');
     }
+    this.handleChangeLoadingState(false);
   }
 }
