@@ -1,10 +1,13 @@
 import { Authentication } from '@/domain/usecases';
+import { Validation } from '@/presentation/protocols/validation';
 import { BaseViewModel } from '../base-view-model';
 
 export interface ChangePasswordViewModel extends BaseViewModel {
+  validation: Validation;
   authentication: Authentication;
-  passwordValue: string;
-  confirmPasswordValue: string;
+
+  form: { password: string; confirmPassword: string };
+  formErrors: ChangePasswordViewModel['form'];
 
   handlePasswordInputChange(value: string): void;
   handleConfirmPasswordInputChange(value: string): void;

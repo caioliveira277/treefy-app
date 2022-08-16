@@ -69,6 +69,7 @@ exports[`ButtonComponent Should match with a snapshot 1`] = `
             "body": "#585960",
             "complete": "#4ABC86",
             "contrast": "#FCFDFF",
+            "danger": "#E04244",
             "edit": "#4ABCBC",
             "placeholder": "#C6C6C6",
             "placeholder_light": "#EEEEEE",

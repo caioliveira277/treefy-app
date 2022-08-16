@@ -15,6 +15,7 @@ export const primaryTheme: DefaultTheme = {
     water: '#B0D8FE',
     edit: '#4ABCBC',
     complete: '#4ABC86',
+    danger: '#E04244',
   },
   borders: {
     border_radius_sm: '5px',
@@ -46,5 +47,3 @@ export const primaryTheme: DefaultTheme = {
     },
   },
 };
-
-// shadow_sm: '0px 2px 4px rgba(0, 0, 0, 0.1)',

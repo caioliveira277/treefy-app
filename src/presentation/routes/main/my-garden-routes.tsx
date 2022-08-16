@@ -1,6 +1,7 @@
 import { MyGardenViewModelImpl } from '@/presentation/view-models';
 import { MyGardenView } from '@/presentation/views';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { MainRoutesParamsList } from '..';
 
 const Stack = createNativeStackNavigator<MainRoutesParamsList>();
 

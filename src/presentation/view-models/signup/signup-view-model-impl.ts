@@ -1,85 +1,91 @@
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { SignupViewModel } from './signup-view-model';
-import {
-  validateEmail,
-  validateStrongPassword,
-  validateCompleteName,
-} from '@/validations/validations';
 import { Alert } from 'react-native';
 import { Signup } from '@/domain/usecases';
-
-import { TempUser } from '@/temp/user';
+import { Validation } from '@/presentation/protocols/validation';
 
 export class SignupViewModelImpl
   extends BaseViewModelImpl
   implements SignupViewModel
 {
-  public signup: Signup;
+  public readonly validation: Validation;
 
-  public completeNameValue: string;
+  public readonly signup: Signup;
 
-  public emailValue: string;
+  public form = {
+    completeName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  };
 
-  public passwordValue: string;
+  public formErrors = {
+    completeName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  };
 
-  public confirmPasswordValue: string;
-
-  constructor(signup: Signup) {
+  constructor(signup: Signup, validation: Validation) {
     super();
     this.signup = signup;
-    this.completeNameValue = TempUser.completeName;
-    this.emailValue = '';
-    this.passwordValue = TempUser.password;
-    this.confirmPasswordValue = TempUser.password;
+    this.validation = validation;
   }
 
   handleCompleteNameInputChange(value: string): void {
-    this.completeNameValue = value;
+    this.form.completeName = value;
+    this.formErrors.completeName = this.validation.validate(
+      'completeName',
+      this.form
+    );
     this.notifyViewAboutChanges();
   }
 
   handleEmailInputChange(value: string): void {
-    this.emailValue = value;
+    this.form.email = value;
+    this.formErrors.email = this.validation.validate('email', this.form);
     this.notifyViewAboutChanges();
   }
 
   handlePasswordInputChange(value: string): void {
-    this.passwordValue = value;
+    this.form.password = value;
+    this.formErrors.password = this.validation.validate('password', this.form);
     this.notifyViewAboutChanges();
   }
 
   handleConfirmPasswordInputChange(value: string): void {
-    this.confirmPasswordValue = value;
+    this.form.confirmPassword = value;
+    this.formErrors.confirmPassword = this.validation.validate(
+      'confirmPassword',
+      this.form
+    );
     this.notifyViewAboutChanges();
   }
 
   public async handleSubmit(): Promise<void> {
-    const validCompleteName = validateCompleteName(this.completeNameValue);
-    const validEmail = validateEmail(this.emailValue);
-    const validPassword = validateStrongPassword(this.passwordValue);
-    const validConfirmPassword =
-      this.passwordValue === this.confirmPasswordValue;
-    if (
-      !validCompleteName ||
-      !validEmail ||
-      !validPassword ||
-      !validConfirmPassword
-    ) {
-      return Alert.alert('Ops!', 'Invalid fields');
+    const validation = this.validation.validateAll(
+      ['completeName', 'email', 'password', 'confirmPassword'],
+      this.form
+    );
+
+    if (validation.hasError) {
+      this.formErrors = validation.errors as SignupViewModel['formErrors'];
+      this.notifyViewAboutChanges();
+      return;
     }
 
     const signup = await this.signup.signup({
-      email: this.emailValue,
-      password: this.passwordValue,
-      name: this.completeNameValue,
+      name: this.form.completeName,
+      email: this.form.email,
+      password: this.form.password,
     });
 
     if (signup) {
       this.baseView?.props.navigation.navigate('Public', {
         screen: 'CodeConfirmation',
         params: {
-          email: this.emailValue,
-          password: this.passwordValue,
+          email: this.form.email,
+          password: this.form.password,
           flow: 'Signup',
         },
       });

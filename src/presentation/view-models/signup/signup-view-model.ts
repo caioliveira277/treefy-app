@@ -1,16 +1,19 @@
 import { BaseViewModel } from '../base-view-model';
 import { Signup } from '@/domain/usecases';
+import { Validation } from '@/presentation/protocols/validation';
 
 export interface SignupViewModel extends BaseViewModel {
+  validation: Validation;
   signup: Signup;
 
-  completeNameValue: string;
+  form: {
+    completeName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  };
 
-  emailValue: string;
-
-  passwordValue: string;
-
-  confirmPasswordValue: string;
+  formErrors: SignupViewModel['form'];
 
   handleCompleteNameInputChange(value: string): void;
   handleEmailInputChange(value: string): void;

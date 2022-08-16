@@ -19,27 +19,69 @@ import {
   IntroductionViewModelImpl,
   CodeConfirmationViewModelImpl,
 } from '@/presentation/view-models';
+import { CompositeValidator, BuilderValidator } from '@/validations';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export const PublicRoutes: React.FC = () => {
   const authenticationViewModel = new AuthenticationViewModelImpl(
-    new RemoteAuthentication(AWSCognitoIdentityProvider)
+    new RemoteAuthentication(AWSCognitoIdentityProvider),
+    CompositeValidator.build([
+      ...BuilderValidator.field('email').required().email().build(),
+      ...BuilderValidator.field('password').required().build(),
+    ])
   );
   const accessViewModel = new AccessViewModelImpl();
   const emailConfirmationViewModel = new EmailConfirmationViewModelImpl(
-    new RemoteAuthentication(AWSCognitoIdentityProvider)
+    new RemoteAuthentication(AWSCognitoIdentityProvider),
+    CompositeValidator.build([
+      ...BuilderValidator.field('email').required().email().build(),
+    ])
   );
   const changePasswordViewModel = new ChangePasswordViewModelImpl(
-    new RemoteAuthentication(AWSCognitoIdentityProvider)
+    new RemoteAuthentication(AWSCognitoIdentityProvider),
+    CompositeValidator.build([
+      ...BuilderValidator.field('password')
+        .required()
+        .minLength(5)
+        .containsLowercase()
+        .containsUppercase()
+        .containsNumber()
+        .build(),
+      ...BuilderValidator.field('confirmPassword')
+        .required()
+        .sameAs('password', 'Senha')
+        .build(),
+    ])
   );
   const signupViewModel = new SignupViewModelImpl(
-    new RemoteSignup(AWSCognitoIdentityProvider)
+    new RemoteSignup(AWSCognitoIdentityProvider),
+    CompositeValidator.build([
+      ...BuilderValidator.field('completeName')
+        .required()
+        .completeName()
+        .build(),
+      ...BuilderValidator.field('email').required().email().build(),
+      ...BuilderValidator.field('password')
+        .required()
+        .minLength(5)
+        .containsLowercase()
+        .containsUppercase()
+        .containsNumber()
+        .build(),
+      ...BuilderValidator.field('confirmPassword')
+        .required()
+        .sameAs('password', 'Senha')
+        .build(),
+    ])
   );
   const introductionViewModel = new IntroductionViewModelImpl();
   const codeConfirmationViewModel = new CodeConfirmationViewModelImpl(
     new RemoteSignup(AWSCognitoIdentityProvider),
-    new RemoteAuthentication(AWSCognitoIdentityProvider)
+    new RemoteAuthentication(AWSCognitoIdentityProvider),
+    CompositeValidator.build([
+      ...BuilderValidator.field('code').required().minLength(5).build(),
+    ])
   );
   return (
     <Stack.Navigator

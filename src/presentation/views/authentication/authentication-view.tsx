@@ -16,8 +16,11 @@ export interface AuthenticationViewProps
 }
 
 export interface AuthenticationViewState {
-  emailValue: string;
-  passwordValue: string;
+  form: {
+    email: string;
+    password: string;
+  };
+  formErrors: AuthenticationViewState['form'];
 }
 
 export class AuthenticationView
@@ -33,8 +36,8 @@ export class AuthenticationView
     this.authenticationViewModel = authenticationViewModel;
 
     this.state = {
-      emailValue: authenticationViewModel.emailValue,
-      passwordValue: authenticationViewModel.passwordValue,
+      form: authenticationViewModel.form,
+      formErrors: authenticationViewModel.formErrors,
     };
   }
 
@@ -48,13 +51,15 @@ export class AuthenticationView
 
   public onViewModelChanged() {
     this.setState({
-      emailValue: this.authenticationViewModel.emailValue,
-      passwordValue: this.authenticationViewModel.passwordValue,
+      form: this.authenticationViewModel.form,
+      formErrors: this.authenticationViewModel.formErrors,
     });
   }
 
   render() {
-    const { emailValue, passwordValue } = this.state;
+    const { email, password } = this.state.form;
+    const { email: emailError, password: passwordError } =
+      this.state.formErrors;
     return (
       <PublicLayout title="Entre com a sua conta">
         <TextInputComponent
@@ -62,7 +67,8 @@ export class AuthenticationView
           iconName="mail"
           label="Email cadastrado:"
           placeholderText="Email cadastrado"
-          value={emailValue}
+          value={email}
+          errorMessage={emailError}
           onChangeText={(text) =>
             this.authenticationViewModel.handleEmailInputChange(text)
           }
@@ -72,7 +78,8 @@ export class AuthenticationView
           type="password"
           label="Senha cadastrada:"
           placeholderText="Senha secreta"
-          value={passwordValue}
+          value={password}
+          errorMessage={passwordError}
           onChangeText={(text) =>
             this.authenticationViewModel.handlePasswordInputChange(text)
           }

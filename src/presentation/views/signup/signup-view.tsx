@@ -16,10 +16,13 @@ export interface SignupViewProps
 }
 
 export interface SignupViewState {
-  completeNameValue: string;
-  emailValue: string;
-  passwordValue: string;
-  confirmPasswordValue: string;
+  form: {
+    completeName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  };
+  formErrors: SignupViewState['form'];
 }
 
 export class SignupView
@@ -35,10 +38,8 @@ export class SignupView
     this.signupViewModel = signupViewModel;
 
     this.state = {
-      completeNameValue: signupViewModel.completeNameValue,
-      emailValue: signupViewModel.emailValue,
-      passwordValue: signupViewModel.passwordValue,
-      confirmPasswordValue: signupViewModel.confirmPasswordValue,
+      form: signupViewModel.form,
+      formErrors: signupViewModel.formErrors,
     };
   }
 
@@ -52,20 +53,19 @@ export class SignupView
 
   public onViewModelChanged() {
     this.setState({
-      completeNameValue: this.signupViewModel.completeNameValue,
-      emailValue: this.signupViewModel.emailValue,
-      passwordValue: this.signupViewModel.passwordValue,
-      confirmPasswordValue: this.signupViewModel.confirmPasswordValue,
+      form: this.signupViewModel.form,
+      formErrors: this.signupViewModel.formErrors,
     });
   }
 
   render() {
+    const { completeName, email, password, confirmPassword } = this.state.form;
     const {
-      completeNameValue,
-      emailValue,
-      passwordValue,
-      confirmPasswordValue,
-    } = this.state;
+      completeName: completeNameError,
+      email: emailError,
+      password: passwordError,
+      confirmPassword: confirmPasswordError,
+    } = this.state.formErrors;
     return (
       <PublicLayout title="Cadastre-se para ter acesso">
         <LegendComponent>Seu perfil:</LegendComponent>
@@ -74,7 +74,8 @@ export class SignupView
           iconName="user"
           label="Nome e sobrenome:"
           placeholderText="Nome e sobrenome"
-          value={completeNameValue}
+          value={completeName}
+          errorMessage={completeNameError}
           onChangeText={(text) =>
             this.signupViewModel.handleCompleteNameInputChange(text)
           }
@@ -85,7 +86,8 @@ export class SignupView
           iconName="mail"
           label="Email cadastrado:"
           placeholderText="Email cadastrado"
-          value={emailValue}
+          value={email}
+          errorMessage={emailError}
           onChangeText={(text) =>
             this.signupViewModel.handleEmailInputChange(text)
           }
@@ -96,7 +98,8 @@ export class SignupView
           type="password"
           label="Senha:"
           placeholderText="Senha secreta"
-          value={passwordValue}
+          value={password}
+          errorMessage={passwordError}
           onChangeText={(text) =>
             this.signupViewModel.handlePasswordInputChange(text)
           }
@@ -107,7 +110,8 @@ export class SignupView
           type="password"
           label="Confirme a senha:"
           placeholderText="Senha secreta"
-          value={confirmPasswordValue}
+          value={confirmPassword}
+          errorMessage={confirmPasswordError}
           onChangeText={(text) =>
             this.signupViewModel.handleConfirmPasswordInputChange(text)
           }
