@@ -13,6 +13,7 @@ exports[`ButtonComponent Should match with a snapshot 1`] = `
 >
   <View
     accessible={true}
+    collapsable={false}
     focusable={false}
     onClick={[Function]}
     onResponderGrant={[Function]}

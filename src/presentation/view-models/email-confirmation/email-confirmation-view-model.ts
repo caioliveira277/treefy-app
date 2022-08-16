@@ -9,6 +9,9 @@ export interface EmailConfirmationViewModel extends BaseViewModel {
   form: { email: string };
   formErrors: EmailConfirmationViewModel['form'];
 
+  isLoading: boolean;
+
   handleEmailInputChange(value: string): void;
+  handleChangeLoadingState(state: boolean): void;
   handleSubmit(): void;
 }

@@ -21,6 +21,7 @@ export interface AuthenticationViewState {
     password: string;
   };
   formErrors: AuthenticationViewState['form'];
+  isLoading: boolean;
 }
 
 export class AuthenticationView
@@ -38,6 +39,7 @@ export class AuthenticationView
     this.state = {
       form: authenticationViewModel.form,
       formErrors: authenticationViewModel.formErrors,
+      isLoading: authenticationViewModel.isLoading,
     };
   }
 
@@ -53,15 +55,19 @@ export class AuthenticationView
     this.setState({
       form: this.authenticationViewModel.form,
       formErrors: this.authenticationViewModel.formErrors,
+      isLoading: this.authenticationViewModel.isLoading,
     });
   }
 
   render() {
-    const { email, password } = this.state.form;
+    const {
+      form: { email, password },
+      isLoading,
+    } = this.state;
     const { email: emailError, password: passwordError } =
       this.state.formErrors;
     return (
-      <PublicLayout title="Entre com a sua conta">
+      <PublicLayout title="Entre com a sua conta" isLoading={isLoading}>
         <TextInputComponent
           style={spacing.input}
           iconName="mail"

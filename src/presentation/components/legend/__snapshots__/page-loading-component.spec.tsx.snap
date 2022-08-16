@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LegendComponent Should match with a snapshot 1`] = `
+<Text
+  style={
+    Array [
+      Object {
+        "color": "#585960",
+        "fontFamily": "RobotoSlab_400Regular",
+        "fontSize": 12,
+        "marginBottom": 10,
+      },
+    ]
+  }
+  theme={
+    Object {
+      "borders": Object {
+        "border_radius_md": "10px",
+        "border_radius_sm": "5px",
+      },
+      "colors": Object {
+        "body": "#585960",
+        "complete": "#4ABC86",
+        "contrast": "#FCFDFF",
+        "danger": "#E04244",
+        "edit": "#4ABCBC",
+        "placeholder": "#C6C6C6",
+        "placeholder_light": "#EEEEEE",
+        "primary": "#4ABC86",
+        "rate_active": "#D56D6D",
+        "rate_inactive": "#E5A6A7",
+        "secondary": "#253239",
+        "sun": "#FEF3A7",
+        "water": "#B0D8FE",
+        "white": "#ffffff",
+      },
+      "fonts": Object {
+        "families": Object {
+          "bold": "RobotoSlab_700Bold",
+          "medium": "RobotoSlab_500Medium",
+          "regular": "RobotoSlab_400Regular",
+        },
+        "sizes": Object {
+          "lg": "16px",
+          "md": "14px",
+          "sm": "12px",
+          "xl": "18px",
+        },
+      },
+      "shadows": Object {
+        "sm": Object {
+          "elevation": 4,
+          "shadowColor": "#000",
+          "shadowOffset": Object {
+            "height": 2,
+            "width": 0,
+          },
+          "shadowOpacity": 0.23,
+          "shadowRadius": 2.62,
+        },
+      },
+    }
+  }
+>
+  Any content
+</Text>
+`;

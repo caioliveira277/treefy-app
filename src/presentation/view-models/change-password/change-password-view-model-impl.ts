@@ -16,6 +16,8 @@ export class ChangePasswordViewModelImpl
 
   public formErrors = { password: '', confirmPassword: '' };
 
+  public isLoading = false;
+
   constructor(authentication: Authentication, validation: Validation) {
     super();
     this.authentication = authentication;
@@ -37,6 +39,11 @@ export class ChangePasswordViewModelImpl
     this.notifyViewAboutChanges();
   }
 
+  public handleChangeLoadingState(state: boolean): void {
+    this.isLoading = state;
+    this.notifyViewAboutChanges();
+  }
+
   public async handleSubmit(): Promise<void> {
     const validation = this.validation.validateAll(
       ['password', 'passwordConfirmation'],
@@ -49,6 +56,8 @@ export class ChangePasswordViewModelImpl
       this.notifyViewAboutChanges();
       return;
     }
+
+    this.handleChangeLoadingState(true);
 
     const params = this.baseView?.props.route
       .params as StackParamList['ChangePassword'];
@@ -66,5 +75,6 @@ export class ChangePasswordViewModelImpl
     } else {
       Alert.alert('Failed to change password');
     }
+    this.handleChangeLoadingState(false);
   }
 }

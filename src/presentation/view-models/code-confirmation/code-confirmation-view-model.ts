@@ -8,7 +8,9 @@ export interface CodeConfirmationViewModel extends BaseViewModel {
 
   form: { code: string };
   formErrors: CodeConfirmationViewModel['form'];
+  isLoading: boolean;
 
   handleCodeInputChange(value: string): void;
+  handleChangeLoadingState(state: boolean): void;
   handleSubmit(): void;
 }

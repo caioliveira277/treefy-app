@@ -88,6 +88,7 @@ export const PublicRoutes: React.FC = () => {
       initialRouteName="Introduction"
       screenOptions={{
         headerShown: false,
+        animation: 'fade',
       }}
     >
       <Stack.Screen name="Introduction">

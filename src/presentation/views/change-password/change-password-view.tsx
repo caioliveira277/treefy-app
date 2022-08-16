@@ -17,6 +17,7 @@ export interface ChangePasswordViewState {
     confirmPassword: string;
   };
   formErrors: ChangePasswordViewState['form'];
+  isLoading: boolean;
 }
 
 export class ChangePasswordView
@@ -34,6 +35,7 @@ export class ChangePasswordView
     this.state = {
       form: changePasswordViewModel.form,
       formErrors: changePasswordViewModel.formErrors,
+      isLoading: changePasswordViewModel.isLoading,
     };
   }
 
@@ -48,16 +50,20 @@ export class ChangePasswordView
   public onViewModelChanged() {
     this.setState({
       form: this.changePasswordViewModel.form,
-      formErrors: this.changePasswordViewModel.form,
+      formErrors: this.changePasswordViewModel.formErrors,
+      isLoading: this.changePasswordViewModel.isLoading,
     });
   }
 
   render() {
-    const { password, confirmPassword } = this.state.form;
+    const {
+      form: { password, confirmPassword },
+      isLoading,
+    } = this.state;
     const { password: passwordError, confirmPassword: confirmPasswordError } =
       this.state.formErrors;
     return (
-      <PublicLayout title="Redefina sua senha">
+      <PublicLayout title="Redefina sua senha" isLoading={isLoading}>
         <TextInputComponent
           style={spacing.input}
           iconName="lock"

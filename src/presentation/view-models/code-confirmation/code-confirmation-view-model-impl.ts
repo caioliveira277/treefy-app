@@ -18,6 +18,8 @@ export class CodeConfirmationViewModelImpl
 
   public formErrors = { code: '' };
 
+  public isLoading = false;
+
   public constructor(
     signup: Signup,
     authentication: Authentication,
@@ -32,6 +34,11 @@ export class CodeConfirmationViewModelImpl
   public handleCodeInputChange(value: string): void {
     this.form.code = value;
     this.formErrors.code = this.validation.validate('code', this.form);
+    this.notifyViewAboutChanges();
+  }
+
+  public handleChangeLoadingState(state: boolean): void {
+    this.isLoading = state;
     this.notifyViewAboutChanges();
   }
 
@@ -50,14 +57,17 @@ export class CodeConfirmationViewModelImpl
 
     switch (params.flow) {
       case 'Signup':
+        this.handleChangeLoadingState(true);
+
         const codeConfirmed = await this.signup.confirmByCode({
           email: params.email,
           code: this.form.code,
         });
+
         if (!codeConfirmed) {
           Alert.alert('Error!', 'failed to confirm code');
+          this.handleChangeLoadingState(false);
         } else {
-          Alert.alert('Success!', 'Account confimed successfully');
           await this.authentication.auth({
             email: params.email,
             password: params.password || '',
@@ -65,6 +75,8 @@ export class CodeConfirmationViewModelImpl
           this.baseView?.props.navigation.navigate('Main', {
             screen: 'Home',
           });
+          this.handleChangeLoadingState(false);
+          Alert.alert('Success!', 'Account confimed successfully');
         }
         break;
 

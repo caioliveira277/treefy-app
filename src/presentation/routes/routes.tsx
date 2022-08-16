@@ -11,6 +11,7 @@ export const Router: React.FC = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
+          animation: 'fade',
         }}
       >
         <Stack.Screen name="Public" component={PublicRoutes} />
