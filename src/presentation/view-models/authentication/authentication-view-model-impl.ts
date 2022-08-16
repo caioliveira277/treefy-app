@@ -67,7 +67,7 @@ export class AuthenticationViewModelImpl
       password: this.form.password,
     });
     if (auth.clientId) {
-      this.baseView?.props.navigation.replace('Main', {
+      this.baseView?.props.navigation.navigate('Main', {
         screen: 'HomeGroup',
         params: {
           screen: 'Home',
