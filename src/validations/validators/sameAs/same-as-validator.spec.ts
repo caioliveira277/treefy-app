@@ -24,7 +24,7 @@ describe('SameAsValidator', () => {
     });
     const error = sut.validate({
       [field]: faker.datatype.string(),
-      [sameFieldName]: faker.datatype.string(),
+      [sameFieldName]: faker.datatype.number(),
     });
     expect(error).toEqual(new SameAsFieldError(sameFieldLabel));
   });
