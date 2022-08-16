@@ -23,6 +23,7 @@ export interface SignupViewState {
     confirmPassword: string;
   };
   formErrors: SignupViewState['form'];
+  isLoading: boolean;
 }
 
 export class SignupView
@@ -40,6 +41,7 @@ export class SignupView
     this.state = {
       form: signupViewModel.form,
       formErrors: signupViewModel.formErrors,
+      isLoading: signupViewModel.isLoading,
     };
   }
 
@@ -55,11 +57,15 @@ export class SignupView
     this.setState({
       form: this.signupViewModel.form,
       formErrors: this.signupViewModel.formErrors,
+      isLoading: this.signupViewModel.isLoading,
     });
   }
 
   render() {
-    const { completeName, email, password, confirmPassword } = this.state.form;
+    const {
+      form: { completeName, email, password, confirmPassword },
+      isLoading,
+    } = this.state;
     const {
       completeName: completeNameError,
       email: emailError,
@@ -67,7 +73,7 @@ export class SignupView
       confirmPassword: confirmPasswordError,
     } = this.state.formErrors;
     return (
-      <PublicLayout title="Cadastre-se para ter acesso">
+      <PublicLayout title="Cadastre-se para ter acesso" isLoading={isLoading}>
         <LegendComponent>Seu perfil:</LegendComponent>
         <TextInputComponent
           style={spacing.inputGroup}
@@ -84,8 +90,8 @@ export class SignupView
         <TextInputComponent
           style={spacing.input}
           iconName="mail"
-          label="Email cadastrado:"
-          placeholderText="Email cadastrado"
+          label="Email:"
+          placeholderText="Email"
           value={email}
           errorMessage={emailError}
           onChangeText={(text) =>

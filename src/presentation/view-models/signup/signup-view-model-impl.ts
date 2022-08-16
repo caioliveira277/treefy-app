@@ -26,13 +26,15 @@ export class SignupViewModelImpl
     confirmPassword: '',
   };
 
+  public isLoading = false;
+
   constructor(signup: Signup, validation: Validation) {
     super();
     this.signup = signup;
     this.validation = validation;
   }
 
-  handleCompleteNameInputChange(value: string): void {
+  public handleCompleteNameInputChange(value: string): void {
     this.form.completeName = value;
     this.formErrors.completeName = this.validation.validate(
       'completeName',
@@ -41,24 +43,29 @@ export class SignupViewModelImpl
     this.notifyViewAboutChanges();
   }
 
-  handleEmailInputChange(value: string): void {
+  public handleEmailInputChange(value: string): void {
     this.form.email = value;
     this.formErrors.email = this.validation.validate('email', this.form);
     this.notifyViewAboutChanges();
   }
 
-  handlePasswordInputChange(value: string): void {
+  public handlePasswordInputChange(value: string): void {
     this.form.password = value;
     this.formErrors.password = this.validation.validate('password', this.form);
     this.notifyViewAboutChanges();
   }
 
-  handleConfirmPasswordInputChange(value: string): void {
+  public handleConfirmPasswordInputChange(value: string): void {
     this.form.confirmPassword = value;
     this.formErrors.confirmPassword = this.validation.validate(
       'confirmPassword',
       this.form
     );
+    this.notifyViewAboutChanges();
+  }
+
+  public handleChangeLoadingState(state: boolean): void {
+    this.isLoading = state;
     this.notifyViewAboutChanges();
   }
 
@@ -73,6 +80,8 @@ export class SignupViewModelImpl
       this.notifyViewAboutChanges();
       return;
     }
+
+    this.handleChangeLoadingState(true);
 
     const signup = await this.signup.signup({
       name: this.form.completeName,
@@ -92,5 +101,6 @@ export class SignupViewModelImpl
     } else {
       Alert.alert('Error!', 'failed to register');
     }
+    this.handleChangeLoadingState(false);
   }
 }

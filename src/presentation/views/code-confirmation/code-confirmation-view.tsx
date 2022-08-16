@@ -61,7 +61,10 @@ export class CodeConfirmationView
     } = this.state;
     const { code: codeError } = this.state.formErrors;
     return (
-      <PublicLayout title="Informe o código recebido" isLoading={isLoading}>
+      <PublicLayout
+        title="Informe o código recebido no email"
+        isLoading={isLoading}
+      >
         <TextInputComponent
           style={spacing.input}
           type="password"
