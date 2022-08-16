@@ -1,10 +1,5 @@
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { ChangeProfileViewModel } from './change-profile-model';
-import {
-  validateEmail,
-  validateStrongPassword,
-  validateCompleteName,
-} from '@/validations/validations';
 import { Alert } from 'react-native';
 
 export class ChangeProfileModelImpl
@@ -48,19 +43,6 @@ export class ChangeProfileModelImpl
   }
 
   public handleSubmit(): void {
-    const completeNameValid = validateCompleteName(this.completeNameValue);
-    const emailValid = validateEmail(this.emailValue);
-    const passwordValid = validateStrongPassword(this.passwordValue);
-    const confirmPasswordValid =
-      this.passwordValue === this.confirmPasswordValue;
-
-    if (
-      !completeNameValid ||
-      !emailValid ||
-      !passwordValid ||
-      !confirmPasswordValid
-    ) {
-      Alert.alert('Ops!', 'Invalid fields');
-    }
+    Alert.alert('Ops!', 'Invalid fields');
   }
 }
