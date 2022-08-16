@@ -1,4 +1,5 @@
 import { StyleProp, ViewStyle } from 'react-native';
+import { useTheme } from 'styled-components';
 import { Legend } from './styles';
 
 export interface LegendComponentProps {
@@ -9,4 +10,12 @@ export interface LegendComponentProps {
 export const LegendComponent: React.FC<LegendComponentProps> = ({
   children,
   style,
-}) => <Legend style={style}>{children}</Legend>;
+}) => {
+  const theme = useTheme();
+
+  return (
+    <Legend style={style} theme={theme}>
+      {children}
+    </Legend>
+  );
+};
