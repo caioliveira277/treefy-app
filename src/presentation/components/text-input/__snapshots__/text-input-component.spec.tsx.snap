@@ -161,13 +161,11 @@ exports[`TextInputComponent Should match with a snapshot 1`] = `
       testID="genericIcon"
     />
     <TextInput
-      allowFontScaling={true}
       keyboardType="default"
       multiline={false}
       onChangeText={[Function]}
       placeholder="anyPlaceholder"
       placeholderTextColor="#C6C6C6"
-      rejectResponderTermination={true}
       secureTextEntry={false}
       style={
         Array [
@@ -232,7 +230,6 @@ exports[`TextInputComponent Should match with a snapshot 1`] = `
           },
         }
       }
-      underlineColorAndroid="transparent"
       value=""
     />
   </View>
