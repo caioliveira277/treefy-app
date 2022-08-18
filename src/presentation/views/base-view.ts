@@ -1,8 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ReactNode } from 'react';
-export interface BaseView<Props = any> {
+
+export interface BaseView {
   onViewModelChanged(): void;
-  props: Readonly<Props> &
-    Readonly<{ children?: ReactNode }> &
-    NativeStackScreenProps<StackParamList, keyof StackParamList>;
+  props: NativeStackScreenProps<StackParamList, keyof StackParamList>;
 }

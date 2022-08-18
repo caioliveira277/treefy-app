@@ -14,7 +14,7 @@ export interface TermsUseViewProps
 
 export class TermsUseView
   extends React.Component<TermsUseViewProps>
-  implements BaseView<TermsUseViewProps>
+  implements BaseView
 {
   private termsUseViewModel: TermsUseViewModel;
 

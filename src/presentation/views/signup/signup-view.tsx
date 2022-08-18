@@ -28,7 +28,7 @@ export interface SignupViewState {
 
 export class SignupView
   extends React.Component<SignupViewProps, SignupViewState>
-  implements BaseView<SignupViewProps>
+  implements BaseView
 {
   private signupViewModel: SignupViewModel;
 

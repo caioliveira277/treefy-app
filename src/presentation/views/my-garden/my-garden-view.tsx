@@ -98,7 +98,7 @@ export interface MyGardenViewState {
 
 export class MyGardenView
   extends React.Component<MyGardenViewProps, MyGardenViewState>
-  implements BaseView<MyGardenViewProps>
+  implements BaseView
 {
   private myGardenViewModel: MyGardenViewModel;
 

@@ -26,7 +26,7 @@ export interface AuthenticationViewState {
 
 export class AuthenticationView
   extends React.Component<AuthenticationViewProps, AuthenticationViewState>
-  implements BaseView<AuthenticationViewProps>
+  implements BaseView
 {
   private authenticationViewModel: AuthenticationViewModel;
 

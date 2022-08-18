@@ -21,7 +21,7 @@ export interface CodeConfirmationViewState {
 
 export class CodeConfirmationView
   extends React.Component<CodeConfirmationViewProps, CodeConfirmationViewState>
-  implements BaseView<CodeConfirmationViewProps>
+  implements BaseView
 {
   private codeConfirmationViewModel: CodeConfirmationViewModel;
 

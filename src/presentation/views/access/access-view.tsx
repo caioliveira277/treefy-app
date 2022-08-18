@@ -12,7 +12,7 @@ export interface AccessViewProps
 
 export class AccessView
   extends React.Component<AccessViewProps>
-  implements BaseView<AccessViewProps>
+  implements BaseView
 {
   private accessViewModel: AccessViewModel;
 

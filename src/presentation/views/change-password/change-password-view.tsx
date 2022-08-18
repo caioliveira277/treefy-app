@@ -22,7 +22,7 @@ export interface ChangePasswordViewState {
 
 export class ChangePasswordView
   extends React.Component<ChangePasswordViewProps, ChangePasswordViewState>
-  implements BaseView<ChangePasswordViewProps>
+  implements BaseView
 {
   private changePasswordViewModel: ChangePasswordViewModel;
 

@@ -29,7 +29,7 @@ export interface IntroductionViewState {
 
 export class IntrodutionView
   extends React.Component<IntrodutionViewProps, IntroductionViewState>
-  implements BaseView<IntrodutionViewProps>
+  implements BaseView
 {
   private introductionViewModel: IntroductionViewModel;
 

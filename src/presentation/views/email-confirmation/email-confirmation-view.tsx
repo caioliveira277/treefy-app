@@ -24,7 +24,7 @@ export class EmailConfirmationView
     EmailConfirmationViewProps,
     EmailConfirmationViewState
   >
-  implements BaseView<EmailConfirmationViewProps>
+  implements BaseView
 {
   private emailConfirmationViewModel: EmailConfirmationViewModel;
 
