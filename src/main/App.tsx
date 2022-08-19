@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
 import { currentTheme } from '@/presentation/themes';
-import { Router } from '@/presentation/routes/routes';
+import { Router } from '@/main/routes/routes';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AWSCognitoIdentityProvider } from '@/infra/aws';
 import {
