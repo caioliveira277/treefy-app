@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RemoteSignup, RemoteAuthentication } from '@/data/usecases';
 import { AWSCognitoIdentityProvider } from '@/infra/aws';
+import { makeAccessPage } from '@/main/factories/pages';
 import {
   AuthenticationView,
-  AccessView,
   EmailConfirmationView,
   ChangePasswordView,
   SignupView,
@@ -12,7 +12,6 @@ import {
 } from '@/presentation/views';
 import {
   AuthenticationViewModelImpl,
-  AccessViewModelImpl,
   EmailConfirmationViewModelImpl,
   ChangePasswordViewModelImpl,
   SignupViewModelImpl,
@@ -31,7 +30,7 @@ export const PublicRoutes: React.FC = () => {
       ...BuilderValidator.field('password').required().build(),
     ])
   );
-  const accessViewModel = new AccessViewModelImpl();
+
   const emailConfirmationViewModel = new EmailConfirmationViewModelImpl(
     new RemoteAuthentication(AWSCognitoIdentityProvider),
     CompositeValidator.build([
@@ -99,9 +98,7 @@ export const PublicRoutes: React.FC = () => {
           />
         )}
       </Stack.Screen>
-      <Stack.Screen name="Access">
-        {(props) => <AccessView {...props} accessViewModel={accessViewModel} />}
-      </Stack.Screen>
+      <Stack.Screen name="Access">{makeAccessPage}</Stack.Screen>
       <Stack.Screen name="Authentication">
         {(props) => (
           <AuthenticationView
