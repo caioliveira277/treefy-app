@@ -5,15 +5,14 @@ import {
   makeAccessView,
   makeIntroductionView,
   makeAuthenticationView,
+  makeEmailConfirmationView,
 } from '@/main/factories/views';
 import {
-  EmailConfirmationView,
   ChangePasswordView,
   SignupView,
   CodeConfirmationView,
 } from '@/presentation/views';
 import {
-  EmailConfirmationViewModelImpl,
   ChangePasswordViewModelImpl,
   SignupViewModelImpl,
   CodeConfirmationViewModelImpl,
@@ -23,12 +22,6 @@ import { CompositeValidator, BuilderValidator } from '@/validations';
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export const PublicRoutes: React.FC = () => {
-  const emailConfirmationViewModel = new EmailConfirmationViewModelImpl(
-    new RemoteAuthentication(AWSCognitoIdentityProvider),
-    CompositeValidator.build([
-      ...BuilderValidator.field('email').required().email().build(),
-    ])
-  );
   const changePasswordViewModel = new ChangePasswordViewModelImpl(
     new RemoteAuthentication(AWSCognitoIdentityProvider),
     CompositeValidator.build([
@@ -87,12 +80,7 @@ export const PublicRoutes: React.FC = () => {
         {makeAuthenticationView}
       </Stack.Screen>
       <Stack.Screen name="EmailConfirmation">
-        {(props) => (
-          <EmailConfirmationView
-            {...props}
-            emailConfirmationViewModel={emailConfirmationViewModel}
-          />
-        )}
+        {makeEmailConfirmationView}
       </Stack.Screen>
       <Stack.Screen name="ChangePassword">
         {(props) => (
