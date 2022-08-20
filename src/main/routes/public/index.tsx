@@ -6,14 +6,10 @@ import {
   makeIntroductionView,
   makeAuthenticationView,
   makeEmailConfirmationView,
+  makeChangePasswordView,
 } from '@/main/factories/views';
+import { SignupView, CodeConfirmationView } from '@/presentation/views';
 import {
-  ChangePasswordView,
-  SignupView,
-  CodeConfirmationView,
-} from '@/presentation/views';
-import {
-  ChangePasswordViewModelImpl,
   SignupViewModelImpl,
   CodeConfirmationViewModelImpl,
 } from '@/presentation/view-models';
@@ -22,22 +18,6 @@ import { CompositeValidator, BuilderValidator } from '@/validations';
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export const PublicRoutes: React.FC = () => {
-  const changePasswordViewModel = new ChangePasswordViewModelImpl(
-    new RemoteAuthentication(AWSCognitoIdentityProvider),
-    CompositeValidator.build([
-      ...BuilderValidator.field('password')
-        .required()
-        .minLength(5)
-        .containsLowercase()
-        .containsUppercase()
-        .containsNumber()
-        .build(),
-      ...BuilderValidator.field('confirmPassword')
-        .required()
-        .sameAs('password', 'Senha')
-        .build(),
-    ])
-  );
   const signupViewModel = new SignupViewModelImpl(
     new RemoteSignup(AWSCognitoIdentityProvider),
     CompositeValidator.build([
@@ -83,12 +63,7 @@ export const PublicRoutes: React.FC = () => {
         {makeEmailConfirmationView}
       </Stack.Screen>
       <Stack.Screen name="ChangePassword">
-        {(props) => (
-          <ChangePasswordView
-            {...props}
-            changePasswordViewModel={changePasswordViewModel}
-          />
-        )}
+        {makeChangePasswordView}
       </Stack.Screen>
       <Stack.Screen name="Signup">
         {(props) => <SignupView {...props} signupViewModel={signupViewModel} />}
