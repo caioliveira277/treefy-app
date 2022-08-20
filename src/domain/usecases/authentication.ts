@@ -22,4 +22,5 @@ export interface Authentication {
   ): Promise<boolean>;
   changePassword(params: ChangePasswordParams): Promise<boolean>;
   getAuthenticatedUser(): Promise<AccountModel>;
+  loggout(): Promise<boolean>;
 }

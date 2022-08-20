@@ -81,17 +81,32 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
   }
 
   public async getCurrentAuthenticatedUser(): Promise<AccountModel> {
-    const {
-      signInUserSession: { idToken },
-    } = await Auth.currentAuthenticatedUser();
-    const { payload } = idToken;
-
-    return {
-      clientId: payload['cognito:username'],
-      email: payload.email,
-      name: payload.name,
-      accessToken: idToken?.jwtToken,
+    const account: AccountModel = {
+      name: '',
+      email: '',
+      clientId: '',
     };
+
+    try {
+      const {
+        signInUserSession: { idToken },
+      } = await Auth.currentAuthenticatedUser();
+      const { payload } = idToken;
+
+      account.clientId = payload['cognito:username'];
+      account.email = payload.email;
+      account.name = payload.name;
+      account.accessToken = idToken?.jwtToken;
+
+      return account;
+    } catch (error) {
+      return account;
+    }
+  }
+
+  public async signout(): Promise<boolean> {
+    await Auth.signOut();
+    return true;
   }
 }
 export const AWSCognitoIdentityProvider = new AWSCognitoIdentityProviderClass();
