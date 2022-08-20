@@ -1,13 +1,12 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RemoteSignup, RemoteAuthentication } from '@/data/usecases';
 import { AWSCognitoIdentityProvider } from '@/infra/aws';
-import { makeAccessPage } from '@/main/factories/pages';
+import { makeAccessView, makeIntroductionView } from '@/main/factories/views';
 import {
   AuthenticationView,
   EmailConfirmationView,
   ChangePasswordView,
   SignupView,
-  IntrodutionView,
   CodeConfirmationView,
 } from '@/presentation/views';
 import {
@@ -15,7 +14,6 @@ import {
   EmailConfirmationViewModelImpl,
   ChangePasswordViewModelImpl,
   SignupViewModelImpl,
-  IntroductionViewModelImpl,
   CodeConfirmationViewModelImpl,
 } from '@/presentation/view-models';
 import { CompositeValidator, BuilderValidator } from '@/validations';
@@ -74,7 +72,6 @@ export const PublicRoutes: React.FC = () => {
         .build(),
     ])
   );
-  const introductionViewModel = new IntroductionViewModelImpl();
   const codeConfirmationViewModel = new CodeConfirmationViewModelImpl(
     new RemoteSignup(AWSCognitoIdentityProvider),
     new RemoteAuthentication(AWSCognitoIdentityProvider),
@@ -90,15 +87,8 @@ export const PublicRoutes: React.FC = () => {
         animation: 'fade',
       }}
     >
-      <Stack.Screen name="Introduction">
-        {(props) => (
-          <IntrodutionView
-            {...props}
-            introductionViewModel={introductionViewModel}
-          />
-        )}
-      </Stack.Screen>
-      <Stack.Screen name="Access">{makeAccessPage}</Stack.Screen>
+      <Stack.Screen name="Introduction">{makeIntroductionView}</Stack.Screen>
+      <Stack.Screen name="Access">{makeAccessView}</Stack.Screen>
       <Stack.Screen name="Authentication">
         {(props) => (
           <AuthenticationView
