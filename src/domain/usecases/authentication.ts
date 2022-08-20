@@ -21,4 +21,5 @@ export interface Authentication {
     params: SendCodeToChangePasswordParams
   ): Promise<boolean>;
   changePassword(params: ChangePasswordParams): Promise<boolean>;
+  getAuthenticatedUser(): Promise<AccountModel>;
 }

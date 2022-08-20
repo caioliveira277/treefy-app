@@ -16,4 +16,5 @@ export interface IdentityProvider {
   sendConfirmationCode(params: SendConfirmationCodeParams): Promise<boolean>;
   forgotPassword(params: SendCodeToChangePasswordParams): Promise<boolean>;
   forgotPasswordSubmit(params: ChangePasswordParams): Promise<boolean>;
+  getCurrentAuthenticatedUser(): Promise<AccountModel>;
 }

@@ -9,7 +9,6 @@ import {
   SignupParams,
 } from '@/domain/usecases';
 import { Amplify, Auth } from 'aws-amplify';
-import { CognitoUser } from 'amazon-cognito-identity-js';
 
 class AWSCognitoIdentityProviderClass implements IdentityProvider {
   public configure(): void {
@@ -38,17 +37,16 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
   }
 
   public async signin(params: AuthenticationParams): Promise<AccountModel> {
-    const auth = (await Auth.signIn(
-      params.email,
-      params.password
-    )) as CognitoUser;
-    const currentUser = auth.getSignInUserSession()?.getIdToken().payload;
+    const {
+      signInUserSession: { idToken },
+    } = await Auth.signIn(params.email, params.password);
+    const { payload } = idToken;
 
     return {
-      clientId: currentUser!['cognito:username'],
-      email: currentUser?.email,
-      name: currentUser?.name,
-      accessToken: auth.getSignInUserSession()?.getAccessToken().getJwtToken(),
+      clientId: payload['cognito:username'],
+      email: payload.email,
+      name: payload.name,
+      accessToken: idToken?.jwtToken,
     };
   }
 
@@ -80,6 +78,20 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
       params.newPassword
     );
     return true;
+  }
+
+  public async getCurrentAuthenticatedUser(): Promise<AccountModel> {
+    const {
+      signInUserSession: { idToken },
+    } = await Auth.currentAuthenticatedUser();
+    const { payload } = idToken;
+
+    return {
+      clientId: payload['cognito:username'],
+      email: payload.email,
+      name: payload.name,
+      accessToken: idToken?.jwtToken,
+    };
   }
 }
 export const AWSCognitoIdentityProvider = new AWSCognitoIdentityProviderClass();
