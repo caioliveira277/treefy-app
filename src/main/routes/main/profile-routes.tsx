@@ -1,12 +1,11 @@
+import { makeProfileView } from '@/main/factories/views';
 import {
   ChangeProfileModelImpl,
-  ProfileViewModelImpl,
   HelpViewModelImpl,
   TermsUseViewModelImpl,
 } from '@/presentation/view-models';
 import {
   ChangeProfileView,
-  ProfileView,
   HelpView,
   TermsUseView,
 } from '@/presentation/views';
@@ -15,7 +14,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator<MainSubRoutes>();
 
 export const ProfileRoutes: React.FC = () => {
-  const profileViewModel = new ProfileViewModelImpl();
   const changeProfileViewModel = new ChangeProfileModelImpl();
   const helpViewModel = new HelpViewModelImpl();
   const termsUseViewModel = new TermsUseViewModelImpl();
@@ -26,11 +24,7 @@ export const ProfileRoutes: React.FC = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Profile">
-        {(props) => (
-          <ProfileView {...props} profileViewModel={profileViewModel} />
-        )}
-      </Stack.Screen>
+      <Stack.Screen name="Profile">{makeProfileView}</Stack.Screen>
       <Stack.Screen name="ChangeProfile">
         {(props) => (
           <ChangeProfileView
