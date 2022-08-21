@@ -3,17 +3,19 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { makeRemoteAuthentication } from '@/main/factories/usecases';
 import { PublicRoutes } from './public';
 import { MainRoutes } from './main';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
+import AuthenticationContext from '@/presentation/contexts/authentication-context';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 const remoteAuthentication = makeRemoteAuthentication();
 
 export const Router: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const authenticationContext = useContext(AuthenticationContext);
 
   useEffect(() => {
     remoteAuthentication.getAuthenticatedUser().then((user) => {
-      if (user.clientId) setIsAuthenticated(true);
+      if (user.clientId)
+        authenticationContext.authentication.setIsAuthenticated(true);
     });
   }, []);
 
@@ -25,7 +27,7 @@ export const Router: React.FC = () => {
           animation: 'fade',
         }}
       >
-        {!isAuthenticated ? (
+        {!authenticationContext.authentication.isAuthenticated ? (
           <Stack.Screen name="Public" component={PublicRoutes} />
         ) : (
           <Stack.Screen name="Main" component={MainRoutes} />
