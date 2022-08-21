@@ -6,6 +6,7 @@ import { currentTheme } from '@/presentation/themes';
 import { Router } from '@/main/routes/routes';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AWSCognitoIdentityProvider } from '@/infra/aws';
+import { AuthenticationProvider } from '@/presentation/contexts';
 import {
   useFonts,
   RobotoSlab_400Regular,
@@ -24,10 +25,12 @@ function App() {
 
   return fontsLoaded ? (
     <ThemeProvider theme={currentTheme}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Router />
-      </GestureHandlerRootView>
-      <StatusBar style="auto" translucent />
+      <AuthenticationProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Router />
+        </GestureHandlerRootView>
+        <StatusBar style="auto" translucent />
+      </AuthenticationProvider>
     </ThemeProvider>
   ) : null;
 }
