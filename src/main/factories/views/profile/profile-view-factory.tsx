@@ -1,3 +1,4 @@
+import { AuthenticationConsumer } from '@/presentation/contexts';
 import { ProfileViewModelImpl } from '@/presentation/view-models';
 import { ProfileView } from '@/presentation/views';
 import { RouteProp } from '@react-navigation/native';
@@ -10,5 +11,15 @@ interface MakeProfileViewProps {
 
 export const makeProfileView: React.FC<MakeProfileViewProps> = (props) => {
   const profileViewModel = new ProfileViewModelImpl(makeRemoteAuthentication());
-  return <ProfileView {...props} profileViewModel={profileViewModel} />;
+  return (
+    <AuthenticationConsumer>
+      {(authenticationContextParams) => (
+        <ProfileView
+          {...props}
+          contextConsumer={authenticationContextParams}
+          profileViewModel={profileViewModel}
+        />
+      )}
+    </AuthenticationConsumer>
+  );
 };

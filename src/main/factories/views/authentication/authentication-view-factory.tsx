@@ -3,6 +3,7 @@ import { AuthenticationView } from '@/presentation/views';
 import { BuilderValidator, CompositeValidator } from '@/validations';
 import { RouteProp } from '@react-navigation/native';
 import { makeRemoteAuthentication } from '@/main/factories/usecases';
+import { AuthenticationConsumer } from '@/presentation/contexts';
 
 interface MakeAuthenticationViewProps {
   route: RouteProp<StackParamList, 'Authentication'>;
@@ -20,9 +21,14 @@ export const makeAuthenticationView: React.FC<MakeAuthenticationViewProps> = (
     ])
   );
   return (
-    <AuthenticationView
-      {...props}
-      authenticationViewModel={authenticationViewModel}
-    />
+    <AuthenticationConsumer>
+      {(authenticationContextParams) => (
+        <AuthenticationView
+          {...props}
+          contextConsumer={authenticationContextParams}
+          authenticationViewModel={authenticationViewModel}
+        />
+      )}
+    </AuthenticationConsumer>
   );
 };
