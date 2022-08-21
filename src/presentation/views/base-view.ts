@@ -1,8 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ReactNode } from 'react';
-export interface BaseView<Props = any> {
+import { AuthenticationContextParams } from '@/presentation/contexts';
+
+export interface BaseView {
   onViewModelChanged(): void;
-  props: Readonly<Props> &
-    Readonly<{ children?: ReactNode }> &
-    NativeStackScreenProps<StackParamList, keyof StackParamList>;
+  props: NativeStackScreenProps<StackParamList, keyof StackParamList> & {
+    contextConsumer?: AuthenticationContextParams;
+  };
 }

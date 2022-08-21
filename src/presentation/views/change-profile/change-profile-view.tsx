@@ -28,7 +28,7 @@ export interface ChangeProfileViewState {
 
 export class ChangeProfileView
   extends React.Component<ChangeProfileViewProps, ChangeProfileViewState>
-  implements BaseView<ChangeProfileViewProps>
+  implements BaseView
 {
   private changeProfileViewModel: ChangeProfileViewModel;
 

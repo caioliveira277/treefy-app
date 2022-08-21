@@ -18,7 +18,7 @@ export interface ArticleViewState {
 
 export class ArticleView
   extends React.Component<ArticleViewProps, ArticleViewState>
-  implements BaseView<ArticleViewProps>
+  implements BaseView
 {
   private articleViewModel: ArticleViewModel;
 

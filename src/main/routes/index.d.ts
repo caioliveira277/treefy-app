@@ -17,24 +17,23 @@ type PublicRoutesParamsList = {
   };
 };
 
-type MainSubRoutes = {
-  ChangeProfile: undefined;
-  Profile: undefined;
-  Help: undefined;
-  TermsUse: undefined;
-  Home: undefined;
-  Article: undefined;
-};
-type MainRoutesParamsList = MainSubRoutes & {
-  ProfileGroup: MainSubRoutes;
-  Profile: undefined;
-  HomeGroup: MainSubRoutes;
-  Home: undefined;
-  MyGardenGroup: undefined;
-  MyGarden: undefined;
-};
-
 declare global {
+  type MainSubRoutes = {
+    ChangeProfile: undefined;
+    Profile: undefined;
+    Help: undefined;
+    TermsUse: undefined;
+    Home: undefined;
+    Article: undefined;
+  };
+  type MainRoutesParamsList = MainSubRoutes & {
+    ProfileGroup: MainSubRoutes;
+    Profile: undefined;
+    HomeGroup: MainSubRoutes;
+    Home: undefined;
+    MyGardenGroup: undefined;
+    MyGarden: undefined;
+  };
   type StackParamList = PublicRoutesParamsList &
     MainRoutesParamsList & {
       Public: NavigatorScreenParams<PublicRoutesParamsList>;

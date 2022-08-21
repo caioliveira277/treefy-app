@@ -18,7 +18,7 @@ import {
 import { ButtonComponent } from '@/presentation/components';
 import { SlideControlComponent } from './components';
 
-export interface IntrodutionViewProps
+export interface IntroductionViewProps
   extends NativeStackScreenProps<StackParamList, 'Introduction'> {
   introductionViewModel: IntroductionViewModel;
 }
@@ -27,15 +27,15 @@ export interface IntroductionViewState {
   activeSlideIndex: number;
 }
 
-export class IntrodutionView
-  extends React.Component<IntrodutionViewProps, IntroductionViewState>
-  implements BaseView<IntrodutionViewProps>
+export class IntroductionView
+  extends React.Component<IntroductionViewProps, IntroductionViewState>
+  implements BaseView
 {
   private introductionViewModel: IntroductionViewModel;
 
   private pagerViewRef: React.RefObject<PagerView>;
 
-  constructor(props: IntrodutionViewProps) {
+  constructor(props: IntroductionViewProps) {
     super(props);
 
     const { introductionViewModel } = this.props;

@@ -13,6 +13,7 @@ import { BaseView } from '../base-view';
 export interface AuthenticationViewProps
   extends NativeStackScreenProps<StackParamList, 'Authentication'> {
   authenticationViewModel: AuthenticationViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface AuthenticationViewState {
@@ -26,7 +27,7 @@ export interface AuthenticationViewState {
 
 export class AuthenticationView
   extends React.Component<AuthenticationViewProps, AuthenticationViewState>
-  implements BaseView<AuthenticationViewProps>
+  implements BaseView
 {
   private authenticationViewModel: AuthenticationViewModel;
 

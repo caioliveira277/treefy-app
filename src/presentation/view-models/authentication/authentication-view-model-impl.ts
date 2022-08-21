@@ -67,12 +67,9 @@ export class AuthenticationViewModelImpl
       password: this.form.password,
     });
     if (auth.clientId) {
-      this.baseView?.props.navigation.navigate('Main', {
-        screen: 'HomeGroup',
-        params: {
-          screen: 'Home',
-        },
-      });
+      this.baseView?.props.contextConsumer?.authentication.setIsAuthenticated(
+        true
+      );
     } else {
       Alert.alert('Authentication failed');
     }

@@ -72,6 +72,9 @@ export class CodeConfirmationViewModelImpl
             email: params.email,
             password: params.password || '',
           });
+          this.baseView?.props.contextConsumer?.authentication.setIsAuthenticated(
+            true
+          );
           this.baseView?.props.navigation.navigate('Main', {
             screen: 'Home',
           });

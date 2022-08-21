@@ -30,4 +30,14 @@ export class RemoteAuthentication implements Authentication {
     const response = await this.identityProvider.forgotPasswordSubmit(params);
     return response;
   }
+
+  public async getAuthenticatedUser(): Promise<AccountModel> {
+    const response = await this.identityProvider.getCurrentAuthenticatedUser();
+    return response;
+  }
+
+  public async loggout(): Promise<boolean> {
+    const response = await this.identityProvider.signout();
+    return response;
+  }
 }

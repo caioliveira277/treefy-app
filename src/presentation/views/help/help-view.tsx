@@ -24,7 +24,7 @@ export interface HelpViewProps
 
 export class HelpView
   extends React.Component<HelpViewProps>
-  implements BaseView<HelpViewProps>
+  implements BaseView
 {
   private helpViewModel: HelpViewModel;
 

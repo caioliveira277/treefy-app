@@ -19,7 +19,7 @@ export interface HomeViewState {}
 
 export class HomeView
   extends React.Component<HomeViewProps, HomeViewState>
-  implements BaseView<HomeViewProps>
+  implements BaseView
 {
   private homeViewModel: HomeViewModel;
 
