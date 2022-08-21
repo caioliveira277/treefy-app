@@ -1,23 +1,22 @@
+import { useContext, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { makeRemoteAuthentication } from '@/main/factories/usecases';
+import AuthenticationContext from '@/presentation/contexts/authentication-context';
 import { PublicRoutes } from './public';
 import { MainRoutes } from './main';
-import { useContext, useEffect } from 'react';
-import AuthenticationContext from '@/presentation/contexts/authentication-context';
+
+interface RouterProps {
+  isAuthenticated: boolean;
+}
 
 const Stack = createNativeStackNavigator<StackParamList>();
-const remoteAuthentication = makeRemoteAuthentication();
 
-export const Router: React.FC = () => {
+export const Router: React.FC<RouterProps> = ({ isAuthenticated }) => {
   const authenticationContext = useContext(AuthenticationContext);
 
   useEffect(() => {
-    remoteAuthentication.getAuthenticatedUser().then((user) => {
-      if (user.clientId)
-        authenticationContext.authentication.setIsAuthenticated(true);
-    });
-  }, []);
+    authenticationContext.authentication.setIsAuthenticated(isAuthenticated);
+  }, [isAuthenticated]);
 
   return (
     <NavigationContainer>
