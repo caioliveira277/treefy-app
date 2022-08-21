@@ -55,6 +55,7 @@ describe('CompositeValidator', () => {
         new ContainsNumberValidator(fieldTwo),
       ],
     });
+    console.log(object);
 
     expect(sut.validateAll([fieldOne, fieldTwo], object).hasError).toBeFalsy();
   });
