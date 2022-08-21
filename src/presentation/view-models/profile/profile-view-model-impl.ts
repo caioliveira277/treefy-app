@@ -33,6 +33,8 @@ export class ProfileViewModelImpl
 
   public async handleLoggout(): Promise<void> {
     await this.authentication.loggout();
-    this.baseView?.props.navigation.navigate('Public', { screen: 'Access' });
+    this.baseView?.props.contextConsumer?.authentication.setIsAuthenticated(
+      false
+    );
   }
 }

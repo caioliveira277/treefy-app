@@ -9,6 +9,7 @@ import { CodeConfirmationViewModel } from '@/presentation/view-models';
 export interface CodeConfirmationViewProps
   extends NativeStackScreenProps<StackParamList, 'CodeConfirmation'> {
   codeConfirmationViewModel: CodeConfirmationViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface CodeConfirmationViewState {

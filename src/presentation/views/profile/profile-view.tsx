@@ -12,6 +12,7 @@ import { ButtonComponent } from '@/presentation/components';
 export interface ProfileViewProps
   extends NativeStackScreenProps<StackParamList, 'Profile'> {
   profileViewModel: ProfileViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface ProfileViewState {
