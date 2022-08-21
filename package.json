@@ -44,7 +44,8 @@
     "react-native-swipe-list-view": "^3.2.9",
     "react-native-web": "~0.18.7",
     "react-native-webview": "11.23.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "expo-splash-screen": "~0.16.1"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",
