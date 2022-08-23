@@ -6,6 +6,7 @@ import {
   SendCodeToChangePasswordParams,
   SendConfirmationCodeParams,
   SignupParams,
+  UpdateUserAccountParams,
 } from '@/domain/usecases';
 
 export interface IdentityProvider {
@@ -17,5 +18,6 @@ export interface IdentityProvider {
   forgotPassword(params: SendCodeToChangePasswordParams): Promise<boolean>;
   forgotPasswordSubmit(params: ChangePasswordParams): Promise<boolean>;
   getCurrentAuthenticatedUser(): Promise<AccountModel>;
+  updateUserAccount(params: UpdateUserAccountParams): Promise<boolean>;
   signout(): Promise<boolean>;
 }

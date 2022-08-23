@@ -3,6 +3,7 @@ import {
   AuthenticationParams,
   ChangePasswordParams,
   SendCodeToChangePasswordParams,
+  UpdateUserAccountParams,
 } from '@/domain/usecases/authentication';
 import { IdentityProvider } from '@/data/protocols/identity';
 import { AccountModel } from '@/domain/models';
@@ -38,6 +39,13 @@ export class RemoteAuthentication implements Authentication {
 
   public async loggout(): Promise<boolean> {
     const response = await this.identityProvider.signout();
+    return response;
+  }
+
+  public async updateAccount(
+    params: UpdateUserAccountParams
+  ): Promise<boolean> {
+    const response = await this.identityProvider.updateUserAccount(params);
     return response;
   }
 }

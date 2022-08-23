@@ -7,6 +7,7 @@ import {
   SendCodeToChangePasswordParams,
   SendConfirmationCodeParams,
   SignupParams,
+  UpdateUserAccountParams,
 } from '@/domain/usecases';
 import { Amplify, Auth } from 'aws-amplify';
 
@@ -106,6 +107,17 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
 
   public async signout(): Promise<boolean> {
     await Auth.signOut();
+    return true;
+  }
+
+  public async updateUserAccount(
+    params: UpdateUserAccountParams
+  ): Promise<boolean> {
+    const user = await Auth.currentAuthenticatedUser();
+    await Auth.updateUserAttributes(user, {
+      name: params.name,
+    });
+    await Auth.completeNewPassword(user, params.newPassword || '');
     return true;
   }
 }
