@@ -29,9 +29,9 @@ export class BuilderValidator {
     return this;
   }
 
-  public requiredIf(fieldCondition = ''): BuilderValidator {
+  public requiredIf(fieldNameCondition: string): BuilderValidator {
     this.validations.push(
-      new RequiredValidator(this.fieldName, fieldCondition)
+      new RequiredValidator(this.fieldName, fieldNameCondition)
     );
     return this;
   }
