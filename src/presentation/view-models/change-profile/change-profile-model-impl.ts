@@ -47,6 +47,13 @@ export class ChangeProfileViewModelImpl
     this.notifyViewAboutChanges();
   }
 
+  private validatePasswords(): void {
+    this.formErrors = this.validation.validateAll(
+      ['currentPassword', 'newPassword', 'confirmNewPassword'],
+      this.form
+    ).errors as ChangeProfileViewModel['formErrors'];
+  }
+
   public handleCompleteNameInputChange(value: string): void {
     this.form.completeName = value;
     this.formErrors.completeName = this.validation.validate(
@@ -58,37 +65,28 @@ export class ChangeProfileViewModelImpl
 
   public handleCurrentPasswordInputChange(value: string): void {
     this.form.currentPassword = value;
-    this.formErrors.currentPassword = this.validation.validate(
-      'currentPassword',
-      this.form
-    );
+    this.validatePasswords();
     this.notifyViewAboutChanges();
   }
 
   public handleNewPasswordInputChange(value: string): void {
     this.form.newPassword = value;
-    this.formErrors.newPassword = this.validation.validate(
-      'newPassword',
-      this.form
-    );
+    this.validatePasswords();
     this.notifyViewAboutChanges();
   }
 
   public handleConfirmNewPasswordInputChange(value: string): void {
     this.form.confirmNewPassword = value;
-    this.formErrors.confirmNewPassword = this.validation.validate(
-      'confirmNewPassword',
-      this.form
-    );
+    this.validatePasswords();
     this.notifyViewAboutChanges();
   }
 
-  public handleChangeLoadingState(state: boolean): void {
+  private handleChangeLoadingState(state: boolean): void {
     this.isLoading = state;
     this.notifyViewAboutChanges();
   }
 
-  public handleClearPasswordState(): void {
+  private handleClearPasswordState(): void {
     this.form = {
       ...this.form,
       newPassword: '',

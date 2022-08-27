@@ -22,6 +22,5 @@ export interface ChangeProfileViewModel extends BaseViewModel {
   handleCurrentPasswordInputChange(value: string): void;
   handleNewPasswordInputChange(value: string): void;
   handleConfirmNewPasswordInputChange(value: string): void;
-  handleClearPasswordState(): void;
   handleSubmit(): void;
 }
