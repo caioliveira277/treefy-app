@@ -3,11 +3,13 @@ import { RequiredValidator } from './required-validator';
 import faker from '@faker-js/faker';
 
 interface MakeSut {
-  (params: { field: string }): { sut: RequiredValidator };
+  (params: { field: string; fieldCondition?: string }): {
+    sut: RequiredValidator;
+  };
 }
 
-const makeSut: MakeSut = ({ field }) => ({
-  sut: new RequiredValidator(field),
+const makeSut: MakeSut = ({ field, fieldCondition }) => ({
+  sut: new RequiredValidator(field, fieldCondition),
 });
 
 describe('RequiredValidator', () => {
@@ -27,5 +29,29 @@ describe('RequiredValidator', () => {
       [field]: faker.datatype.string(),
     });
     expect(error).toBeFalsy();
+  });
+});
+
+describe('RequiredValiditor - conditional', () => {
+  test('Should return falsy if string of field and condition field is not empty', () => {
+    const field = faker.database.column();
+    const fieldCondition = faker.database.column();
+    const { sut } = makeSut({ field, fieldCondition });
+    const error = sut.validate({
+      [field]: faker.datatype.string(),
+      [fieldCondition]: faker.datatype.string(),
+    });
+    expect(error).toBeFalsy();
+  });
+
+  test('Should return error if string of condition field is not empty and field is empty', () => {
+    const field = faker.database.column();
+    const fieldCondition = faker.database.column();
+    const { sut } = makeSut({ field, fieldCondition });
+    const error = sut.validate({
+      [field]: '',
+      [fieldCondition]: faker.datatype.string(),
+    });
+    expect(error).toEqual(new RequiredFieldError());
   });
 });
