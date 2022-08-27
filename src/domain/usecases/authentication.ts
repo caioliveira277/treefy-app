@@ -15,6 +15,12 @@ export type ChangePasswordParams = {
   code: string;
 };
 
+export type UpdateUserAccountParams = {
+  name: string;
+  currentPassword?: string;
+  newPassword?: string;
+};
+
 export interface Authentication {
   auth(params: AuthenticationParams): Promise<AccountModel>;
   sendCodeToChangePassword(
@@ -22,5 +28,6 @@ export interface Authentication {
   ): Promise<boolean>;
   changePassword(params: ChangePasswordParams): Promise<boolean>;
   getAuthenticatedUser(): Promise<AccountModel>;
+  updateAccount(params: UpdateUserAccountParams): Promise<boolean>;
   loggout(): Promise<boolean>;
 }

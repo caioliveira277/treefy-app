@@ -71,7 +71,7 @@ export class AuthenticationViewModelImpl
         true
       );
     } else {
-      Alert.alert('Authentication failed');
+      Alert.alert('Error!', 'Authentication failure');
     }
     this.handleChangeLoadingState(false);
   }

@@ -7,6 +7,7 @@ import {
   SendCodeToChangePasswordParams,
   SendConfirmationCodeParams,
   SignupParams,
+  UpdateUserAccountParams,
 } from '@/domain/usecases';
 import { Amplify, Auth } from 'aws-amplify';
 
@@ -37,17 +38,23 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
   }
 
   public async signin(params: AuthenticationParams): Promise<AccountModel> {
-    const {
-      signInUserSession: { idToken },
-    } = await Auth.signIn(params.email, params.password);
-    const { payload } = idToken;
-
-    return {
-      clientId: payload['cognito:username'],
-      email: payload.email,
-      name: payload.name,
-      accessToken: idToken?.jwtToken,
+    const account: AccountModel = {
+      name: '',
+      email: '',
+      clientId: '',
+      accessToken: '',
     };
+
+    try {
+      const user = await Auth.signIn(params.email, params.password);
+      const { payload } = user.signInUserSession.idToken;
+
+      account.clientId = payload['cognito:username'];
+      account.email = payload.email;
+      account.name = payload.name;
+      account.accessToken = user.signInUserSession.idToken?.jwtToken;
+    } catch (error) {}
+    return account;
   }
 
   public async sendConfirmationCode(
@@ -88,25 +95,41 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
     };
 
     try {
-      const {
-        signInUserSession: { idToken },
-      } = await Auth.currentAuthenticatedUser();
-      const { payload } = idToken;
+      const user = await Auth.currentAuthenticatedUser();
+      const { payload } = user.signInUserSession.idToken;
 
       account.clientId = payload['cognito:username'];
       account.email = payload.email;
       account.name = payload.name;
-      account.accessToken = idToken?.jwtToken;
-
-      return account;
-    } catch (error) {
-      return account;
-    }
+      account.accessToken = user.signInUserSession.idToken?.jwtToken;
+    } catch (error) {}
+    return account;
   }
 
   public async signout(): Promise<boolean> {
     await Auth.signOut();
     return true;
+  }
+
+  public async updateUserAccount(
+    params: UpdateUserAccountParams
+  ): Promise<boolean> {
+    try {
+      const { name, currentPassword, newPassword } = params;
+      const user = await Auth.currentAuthenticatedUser();
+
+      await Auth.updateUserAttributes(user, {
+        name,
+      });
+
+      if (currentPassword && newPassword) {
+        Auth.changePassword(user, currentPassword, newPassword);
+      }
+
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }
 export const AWSCognitoIdentityProvider = new AWSCognitoIdentityProviderClass();

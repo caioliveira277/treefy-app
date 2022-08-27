@@ -12,6 +12,7 @@ import {
   VisibilityPasswordButton,
   textareaStyles,
   TextError,
+  TextInfo,
 } from './styles';
 
 export interface TextInputComponentProps {
@@ -25,6 +26,7 @@ export interface TextInputComponentProps {
   value?: string;
   keyboardType?: KeyboardType;
   errorMessage?: string;
+  infoMessage?: string;
   onChangeText?: (value: string) => void;
 }
 
@@ -39,6 +41,7 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
   keyboardType = 'default',
   value,
   errorMessage,
+  infoMessage,
   onChangeText,
 }) => {
   const theme = useTheme();
@@ -46,6 +49,16 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
 
   const handlePasswordVisible = () => setPasswordVisible(!passwordVisible);
   const isTextarea = () => type === 'textarea';
+
+  const displayMessage = () => {
+    if (errorMessage) {
+      return <TextError>{errorMessage}</TextError>;
+    } else if (infoMessage) {
+      return <TextInfo>{infoMessage}</TextInfo>;
+    } else {
+      return null;
+    }
+  };
 
   return (
     <Container style={style}>
@@ -98,7 +111,7 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
           </VisibilityPasswordButton>
         ) : null}
       </ContainerInput>
-      {errorMessage ? <TextError>{errorMessage}</TextError> : null}
+      {displayMessage()}
     </Container>
   );
 };

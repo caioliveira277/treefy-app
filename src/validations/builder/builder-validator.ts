@@ -29,6 +29,13 @@ export class BuilderValidator {
     return this;
   }
 
+  public requiredIf(fieldNameCondition: string): BuilderValidator {
+    this.validations.push(
+      new RequiredValidator(this.fieldName, fieldNameCondition)
+    );
+    return this;
+  }
+
   public email(): BuilderValidator {
     this.validations.push(new EmailValidator(this.fieldName));
     return this;
