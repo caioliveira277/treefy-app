@@ -20,10 +20,15 @@ export interface ChangeProfileViewProps
 }
 
 export interface ChangeProfileViewState {
-  completeNameValue: string;
-  emailValue: string;
-  passwordValue: string;
-  confirmPasswordValue: string;
+  form: {
+    completeName: string;
+    email: string;
+    currentPassword: string;
+    newPassword: string;
+    confirmNewPassword: string;
+  };
+  formErrors: this['form'];
+  isLoading: boolean;
 }
 
 export class ChangeProfileView
@@ -39,10 +44,9 @@ export class ChangeProfileView
     this.changeProfileViewModel = changeProfileViewModel;
 
     this.state = {
-      completeNameValue: changeProfileViewModel.completeNameValue,
-      emailValue: changeProfileViewModel.emailValue,
-      passwordValue: changeProfileViewModel.passwordValue,
-      confirmPasswordValue: changeProfileViewModel.confirmPasswordValue,
+      form: changeProfileViewModel.form,
+      formErrors: changeProfileViewModel.formErrors,
+      isLoading: changeProfileViewModel.isLoading,
     };
   }
 
@@ -56,19 +60,28 @@ export class ChangeProfileView
 
   public onViewModelChanged() {
     this.setState({
-      completeNameValue: this.changeProfileViewModel.completeNameValue,
-      emailValue: this.changeProfileViewModel.emailValue,
-      passwordValue: this.changeProfileViewModel.passwordValue,
-      confirmPasswordValue: this.changeProfileViewModel.confirmPasswordValue,
+      form: this.changeProfileViewModel.form,
+      formErrors: this.changeProfileViewModel.formErrors,
+      isLoading: this.changeProfileViewModel.isLoading,
     });
   }
 
   render() {
     const {
-      completeNameValue,
-      emailValue,
-      passwordValue,
-      confirmPasswordValue,
+      form: {
+        completeName,
+        email,
+        currentPassword,
+        newPassword,
+        confirmNewPassword,
+      },
+      formErrors: {
+        completeName: completeNameError,
+        currentPassword: currentPasswordError,
+        newPassword: newPasswordError,
+        confirmNewPassword: confirmNewPasswordError,
+      },
+      isLoading,
     } = this.state;
     const theme = currentTheme;
     return (
@@ -81,6 +94,7 @@ export class ChangeProfileView
           </EditProfileImageButton>
         }
         imageRounded
+        isLoading={isLoading}
       >
         <LegendComponent>Seu perfil:</LegendComponent>
         <TextInputComponent
@@ -88,7 +102,8 @@ export class ChangeProfileView
           iconName="user"
           label="Nome e sobrenome:"
           placeholderText="Nome e sobrenome"
-          value={completeNameValue}
+          value={completeName}
+          errorMessage={completeNameError}
           onChangeText={(text) =>
             this.changeProfileViewModel.handleCompleteNameInputChange(text)
           }
@@ -98,32 +113,44 @@ export class ChangeProfileView
           style={spacing.input}
           iconName="mail"
           label="Email cadastrado:"
+          value={email}
           placeholderText="Email cadastrado"
-          value={emailValue}
+        />
+        <TextInputComponent
+          style={spacing.inputGroup}
+          iconName="lock"
+          type="password"
+          label="Senha atual:"
+          placeholderText="Senha secreta"
+          value={currentPassword}
+          errorMessage={currentPasswordError}
           onChangeText={(text) =>
-            this.changeProfileViewModel.handleEmailInputChange(text)
+            this.changeProfileViewModel.handleCurrentPasswordInputChange(text)
           }
         />
         <TextInputComponent
           style={spacing.inputGroup}
           iconName="lock"
           type="password"
-          label="Senha:"
+          label="Nova senha:"
           placeholderText="Senha secreta"
-          value={passwordValue}
+          value={newPassword}
+          errorMessage={newPasswordError}
           onChangeText={(text) =>
-            this.changeProfileViewModel.handlePasswordInputChange(text)
+            this.changeProfileViewModel.handleNewPasswordInputChange(text)
           }
         />
-        <LegendComponent>Confirmação:</LegendComponent>
         <TextInputComponent
           iconName="lock"
           type="password"
-          label="Confirme a senha:"
+          label="Confirme a sua nova senha:"
           placeholderText="Senha secreta"
-          value={confirmPasswordValue}
+          value={confirmNewPassword}
+          errorMessage={confirmNewPasswordError}
           onChangeText={(text) =>
-            this.changeProfileViewModel.handleConfirmPasswordInputChange(text)
+            this.changeProfileViewModel.handleConfirmNewPasswordInputChange(
+              text
+            )
           }
         />
         <ButtonComponent

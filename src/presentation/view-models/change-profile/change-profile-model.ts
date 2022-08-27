@@ -1,17 +1,27 @@
+import { Authentication } from '@/domain/usecases';
+import { Validation } from '@/presentation/protocols/validation';
 import { BaseViewModel } from '../base-view-model';
 
 export interface ChangeProfileViewModel extends BaseViewModel {
-  completeNameValue: string;
+  authentication: Authentication;
+  validation: Validation;
 
-  emailValue: string;
+  form: {
+    completeName: string;
+    email: string;
+    currentPassword: string;
+    newPassword: string;
+    confirmNewPassword: string;
+  };
 
-  passwordValue: string;
+  formErrors: ChangeProfileViewModel['form'];
 
-  confirmPasswordValue: string;
+  isLoading: boolean;
 
   handleCompleteNameInputChange(value: string): void;
-  handleEmailInputChange(value: string): void;
-  handlePasswordInputChange(value: string): void;
-  handleConfirmPasswordInputChange(value: string): void;
+  handleCurrentPasswordInputChange(value: string): void;
+  handleNewPasswordInputChange(value: string): void;
+  handleConfirmNewPasswordInputChange(value: string): void;
+  handleClearPasswordState(): void;
   handleSubmit(): void;
 }
