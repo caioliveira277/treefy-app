@@ -38,16 +38,23 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
   }
 
   public async signin(params: AuthenticationParams): Promise<AccountModel> {
-    const user = await Auth.signIn(params.email, params.password);
-    const { payload } = user.signInUserSession.idToken;
-
-    //TODO: fix error when invalid signin
-    return {
-      clientId: payload['cognito:username'],
-      email: payload.email,
-      name: payload.name,
-      accessToken: user.signInUserSession.idToken?.jwtToken,
+    const account: AccountModel = {
+      name: '',
+      email: '',
+      clientId: '',
+      accessToken: '',
     };
+
+    try {
+      const user = await Auth.signIn(params.email, params.password);
+      const { payload } = user.signInUserSession.idToken;
+
+      account.clientId = payload['cognito:username'];
+      account.email = payload.email;
+      account.name = payload.name;
+      account.accessToken = user.signInUserSession.idToken?.jwtToken;
+    } catch (error) {}
+    return account;
   }
 
   public async sendConfirmationCode(
@@ -95,11 +102,8 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
       account.email = payload.email;
       account.name = payload.name;
       account.accessToken = user.signInUserSession.idToken?.jwtToken;
-
-      return account;
-    } catch (error) {
-      return account;
-    }
+    } catch (error) {}
+    return account;
   }
 
   public async signout(): Promise<boolean> {
