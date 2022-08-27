@@ -19,16 +19,19 @@ export const makeChangeProfileView: React.FC<MakeChangeProfileViewProps> = (
         .required()
         .completeName()
         .build(),
-      ...BuilderValidator.field('password')
-        .required()
+      ...BuilderValidator.field('currentPassword')
+        .requiredIf('newPassword')
+        .build(),
+      ...BuilderValidator.field('newPassword')
+        .requiredIf('currentPassword')
         .minLength(5)
         .containsLowercase()
         .containsUppercase()
         .containsNumber()
         .build(),
-      ...BuilderValidator.field('confirmPassword')
-        .required()
-        .sameAs('password', 'Senha')
+      ...BuilderValidator.field('confirmNewPassword')
+        .requiredIf('newPassword')
+        .sameAs('newPassword', 'Nova senha')
         .build(),
     ])
   );
