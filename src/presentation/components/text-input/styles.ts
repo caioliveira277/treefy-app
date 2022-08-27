@@ -60,6 +60,10 @@ export const TextError = styled.Text`
   font-size: ${({ theme }) => theme.fonts.sizes.sm};
 `;
 
+export const TextInfo = styled(TextError)`
+  color: ${({ theme }) => theme.colors.placeholder};
+`;
+
 export const textareaStyles = StyleSheet.create({
   input: {
     textAlignVertical: 'top',

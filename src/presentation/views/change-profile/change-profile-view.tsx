@@ -116,6 +116,7 @@ export class ChangeProfileView
           value={email}
           placeholderText="Email cadastrado"
         />
+        <LegendComponent>Alteração de senha:</LegendComponent>
         <TextInputComponent
           style={spacing.inputGroup}
           iconName="lock"
@@ -124,6 +125,7 @@ export class ChangeProfileView
           placeholderText="Senha secreta"
           value={currentPassword}
           errorMessage={currentPasswordError}
+          infoMessage="Necessário em caso de alteração de senha"
           onChangeText={(text) =>
             this.changeProfileViewModel.handleCurrentPasswordInputChange(text)
           }
