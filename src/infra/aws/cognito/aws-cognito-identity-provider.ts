@@ -38,16 +38,15 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
   }
 
   public async signin(params: AuthenticationParams): Promise<AccountModel> {
-    const {
-      signInUserSession: { idToken },
-    } = await Auth.signIn(params.email, params.password);
-    const { payload } = idToken;
+    const user = await Auth.signIn(params.email, params.password);
+    const { payload } = user.signInUserSession.idToken;
 
+    //TODO: fix error when invalid signin
     return {
       clientId: payload['cognito:username'],
       email: payload.email,
       name: payload.name,
-      accessToken: idToken?.jwtToken,
+      accessToken: user.signInUserSession.idToken?.jwtToken,
     };
   }
 
@@ -89,15 +88,13 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
     };
 
     try {
-      const {
-        signInUserSession: { idToken },
-      } = await Auth.currentAuthenticatedUser();
-      const { payload } = idToken;
+      const user = await Auth.currentAuthenticatedUser();
+      const { payload } = user.signInUserSession.idToken;
 
       account.clientId = payload['cognito:username'];
       account.email = payload.email;
       account.name = payload.name;
-      account.accessToken = idToken?.jwtToken;
+      account.accessToken = user.signInUserSession.idToken?.jwtToken;
 
       return account;
     } catch (error) {
@@ -113,12 +110,22 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
   public async updateUserAccount(
     params: UpdateUserAccountParams
   ): Promise<boolean> {
-    const user = await Auth.currentAuthenticatedUser();
-    await Auth.updateUserAttributes(user, {
-      name: params.name,
-    });
-    await Auth.completeNewPassword(user, params.newPassword || '');
-    return true;
+    try {
+      const { name, currentPassword, newPassword } = params;
+      const user = await Auth.currentAuthenticatedUser();
+
+      await Auth.updateUserAttributes(user, {
+        name,
+      });
+
+      if (currentPassword && newPassword) {
+        Auth.changePassword(user, currentPassword, newPassword);
+      }
+
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }
 export const AWSCognitoIdentityProvider = new AWSCognitoIdentityProviderClass();

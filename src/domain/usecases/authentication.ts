@@ -17,6 +17,7 @@ export type ChangePasswordParams = {
 
 export type UpdateUserAccountParams = {
   name: string;
+  currentPassword?: string;
   newPassword?: string;
 };
 
