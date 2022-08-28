@@ -7,7 +7,10 @@ import { currentTheme } from '@/presentation/themes';
 import { Router } from '@/main/routes/routes';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AWSCognitoIdentityProvider } from '@/infra/aws';
-import { AuthenticationProvider } from '@/presentation/contexts';
+import {
+  AuthenticationProvider,
+  IntroductionProvider,
+} from '@/presentation/contexts';
 import { makeRemoteAuthentication } from '@/main/factories/usecases';
 import * as SplashScreen from 'expo-splash-screen';
 import {
@@ -52,10 +55,15 @@ function App() {
   return appIsReady ? (
     <ThemeProvider theme={currentTheme}>
       <AuthenticationProvider>
-        <GestureHandlerRootView onLayout={onLayoutRootView} style={{ flex: 1 }}>
-          <Router isAuthenticated={isAuthenticated} />
-        </GestureHandlerRootView>
-        <StatusBar style="auto" translucent />
+        <IntroductionProvider>
+          <GestureHandlerRootView
+            onLayout={onLayoutRootView}
+            style={{ flex: 1 }}
+          >
+            <Router isAuthenticated={isAuthenticated} />
+          </GestureHandlerRootView>
+          <StatusBar style="auto" translucent />
+        </IntroductionProvider>
       </AuthenticationProvider>
     </ThemeProvider>
   ) : null;

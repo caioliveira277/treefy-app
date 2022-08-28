@@ -1,6 +1,7 @@
 import { IntroductionViewModelImpl } from '@/presentation/view-models';
 import { IntroductionView } from '@/presentation/views';
 import { RouteProp } from '@react-navigation/native';
+import { IntroductionConsumer } from '@/presentation/contexts';
 
 interface MakeIntroductionViewProps {
   route: RouteProp<StackParamList, 'Introduction'>;
@@ -12,9 +13,14 @@ export const makeIntroductionView: React.FC<MakeIntroductionViewProps> = (
 ) => {
   const introductionViewModel = new IntroductionViewModelImpl();
   return (
-    <IntroductionView
-      {...props}
-      introductionViewModel={introductionViewModel}
-    />
+    <IntroductionConsumer>
+      {(introductionContextParams) => (
+        <IntroductionView
+          {...props}
+          contextConsumer={introductionContextParams}
+          introductionViewModel={introductionViewModel}
+        />
+      )}
+    </IntroductionConsumer>
   );
 };

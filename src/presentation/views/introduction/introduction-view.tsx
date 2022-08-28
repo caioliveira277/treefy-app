@@ -21,6 +21,7 @@ import { SlideControlComponent } from './components';
 export interface IntroductionViewProps
   extends NativeStackScreenProps<StackParamList, 'Introduction'> {
   introductionViewModel: IntroductionViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface IntroductionViewState {
@@ -95,7 +96,7 @@ export class IntroductionView
             style={styles.button}
             onPress={() => this.introductionViewModel.handleMoveToAccess()}
           >
-            Pular apresentação
+            {activeSlideIndex === 2 ? 'Acessar' : 'Pular apresentação'}
           </ButtonComponent>
         </Footer>
       </Container>

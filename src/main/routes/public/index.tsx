@@ -8,11 +8,22 @@ import {
   makeCodeConfirmationView,
   makeSignupView,
 } from '@/main/factories/views';
+import { useContext, useEffect, useState } from 'react';
+import IntroductionContext from '@/presentation/contexts/introduction-context';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export const PublicRoutes: React.FC = () => {
-  return (
+  const introductionContext = useContext(IntroductionContext);
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    introductionContext.introduction.setAlreadyViewedByStorage().finally(() => {
+      setIsReady(true);
+    });
+  }, []);
+
+  return isReady ? (
     <Stack.Navigator
       initialRouteName="Introduction"
       screenOptions={{
@@ -20,7 +31,10 @@ export const PublicRoutes: React.FC = () => {
         animation: 'fade',
       }}
     >
-      <Stack.Screen name="Introduction">{makeIntroductionView}</Stack.Screen>
+      {introductionContext.introduction.alreadyViewed ? null : (
+        <Stack.Screen name="Introduction">{makeIntroductionView}</Stack.Screen>
+      )}
+
       <Stack.Screen name="Access">{makeAccessView}</Stack.Screen>
       <Stack.Screen name="Authentication">
         {makeAuthenticationView}
@@ -36,5 +50,5 @@ export const PublicRoutes: React.FC = () => {
         {makeCodeConfirmationView}
       </Stack.Screen>
     </Stack.Navigator>
-  );
+  ) : null;
 };
