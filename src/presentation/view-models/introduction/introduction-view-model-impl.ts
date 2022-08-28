@@ -19,5 +19,6 @@ export class IntroductionViewModelImpl
 
   public handleMoveToAccess(): void {
     this.baseView?.props.navigation.navigate('Public', { screen: 'Access' });
+    this.baseView?.props.contextConsumer?.introduction?.setAlreadyViewed(true);
   }
 }
