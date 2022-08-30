@@ -42,7 +42,7 @@ describe('CompositeValidator', () => {
 
   test('Should run all validations successfully', () => {
     const fieldOne = faker.database.column();
-    const fieldTwo = faker.database.column();
+    const fieldTwo = 'any_' + faker.database.column();
     const object = {
       [fieldOne]: faker.internet.email(),
       [fieldTwo]: faker.datatype.number(),
@@ -55,14 +55,13 @@ describe('CompositeValidator', () => {
         new ContainsNumberValidator(fieldTwo),
       ],
     });
-    console.log(object);
 
     expect(sut.validateAll([fieldOne, fieldTwo], object).hasError).toBeFalsy();
   });
 
   test('Should run all validations with error', () => {
     const fieldOne = faker.database.column();
-    const fieldTwo = faker.database.column();
+    const fieldTwo = 'any_' + faker.database.column();
     const object = {
       [fieldOne]: faker.internet.email(),
       [fieldTwo]: '',
