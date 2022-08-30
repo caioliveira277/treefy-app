@@ -212,7 +212,6 @@ exports[`PageLoadingComponent Should match with a snapshot 1`] = `
     <View
       autoPlay={true}
       cacheComposition={true}
-      collapsable={false}
       colorFilters={Array []}
       enableMergePathsAndroidForKitKatAndAbove={false}
       forwardedRef={[Function]}
