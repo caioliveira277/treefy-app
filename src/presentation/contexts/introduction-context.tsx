@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface IntroductionProviderState {
@@ -8,7 +8,9 @@ interface IntroductionProviderMethods {
   setAlreadyViewed(alreadyViewed: boolean): void;
   setAlreadyViewedByStorage(): Promise<void>;
 }
-interface IntroductionProviderProps extends PropsWithChildren {}
+interface IntroductionProviderProps {
+  children?: ReactNode;
+}
 
 export interface IntroductionContextParams {
   introduction: IntroductionProviderState & IntroductionProviderMethods;

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { ReactNode } from 'react';
 
 interface AuthenticationProviderState {
   isAuthenticated: boolean;
@@ -6,7 +6,9 @@ interface AuthenticationProviderState {
 interface AuthenticationProviderMethods {
   setIsAuthenticated(isAuthenticated: boolean): void;
 }
-interface AuthenticationProviderProps extends PropsWithChildren {}
+interface AuthenticationProviderProps {
+  children?: ReactNode;
+}
 
 export interface AuthenticationContextParams {
   authentication: AuthenticationProviderState & AuthenticationProviderMethods;
