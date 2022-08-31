@@ -49,7 +49,7 @@ describe('SameAsValidator', () => {
   test('Should return falsy if field is empty', () => {
     const field = faker.database.column();
     const sameFieldName = faker.database.column();
-    const sameFieldLabel = faker.database.column();
+    const sameFieldLabel = 'any_' + faker.database.column();
     const { sut } = makeSut({
       field,
       sameFieldName,

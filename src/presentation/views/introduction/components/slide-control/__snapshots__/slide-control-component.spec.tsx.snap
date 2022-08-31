@@ -13,13 +13,7 @@ exports[`LinkComponent Should match with a snapshot 1`] = `
   }
 >
   <View
-    accessibilityState={
-      Object {
-        "disabled": true,
-      }
-    }
     accessible={true}
-    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -44,13 +38,7 @@ exports[`LinkComponent Should match with a snapshot 1`] = `
     testID="point"
   />
   <View
-    accessibilityState={
-      Object {
-        "disabled": false,
-      }
-    }
     accessible={true}
-    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -75,13 +63,7 @@ exports[`LinkComponent Should match with a snapshot 1`] = `
     testID="point"
   />
   <View
-    accessibilityState={
-      Object {
-        "disabled": false,
-      }
-    }
     accessible={true}
-    collapsable={false}
     focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}

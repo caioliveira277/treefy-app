@@ -7,7 +7,8 @@
       "@/*": ["./src/*"],
       "@assets/*": ["./assets/*"]
     },
-    "typeRoots": ["node_modules/@types", "node_modules/jest-styled-components"]
+    "typeRoots": ["node_modules/@types", "node_modules/jest-styled-components"],
+    "types": ["jest", "styled-components-react-native"]
   },
   "exclude": ["*.test.ts", "*.spec.ts", "*.test.tsx", "*.spec.tsx"]
 }
