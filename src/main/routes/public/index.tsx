@@ -18,9 +18,13 @@ export const PublicRoutes: React.FC = () => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
     introductionContext.introduction.setAlreadyViewedByStorage().finally(() => {
-      setIsReady(true);
+      if (isMounted) setIsReady(true);
     });
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return isReady ? (
