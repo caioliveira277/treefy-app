@@ -71,6 +71,7 @@ export class AuthenticationViewModelImpl
         true
       );
     } else {
+      this.baseView?.props.contextConsumer?.toast?.show('here');
       Alert.alert('Error!', 'Authentication failure');
     }
     this.handleChangeLoadingState(false);
