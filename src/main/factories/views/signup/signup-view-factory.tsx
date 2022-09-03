@@ -3,6 +3,7 @@ import { SignupView } from '@/presentation/views';
 import { BuilderValidator, CompositeValidator } from '@/validations';
 import { RouteProp } from '@react-navigation/native';
 import { makeRemoteSignup } from '@/main/factories/usecases';
+import { ToastConsumer } from '@/presentation/contexts';
 
 interface MakeSignupViewProps {
   route: RouteProp<StackParamList, 'Signup'>;
@@ -31,5 +32,15 @@ export const makeSignupView: React.FC<MakeSignupViewProps> = (props) => {
         .build(),
     ])
   );
-  return <SignupView {...props} signupViewModel={signupViewModel} />;
+  return (
+    <ToastConsumer>
+      {(toastContextParams) => (
+        <SignupView
+          {...props}
+          contextConsumer={{ ...toastContextParams }}
+          signupViewModel={signupViewModel}
+        />
+      )}
+    </ToastConsumer>
+  );
 };

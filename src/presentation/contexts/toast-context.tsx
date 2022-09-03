@@ -26,12 +26,14 @@ export const ToastConsumer: React.FC<{
   const override = (toastType: ToastType): ToastContextParams => {
     const showCustom: CustomToast['showCustom'] = (title, message, type) => {
       toastType.hideAll();
-      toastType.show(title, {
-        type,
-        data: {
-          message,
-        },
-      });
+      setTimeout(() => {
+        toastType.show(title, {
+          type,
+          data: {
+            message,
+          },
+        });
+      }, 600);
     };
 
     return { toast: { ...toastType, showCustom } };

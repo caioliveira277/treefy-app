@@ -3,6 +3,7 @@ import { ChangePasswordView } from '@/presentation/views';
 import { BuilderValidator, CompositeValidator } from '@/validations';
 import { RouteProp } from '@react-navigation/native';
 import { makeRemoteAuthentication } from '@/main/factories/usecases';
+import { ToastConsumer } from '@/presentation/contexts';
 
 interface MakeChangePasswordViewProps {
   route: RouteProp<StackParamList, 'ChangePassword'>;
@@ -29,9 +30,14 @@ export const makeChangePasswordView: React.FC<MakeChangePasswordViewProps> = (
     ])
   );
   return (
-    <ChangePasswordView
-      {...props}
-      changePasswordViewModel={changePasswordViewModel}
-    />
+    <ToastConsumer>
+      {(toastContextParams) => (
+        <ChangePasswordView
+          {...props}
+          contextConsumer={{ ...toastContextParams }}
+          changePasswordViewModel={changePasswordViewModel}
+        />
+      )}
+    </ToastConsumer>
   );
 };

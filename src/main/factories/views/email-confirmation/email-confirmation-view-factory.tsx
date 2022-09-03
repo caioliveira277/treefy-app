@@ -3,6 +3,7 @@ import { EmailConfirmationView } from '@/presentation/views';
 import { BuilderValidator, CompositeValidator } from '@/validations';
 import { RouteProp } from '@react-navigation/native';
 import { makeRemoteAuthentication } from '@/main/factories/usecases';
+import { ToastConsumer } from '@/presentation/contexts';
 
 interface MakeEmailConfirmationViewProps {
   route: RouteProp<StackParamList, 'EmailConfirmation'>;
@@ -19,9 +20,14 @@ export const makeEmailConfirmationView: React.FC<
     ])
   );
   return (
-    <EmailConfirmationView
-      {...props}
-      emailConfirmationViewModel={emailConfirmationViewModel}
-    />
+    <ToastConsumer>
+      {(toastContextParams) => (
+        <EmailConfirmationView
+          {...props}
+          contextConsumer={{ ...toastContextParams }}
+          emailConfirmationViewModel={emailConfirmationViewModel}
+        />
+      )}
+    </ToastConsumer>
   );
 };

@@ -13,6 +13,7 @@ import { BaseView } from '../base-view';
 export interface SignupViewProps
   extends NativeStackScreenProps<StackParamList, 'Signup'> {
   signupViewModel: SignupViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface SignupViewState {

@@ -6,7 +6,7 @@ import {
   makeRemoteAuthentication,
   makeRemoteSignup,
 } from '@/main/factories/usecases';
-import { AuthenticationConsumer } from '@/presentation/contexts';
+import { AuthenticationConsumer, ToastConsumer } from '@/presentation/contexts';
 
 interface MakeCodeConfirmationProps {
   route: RouteProp<StackParamList, 'CodeConfirmation'>;
@@ -26,11 +26,18 @@ export const makeCodeConfirmationView: React.FC<MakeCodeConfirmationProps> = (
   return (
     <AuthenticationConsumer>
       {(authenticationContextParams) => (
-        <CodeConfirmationView
-          {...props}
-          contextConsumer={authenticationContextParams}
-          codeConfirmationViewModel={codeConfirmationViewModel}
-        />
+        <ToastConsumer>
+          {(toastContextParams) => (
+            <CodeConfirmationView
+              {...props}
+              contextConsumer={{
+                ...authenticationContextParams,
+                ...toastContextParams,
+              }}
+              codeConfirmationViewModel={codeConfirmationViewModel}
+            />
+          )}
+        </ToastConsumer>
       )}
     </AuthenticationConsumer>
   );

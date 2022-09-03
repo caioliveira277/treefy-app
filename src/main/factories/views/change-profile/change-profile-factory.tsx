@@ -3,6 +3,7 @@ import { ChangeProfileView } from '@/presentation/views';
 import { RouteProp } from '@react-navigation/native';
 import { makeRemoteAuthentication } from '@/main/factories/usecases';
 import { BuilderValidator, CompositeValidator } from '@/validations';
+import { ToastConsumer } from '@/presentation/contexts';
 
 interface MakeChangeProfileViewProps {
   route: RouteProp<StackParamList, 'ChangeProfile'>;
@@ -36,9 +37,14 @@ export const makeChangeProfileView: React.FC<MakeChangeProfileViewProps> = (
     ])
   );
   return (
-    <ChangeProfileView
-      {...props}
-      changeProfileViewModel={changeProfileViewModel}
-    />
+    <ToastConsumer>
+      {(toastContextParams) => (
+        <ChangeProfileView
+          {...props}
+          contextConsumer={{ ...toastContextParams }}
+          changeProfileViewModel={changeProfileViewModel}
+        />
+      )}
+    </ToastConsumer>
   );
 };

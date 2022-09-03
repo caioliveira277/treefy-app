@@ -17,6 +17,7 @@ import { getIcon } from '@/presentation/utils';
 export interface ChangeProfileViewProps
   extends NativeStackScreenProps<StackParamList, 'ChangeProfile'> {
   changeProfileViewModel: ChangeProfileViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface ChangeProfileViewState {

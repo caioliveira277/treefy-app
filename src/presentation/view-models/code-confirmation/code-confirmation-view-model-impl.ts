@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { CodeConfirmationViewModel } from './code-confirmation-view-model';
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { Authentication, Signup } from '@/domain/usecases';
@@ -65,7 +64,11 @@ export class CodeConfirmationViewModelImpl
         });
 
         if (!codeConfirmed) {
-          Alert.alert('Error!', 'failed to confirm code');
+          this.baseView?.props.contextConsumer?.toast?.showCustom(
+            'Oops! Erro ao confirmar',
+            'Não conseguimos confirmar o seu código, verique-o e tente novamente',
+            'error'
+          );
           this.handleChangeLoadingState(false);
         } else {
           await this.authentication.auth({
@@ -79,7 +82,11 @@ export class CodeConfirmationViewModelImpl
             screen: 'Home',
           });
           this.handleChangeLoadingState(false);
-          Alert.alert('Success!', 'Account confimed successfully');
+          this.baseView?.props.contextConsumer?.toast?.showCustom(
+            'Show! Confirmação realizada com sucesso',
+            'Conseguimos confirmar a sua conta, está tudo certo agora :)',
+            'success'
+          );
         }
         break;
 
