@@ -1,6 +1,5 @@
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { ChangeProfileViewModel } from './change-profile-model';
-import { Alert } from 'react-native';
 import { Authentication } from '@/domain/usecases';
 import { Validation } from '@/presentation/protocols/validation';
 
@@ -118,8 +117,18 @@ export class ChangeProfileViewModelImpl
     });
 
     if (updateAccount) {
-      Alert.alert('Success!', 'Save successfully');
+      this.baseView?.props.contextConsumer?.toast?.showCustom(
+        'Show! Atualizado com sucesso',
+        'Conseguimos atualizar seus dados, está tudo certo por aqui :)',
+        'success'
+      );
       this.handleClearPasswordState();
+    } else {
+      this.baseView?.props.contextConsumer?.toast?.showCustom(
+        'Oops! Parece que algo deu errado',
+        'Não conseguimos atualizar os seus dados, verifique os campos preenchidos e tente novamente',
+        'error'
+      );
     }
     this.handleChangeLoadingState(false);
   }

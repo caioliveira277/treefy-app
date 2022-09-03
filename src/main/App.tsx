@@ -10,6 +10,7 @@ import { AWSCognitoIdentityProvider } from '@/infra/aws';
 import {
   AuthenticationProvider,
   IntroductionProvider,
+  ToastProvider,
 } from '@/presentation/contexts';
 import { makeRemoteAuthentication } from '@/main/factories/usecases';
 import * as SplashScreen from 'expo-splash-screen';
@@ -56,13 +57,15 @@ function App() {
     <ThemeProvider theme={currentTheme}>
       <AuthenticationProvider>
         <IntroductionProvider>
-          <GestureHandlerRootView
-            onLayout={onLayoutRootView}
-            style={{ flex: 1 }}
-          >
-            <Router isAuthenticated={isAuthenticated} />
-          </GestureHandlerRootView>
-          <StatusBar style="auto" translucent />
+          <ToastProvider>
+            <GestureHandlerRootView
+              onLayout={onLayoutRootView}
+              style={{ flex: 1 }}
+            >
+              <Router isAuthenticated={isAuthenticated} />
+            </GestureHandlerRootView>
+            <StatusBar style="auto" translucent />
+          </ToastProvider>
         </IntroductionProvider>
       </AuthenticationProvider>
     </ThemeProvider>

@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { EmailConfirmationViewModel } from './email-confirmation-view-model';
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { Authentication } from '@/domain/usecases';
@@ -63,7 +62,11 @@ export class EmailConfirmationViewModelImpl
         },
       });
     } else {
-      Alert.alert('Error sending code');
+      this.baseView?.props.contextConsumer?.toast?.showCustom(
+        'Oops! Erro ao enviar',
+        'Infelimente não conseguimos enviar o código, verifique o e-mail informado e tente novamente',
+        'error'
+      );
     }
     this.handleChangeLoadingState(false);
   }

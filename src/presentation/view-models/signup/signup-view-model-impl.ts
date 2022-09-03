@@ -1,6 +1,5 @@
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { SignupViewModel } from './signup-view-model';
-import { Alert } from 'react-native';
 import { Signup } from '@/domain/usecases';
 import { Validation } from '@/presentation/protocols/validation';
 
@@ -99,7 +98,11 @@ export class SignupViewModelImpl
         },
       });
     } else {
-      Alert.alert('Error!', 'failed to register');
+      this.baseView?.props.contextConsumer?.toast?.showCustom(
+        'Oops!, falha ao cadastrar',
+        'Tivemos um problema ao cadastrar sua conta, verifique os dados e tente novamente',
+        'error'
+      );
     }
     this.handleChangeLoadingState(false);
   }

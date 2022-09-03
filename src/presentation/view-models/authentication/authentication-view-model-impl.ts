@@ -1,7 +1,6 @@
 import { AuthenticationViewModel } from './authentication-view-model';
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { Authentication } from '@/domain/usecases';
-import { Alert } from 'react-native';
 import { Validation } from '@/presentation/protocols/validation';
 
 export class AuthenticationViewModelImpl
@@ -71,7 +70,11 @@ export class AuthenticationViewModelImpl
         true
       );
     } else {
-      Alert.alert('Error!', 'Authentication failure');
+      this.baseView?.props.contextConsumer?.toast?.showCustom(
+        'Oops! conta não encontrada',
+        'Verifique se os dados preenchidos estão corretos e tente novamente.',
+        'error'
+      );
     }
     this.handleChangeLoadingState(false);
   }

@@ -9,6 +9,7 @@ import { EmailConfirmationViewModel } from '@/presentation/view-models';
 export interface EmailConfirmationViewProps
   extends NativeStackScreenProps<StackParamList, 'EmailConfirmation'> {
   emailConfirmationViewModel: EmailConfirmationViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface EmailConfirmationViewState {

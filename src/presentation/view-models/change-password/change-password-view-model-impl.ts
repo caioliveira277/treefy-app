@@ -1,4 +1,3 @@
-import { Alert } from 'react-native';
 import { ChangePasswordViewModel } from './change-password-view-model';
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { Authentication } from '@/domain/usecases';
@@ -73,7 +72,11 @@ export class ChangePasswordViewModelImpl
         screen: 'Authentication',
       });
     } else {
-      Alert.alert('Failed to change password');
+      this.baseView?.props.contextConsumer?.toast?.showCustom(
+        'Oops! Erro ao alterar senha',
+        'Tivemos um problema com a alteração da sua senha, tente novamente mais tarde',
+        'error'
+      );
     }
     this.handleChangeLoadingState(false);
   }

@@ -9,6 +9,7 @@ import { ChangePasswordViewModel } from '@/presentation/view-models';
 export interface ChangePasswordViewProps
   extends NativeStackScreenProps<StackParamList, 'ChangePassword'> {
   changePasswordViewModel: ChangePasswordViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface ChangePasswordViewState {

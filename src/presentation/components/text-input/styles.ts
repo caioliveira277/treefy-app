@@ -19,7 +19,7 @@ export const ContainerInput = styled.View<{ hasError: boolean }>`
   border: 1.5px solid;
   border-radius: ${({ theme }) => theme.borders.border_radius_sm};
   border-color: ${({ theme, hasError }) =>
-    hasError ? theme.colors.danger : theme.colors.placeholder_light};
+    hasError ? theme.colors.error : theme.colors.placeholder_light};
   background: ${({ theme }) => theme.colors.white};
   min-height: 45px;
   position: relative;
@@ -56,7 +56,7 @@ export const Input = styled.TextInput`
 export const TextError = styled.Text`
   margin-top: 3px;
   font-family: ${({ theme }) => theme.fonts.families.regular};
-  color: ${({ theme }) => theme.colors.danger};
+  color: ${({ theme }) => theme.colors.error};
   font-size: ${({ theme }) => theme.fonts.sizes.sm};
 `;
 
