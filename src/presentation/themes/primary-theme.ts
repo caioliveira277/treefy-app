@@ -15,7 +15,10 @@ export const primaryTheme: DefaultTheme = {
     water: '#B0D8FE',
     edit: '#4ABCBC',
     complete: '#4ABC86',
-    danger: '#E04244',
+    error: '#E04244',
+    success: '#79AA05',
+    warning: '#C46403',
+    info: '#01A0C4',
   },
   borders: {
     border_radius_sm: '5px',
