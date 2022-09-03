@@ -24,12 +24,12 @@ export const makeAuthenticationView: React.FC<MakeAuthenticationViewProps> = (
     <AuthenticationConsumer>
       {(authenticationContextParams) => (
         <ToastConsumer>
-          {(toastType) => (
+          {(toastContextParams) => (
             <AuthenticationView
               {...props}
               contextConsumer={{
                 ...authenticationContextParams,
-                toast: toastType,
+                ...toastContextParams,
               }}
               authenticationViewModel={authenticationViewModel}
             />

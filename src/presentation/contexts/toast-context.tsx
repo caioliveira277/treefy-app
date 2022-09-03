@@ -1,35 +1,50 @@
-import React, { ReactNode } from 'react';
-import { ToastProvider as Provider } from 'react-native-toast-notifications';
-import ToastContext from 'react-native-toast-notifications/src/hook/context';
+import React from 'react';
+import {
+  ToastProvider as Provider,
+  ToastType,
+} from 'react-native-toast-notifications';
 import {
   ToastMessageComponent,
   ToastMessageComponentProps,
 } from '@/presentation/components';
+import ToastContext from 'react-native-toast-notifications/src/hook/context';
 import { ToastProps } from 'react-native-toast-notifications/src/toast';
 
-interface ToastProviderState {}
-interface ToastProviderMethods {
-  renderToastElement: (toast: ToastProps) => JSX.Element;
+type CustomToast = {
+  showCustom: (
+    title: string,
+    message: string,
+    type: ToastMessageComponentProps['type']
+  ) => void;
+} & ToastType;
+export interface ToastContextParams {
+  toast: CustomToast;
 }
-interface ToastProviderProps {
-  children?: ReactNode;
-}
-
-export const ToastConsumer = ToastContext.Consumer;
-
-export class ToastProvider
-  extends React.Component<ToastProviderProps, ToastProviderState>
-  implements ToastProviderMethods
-{
-  constructor(props: ToastProviderProps) {
-    super(props);
-
-    this.state = {
-      alreadyViewed: true,
+export const ToastConsumer: React.FC<{
+  children: (toastContextParams: ToastContextParams) => React.ReactNode;
+}> = ({ children }) => {
+  const override = (toastType: ToastType): ToastContextParams => {
+    const showCustom: CustomToast['showCustom'] = (title, message, type) => {
+      toastType.hideAll();
+      toastType.show(title, {
+        type,
+        data: {
+          message,
+        },
+      });
     };
-  }
 
-  public renderToastElement(toast: ToastProps) {
+    return { toast: { ...toastType, showCustom } };
+  };
+  return (
+    <ToastContext.Consumer>
+      {(toastType) => children(override(toastType))}
+    </ToastContext.Consumer>
+  );
+};
+
+export class ToastProvider extends React.Component {
+  private renderToastElement(toast: ToastProps) {
     return (
       <ToastMessageComponent
         type={toast.type as ToastMessageComponentProps['type']}

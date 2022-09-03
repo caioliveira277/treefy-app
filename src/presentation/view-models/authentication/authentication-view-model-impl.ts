@@ -70,15 +70,10 @@ export class AuthenticationViewModelImpl
         true
       );
     } else {
-      this.baseView?.props.contextConsumer?.toast?.show(
+      this.baseView?.props.contextConsumer?.toast?.showCustom(
         'Oops! conta não encontrada',
-        {
-          type: 'error',
-          data: {
-            message:
-              'Verifique se os dados preenchidos estão corretos e tente novamente.',
-          },
-        }
+        'Verifique se os dados preenchidos estão corretos e tente novamente.',
+        'error'
       );
     }
     this.handleChangeLoadingState(false);
