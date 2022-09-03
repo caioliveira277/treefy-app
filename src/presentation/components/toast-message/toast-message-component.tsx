@@ -11,25 +11,27 @@ import {
 import ToastBackground from '@assets/images/toast-background.png';
 
 export interface ToastMessageComponentProps {
-  type: 'success' | 'error' | 'info' | 'warning';
   title: string;
   message: string;
+  type: 'success' | 'error' | 'info' | 'warning';
 }
 
 export const ToastMessageComponent: React.FC<ToastMessageComponentProps> = ({
-  type = 'info',
   title,
   message,
+  type,
 }) => {
   const theme = useTheme();
   return (
     <Container>
-      <Toast style={{ ...theme.shadows.sm }}>
+      <Toast theme={theme} style={{ ...theme.shadows.sm }}>
         <Image source={ToastBackground} resizeMode="center" />
-        <Status type={type} />
+        <Status theme={theme} type={type} />
         <Content>
-          <Title type={type}>{title}</Title>
-          <Message>{message}</Message>
+          <Title theme={theme} type={type}>
+            {title}
+          </Title>
+          <Message theme={theme}>{message}</Message>
         </Content>
       </Toast>
     </Container>
