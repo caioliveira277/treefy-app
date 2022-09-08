@@ -4,7 +4,7 @@ import {
   Signup,
   SignupParams,
 } from '@/domain/usecases';
-import { IdentityProvider } from '@/data/protocols/identity';
+import { IdentityProvider } from '@/data/protocols';
 
 export class RemoteSignup implements Signup {
   private readonly identityProvider: IdentityProvider;

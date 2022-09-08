@@ -5,7 +5,7 @@ import {
   SendCodeToChangePasswordParams,
   UpdateUserAccountParams,
 } from '@/domain/usecases/authentication';
-import { IdentityProvider } from '@/data/protocols/identity';
+import { IdentityProvider } from '@/data/protocols';
 import { AccountModel } from '@/domain/models';
 
 export class RemoteAuthentication implements Authentication {
