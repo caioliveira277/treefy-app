@@ -26,6 +26,7 @@
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
     "aws-amplify": "^4.3.27",
+    "axios": "^0.27.2",
     "babel-plugin-inline-dotenv": "^1.7.0",
     "expo": "~44.0.0",
     "expo-font": "~10.0.4",
