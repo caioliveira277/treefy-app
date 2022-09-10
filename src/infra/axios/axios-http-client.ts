@@ -17,10 +17,12 @@ export class AxiosHttpClient implements HttpClient {
         body: req.data,
       };
     } catch (error) {
-      const { status, data: dataError } = error as AxiosResponse;
+      const axiosError = error as AxiosResponse;
+      // eslint-disable-next-line no-console
+      console.log('axios request error', { ...axiosError });
       return {
-        statusCode: status,
-        body: dataError,
+        statusCode: axiosError.status,
+        body: axiosError.data,
       };
     }
   }
