@@ -52,7 +52,7 @@ export const ActivePoint = styled.View`
 `;
 
 export const customStyle = StyleSheet.create({
-  active: {
+  firstItem: {
     marginLeft: 20,
   },
 });

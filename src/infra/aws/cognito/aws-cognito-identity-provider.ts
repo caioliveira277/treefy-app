@@ -1,4 +1,4 @@
-import { IdentityProvider } from '@/data/protocols/identity';
+import { IdentityProvider } from '@/data/protocols';
 import { AccountModel } from '@/domain/models';
 import {
   AuthenticationParams,

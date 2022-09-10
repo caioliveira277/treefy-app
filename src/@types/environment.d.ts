@@ -5,6 +5,7 @@ declare global {
       USERPOOLID: string;
       IDENTITYPOOLID: string;
       USERPOOLWEBCLIENTID: string;
+      API_BASE_URL: string;
     }
   }
 }

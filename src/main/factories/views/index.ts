@@ -8,3 +8,4 @@ export * from './code-confirmation/code-confirmation-view-factory';
 
 export * from './profile/profile-view-factory';
 export * from './change-profile/change-profile-factory';
+export * from './home/home-view-factory';
