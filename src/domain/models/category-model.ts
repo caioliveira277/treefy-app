@@ -1,8 +1,7 @@
 export type CategoryModel = {
   id: number;
-  attributes: {
-    createdAt: Date;
-    updatedAt: Date;
-    title: string;
-  };
+  createdAt: Date;
+  updatedAt: Date;
+  image: string;
+  title: string;
 };
