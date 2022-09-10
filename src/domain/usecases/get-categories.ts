@@ -8,5 +8,5 @@ export type CategoryParams = {
 };
 
 export interface GetCategories {
-  getAll(params: CategoryParams): Promise<CategoryModel[]>;
+  all(params?: CategoryParams): Promise<CategoryModel[]>;
 }
