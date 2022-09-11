@@ -1,3 +1,5 @@
+import { CategoryModel } from './category-model';
+
 export type ArticleModel = {
   id: number;
   title: string;
@@ -7,4 +9,5 @@ export type ArticleModel = {
   banner: string;
   createdAt: Date;
   updatedAt: Date;
+  categories: Pick<CategoryModel, 'id' | 'title'>[];
 };

@@ -1,19 +1,7 @@
 import { AllCategoryParams, GetCategories } from '@/domain/usecases';
 import { HttpClient, HttpStatusCode } from '@/data/protocols';
 import { CategoryModel } from '@/domain/models';
-import { RequestImage } from '@/@types/request';
-
-type CategoryModelRequest = {
-  data: {
-    id: number;
-    attributes: {
-      createdAt: Date;
-      updatedAt: Date;
-      title: string;
-      image: RequestImage;
-    };
-  }[];
-};
+import { CategoriesRequest } from '@/@types/request';
 
 export class RemoteGetCategories implements GetCategories {
   private readonly httpClient: HttpClient;
@@ -29,13 +17,13 @@ export class RemoteGetCategories implements GetCategories {
   }
 
   public async all(params: AllCategoryParams): Promise<CategoryModel[]> {
-    const response = await this.httpClient.request<CategoryModelRequest>({
+    const response = await this.httpClient.request<CategoriesRequest>({
       method: 'GET',
       url: this.url,
       params: {
         'pagination[page]': params?.pagination?.page || 1,
         'pagination[pageSize]': params?.pagination?.size || 10,
-        'populate[image][fields][0]': 'url',
+        'populate[image][fields]': 'url',
       },
     });
     if (

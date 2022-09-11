@@ -1,7 +1,7 @@
-import { RequestPagination } from '@/@types/request';
+import { PaginationRequest } from '@/@types/request';
 import { CategoryModel } from '@/domain/models';
 
-export type AllCategoryParams = {} & RequestPagination;
+export type AllCategoryParams = {} & PaginationRequest;
 
 export interface GetCategories {
   all(params?: AllCategoryParams): Promise<CategoryModel[]>;
