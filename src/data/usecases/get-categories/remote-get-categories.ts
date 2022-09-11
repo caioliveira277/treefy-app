@@ -1,4 +1,4 @@
-import { CategoryParams, GetCategories } from '@/domain/usecases';
+import { AllCategoryParams, GetCategories } from '@/domain/usecases';
 import { HttpClient, HttpStatusCode } from '@/data/protocols';
 import { CategoryModel } from '@/domain/models';
 
@@ -35,7 +35,7 @@ export class RemoteGetCategories implements GetCategories {
     return `${process.env.API_BASE_URL}${imageUrl}`;
   }
 
-  public async all(params: CategoryParams): Promise<CategoryModel[]> {
+  public async all(params: AllCategoryParams): Promise<CategoryModel[]> {
     const response = await this.httpClient.request<CategoryModelRequest>({
       method: 'GET',
       url: this.url,
