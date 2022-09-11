@@ -1,6 +1,7 @@
 import { AllCategoryParams, GetCategories } from '@/domain/usecases';
 import { HttpClient, HttpStatusCode } from '@/data/protocols';
 import { CategoryModel } from '@/domain/models';
+import { RequestImage } from '@/@types/request';
 
 type CategoryModelRequest = {
   data: {
@@ -8,16 +9,8 @@ type CategoryModelRequest = {
     attributes: {
       createdAt: Date;
       updatedAt: Date;
-      publishedAt: Date;
       title: string;
-      image: {
-        data: {
-          id: number;
-          attributes: {
-            url: string;
-          };
-        };
-      };
+      image: RequestImage;
     };
   }[];
 };

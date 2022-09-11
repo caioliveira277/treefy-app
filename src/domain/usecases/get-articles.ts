@@ -1,10 +1,10 @@
-import { Pagination } from '@/@types/request';
+import { RequestPagination } from '@/@types/request';
 import { ArticleModel } from '@/domain/models';
 
 export type GetByCategoryIdParams = {
   categoryId: number;
-} & Pagination;
+} & RequestPagination;
 
-export interface GetCategories {
-  getByCategoryId(params?: GetByCategoryIdParams): Promise<ArticleModel[]>;
+export interface GetArticles {
+  allByCategoryId(params?: GetByCategoryIdParams): Promise<ArticleModel[]>;
 }
