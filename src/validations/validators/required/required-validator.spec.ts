@@ -35,7 +35,7 @@ describe('RequiredValidator', () => {
 describe('RequiredValiditor - conditional', () => {
   test('Should return falsy if string of field and condition field is not empty', () => {
     const field = faker.database.column();
-    const fieldCondition = faker.database.column();
+    const fieldCondition = `any_${faker.database.column()}`;
     const { sut } = makeSut({ field, fieldCondition });
     const error = sut.validate({
       [field]: faker.datatype.string(),
@@ -46,7 +46,7 @@ describe('RequiredValiditor - conditional', () => {
 
   test('Should return error if string of condition field is not empty and field is empty', () => {
     const field = faker.database.column();
-    const fieldCondition = faker.database.column();
+    const fieldCondition = `any_${faker.database.column()}`;
     const { sut } = makeSut({ field, fieldCondition });
     const error = sut.validate({
       [field]: '',

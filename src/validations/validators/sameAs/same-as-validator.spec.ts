@@ -15,7 +15,7 @@ const makeSut: MakeSut = ({ field, sameFieldName, sameFieldLabel }) => ({
 describe('SameAsValidator', () => {
   test('Should return error if fields are different', () => {
     const field = faker.database.column();
-    const sameFieldName = faker.database.column();
+    const sameFieldName = `any_${faker.database.column()}`;
     const sameFieldLabel = faker.database.column();
     const { sut } = makeSut({
       field,
@@ -32,7 +32,7 @@ describe('SameAsValidator', () => {
   test('Should return falsy if fields are the same', () => {
     const field = faker.database.column();
     const fieldValue = faker.datatype.string();
-    const sameFieldName = faker.database.column();
+    const sameFieldName = `any_${faker.database.column()}`;
     const sameFieldLabel = faker.database.column();
     const { sut } = makeSut({
       field,
@@ -49,7 +49,7 @@ describe('SameAsValidator', () => {
   test('Should return falsy if field is empty', () => {
     const field = faker.database.column();
     const sameFieldName = faker.database.column();
-    const sameFieldLabel = 'any_' + faker.database.column();
+    const sameFieldLabel = `any_${faker.database.column()}`;
     const { sut } = makeSut({
       field,
       sameFieldName,

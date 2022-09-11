@@ -39,7 +39,7 @@ describe('BuilderValidator', () => {
 
   test('Should return SameAsValidator', () => {
     const field = faker.database.column();
-    const sameFieldName = faker.database.column();
+    const sameFieldName = `any_${faker.database.column()}`;
     const sameFieldLabel = faker.database.column();
     const validation = sut
       .field(field)
