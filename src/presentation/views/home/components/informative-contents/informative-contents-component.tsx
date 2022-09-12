@@ -52,7 +52,7 @@ export const InformativeContentsComponent: React.FC<
             <CardContainerColumnContent>
               <CardTitle>{article.title}</CardTitle>
               <CardDescription>{article.description}</CardDescription>
-              <CardAuthor>Autor: John Legend</CardAuthor>
+              <CardAuthor>Autor: {article.author.name}</CardAuthor>
               <CardCategoriesContainer>
                 <CardCategoriesTitle>Categorias:</CardCategoriesTitle>
                 <CardCategoriesItemsContainer>
