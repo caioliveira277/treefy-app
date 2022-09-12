@@ -1,7 +1,10 @@
 import { HomeViewModelImpl } from '@/presentation/view-models';
 import { HomeView } from '@/presentation/views';
 import { RouteProp } from '@react-navigation/native';
-import { makeRemoteGetCategories } from '@/main/factories/usecases';
+import {
+  makeRemoteGetArticles,
+  makeRemoteGetCategories,
+} from '@/main/factories/usecases';
 
 interface MakeHomeViewProps {
   route: RouteProp<StackParamList, 'Home'>;
@@ -9,6 +12,9 @@ interface MakeHomeViewProps {
 }
 
 export const makeHomeView: React.FC<MakeHomeViewProps> = (props) => {
-  const homeViewModel = new HomeViewModelImpl(makeRemoteGetCategories());
+  const homeViewModel = new HomeViewModelImpl(
+    makeRemoteGetCategories(),
+    makeRemoteGetArticles()
+  );
   return <HomeView {...props} homeViewModel={homeViewModel} />;
 };
