@@ -6,7 +6,7 @@ import { ArticlesRequest } from '@/@types/request';
 export class RemoteGetArticles implements GetArticles {
   private readonly httpClient: HttpClient;
 
-  private readonly url = `${process.env.API_BASE_URL}/api/categories`;
+  private readonly url = `${process.env.API_BASE_URL}/api/articles`;
 
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
@@ -22,10 +22,13 @@ export class RemoteGetArticles implements GetArticles {
       'pagination[pageSize]': params?.pagination?.size || 10,
       'populate[banner][fields]': 'url',
       'populate[thumbnail][fields]': 'url',
+      'populate[categories][fields][0]': 'id',
+      'populate[categories][fields][1]': 'title',
       'fields[0]': 'title',
       'fields[1]': 'description',
-      'fields[3]': 'createdAt',
-      'fields[4]': 'updatedAt',
+      'fields[3]': 'updatedAt',
+      'fields[4]': 'createdAt',
+      'fields[5]': 'publishedAt',
     };
     if (withContent) formatedParams['fields[2]'] = 'content';
     return formatedParams;
@@ -55,8 +58,13 @@ export class RemoteGetArticles implements GetArticles {
           id: category.id,
           title: category.attributes.title,
         })),
-        banner: article.attributes.banner.data.attributes.url,
-        thumbnail: article.attributes.thumbnail.data.attributes.url,
+        banner: this.formatUrlImage(
+          article.attributes.banner.data.attributes.url
+        ),
+        thumbnail: this.formatUrlImage(
+          article.attributes.thumbnail.data.attributes.url
+        ),
+        publishedAt: new Date(article.attributes.publishedAt),
         createdAt: new Date(article.attributes.createdAt),
         updatedAt: new Date(article.attributes.updatedAt),
       }));

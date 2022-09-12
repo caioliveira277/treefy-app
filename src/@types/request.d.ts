@@ -37,6 +37,7 @@ type ArticlesRequest = {
       thumbnail: ImageRequest;
       createdAt: Date;
       updatedAt: Date;
+      publishedAt: Date;
       categories: CategoriesRequest;
     };
   }[];

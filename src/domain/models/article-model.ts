@@ -9,5 +9,6 @@ export type ArticleModel = {
   banner: string;
   createdAt: Date;
   updatedAt: Date;
+  publishedAt: Date;
   categories: Pick<CategoryModel, 'id' | 'title'>[];
 };
