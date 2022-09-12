@@ -7,8 +7,9 @@ export type ArticleModel = {
   content: string;
   thumbnail: string;
   banner: string;
-  createdAt: Date;
-  updatedAt: Date;
   publishedAt: Date;
   categories: Pick<CategoryModel, 'id' | 'title'>[];
+  author: {
+    name: string;
+  };
 };

@@ -35,10 +35,16 @@ type ArticlesRequest = {
       content?: string;
       banner: ImageRequest;
       thumbnail: ImageRequest;
-      createdAt: Date;
-      updatedAt: Date;
       publishedAt: Date;
       categories: CategoriesRequest;
+      updatedBy: {
+        data: {
+          attributes: {
+            firstname: string;
+            lastname: string;
+          };
+        };
+      };
     };
   }[];
 };

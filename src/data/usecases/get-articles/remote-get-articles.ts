@@ -24,13 +24,10 @@ export class RemoteGetArticles implements GetArticles {
       'populate[thumbnail][fields]': 'url',
       'populate[categories][fields][0]': 'id',
       'populate[categories][fields][1]': 'title',
-      'fields[0]': 'title',
-      'fields[1]': 'description',
-      'fields[3]': 'updatedAt',
-      'fields[4]': 'createdAt',
-      'fields[5]': 'publishedAt',
+      'populate[updatedBy][fields][0]': 'firstname',
+      'populate[updatedBy][fields][1]': 'lastname',
     };
-    if (withContent) formatedParams['fields[2]'] = 'content';
+    if (!withContent) formatedParams['!fields'] = 'content';
     return formatedParams;
   }
 
@@ -64,9 +61,10 @@ export class RemoteGetArticles implements GetArticles {
         thumbnail: this.formatUrlImage(
           article.attributes.thumbnail.data.attributes.url
         ),
+        author: {
+          name: `${article.attributes.updatedBy.data.attributes.firstname} ${article.attributes.updatedBy.data.attributes.lastname}`,
+        },
         publishedAt: new Date(article.attributes.publishedAt),
-        createdAt: new Date(article.attributes.createdAt),
-        updatedAt: new Date(article.attributes.updatedAt),
       }));
     }
     return [];
