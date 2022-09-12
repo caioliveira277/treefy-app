@@ -12,7 +12,7 @@ import {
 } from './styles';
 import { StyleProp, ViewStyle } from 'react-native';
 import { CategoryModel } from '@/domain/models';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type ListItem = {
   id: number;
@@ -24,19 +24,20 @@ type ListItem = {
 export interface CategoriesCarrouselComponentProps {
   style?: StyleProp<ViewStyle>;
   categories: CategoryModel[];
+  onSelectedCategory: (categoryId: number) => void;
 }
 
 export const CategoriesCarrouselComponent: React.FC<
   CategoriesCarrouselComponentProps
-> = ({ style, categories }) => {
+> = ({ style, categories, onSelectedCategory }) => {
   const theme = useTheme();
   const [list, setList] = useState<ListItem[]>([]);
 
-  const handleFormatCategories = (categoriesData: CategoryModel[]) => {
+  const handleFormatCategories = () => {
     setList(
-      categoriesData.map((category, index) => ({
+      categories.map((category) => ({
         id: category.id,
-        active: index === 0,
+        active: false,
         title: category.title,
         image: category.image,
       }))
@@ -50,11 +51,20 @@ export const CategoriesCarrouselComponent: React.FC<
       return item;
     });
     setList(newState);
+    onSelectedCategory(id);
   };
 
   useEffect(() => {
-    handleFormatCategories(categories);
+    handleFormatCategories();
   }, [categories]);
+
+  const calledOnlyOnce = useRef(false);
+  useEffect(() => {
+    if (calledOnlyOnce.current || !list.length) return;
+    handleSelectItem(list[0].id);
+    calledOnlyOnce.current = true;
+  }, [list]);
+
   return (
     <Container style={style}>
       <Title>Categorias</Title>

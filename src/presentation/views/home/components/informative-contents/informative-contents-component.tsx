@@ -26,71 +26,41 @@ import {
 import { getIcon } from '@/presentation/utils';
 import { useTheme } from 'styled-components';
 import backgroundCardIlustration from '@assets/images/background-card-ilustration.png';
-import postImage1 from '@assets/images/post-1.png';
-import postImage2 from '@assets/images/post-2.png';
-import postImage3 from '@assets/images/post-3.png';
 import { StyleProp, ViewStyle } from 'react-native';
-
-const temporaryData = [
-  {
-    title: 'Lorem ipsum has been 🌵',
-    description:
-      'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a.',
-    categories: ['Cactos', 'Cuidados', 'Informativo'],
-    image: postImage1,
-    publicationDate: '3 dias atrás',
-    rate: 8.2,
-  },
-  {
-    title: 'Lorem ipsum has been 🌲',
-    description:
-      'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a.',
-    categories: ['Cactos', 'Cuidados', 'Informativo'],
-    image: postImage2,
-    publicationDate: '3 dias atrás',
-    rate: 8.2,
-  },
-  {
-    title: 'Lorem ipsum has been 🌿',
-    description:
-      'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a.',
-    categories: ['Cactos', 'Cuidados', 'Informativo'],
-    image: postImage3,
-    publicationDate: '3 dias atrás',
-    rate: 8.2,
-  },
-];
+import { ArticleModel } from '@/domain/models';
 
 export interface InformativeContentsComponentProps {
   style?: StyleProp<ViewStyle>;
   onPress: () => void;
+  articles: ArticleModel[];
 }
 
 export const InformativeContentsComponent: React.FC<
   InformativeContentsComponentProps
-> = ({ style, onPress }) => {
+> = ({ style, onPress, articles }) => {
   const theme = useTheme();
   return (
     <Container style={style}>
       <Title>Conteúdos informativos</Title>
-      {temporaryData.map((item, indexData) => (
-        <TransparentContainer key={indexData}>
+      {articles.map((article) => (
+        <TransparentContainer key={article.id}>
           <CardContainer
             activeOpacity={0.8}
             style={{ ...theme.shadows.sm }}
             onPress={() => onPress()}
           >
             <CardContainerColumnContent>
-              <CardTitle>{item.title}</CardTitle>
-              <CardDescription>{item.description}</CardDescription>
+              <CardTitle>{article.title}</CardTitle>
+              <CardDescription>{article.description}</CardDescription>
               <CardAuthor>Autor: John Legend</CardAuthor>
               <CardCategoriesContainer>
                 <CardCategoriesTitle>Categorias:</CardCategoriesTitle>
                 <CardCategoriesItemsContainer>
-                  {item.categories.map((categoryText, indexCategory) => (
-                    <CardCategoriesItemWrap key={indexCategory}>
-                      <CardCategoriesItem>{categoryText}</CardCategoriesItem>
-                      {item.categories.length === indexCategory + 1 ? null : (
+                  {article.categories.map((category, categoryIndex) => (
+                    <CardCategoriesItemWrap key={category.id}>
+                      <CardCategoriesItem>{category.title}</CardCategoriesItem>
+                      {article.categories.length ===
+                      categoryIndex + 1 ? null : (
                         <CardCategoriesItemPoint />
                       )}
                     </CardCategoriesItemWrap>
@@ -103,7 +73,12 @@ export const InformativeContentsComponent: React.FC<
                 source={backgroundCardIlustration}
                 resizeMode="center"
               />
-              <CardImage source={item.image} resizeMode="center" />
+              <CardImage
+                source={{
+                  uri: article.thumbnail,
+                }}
+                resizeMode="center"
+              />
             </CardContainerColumnImage>
             <CardFooterContainer>
               <CardFooterDateContainer>
@@ -111,11 +86,13 @@ export const InformativeContentsComponent: React.FC<
                   source={getIcon('calendar')}
                   resizeMode="center"
                 />
-                <CardFooterDateText>{item.publicationDate}</CardFooterDateText>
+                <CardFooterDateText>
+                  {article.publishedAt.toLocaleDateString('pt-BR')}
+                </CardFooterDateText>
               </CardFooterDateContainer>
               <CardFooterRateContainer>
                 <CardFooterIcon source={getIcon('rate')} resizeMode="center" />
-                <CardFooterRateText>{item.rate}</CardFooterRateText>
+                <CardFooterRateText>-</CardFooterRateText>
               </CardFooterRateContainer>
             </CardFooterContainer>
           </CardContainer>
