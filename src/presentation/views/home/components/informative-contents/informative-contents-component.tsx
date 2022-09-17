@@ -23,7 +23,7 @@ import {
   CardImageBackground,
   CardImage,
 } from './styles';
-import { getIcon } from '@/presentation/utils';
+import { formatDateTime, getIcon } from '@/presentation/utils';
 import { useTheme } from 'styled-components';
 import backgroundCardIlustration from '@assets/images/background-card-ilustration.png';
 import { StyleProp, ViewStyle } from 'react-native';
@@ -87,12 +87,14 @@ export const InformativeContentsComponent: React.FC<
                   resizeMode="center"
                 />
                 <CardFooterDateText>
-                  {article.publishedAt.toLocaleDateString('pt-BR')}
+                  {formatDateTime(article.publishedAt)}
                 </CardFooterDateText>
               </CardFooterDateContainer>
               <CardFooterRateContainer>
                 <CardFooterIcon source={getIcon('rate')} resizeMode="center" />
-                <CardFooterRateText>-</CardFooterRateText>
+                <CardFooterRateText>
+                  {article.averageRating === null ? '-' : article.averageRating}
+                </CardFooterRateText>
               </CardFooterRateContainer>
             </CardFooterContainer>
           </CardContainer>

@@ -46,5 +46,8 @@ type ArticlesRequest = {
         };
       };
     };
+    feedbacks: {
+      averageRatings: number | null;
+    };
   }[];
 };

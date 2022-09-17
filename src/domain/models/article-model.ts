@@ -12,4 +12,5 @@ export type ArticleModel = {
   author: {
     name: string;
   };
+  averageRating: number | null;
 };

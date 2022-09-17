@@ -26,6 +26,7 @@ export class RemoteGetArticles implements GetArticles {
       'populate[categories][fields][1]': 'title',
       'populate[updatedBy][fields][0]': 'firstname',
       'populate[updatedBy][fields][1]': 'lastname',
+      'sort[0]': 'publishedAt:desc',
     };
     if (!withContent) formatedParams['!fields'] = 'content';
     return formatedParams;
@@ -39,7 +40,7 @@ export class RemoteGetArticles implements GetArticles {
       url: this.url,
       params: {
         ...this.formatParams(params, false),
-        'filters[categories][id][$contains]': params.categoryId,
+        'filters[categories][id][$in][0]': params.categoryId,
       },
     });
     if (
@@ -64,6 +65,7 @@ export class RemoteGetArticles implements GetArticles {
         author: {
           name: `${article.attributes.updatedBy.data.attributes.firstname} ${article.attributes.updatedBy.data.attributes.lastname}`,
         },
+        averageRating: article.feedbacks.averageRatings,
         publishedAt: new Date(article.attributes.publishedAt),
       }));
     }
