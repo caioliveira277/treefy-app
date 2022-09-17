@@ -9,7 +9,7 @@ import {
   InformativeContentsComponent,
 } from './components';
 import { Container, spacing } from './styles';
-import { CategoryModel } from '@/domain/models';
+import { ArticleModel, CategoryModel } from '@/domain/models';
 
 export interface HomeViewProps
   extends NativeStackScreenProps<StackParamList, 'Home'> {
@@ -18,6 +18,7 @@ export interface HomeViewProps
 
 export interface HomeViewState {
   categories: CategoryModel[];
+  articles: ArticleModel[];
 }
 
 export class HomeView
@@ -34,6 +35,7 @@ export class HomeView
 
     this.state = {
       categories: homeViewModel.categories,
+      articles: homeViewModel.articles,
     };
   }
 
@@ -49,21 +51,26 @@ export class HomeView
   onViewModelChanged(): void {
     this.setState({
       categories: this.homeViewModel.categories,
+      articles: this.homeViewModel.articles,
     });
   }
 
   render() {
-    const { categories } = this.state;
+    const { categories, articles } = this.state;
     return (
       <Container>
         <SalutationComponent style={spacing.salutation} />
         <SearchInputComponent style={spacing.searchInput} />
         <CategoriesCarrouselComponent
           categories={categories}
+          onSelectedCategory={(categoryId) =>
+            this.homeViewModel.handleGetArticles(categoryId)
+          }
           style={spacing.carrousel}
         />
         <InformativeContentsComponent
           style={spacing.informativeContents}
+          articles={articles}
           onPress={() => this.homeViewModel.handleNavigateToArticle()}
         />
       </Container>
