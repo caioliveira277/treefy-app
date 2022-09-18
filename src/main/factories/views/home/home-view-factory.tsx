@@ -6,6 +6,7 @@ import {
   makeRemoteGetCategories,
   makeRemoteAuthentication,
 } from '@/main/factories/usecases';
+import { AuthenticationConsumer } from '@/presentation/contexts';
 
 interface MakeHomeViewProps {
   route: RouteProp<StackParamList, 'Home'>;
@@ -18,5 +19,17 @@ export const makeHomeView: React.FC<MakeHomeViewProps> = (props) => {
     makeRemoteGetArticles(),
     makeRemoteAuthentication()
   );
-  return <HomeView {...props} homeViewModel={homeViewModel} />;
+  return (
+    <AuthenticationConsumer>
+      {(authenticationContextParams) => (
+        <HomeView
+          contextConsumer={{
+            ...authenticationContextParams,
+          }}
+          {...props}
+          homeViewModel={homeViewModel}
+        />
+      )}
+    </AuthenticationConsumer>
+  );
 };
