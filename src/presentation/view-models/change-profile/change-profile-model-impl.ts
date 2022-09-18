@@ -33,10 +33,9 @@ export class ChangeProfileViewModelImpl
     super();
     this.authentication = authentication;
     this.validation = validation;
-    this.setUserData();
   }
 
-  private async setUserData(): Promise<void> {
+  public async handleGetUserData(): Promise<void> {
     const user = await this.authentication.getAuthenticatedUser();
     this.form = {
       ...this.form,

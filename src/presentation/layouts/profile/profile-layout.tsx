@@ -6,15 +6,13 @@ import { PageLoadingComponent } from '@/presentation/components';
 
 export interface ProfileLayoutProps {
   children: React.ReactNode;
-  slotHeader?: React.ReactNode;
   title: string;
   image: ImageSourcePropType;
   imageRounded?: boolean;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 export const ProfileLayout: React.FC<ProfileLayoutProps> = ({
   children,
-  slotHeader,
   title,
   image,
   imageRounded = false,
@@ -44,7 +42,6 @@ export const ProfileLayout: React.FC<ProfileLayoutProps> = ({
               imageRounded={imageRounded}
             />
             <Title>{title}</Title>
-            {slotHeader || null}
           </Header>
           {children}
         </Content>

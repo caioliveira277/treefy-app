@@ -4,6 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 import {
   makeRemoteGetArticles,
   makeRemoteGetCategories,
+  makeRemoteAuthentication,
 } from '@/main/factories/usecases';
 
 interface MakeHomeViewProps {
@@ -14,7 +15,8 @@ interface MakeHomeViewProps {
 export const makeHomeView: React.FC<MakeHomeViewProps> = (props) => {
   const homeViewModel = new HomeViewModelImpl(
     makeRemoteGetCategories(),
-    makeRemoteGetArticles()
+    makeRemoteGetArticles(),
+    makeRemoteAuthentication()
   );
   return <HomeView {...props} homeViewModel={homeViewModel} />;
 };

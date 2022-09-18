@@ -15,12 +15,12 @@ export interface ChangeProfileViewModel extends BaseViewModel {
   };
 
   formErrors: ChangeProfileViewModel['form'];
-
   isLoading: boolean;
 
   handleCompleteNameInputChange(value: string): void;
   handleCurrentPasswordInputChange(value: string): void;
   handleNewPasswordInputChange(value: string): void;
   handleConfirmNewPasswordInputChange(value: string): void;
+  handleGetUserData(): Promise<void>;
   handleSubmit(): void;
 }

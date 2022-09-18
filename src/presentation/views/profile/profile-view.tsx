@@ -5,9 +5,9 @@ import { BaseView } from '../base-view';
 import { Separator, spacing } from './styles';
 import { NavigationComponent, StatusComponent } from './components';
 import { ProfileViewModel } from '@/presentation/view-models';
-// TODO: remove image after implementation
-import temporaryImageProfile from '@assets/images/profile.png';
 import { ButtonComponent } from '@/presentation/components';
+import { getProfile } from '@/presentation/utils';
+import { AccountModel } from '@/domain/models';
 
 export interface ProfileViewProps
   extends NativeStackScreenProps<StackParamList, 'Profile'> {
@@ -16,9 +16,9 @@ export interface ProfileViewProps
 }
 
 export interface ProfileViewState {
-  completeName: string;
   viewedArticles: number;
   countFeedback: number;
+  authenticatedUser: AccountModel;
 }
 
 export class ProfileView
@@ -34,14 +34,15 @@ export class ProfileView
     this.profileViewModel = profileViewModel;
 
     this.state = {
-      countFeedback: 0,
-      viewedArticles: 0,
-      completeName: '',
+      countFeedback: profileViewModel.countFeedback,
+      viewedArticles: profileViewModel.viewedArticles,
+      authenticatedUser: profileViewModel.authenticatedUser,
     };
   }
 
   public componentDidMount(): void {
     this.profileViewModel.attachView(this);
+    this.profileViewModel.handleGetAuthenticatedUser();
   }
 
   public componentWillUnmount(): void {
@@ -50,18 +51,17 @@ export class ProfileView
 
   public onViewModelChanged() {
     this.setState({
-      completeName: this.state.completeName,
       countFeedback: this.state.countFeedback,
       viewedArticles: this.state.viewedArticles,
     });
   }
 
   render() {
-    // const { completeName, countFeedback, viewedArticles } = this.state;
+    const { authenticatedUser } = this.state;
     return (
       <ProfileLayout
-        title="Vanessa da Mata"
-        image={temporaryImageProfile}
+        title={authenticatedUser.name}
+        image={getProfile(authenticatedUser.name)}
         imageRounded
       >
         <StatusComponent />
