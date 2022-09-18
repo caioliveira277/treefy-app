@@ -15,12 +15,15 @@ export class HomeViewModelImpl
 
   public articles: ArticleModel[];
 
+  public isArticleSearch: boolean;
+
   constructor(getCategories: GetCategories, getArticles: GetArticles) {
     super();
     this.getCategories = getCategories;
     this.getArticles = getArticles;
     this.categories = [];
     this.articles = [];
+    this.isArticleSearch = false;
   }
 
   public async handleGetCategories(): Promise<void> {
@@ -34,6 +37,21 @@ export class HomeViewModelImpl
       categoryId: selectedCategoryId,
     });
     this.articles = articles;
+    this.notifyViewAboutChanges();
+  }
+
+  public async handleSearchArticles(search: string): Promise<void> {
+    if (!search) {
+      this.isArticleSearch = false;
+      this.notifyViewAboutChanges();
+      return;
+    }
+
+    const articles = await this.getArticles.allBySearch({
+      search,
+    });
+    this.articles = articles;
+    this.isArticleSearch = true;
     this.notifyViewAboutChanges();
   }
 

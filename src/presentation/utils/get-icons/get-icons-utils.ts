@@ -24,6 +24,7 @@ export type IconName =
   | 'sun'
   | 'edit-white'
   | 'check-circle'
+  | 'close'
   | 'content';
 
 export const getIcon = (iconName: IconName) => {
@@ -80,5 +81,7 @@ export const getIcon = (iconName: IconName) => {
       return require('@assets/icons/edit-white.png');
     case 'content':
       return require('@assets/icons/content.png');
+    case 'close':
+      return require('@assets/icons/close.png');
   }
 };
