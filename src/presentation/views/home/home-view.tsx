@@ -19,6 +19,7 @@ export interface HomeViewProps
 export interface HomeViewState {
   categories: CategoryModel[];
   articles: ArticleModel[];
+  isArticleSearch: boolean;
 }
 
 export class HomeView
@@ -36,6 +37,7 @@ export class HomeView
     this.state = {
       categories: homeViewModel.categories,
       articles: homeViewModel.articles,
+      isArticleSearch: homeViewModel.isArticleSearch,
     };
   }
 
@@ -52,22 +54,28 @@ export class HomeView
     this.setState({
       categories: this.homeViewModel.categories,
       articles: this.homeViewModel.articles,
+      isArticleSearch: this.homeViewModel.isArticleSearch,
     });
   }
 
   render() {
-    const { categories, articles } = this.state;
+    const { categories, articles, isArticleSearch } = this.state;
     return (
       <Container>
         <SalutationComponent style={spacing.salutation} />
-        <SearchInputComponent style={spacing.searchInput} />
-        <CategoriesCarrouselComponent
-          categories={categories}
-          onSelectedCategory={(categoryId) =>
-            this.homeViewModel.handleGetArticles(categoryId)
-          }
-          style={spacing.carrousel}
+        <SearchInputComponent
+          style={spacing.searchInput}
+          onSubmit={(search) => this.homeViewModel.handleSearchArticles(search)}
         />
+        {isArticleSearch ? null : (
+          <CategoriesCarrouselComponent
+            categories={categories}
+            onSelectCategory={(categoryId) =>
+              this.homeViewModel.handleGetArticles(categoryId)
+            }
+            style={spacing.carrousel}
+          />
+        )}
         <InformativeContentsComponent
           style={spacing.informativeContents}
           articles={articles}

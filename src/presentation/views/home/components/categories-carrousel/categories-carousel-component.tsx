@@ -24,12 +24,12 @@ type ListItem = {
 export interface CategoriesCarrouselComponentProps {
   style?: StyleProp<ViewStyle>;
   categories: CategoryModel[];
-  onSelectedCategory: (categoryId: number) => void;
+  onSelectCategory: (categoryId: number) => void;
 }
 
 export const CategoriesCarrouselComponent: React.FC<
   CategoriesCarrouselComponentProps
-> = ({ style, categories, onSelectedCategory }) => {
+> = ({ style, categories, onSelectCategory }) => {
   const theme = useTheme();
   const [list, setList] = useState<ListItem[]>([]);
 
@@ -51,7 +51,7 @@ export const CategoriesCarrouselComponent: React.FC<
       return item;
     });
     setList(newState);
-    onSelectedCategory(id);
+    onSelectCategory(id);
   };
 
   useEffect(() => {
