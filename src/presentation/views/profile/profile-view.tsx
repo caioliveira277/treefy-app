@@ -51,8 +51,9 @@ export class ProfileView
 
   public onViewModelChanged() {
     this.setState({
-      countFeedback: this.state.countFeedback,
-      viewedArticles: this.state.viewedArticles,
+      countFeedback: this.profileViewModel.countFeedback,
+      viewedArticles: this.profileViewModel.viewedArticles,
+      authenticatedUser: this.profileViewModel.authenticatedUser,
     });
   }
 
