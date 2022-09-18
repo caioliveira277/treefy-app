@@ -1,7 +1,7 @@
 import { HomeViewModel } from './home-view-model';
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { Authentication, GetArticles, GetCategories } from '@/domain/usecases';
-import { AccountModel, ArticleModel, CategoryModel } from '@/domain/models';
+import { ArticleModel, CategoryModel } from '@/domain/models';
 
 export class HomeViewModelImpl
   extends BaseViewModelImpl
@@ -19,8 +19,6 @@ export class HomeViewModelImpl
 
   public isArticleSearch: boolean;
 
-  public authenticatedUser: AccountModel;
-
   constructor(
     getCategories: GetCategories,
     getArticles: GetArticles,
@@ -33,7 +31,6 @@ export class HomeViewModelImpl
     this.categories = [];
     this.articles = [];
     this.isArticleSearch = false;
-    this.authenticatedUser = { name: '' } as AccountModel;
   }
 
   public async handleGetCategories(): Promise<void> {
@@ -62,11 +59,6 @@ export class HomeViewModelImpl
     });
     this.articles = articles;
     this.isArticleSearch = true;
-    this.notifyViewAboutChanges();
-  }
-
-  public async handleGetAuthenticatedUser(): Promise<void> {
-    this.authenticatedUser = await this.authentication.getAuthenticatedUser();
     this.notifyViewAboutChanges();
   }
 

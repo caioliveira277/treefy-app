@@ -121,6 +121,9 @@ export class ChangeProfileViewModelImpl
         'Conseguimos atualizar seus dados, está tudo certo por aqui :)',
         'success'
       );
+      this.baseView?.props.contextConsumer?.authentication?.setAuthenticatedUser(
+        await this.authentication.getAuthenticatedUser()
+      );
       this.handleClearPasswordState();
     } else {
       this.baseView?.props.contextConsumer?.toast?.showCustom(

@@ -9,18 +9,18 @@ import {
   InformativeContentsComponent,
 } from './components';
 import { Container, spacing } from './styles';
-import { AccountModel, ArticleModel, CategoryModel } from '@/domain/models';
+import { ArticleModel, CategoryModel } from '@/domain/models';
 
 export interface HomeViewProps
   extends NativeStackScreenProps<StackParamList, 'Home'> {
   homeViewModel: HomeViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface HomeViewState {
   categories: CategoryModel[];
   articles: ArticleModel[];
   isArticleSearch: boolean;
-  authenticatedUser: AccountModel;
 }
 
 export class HomeView
@@ -39,37 +39,36 @@ export class HomeView
       categories: homeViewModel.categories,
       articles: homeViewModel.articles,
       isArticleSearch: homeViewModel.isArticleSearch,
-      authenticatedUser: homeViewModel.authenticatedUser,
     };
   }
 
   public componentDidMount(): void {
     this.homeViewModel.attachView(this);
     this.homeViewModel.handleGetCategories();
-    this.homeViewModel.handleGetAuthenticatedUser();
   }
 
   public componentWillUnmount(): void {
     this.homeViewModel.detachView();
   }
 
-  onViewModelChanged(): void {
+  public onViewModelChanged(): void {
     this.setState({
       categories: this.homeViewModel.categories,
       articles: this.homeViewModel.articles,
       isArticleSearch: this.homeViewModel.isArticleSearch,
-      authenticatedUser: this.homeViewModel.authenticatedUser,
     });
   }
 
   render() {
-    const { categories, articles, isArticleSearch, authenticatedUser } =
-      this.state;
+    const { categories, articles, isArticleSearch } = this.state;
     return (
       <Container>
         <SalutationComponent
           style={spacing.salutation}
-          name={authenticatedUser.name}
+          name={
+            this.props.contextConsumer?.authentication?.authenticatedUser
+              .name || ''
+          }
         />
         <SearchInputComponent
           style={spacing.searchInput}

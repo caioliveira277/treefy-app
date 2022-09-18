@@ -7,7 +7,6 @@ import { NavigationComponent, StatusComponent } from './components';
 import { ProfileViewModel } from '@/presentation/view-models';
 import { ButtonComponent } from '@/presentation/components';
 import { getProfile } from '@/presentation/utils';
-import { AccountModel } from '@/domain/models';
 
 export interface ProfileViewProps
   extends NativeStackScreenProps<StackParamList, 'Profile'> {
@@ -18,7 +17,6 @@ export interface ProfileViewProps
 export interface ProfileViewState {
   viewedArticles: number;
   countFeedback: number;
-  authenticatedUser: AccountModel;
 }
 
 export class ProfileView
@@ -36,13 +34,11 @@ export class ProfileView
     this.state = {
       countFeedback: profileViewModel.countFeedback,
       viewedArticles: profileViewModel.viewedArticles,
-      authenticatedUser: profileViewModel.authenticatedUser,
     };
   }
 
   public componentDidMount(): void {
     this.profileViewModel.attachView(this);
-    this.profileViewModel.handleGetAuthenticatedUser();
   }
 
   public componentWillUnmount(): void {
@@ -53,18 +49,14 @@ export class ProfileView
     this.setState({
       countFeedback: this.profileViewModel.countFeedback,
       viewedArticles: this.profileViewModel.viewedArticles,
-      authenticatedUser: this.profileViewModel.authenticatedUser,
     });
   }
 
   render() {
-    const { authenticatedUser } = this.state;
+    const username =
+      this.props.contextConsumer?.authentication?.authenticatedUser.name || '';
     return (
-      <ProfileLayout
-        title={authenticatedUser.name}
-        image={getProfile(authenticatedUser.name)}
-        imageRounded
-      >
+      <ProfileLayout title={username} image={getProfile(username)} imageRounded>
         <StatusComponent />
         <Separator />
         <NavigationComponent
