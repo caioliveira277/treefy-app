@@ -2,43 +2,38 @@ import { AllCategoryParams, GetCategories } from '@/domain/usecases';
 import { HttpClient, HttpStatusCode } from '@/data/protocols';
 import { CategoryModel } from '@/domain/models';
 import { CategoriesRequest } from '@/@types/request';
+import { CategoryDataSource } from '@/data/data-sources';
 
 export class RemoteGetCategories implements GetCategories {
   private readonly httpClient: HttpClient;
 
-  private readonly url = `${process.env.API_BASE_URL}/api/categories`;
+  private readonly baseUrl = `${process.env.API_BASE_URL}/api/categories`;
 
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
   }
 
-  private formatUrlImage(imageUrl: string) {
-    return `${process.env.API_BASE_URL}${imageUrl}`;
+  private formatParams(params: Record<string, any>) {
+    const formatedParams: { [key: string]: string | number } = {
+      'pagination[page]': params?.pagination?.page || 1,
+      'pagination[pageSize]': params?.pagination?.size || 10,
+      'populate[image][fields]': 'url',
+    };
+
+    return formatedParams;
   }
 
   public async all(params: AllCategoryParams): Promise<CategoryModel[]> {
     const response = await this.httpClient.request<CategoriesRequest>({
       method: 'GET',
-      url: this.url,
-      params: {
-        'pagination[page]': params?.pagination?.page || 1,
-        'pagination[pageSize]': params?.pagination?.size || 10,
-        'populate[image][fields]': 'url',
-      },
+      url: this.baseUrl,
+      params: this.formatParams(params),
     });
     if (
       response.statusCode === HttpStatusCode.ok &&
       response?.body?.data?.length
     ) {
-      return response.body.data.map((category) => ({
-        id: category.id,
-        createdAt: new Date(category.attributes.createdAt),
-        updatedAt: new Date(category.attributes.updatedAt),
-        title: category.attributes.title,
-        image: this.formatUrlImage(
-          category.attributes.image.data.attributes.url
-        ),
-      }));
+      return new CategoryDataSource(response.body.data).toModel();
     }
     return [];
   }
