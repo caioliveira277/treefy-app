@@ -1,10 +1,13 @@
+import { AccountModel } from '@/domain/models';
 import React, { ReactNode } from 'react';
 
 interface AuthenticationProviderState {
   isAuthenticated: boolean;
+  authenticatedUser: AccountModel;
 }
 interface AuthenticationProviderMethods {
-  setIsAuthenticated(isAuthenticated: boolean): void;
+  setAuthenticatedUser(user: AccountModel): void;
+  loggoutUser(): void;
 }
 interface AuthenticationProviderProps {
   children?: ReactNode;
@@ -33,21 +36,37 @@ export class AuthenticationProvider
 
     this.state = {
       isAuthenticated: false,
+      authenticatedUser: {} as AccountModel,
     };
   }
 
-  public setIsAuthenticated = (isAuthenticated: boolean): void => {
+  public setAuthenticatedUser = (user: AccountModel): void => {
     this.setState({
-      isAuthenticated,
+      authenticatedUser: user,
+      isAuthenticated: !!user.clientId,
+    });
+  };
+
+  public loggoutUser = () => {
+    this.setState({
+      authenticatedUser: {} as AccountModel,
+      isAuthenticated: false,
     });
   };
 
   public render() {
-    const { isAuthenticated } = this.state;
-    const { setIsAuthenticated } = this;
+    const { isAuthenticated, authenticatedUser } = this.state;
+    const { setAuthenticatedUser, loggoutUser } = this;
     return (
       <AuthenticationContext.Provider
-        value={{ authentication: { isAuthenticated, setIsAuthenticated } }}
+        value={{
+          authentication: {
+            loggoutUser,
+            isAuthenticated,
+            authenticatedUser,
+            setAuthenticatedUser,
+          },
+        }}
       >
         {this.props.children}
       </AuthenticationContext.Provider>
