@@ -1,22 +1,23 @@
-import { GetByCategoryIdParams, GetArticles } from '@/domain/usecases';
+import {
+  GetAllByCategoryIdParams,
+  GetAllBySearchParams,
+  GetArticles,
+} from '@/domain/usecases';
 import { HttpClient, HttpStatusCode } from '@/data/protocols';
 import { ArticleModel } from '@/domain/models';
 import { ArticlesRequest } from '@/@types/request';
+import { ArticleDataSource } from '@/data/data-sources';
 
 export class RemoteGetArticles implements GetArticles {
   private readonly httpClient: HttpClient;
 
-  private readonly url = `${process.env.API_BASE_URL}/api/articles`;
+  private readonly baseUrl = `${process.env.API_BASE_URL}/api/articles`;
 
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
   }
 
-  private formatUrlImage(imageUrl: string) {
-    return `${process.env.API_BASE_URL}${imageUrl}`;
-  }
-
-  private formatParams(params: GetByCategoryIdParams, withContent: boolean) {
+  private formatParams(params: Record<string, any>, withContent: boolean) {
     const formatedParams: { [key: string]: string | number } = {
       'pagination[page]': params?.pagination?.page || 1,
       'pagination[pageSize]': params?.pagination?.size || 10,
@@ -28,46 +29,50 @@ export class RemoteGetArticles implements GetArticles {
       'populate[updatedBy][fields][1]': 'lastname',
       'sort[0]': 'publishedAt:desc',
     };
+
     if (!withContent) formatedParams['!fields'] = 'content';
+
+    if (params.categoryId)
+      formatedParams['filters[categories][id][$in][0]'] = params.categoryId;
+
+    if (params.search) {
+      formatedParams['filters[$or][0][title][$contains]'] = params.search;
+      formatedParams['filters[$or][1][description][$contains]'] = params.search;
+    }
+
     return formatedParams;
   }
 
   public async allByCategoryId(
-    params: GetByCategoryIdParams
+    params: GetAllByCategoryIdParams
   ): Promise<ArticleModel[]> {
     const response = await this.httpClient.request<ArticlesRequest>({
       method: 'GET',
-      url: this.url,
-      params: {
-        ...this.formatParams(params, false),
-        'filters[categories][id][$in][0]': params.categoryId,
-      },
+      url: this.baseUrl,
+      params: this.formatParams(params, false),
     });
     if (
       response.statusCode === HttpStatusCode.ok &&
       response?.body?.data?.length
     ) {
-      return response.body.data.map((article) => ({
-        id: article.id,
-        title: article.attributes.title,
-        description: article.attributes.description,
-        content: '',
-        categories: article.attributes.categories.data.map((category) => ({
-          id: category.id,
-          title: category.attributes.title,
-        })),
-        banner: this.formatUrlImage(
-          article.attributes.banner.data.attributes.url
-        ),
-        thumbnail: this.formatUrlImage(
-          article.attributes.thumbnail.data.attributes.url
-        ),
-        author: {
-          name: `${article.attributes.updatedBy.data.attributes.firstname} ${article.attributes.updatedBy.data.attributes.lastname}`,
-        },
-        averageRating: article.feedbacks.averageRatings,
-        publishedAt: new Date(article.attributes.publishedAt),
-      }));
+      return new ArticleDataSource(response.body.data).toModel();
+    }
+    return [];
+  }
+
+  public async allBySearch(
+    params: GetAllBySearchParams
+  ): Promise<ArticleModel[]> {
+    const response = await this.httpClient.request<ArticlesRequest>({
+      method: 'GET',
+      url: this.baseUrl,
+      params: this.formatParams(params, false),
+    });
+    if (
+      response.statusCode === HttpStatusCode.ok &&
+      response?.body?.data?.length
+    ) {
+      return new ArticleDataSource(response.body.data).toModel();
     }
     return [];
   }
