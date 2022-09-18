@@ -71,12 +71,12 @@ export class CodeConfirmationViewModelImpl
           );
           this.handleChangeLoadingState(false);
         } else {
-          await this.authentication.auth({
+          const user = await this.authentication.auth({
             email: params.email,
             password: params.password || '',
           });
-          this.baseView?.props.contextConsumer?.authentication?.setIsAuthenticated(
-            true
+          this.baseView?.props.contextConsumer?.authentication?.setAuthenticatedUser(
+            user
           );
           this.baseView?.props.navigation.navigate('Main', {
             screen: 'Home',

@@ -29,7 +29,7 @@ export class ProfileViewModelImpl
   }
 
   public async handleLoggout(): Promise<void> {
-    await this.authentication.loggout();
     this.baseView?.props.contextConsumer?.authentication?.loggoutUser();
+    await this.authentication.loggout();
   }
 }
