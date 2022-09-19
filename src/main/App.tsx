@@ -20,12 +20,15 @@ import {
   RobotoSlab_500Medium,
   RobotoSlab_700Bold,
 } from '@expo-google-fonts/roboto-slab';
+import { AccountModel } from '@/domain/models';
 
 AWSCognitoIdentityProvider.configure();
 SplashScreen.preventAutoHideAsync();
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authenticatedUser, setAuthenticatedUser] = useState<AccountModel>(
+    {} as AccountModel
+  );
   const [appIsReady, setAppIsReady] = useState(false);
   const remoteAuthentication = makeRemoteAuthentication();
   const [fontsLoaded] = useFonts({
@@ -39,7 +42,7 @@ function App() {
     async function prepare() {
       try {
         const user = await remoteAuthentication.getAuthenticatedUser();
-        if (user.clientId) setIsAuthenticated(true);
+        if (user.clientId) setAuthenticatedUser(user);
       } finally {
         setAppIsReady(true);
       }
@@ -62,7 +65,7 @@ function App() {
               onLayout={onLayoutRootView}
               style={{ flex: 1 }}
             >
-              <Router isAuthenticated={isAuthenticated} />
+              <Router authenticatedUser={authenticatedUser} />
             </GestureHandlerRootView>
             <StatusBar style="auto" translucent />
           </ToastProvider>

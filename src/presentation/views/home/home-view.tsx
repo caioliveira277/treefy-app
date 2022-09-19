@@ -14,6 +14,7 @@ import { ArticleModel, CategoryModel } from '@/domain/models';
 export interface HomeViewProps
   extends NativeStackScreenProps<StackParamList, 'Home'> {
   homeViewModel: HomeViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface HomeViewState {
@@ -50,7 +51,7 @@ export class HomeView
     this.homeViewModel.detachView();
   }
 
-  onViewModelChanged(): void {
+  public onViewModelChanged(): void {
     this.setState({
       categories: this.homeViewModel.categories,
       articles: this.homeViewModel.articles,
@@ -62,7 +63,13 @@ export class HomeView
     const { categories, articles, isArticleSearch } = this.state;
     return (
       <Container>
-        <SalutationComponent style={spacing.salutation} />
+        <SalutationComponent
+          style={spacing.salutation}
+          name={
+            this.props.contextConsumer?.authentication?.authenticatedUser
+              .name || ''
+          }
+        />
         <SearchInputComponent
           style={spacing.searchInput}
           onSubmit={(search) => this.homeViewModel.handleSearchArticles(search)}

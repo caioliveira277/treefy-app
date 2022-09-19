@@ -8,8 +8,6 @@ export class ProfileViewModelImpl
 {
   public authentication: Authentication;
 
-  public completeName: string;
-
   public viewedArticles: number;
 
   public countFeedback: number;
@@ -17,7 +15,6 @@ export class ProfileViewModelImpl
   constructor(authentication: Authentication) {
     super();
     this.authentication = authentication;
-    this.completeName = '';
     this.viewedArticles = 0;
     this.countFeedback = 0;
   }
@@ -32,9 +29,7 @@ export class ProfileViewModelImpl
   }
 
   public async handleLoggout(): Promise<void> {
+    this.baseView?.props.contextConsumer?.authentication?.loggoutUser();
     await this.authentication.loggout();
-    this.baseView?.props.contextConsumer?.authentication.setIsAuthenticated(
-      false
-    );
   }
 }

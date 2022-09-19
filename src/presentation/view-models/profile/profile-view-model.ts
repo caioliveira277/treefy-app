@@ -4,7 +4,6 @@ import { BaseViewModel } from '../base-view-model';
 export interface ProfileViewModel extends BaseViewModel {
   authentication: Authentication;
 
-  completeName: string;
   viewedArticles: number;
   countFeedback: number;
 

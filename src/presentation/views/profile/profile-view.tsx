@@ -5,9 +5,8 @@ import { BaseView } from '../base-view';
 import { Separator, spacing } from './styles';
 import { NavigationComponent, StatusComponent } from './components';
 import { ProfileViewModel } from '@/presentation/view-models';
-// TODO: remove image after implementation
-import temporaryImageProfile from '@assets/images/profile.png';
 import { ButtonComponent } from '@/presentation/components';
+import { getProfile } from '@/presentation/utils';
 
 export interface ProfileViewProps
   extends NativeStackScreenProps<StackParamList, 'Profile'> {
@@ -16,7 +15,6 @@ export interface ProfileViewProps
 }
 
 export interface ProfileViewState {
-  completeName: string;
   viewedArticles: number;
   countFeedback: number;
 }
@@ -34,9 +32,8 @@ export class ProfileView
     this.profileViewModel = profileViewModel;
 
     this.state = {
-      countFeedback: 0,
-      viewedArticles: 0,
-      completeName: '',
+      countFeedback: profileViewModel.countFeedback,
+      viewedArticles: profileViewModel.viewedArticles,
     };
   }
 
@@ -50,20 +47,16 @@ export class ProfileView
 
   public onViewModelChanged() {
     this.setState({
-      completeName: this.state.completeName,
-      countFeedback: this.state.countFeedback,
-      viewedArticles: this.state.viewedArticles,
+      countFeedback: this.profileViewModel.countFeedback,
+      viewedArticles: this.profileViewModel.viewedArticles,
     });
   }
 
   render() {
-    // const { completeName, countFeedback, viewedArticles } = this.state;
+    const username =
+      this.props.contextConsumer?.authentication?.authenticatedUser.name || '';
     return (
-      <ProfileLayout
-        title="Vanessa da Mata"
-        image={temporaryImageProfile}
-        imageRounded
-      >
+      <ProfileLayout title={username} image={getProfile(username)} imageRounded>
         <StatusComponent />
         <Separator />
         <NavigationComponent

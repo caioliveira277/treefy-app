@@ -4,7 +4,9 @@ import { RouteProp } from '@react-navigation/native';
 import {
   makeRemoteGetArticles,
   makeRemoteGetCategories,
+  makeRemoteAuthentication,
 } from '@/main/factories/usecases';
+import { AuthenticationConsumer } from '@/presentation/contexts';
 
 interface MakeHomeViewProps {
   route: RouteProp<StackParamList, 'Home'>;
@@ -14,7 +16,20 @@ interface MakeHomeViewProps {
 export const makeHomeView: React.FC<MakeHomeViewProps> = (props) => {
   const homeViewModel = new HomeViewModelImpl(
     makeRemoteGetCategories(),
-    makeRemoteGetArticles()
+    makeRemoteGetArticles(),
+    makeRemoteAuthentication()
   );
-  return <HomeView {...props} homeViewModel={homeViewModel} />;
+  return (
+    <AuthenticationConsumer>
+      {(authenticationContextParams) => (
+        <HomeView
+          contextConsumer={{
+            ...authenticationContextParams,
+          }}
+          {...props}
+          homeViewModel={homeViewModel}
+        />
+      )}
+    </AuthenticationConsumer>
+  );
 };

@@ -4,19 +4,22 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthenticationContext from '@/presentation/contexts/authentication-context';
 import { PublicRoutes } from './public';
 import { MainRoutes } from './main';
+import { AccountModel } from '@/domain/models';
 
 interface RouterProps {
-  isAuthenticated: boolean;
+  authenticatedUser: AccountModel;
 }
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
-export const Router: React.FC<RouterProps> = ({ isAuthenticated }) => {
+export const Router: React.FC<RouterProps> = ({ authenticatedUser }) => {
   const authenticationContext = useContext(AuthenticationContext);
 
   useEffect(() => {
-    authenticationContext.authentication.setIsAuthenticated(isAuthenticated);
-  }, [isAuthenticated]);
+    authenticationContext.authentication.setAuthenticatedUser(
+      authenticatedUser
+    );
+  }, [authenticatedUser]);
 
   return (
     <NavigationContainer>

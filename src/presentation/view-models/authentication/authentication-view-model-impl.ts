@@ -66,8 +66,8 @@ export class AuthenticationViewModelImpl
       password: this.form.password,
     });
     if (auth.clientId) {
-      this.baseView?.props.contextConsumer?.authentication?.setIsAuthenticated(
-        true
+      this.baseView?.props.contextConsumer?.authentication?.setAuthenticatedUser(
+        auth
       );
     } else {
       this.baseView?.props.contextConsumer?.toast?.showCustom(

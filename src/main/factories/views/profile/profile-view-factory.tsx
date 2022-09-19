@@ -16,7 +16,7 @@ export const makeProfileView: React.FC<MakeProfileViewProps> = (props) => {
       {(authenticationContextParams) => (
         <ProfileView
           {...props}
-          contextConsumer={authenticationContextParams}
+          contextConsumer={{ ...authenticationContextParams }}
           profileViewModel={profileViewModel}
         />
       )}

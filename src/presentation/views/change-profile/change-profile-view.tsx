@@ -7,12 +7,9 @@ import {
 import { ProfileLayout } from '@/presentation/layouts';
 import { ChangeProfileViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { spacing, EditProfileImageButton, EditIcon } from './styles';
+import { spacing } from './styles';
 import { BaseView } from '../base-view';
-// TODO: remove image after implementation
-import temporaryImageProfile from '@assets/images/profile.png';
-import { currentTheme } from '@/presentation/themes';
-import { getIcon } from '@/presentation/utils';
+import { getProfile } from '@/presentation/utils';
 
 export interface ChangeProfileViewProps
   extends NativeStackScreenProps<StackParamList, 'ChangeProfile'> {
@@ -53,6 +50,7 @@ export class ChangeProfileView
 
   public componentDidMount(): void {
     this.changeProfileViewModel.attachView(this);
+    this.changeProfileViewModel.handleGetUserData();
   }
 
   public componentWillUnmount(): void {
@@ -84,16 +82,10 @@ export class ChangeProfileView
       },
       isLoading,
     } = this.state;
-    const theme = currentTheme;
     return (
       <ProfileLayout
         title="Alterar informações"
-        image={temporaryImageProfile}
-        slotHeader={
-          <EditProfileImageButton style={{ ...theme.shadows.sm }}>
-            <EditIcon source={getIcon('edit')} resizeMode="center" />
-          </EditProfileImageButton>
-        }
+        image={getProfile(completeName)}
         imageRounded
         isLoading={isLoading}
       >
