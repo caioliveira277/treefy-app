@@ -10,7 +10,6 @@ export const Corrousel = styled.ScrollView`
 
 export const ItemContainer = styled.View<{ active: boolean }>`
   align-items: center;
-  margin-right: 25px;
   opacity: ${({ active }) => (active ? 1 : 0.6)};
 `;
 
@@ -52,7 +51,11 @@ export const ActivePoint = styled.View`
 `;
 
 export const customStyle = StyleSheet.create({
-  firstItem: {
+  item: {
     marginLeft: 20,
+  },
+  lastItem: {
+    marginLeft: 20,
+    marginRight: 20,
   },
 });
