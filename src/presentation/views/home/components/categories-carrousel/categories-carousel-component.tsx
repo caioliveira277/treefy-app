@@ -13,6 +13,7 @@ import {
 import { StyleProp, ViewStyle } from 'react-native';
 import { CategoryModel } from '@/domain/models';
 import { useEffect, useRef, useState } from 'react';
+import { CategoriesCarouselLoading } from './categories-carousel-loading';
 
 type ListItem = {
   id: number;
@@ -24,12 +25,13 @@ type ListItem = {
 export interface CategoriesCarrouselComponentProps {
   style?: StyleProp<ViewStyle>;
   categories: CategoryModel[];
+  loading: boolean;
   onSelectCategory: (categoryId: number) => void;
 }
 
 export const CategoriesCarrouselComponent: React.FC<
   CategoriesCarrouselComponentProps
-> = ({ style, categories, onSelectCategory }) => {
+> = ({ style, categories, onSelectCategory, loading }) => {
   const theme = useTheme();
   const [list, setList] = useState<ListItem[]>([]);
 
@@ -61,35 +63,42 @@ export const CategoriesCarrouselComponent: React.FC<
   const calledOnlyOnce = useRef(false);
   useEffect(() => {
     if (calledOnlyOnce.current || !list.length) return;
+
     handleSelectItem(list[0].id);
     calledOnlyOnce.current = true;
   }, [list]);
+
+  const isLast = (index: number) => index + 1 === list.length;
 
   return (
     <Container style={style}>
       <Title>Categorias</Title>
       <Corrousel horizontal={true} showsHorizontalScrollIndicator={false}>
-        {list.map((item, index) => (
-          <ItemContainer
-            active={item.active}
-            style={!index ? customStyle.firstItem : null}
-            key={item.id}
-          >
-            <ContainerShadow
-              style={{ ...theme.shadows.sm }}
-              onPress={() => handleSelectItem(item.id)}
+        {loading ? (
+          <CategoriesCarouselLoading />
+        ) : (
+          list.map((item, index) => (
+            <ItemContainer
+              active={item.active}
+              style={isLast(index) ? customStyle.lastItem : customStyle.item}
+              key={item.id}
             >
-              <ItemImage
-                source={{
-                  uri: item.image,
-                }}
-                resizeMode="center"
-              />
-            </ContainerShadow>
-            <ItemText active={item.active}>{item.title}</ItemText>
-            {item.active ? <ActivePoint /> : null}
-          </ItemContainer>
-        ))}
+              <ContainerShadow
+                style={{ ...theme.shadows.sm }}
+                onPress={() => handleSelectItem(item.id)}
+              >
+                <ItemImage
+                  source={{
+                    uri: item.image,
+                  }}
+                  resizeMode="center"
+                />
+              </ContainerShadow>
+              <ItemText active={item.active}>{item.title}</ItemText>
+              {item.active ? <ActivePoint /> : null}
+            </ItemContainer>
+          ))
+        )}
       </Corrousel>
     </Container>
   );

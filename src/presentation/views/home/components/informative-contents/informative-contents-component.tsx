@@ -28,78 +28,93 @@ import { useTheme } from 'styled-components';
 import backgroundCardIlustration from '@assets/images/background-card-ilustration.png';
 import { StyleProp, ViewStyle } from 'react-native';
 import { ArticleModel } from '@/domain/models';
+import { InformativeContentsLoading } from './informative-contents-loading';
 
 export interface InformativeContentsComponentProps {
   style?: StyleProp<ViewStyle>;
   onPress: () => void;
   articles: ArticleModel[];
+  loading: boolean;
 }
 
 export const InformativeContentsComponent: React.FC<
   InformativeContentsComponentProps
-> = ({ style, onPress, articles }) => {
+> = ({ style, onPress, articles, loading }) => {
   const theme = useTheme();
+
   return (
     <Container style={style}>
       <Title>Conteúdos informativos</Title>
-      {articles.map((article) => (
-        <TransparentContainer key={article.id}>
-          <CardContainer
-            activeOpacity={0.8}
-            style={{ ...theme.shadows.sm }}
-            onPress={() => onPress()}
-          >
-            <CardContainerColumnContent>
-              <CardTitle>{article.title}</CardTitle>
-              <CardDescription>{article.description}</CardDescription>
-              <CardAuthor>Autor: {article.author.name}</CardAuthor>
-              <CardCategoriesContainer>
-                <CardCategoriesTitle>Categorias:</CardCategoriesTitle>
-                <CardCategoriesItemsContainer>
-                  {article.categories.map((category, categoryIndex) => (
-                    <CardCategoriesItemWrap key={category.id}>
-                      <CardCategoriesItem>{category.title}</CardCategoriesItem>
-                      {article.categories.length ===
-                      categoryIndex + 1 ? null : (
-                        <CardCategoriesItemPoint />
-                      )}
-                    </CardCategoriesItemWrap>
-                  ))}
-                </CardCategoriesItemsContainer>
-              </CardCategoriesContainer>
-            </CardContainerColumnContent>
-            <CardContainerColumnImage>
-              <CardImageBackground
-                source={backgroundCardIlustration}
-                resizeMode="center"
-              />
-              <CardImage
-                source={{
-                  uri: article.thumbnail,
-                }}
-                resizeMode="center"
-              />
-            </CardContainerColumnImage>
-            <CardFooterContainer>
-              <CardFooterDateContainer>
-                <CardFooterIcon
-                  source={getIcon('calendar')}
+
+      {loading ? (
+        <InformativeContentsLoading />
+      ) : (
+        articles.map((article) => (
+          <TransparentContainer key={article.id}>
+            <CardContainer
+              activeOpacity={0.8}
+              style={{ ...theme.shadows.sm }}
+              onPress={() => onPress()}
+            >
+              <CardContainerColumnContent>
+                <CardTitle>{article.title}</CardTitle>
+                <CardDescription>{article.description}</CardDescription>
+                <CardAuthor>Autor: {article.author.name}</CardAuthor>
+                <CardCategoriesContainer>
+                  <CardCategoriesTitle>Categorias:</CardCategoriesTitle>
+                  <CardCategoriesItemsContainer>
+                    {article.categories.map((category, categoryIndex) => (
+                      <CardCategoriesItemWrap key={category.id}>
+                        <CardCategoriesItem>
+                          {category.title}
+                        </CardCategoriesItem>
+                        {article.categories.length ===
+                        categoryIndex + 1 ? null : (
+                          <CardCategoriesItemPoint />
+                        )}
+                      </CardCategoriesItemWrap>
+                    ))}
+                  </CardCategoriesItemsContainer>
+                </CardCategoriesContainer>
+              </CardContainerColumnContent>
+              <CardContainerColumnImage>
+                <CardImageBackground
+                  source={backgroundCardIlustration}
                   resizeMode="center"
                 />
-                <CardFooterDateText>
-                  {formatDateTime(article.publishedAt)}
-                </CardFooterDateText>
-              </CardFooterDateContainer>
-              <CardFooterRateContainer>
-                <CardFooterIcon source={getIcon('rate')} resizeMode="center" />
-                <CardFooterRateText>
-                  {article.averageRating === null ? '-' : article.averageRating}
-                </CardFooterRateText>
-              </CardFooterRateContainer>
-            </CardFooterContainer>
-          </CardContainer>
-        </TransparentContainer>
-      ))}
+                <CardImage
+                  source={{
+                    uri: article.thumbnail,
+                  }}
+                  resizeMode="center"
+                />
+              </CardContainerColumnImage>
+              <CardFooterContainer>
+                <CardFooterDateContainer>
+                  <CardFooterIcon
+                    source={getIcon('calendar')}
+                    resizeMode="center"
+                  />
+                  <CardFooterDateText>
+                    {formatDateTime(article.publishedAt)}
+                  </CardFooterDateText>
+                </CardFooterDateContainer>
+                <CardFooterRateContainer>
+                  <CardFooterIcon
+                    source={getIcon('rate')}
+                    resizeMode="center"
+                  />
+                  <CardFooterRateText>
+                    {article.averageRating === null
+                      ? '-'
+                      : article.averageRating}
+                  </CardFooterRateText>
+                </CardFooterRateContainer>
+              </CardFooterContainer>
+            </CardContainer>
+          </TransparentContainer>
+        ))
+      )}
     </Container>
   );
 };
