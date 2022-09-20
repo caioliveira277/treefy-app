@@ -29,6 +29,7 @@ import backgroundCardIlustration from '@assets/images/background-card-ilustratio
 import { StyleProp, ViewStyle } from 'react-native';
 import { ArticleModel } from '@/domain/models';
 import { InformativeContentsLoading } from './informative-contents-loading';
+import { InformativeContentsEmpty } from './informative-contents-empty';
 
 export interface InformativeContentsComponentProps {
   style?: StyleProp<ViewStyle>;
@@ -48,6 +49,8 @@ export const InformativeContentsComponent: React.FC<
 
       {loading ? (
         <InformativeContentsLoading />
+      ) : !articles.length ? (
+        <InformativeContentsEmpty />
       ) : (
         articles.map((article) => (
           <TransparentContainer key={article.id}>
