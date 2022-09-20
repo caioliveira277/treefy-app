@@ -4,18 +4,18 @@ import { Container, Item } from './styles';
 
 export interface SkeletonLoadingComponentProps {
   skeletons: {
-    width?: number;
-    height?: number;
+    width?: number | string;
+    height?: number | string;
     radius?: number;
     style?: StyleProp<ViewStyle>;
   }[];
   containerStyle?: StyleProp<ViewStyle>;
-  show: boolean;
+  show?: boolean;
 }
 
 export const SkeletonLoadingComponent: React.FC<
   SkeletonLoadingComponentProps
-> = ({ skeletons, containerStyle, show }) => {
+> = ({ skeletons, containerStyle, show = true }) => {
   return (
     <Container style={containerStyle}>
       {skeletons.map(({ width, height, radius = 5, style }, i) => (
@@ -32,7 +32,7 @@ export const SkeletonLoadingComponent: React.FC<
                 duration: 600,
               },
             }}
-            colors={['#d5dfe4', '#f0f3f5']}
+            colors={['#e0e7eb', '#f0f3f5']}
           />
         </Item>
       ))}
