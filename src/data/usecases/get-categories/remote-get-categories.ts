@@ -24,17 +24,21 @@ export class RemoteGetCategories implements GetCategories {
   }
 
   public async all(params: AllCategoryParams): Promise<CategoryModel[]> {
-    const response = await this.httpClient.request<CategoriesRequest>({
-      method: 'GET',
-      url: this.baseUrl,
-      params: this.formatParams(params),
-    });
-    if (
-      response.statusCode === HttpStatusCode.ok &&
-      response?.body?.data?.length
-    ) {
-      return new CategoryDataSource(response.body.data).toModel();
+    try {
+      const response = await this.httpClient.request<CategoriesRequest>({
+        method: 'GET',
+        url: this.baseUrl,
+        params: this.formatParams(params),
+      });
+      if (
+        response.statusCode === HttpStatusCode.ok &&
+        response?.body?.data?.length
+      ) {
+        return new CategoryDataSource(response.body.data).toModel();
+      }
+      return [];
+    } catch (error) {
+      return [];
     }
-    return [];
   }
 }
