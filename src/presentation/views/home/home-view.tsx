@@ -21,6 +21,8 @@ export interface HomeViewState {
   categories: CategoryModel[];
   articles: ArticleModel[];
   isArticleSearch: boolean;
+  loadingArticles: boolean;
+  loadingCategories: boolean;
 }
 
 export class HomeView
@@ -39,6 +41,8 @@ export class HomeView
       categories: homeViewModel.categories,
       articles: homeViewModel.articles,
       isArticleSearch: homeViewModel.isArticleSearch,
+      loadingArticles: homeViewModel.loadingArticles,
+      loadingCategories: homeViewModel.loadingCategories,
     };
   }
 
@@ -56,11 +60,19 @@ export class HomeView
       categories: this.homeViewModel.categories,
       articles: this.homeViewModel.articles,
       isArticleSearch: this.homeViewModel.isArticleSearch,
+      loadingArticles: this.homeViewModel.loadingArticles,
+      loadingCategories: this.homeViewModel.loadingCategories,
     });
   }
 
   render() {
-    const { categories, articles, isArticleSearch } = this.state;
+    const {
+      categories,
+      articles,
+      isArticleSearch,
+      loadingArticles,
+      loadingCategories,
+    } = this.state;
     return (
       <Container>
         <SalutationComponent
@@ -80,12 +92,14 @@ export class HomeView
             onSelectCategory={(categoryId) =>
               this.homeViewModel.handleGetArticles(categoryId)
             }
+            loading={loadingCategories}
             style={spacing.carrousel}
           />
         )}
         <InformativeContentsComponent
           style={spacing.informativeContents}
           articles={articles}
+          loading={loadingArticles}
           onPress={() => this.homeViewModel.handleNavigateToArticle()}
         />
       </Container>
