@@ -4,7 +4,7 @@ import {
 } from '@/presentation/components';
 import { customStyle } from './styles';
 
-export const CategoriesLoading: React.FC = () => {
+export const CategoriesCarouselLoading: React.FC = () => {
   const quantity = 3;
   const isLast = (index: number) => index + 1 === quantity;
 
@@ -38,7 +38,6 @@ export const CategoriesLoading: React.FC = () => {
           <SkeletonLoadingComponent
             key={index}
             skeletons={getItems(index)}
-            show={true}
             containerStyle={[
               {
                 alignItems: 'center',

@@ -13,7 +13,7 @@ import {
 import { StyleProp, ViewStyle } from 'react-native';
 import { CategoryModel } from '@/domain/models';
 import { useEffect, useRef, useState } from 'react';
-import { CategoriesLoading } from './categories-loading';
+import { CategoriesCarouselLoading } from './categories-carousel-loading';
 
 type ListItem = {
   id: number;
@@ -25,15 +25,15 @@ type ListItem = {
 export interface CategoriesCarrouselComponentProps {
   style?: StyleProp<ViewStyle>;
   categories: CategoryModel[];
+  loading: boolean;
   onSelectCategory: (categoryId: number) => void;
 }
 
 export const CategoriesCarrouselComponent: React.FC<
   CategoriesCarrouselComponentProps
-> = ({ style, categories, onSelectCategory }) => {
+> = ({ style, categories, onSelectCategory, loading }) => {
   const theme = useTheme();
   const [list, setList] = useState<ListItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   const handleFormatCategories = () => {
     setList(
@@ -65,7 +65,6 @@ export const CategoriesCarrouselComponent: React.FC<
     if (calledOnlyOnce.current || !list.length) return;
 
     handleSelectItem(list[0].id);
-    setIsLoading(false);
     calledOnlyOnce.current = true;
   }, [list]);
 
@@ -75,8 +74,8 @@ export const CategoriesCarrouselComponent: React.FC<
     <Container style={style}>
       <Title>Categorias</Title>
       <Corrousel horizontal={true} showsHorizontalScrollIndicator={false}>
-        {isLoading ? (
-          <CategoriesLoading />
+        {loading ? (
+          <CategoriesCarouselLoading />
         ) : (
           list.map((item, index) => (
             <ItemContainer
