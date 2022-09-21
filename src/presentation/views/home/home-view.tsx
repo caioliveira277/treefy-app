@@ -23,6 +23,7 @@ export interface HomeViewState {
   isArticleSearch: boolean;
   loadingArticles: boolean;
   loadingCategories: boolean;
+  selectedCategoryId: number | null;
 }
 
 export class HomeView
@@ -43,12 +44,14 @@ export class HomeView
       isArticleSearch: homeViewModel.isArticleSearch,
       loadingArticles: homeViewModel.loadingArticles,
       loadingCategories: homeViewModel.loadingCategories,
+      selectedCategoryId: homeViewModel.selectedCategoryId,
     };
   }
 
-  public componentDidMount(): void {
+  public async componentDidMount(): Promise<void> {
     this.homeViewModel.attachView(this);
-    this.homeViewModel.handleGetCategories();
+    await this.homeViewModel.handleGetCategories();
+    await this.homeViewModel.handleGetArticles();
   }
 
   public componentWillUnmount(): void {
@@ -62,6 +65,7 @@ export class HomeView
       isArticleSearch: this.homeViewModel.isArticleSearch,
       loadingArticles: this.homeViewModel.loadingArticles,
       loadingCategories: this.homeViewModel.loadingCategories,
+      selectedCategoryId: this.homeViewModel.selectedCategoryId,
     });
   }
 
@@ -72,6 +76,7 @@ export class HomeView
       isArticleSearch,
       loadingArticles,
       loadingCategories,
+      selectedCategoryId,
     } = this.state;
     return (
       <Container>
@@ -86,12 +91,14 @@ export class HomeView
           style={spacing.searchInput}
           onSubmit={(search) => this.homeViewModel.handleSearchArticles(search)}
         />
-        {isArticleSearch ? null : (
+        {isArticleSearch || !categories.length ? null : (
           <CategoriesCarrouselComponent
             categories={categories}
-            onSelectCategory={(categoryId) =>
-              this.homeViewModel.handleGetArticles(categoryId)
-            }
+            selectedCategoryId={selectedCategoryId}
+            onSelectCategory={(categoryId) => {
+              this.homeViewModel.handleSelectCategory(categoryId);
+              this.homeViewModel.handleGetArticles();
+            }}
             loading={loadingCategories}
             style={spacing.carrousel}
           />

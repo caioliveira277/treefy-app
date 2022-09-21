@@ -46,18 +46,22 @@ export class RemoteGetArticles implements GetArticles {
   public async allByCategoryId(
     params: GetAllByCategoryIdParams
   ): Promise<ArticleModel[]> {
-    const response = await this.httpClient.request<ArticlesRequest>({
-      method: 'GET',
-      url: this.baseUrl,
-      params: this.formatParams(params, false),
-    });
-    if (
-      response.statusCode === HttpStatusCode.ok &&
-      response?.body?.data?.length
-    ) {
-      return new ArticleDataSource(response.body.data).toModel();
+    try {
+      const response = await this.httpClient.request<ArticlesRequest>({
+        method: 'GET',
+        url: this.baseUrl,
+        params: this.formatParams(params, false),
+      });
+      if (
+        response.statusCode === HttpStatusCode.ok &&
+        response?.body?.data?.length
+      ) {
+        return new ArticleDataSource(response.body.data).toModel();
+      }
+      return [];
+    } catch (error) {
+      return [];
     }
-    return [];
   }
 
   public async allBySearch(

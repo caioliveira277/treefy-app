@@ -23,6 +23,8 @@ export class HomeViewModelImpl
 
   public loadingCategories: boolean;
 
+  public selectedCategoryId: number | null;
+
   constructor(
     getCategories: GetCategories,
     getArticles: GetArticles,
@@ -33,6 +35,7 @@ export class HomeViewModelImpl
     this.getArticles = getArticles;
     this.authentication = authentication;
     this.categories = [];
+    this.selectedCategoryId = null;
     this.articles = [];
     this.isArticleSearch = false;
     this.loadingArticles = true;
@@ -53,40 +56,45 @@ export class HomeViewModelImpl
     this.handleSetCategoriesLoading(true);
 
     const categories = await this.getCategories.all();
-
     this.categories = categories;
+
+    this.handleSelectCategory(categories[0]?.id);
     this.handleSetCategoriesLoading(false);
-    this.notifyViewAboutChanges();
   }
 
-  public async handleGetArticles(selectedCategoryId: number): Promise<void> {
+  public handleSelectCategory(selectedCategoryId: number): void {
+    this.selectedCategoryId = selectedCategoryId;
+  }
+
+  public async handleGetArticles(): Promise<void> {
     this.handleSetArticlesLoading(true);
 
-    const articles = await this.getArticles.allByCategoryId({
-      categoryId: selectedCategoryId,
-    });
+    if (this.selectedCategoryId) {
+      const articles = await this.getArticles.allByCategoryId({
+        categoryId: this.selectedCategoryId,
+      });
+      this.articles = articles;
+    } else {
+      this.articles = [];
+    }
 
-    this.articles = articles;
     this.handleSetArticlesLoading(false);
-    this.notifyViewAboutChanges();
   }
 
   public async handleSearchArticles(search: string): Promise<void> {
     if (!search) {
       this.isArticleSearch = false;
-      this.notifyViewAboutChanges();
+      await this.handleGetArticles();
       return;
     }
-
     this.handleSetArticlesLoading(true);
-
     const articles = await this.getArticles.allBySearch({
       search,
     });
+
     this.articles = articles;
     this.isArticleSearch = true;
     this.handleSetArticlesLoading(false);
-    this.notifyViewAboutChanges();
   }
 
   public handleNavigateToArticle(): void {
