@@ -97,7 +97,13 @@ export class RemoteGetArticles implements GetArticles {
         response.statusCode === HttpStatusCode.ok &&
         response?.body?.data.id
       ) {
-        return new ArticleDataSource([response.body.data]).toModel()[0];
+        const articleModel = new ArticleDataSource([
+          response.body.data,
+        ]).toModel()[0];
+
+        articleModel.content = JSON.parse(articleModel.content);
+
+        return articleModel;
       }
       return {} as ArticleModel;
     } catch (error) {
