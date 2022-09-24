@@ -2,10 +2,17 @@ import React from 'react';
 import { ArticleViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
-import { Banner, Container, SafeContainer, Title } from './styles';
+import {
+  Banner,
+  Container,
+  SafeContainer,
+  Title,
+  BannerContainer,
+} from './styles';
 import { Dimensions } from 'react-native';
-import { RateComponent } from './components';
+import { RateComponent, StatusComponent } from './components';
 import { ArticleModel } from '@/domain/models';
+import { currentTheme } from '@/presentation/themes';
 
 export interface ArticleViewProps
   extends NativeStackScreenProps<StackParamList, 'Article'> {
@@ -55,8 +62,15 @@ export class ArticleView
     return article.id ? (
       <Container>
         <Title>{article.title}</Title>
-        <Banner source={{ uri: article.banner }} resizeMode="cover" />
+        <BannerContainer style={{ ...currentTheme.shadows.sm }}>
+          <Banner source={{ uri: article.banner }} resizeMode="cover" />
+        </BannerContainer>
         <SafeContainer>
+          <StatusComponent
+            categories={article.categories}
+            publishedAt={article.publishedAt}
+            averageRating={article.averageRating}
+          />
           <RateComponent />
         </SafeContainer>
       </Container>

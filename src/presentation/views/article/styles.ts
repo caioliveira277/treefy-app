@@ -19,6 +19,10 @@ export const Title = styled.Text`
   margin-bottom: 20px;
 `;
 
+export const BannerContainer = styled.View`
+  margin-bottom: 10px;
+`;
+
 export const Banner = styled.Image`
   width: 100%;
   height: 230px;
