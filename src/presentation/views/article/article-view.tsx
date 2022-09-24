@@ -10,9 +10,10 @@ import {
   BannerContainer,
 } from './styles';
 import { Dimensions } from 'react-native';
-import { RateComponent, StatusComponent } from './components';
+import { ContentComponent, RateComponent, StatusComponent } from './components';
 import { ArticleModel } from '@/domain/models';
 import { currentTheme } from '@/presentation/themes';
+import { ContentBlock } from '@/@types/content-block';
 
 export interface ArticleViewProps
   extends NativeStackScreenProps<StackParamList, 'Article'> {
@@ -71,6 +72,7 @@ export class ArticleView
             publishedAt={article.publishedAt}
             averageRating={article.averageRating}
           />
+          <ContentComponent content={article.content as ContentBlock} />
           <RateComponent />
         </SafeContainer>
       </Container>
