@@ -24,7 +24,9 @@ declare global {
     Help: undefined;
     TermsUse: undefined;
     Home: undefined;
-    Article: undefined;
+    Article: {
+      articleId: number;
+    };
   };
   type MainRoutesParamsList = MainSubRoutes & {
     ProfileGroup: MainSubRoutes;
@@ -39,7 +41,7 @@ declare global {
       Public: NavigatorScreenParams<PublicRoutesParamsList>;
       Main: {
         screen: keyof MainRoutesParamsList;
-        params?: { screen: keyof MainSubRoutes };
+        params?: NavigatorScreenParams<MainSubRoutes>;
       };
     };
   namespace ReactNavigation {

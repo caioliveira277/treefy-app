@@ -97,11 +97,14 @@ export class HomeViewModelImpl
     this.handleSetArticlesLoading(false);
   }
 
-  public handleNavigateToArticle(): void {
+  public handleNavigateToArticle(articleId: number): void {
     this.baseView?.props.navigation.navigate('Main', {
       screen: 'HomeGroup',
       params: {
         screen: 'Article',
+        params: {
+          articleId,
+        },
       },
     });
   }

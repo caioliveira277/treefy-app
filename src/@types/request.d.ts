@@ -26,7 +26,7 @@ type CategoriesRequest = {
   }[];
 };
 
-type ArticlesRequest = {
+export type ArticleRequest = {
   data: {
     id: number;
     attributes: {
@@ -49,5 +49,9 @@ type ArticlesRequest = {
     feedbacks: {
       averageRatings: number | null;
     };
-  }[];
+  };
+};
+
+export type ArticlesRequest = {
+  data: ArticleRequest['data'][];
 };

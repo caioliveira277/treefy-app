@@ -2,10 +2,10 @@ import React from 'react';
 import { ArticleViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
-import { Container, SafeContainer } from './styles';
-import { WebView } from 'react-native-webview';
+import { Banner, Container, SafeContainer, Title } from './styles';
 import { Dimensions } from 'react-native';
 import { RateComponent } from './components';
+import { ArticleModel } from '@/domain/models';
 
 export interface ArticleViewProps
   extends NativeStackScreenProps<StackParamList, 'Article'> {
@@ -14,6 +14,7 @@ export interface ArticleViewProps
 
 export interface ArticleViewState {
   webheight: number;
+  article: ArticleModel;
 }
 
 export class ArticleView
@@ -25,52 +26,40 @@ export class ArticleView
   constructor(props: ArticleViewProps) {
     super(props);
 
-    this.state = {
-      webheight: Dimensions.get('window').height,
-    };
-
     const { articleViewModel } = this.props;
     this.articleViewModel = articleViewModel;
+
+    this.state = {
+      webheight: Dimensions.get('window').height,
+      article: articleViewModel.article,
+    };
   }
 
   public componentDidMount(): void {
     this.articleViewModel.attachView(this);
+    this.articleViewModel.handleGetArticle();
   }
 
   public componentWillUnmount(): void {
     this.articleViewModel.detachView();
   }
 
-  public onViewModelChanged(): void {}
+  public onViewModelChanged(): void {
+    this.setState({
+      article: this.articleViewModel.article,
+    });
+  }
 
   render() {
-    return (
+    const { article } = this.state;
+    return article.id ? (
       <Container>
-        <WebView
-          style={{
-            height: this.state.webheight,
-          }}
-          source={{
-            uri: 'https://caioliveira277.github.io/todo-list/public/assets/temp/article-example.html',
-          }}
-          onMessage={(event) => {
-            this.setState({
-              webheight: parseInt(event.nativeEvent.data),
-            });
-          }}
-          scrollEnabled={false}
-          javaScriptEnabled={true}
-          injectedJavaScript={`
-              setTimeout(function() { 
-                window.ReactNativeWebView.postMessage(document.documentElement.scrollHeight); 
-              }, 500);
-              true;
-            `}
-        />
+        <Title>{article.title}</Title>
+        <Banner source={{ uri: article.banner }} resizeMode="cover" />
         <SafeContainer>
           <RateComponent />
         </SafeContainer>
       </Container>
-    );
+    ) : null;
   }
 }

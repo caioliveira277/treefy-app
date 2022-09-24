@@ -9,7 +9,12 @@ export type GetAllBySearchParams = {
   search: string;
 } & PaginationRequest;
 
+export type GetOneByIdParams = {
+  articleId: number;
+};
+
 export interface GetArticles {
-  allByCategoryId(params?: GetAllByCategoryIdParams): Promise<ArticleModel[]>;
-  allBySearch(params?: GetAllBySearchParams): Promise<ArticleModel[]>;
+  allByCategoryId(params: GetAllByCategoryIdParams): Promise<ArticleModel[]>;
+  allBySearch(params: GetAllBySearchParams): Promise<ArticleModel[]>;
+  oneById(params: GetOneByIdParams): Promise<ArticleModel>;
 }
