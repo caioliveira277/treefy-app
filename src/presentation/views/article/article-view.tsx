@@ -10,7 +10,12 @@ import {
   BannerContainer,
 } from './styles';
 import { Dimensions } from 'react-native';
-import { ContentComponent, RateComponent, StatusComponent } from './components';
+import {
+  AuthorComponent,
+  ContentComponent,
+  RateComponent,
+  StatusComponent,
+} from './components';
 import { ArticleModel } from '@/domain/models';
 import { currentTheme } from '@/presentation/themes';
 import { ContentBlock } from '@/@types/content-block';
@@ -73,6 +78,7 @@ export class ArticleView
             averageRating={article.averageRating}
           />
           <ContentComponent content={article.content as ContentBlock} />
+          <AuthorComponent name={article.author.name} description={''} />
           <RateComponent />
         </SafeContainer>
       </Container>
