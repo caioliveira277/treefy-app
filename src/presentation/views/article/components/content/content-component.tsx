@@ -3,16 +3,21 @@ import { useEffect, useState } from 'react';
 import {
   Container,
   ContainerImage,
-  Header,
   Image,
   ListContainer,
-  ListItem,
   ListItemContainer,
-  Paragraph,
   Caption,
   Ordered,
   Unordered,
+  LinkContainer,
+  LinkImage,
+  LinkContentContainer,
+  LinkName,
+  LinkDescription,
 } from './styles';
+import RenderHtml from 'react-native-render-html';
+import { useWindowDimensions } from 'react-native';
+import { useTheme } from 'styled-components';
 
 export interface ContentComponentProps {
   content: ContentBlock;
@@ -21,24 +26,74 @@ export interface ContentComponentProps {
 export const ContentComponent: React.FC<ContentComponentProps> = ({
   content,
 }) => {
+  const { width } = useWindowDimensions();
+  const theme = useTheme();
   const [formatedContents, setFormatedContents] = useState<
     Array<JSX.Element | null>
   >([]);
 
   const formatContent = () => {
     const formatText = (text: string) => text.replace(/\n|<br>/g, '');
+    const renderText = (text: string, id: string | number) => (
+      <RenderHtml
+        key={id}
+        systemFonts={Object.values(theme.fonts.families)}
+        baseStyle={{
+          fontFamily: theme.fonts.families.regular,
+          fontSize: theme.fonts.sizes.sm,
+          lineHeight: 20,
+          color: theme.colors.body,
+          marginBottom: 10,
+        }}
+        tagsStyles={{
+          a: {
+            color: theme.colors.primary,
+          },
+          h2: {
+            color: theme.colors.secondary,
+            fontSize: theme.fonts.sizes.lg,
+            fontFamily: theme.fonts.families.bold,
+            margin: '15px 0 5px 0',
+          },
+          h3: {
+            color: theme.colors.secondary,
+            margin: '15px 0 5px 0',
+            fontSize: theme.fonts.sizes.md,
+            fontFamily: theme.fonts.families.bold,
+          },
+        }}
+        contentWidth={width}
+        source={{
+          html: text,
+        }}
+      />
+    );
+
     return content.blocks.map((element) => {
       switch (element.type) {
         case 'header': {
-          return (
-            <Header key={element.id}>{formatText(element.data.text)}</Header>
-          );
+          const h = `h${element.data.level}`;
+          return renderText(`<${h}>${element.data.text}</${h}>`, element.id);
         }
         case 'paragraph': {
+          return renderText(element.data.text, element.id);
+        }
+        case 'LinkTool': {
           return (
-            <Paragraph key={element.id}>
-              {formatText(element.data.text)}
-            </Paragraph>
+            <LinkContainer key={element.id} style={{ ...theme.shadows.sm }}>
+              {element.data.meta.image.url ? (
+                <LinkImage
+                  source={{ uri: element.data.meta.image.url }}
+                  resizeMode="cover"
+                />
+              ) : null}
+              <LinkContentContainer>
+                <LinkName>{element.data.meta.title}</LinkName>
+                <LinkDescription>
+                  {element.data.meta.description}
+                </LinkDescription>
+              </LinkContentContainer>
+            </LinkContainer>
           );
         }
         case 'image': {
@@ -64,7 +119,7 @@ export const ContentComponent: React.FC<ContentComponentProps> = ({
                   ) : (
                     <Unordered />
                   )}
-                  <ListItem>{formatText(item)}</ListItem>
+                  {renderText(item, index)}
                 </ListItemContainer>
               ))}
             </ListContainer>

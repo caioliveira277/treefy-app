@@ -1,12 +1,10 @@
-type Tunes = { align: { alignment: 'left' | 'center' | 'right' } };
-
 export interface ContentBlockHeader {
   id: string;
   type: 'header';
   data: {
     text: string;
+    level: 2 | 3;
   };
-  tunes: Tunes;
 }
 
 export interface ContentBlockParagraph {
@@ -31,6 +29,21 @@ export interface ContentBlockImage {
   };
 }
 
+export interface ContentBlockLink {
+  id: string;
+  type: 'LinkTool';
+  data: {
+    link: string;
+    meta: {
+      title: string;
+      description: string;
+      image: {
+        url: string;
+      };
+    };
+  };
+}
+
 export interface ContentBlockList {
   id: string;
   type: 'list';
@@ -38,7 +51,6 @@ export interface ContentBlockList {
     style: 'unordered' | 'ordered';
     items: string[];
   };
-  tunes: Tunes;
 }
 
 export interface ContentBlock {
@@ -46,6 +58,7 @@ export interface ContentBlock {
   blocks: Array<
     | ContentBlockHeader
     | ContentBlockParagraph
+    | ContentBlockLink
     | ContentBlockImage
     | ContentBlockList
   >;
