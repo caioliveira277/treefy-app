@@ -42,6 +42,7 @@ export type ArticleRequest = {
           attributes: {
             firstname: string;
             lastname: string;
+            createdAt: Date;
           };
         };
       };

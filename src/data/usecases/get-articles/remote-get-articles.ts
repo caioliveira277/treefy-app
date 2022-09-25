@@ -28,6 +28,7 @@ export class RemoteGetArticles implements GetArticles {
       'populate[categories][fields][1]': 'title',
       'populate[updatedBy][fields][0]': 'firstname',
       'populate[updatedBy][fields][1]': 'lastname',
+      'populate[updatedBy][fields][2]': 'createdAt',
       'sort[0]': 'publishedAt:desc',
     };
 
@@ -101,7 +102,7 @@ export class RemoteGetArticles implements GetArticles {
           response.body.data,
         ]).toModel()[0];
 
-        articleModel.content = JSON.parse(articleModel.content);
+        articleModel.content = JSON.parse(articleModel.content as string);
 
         return articleModel;
       }

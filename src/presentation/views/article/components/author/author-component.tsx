@@ -1,4 +1,4 @@
-import { getProfile } from '@/presentation/utils';
+import { formatDate, getProfile } from '@/presentation/utils';
 import {
   Container,
   ContentContainer,
@@ -11,12 +11,12 @@ import {
 
 export interface AuthorComponentProps {
   name: string;
-  description: string;
+  createdAt: Date;
 }
 
 export const AuthorComponent: React.FC<AuthorComponentProps> = ({
   name,
-  description,
+  createdAt,
 }) => {
   return (
     <Container>
@@ -25,7 +25,10 @@ export const AuthorComponent: React.FC<AuthorComponentProps> = ({
         <Image source={getProfile(name)} resizeMode="center" />
         <NameDescriptionContainer>
           <Name>{name}</Name>
-          <Description>{description}</Description>
+          <Description>
+            Criando conteúdos de qualidade na Treefy desde{' '}
+            {formatDate(createdAt)}
+          </Description>
         </NameDescriptionContainer>
       </ContentContainer>
     </Container>

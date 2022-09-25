@@ -12,6 +12,7 @@ export type ArticleModel = {
   categories: Pick<CategoryModel, 'id' | 'title'>[];
   author: {
     name: string;
+    createdAt: Date;
   };
   averageRating: number | null;
 };

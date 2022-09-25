@@ -78,7 +78,10 @@ export class ArticleView
             averageRating={article.averageRating}
           />
           <ContentComponent content={article.content as ContentBlock} />
-          <AuthorComponent name={article.author.name} description={''} />
+          <AuthorComponent
+            name={article.author.name}
+            createdAt={article.author.createdAt}
+          />
           <RateComponent />
         </SafeContainer>
       </Container>

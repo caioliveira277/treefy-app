@@ -20,7 +20,9 @@ export const ContentContainer = styled.View`
   align-items: flex-start;
 `;
 
-export const NameDescriptionContainer = styled.View``;
+export const NameDescriptionContainer = styled.View`
+  flex: 1;
+`;
 
 export const Image = styled.Image`
   width: 47px;
@@ -32,6 +34,7 @@ export const Image = styled.Image`
 export const Name = styled(Title)`
   color: ${({ theme }) => theme.colors.primary};
   font-family: ${({ theme }) => theme.fonts.families.regular};
+  margin-bottom: 5px;
 `;
 
 export const Description = styled.Text`
