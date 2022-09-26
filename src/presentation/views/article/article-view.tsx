@@ -19,6 +19,7 @@ import {
 import { ArticleModel, FeedbackModel } from '@/domain/models';
 import { currentTheme } from '@/presentation/themes';
 import { ContentBlock } from '@/@types/content-block';
+import { PageLoadingComponent } from '@/presentation/components';
 
 export interface ArticleViewProps
   extends NativeStackScreenProps<StackParamList, 'Article'> {
@@ -30,6 +31,8 @@ export interface ArticleViewState {
   webheight: number;
   article: ArticleModel;
   feedback: FeedbackModel | null;
+  feedbackLoading: boolean;
+  contentLoading: boolean;
 }
 
 export class ArticleView
@@ -48,6 +51,8 @@ export class ArticleView
       webheight: Dimensions.get('window').height,
       article: articleViewModel.article,
       feedback: articleViewModel.feedback,
+      feedbackLoading: articleViewModel.feedbackLoading,
+      contentLoading: articleViewModel.contentLoading,
     };
   }
 
@@ -65,31 +70,42 @@ export class ArticleView
     this.setState({
       article: this.articleViewModel.article,
       feedback: this.articleViewModel.feedback,
+      feedbackLoading: this.articleViewModel.feedbackLoading,
+      contentLoading: this.articleViewModel.contentLoading,
     });
   }
 
   render() {
-    const { article, feedback } = this.state;
-    return article.id ? (
-      <Container>
-        <Title>{article.title}</Title>
-        <BannerContainer style={{ ...currentTheme.shadows.sm }}>
-          <Banner source={{ uri: article.banner }} resizeMode="cover" />
-        </BannerContainer>
-        <SafeContainer>
-          <StatusComponent
-            categories={article.categories}
-            publishedAt={article.publishedAt}
-            averageRating={article.averageRating}
-          />
-          <ContentComponent content={article.content as ContentBlock} />
-          <AuthorComponent
-            name={article.author.name}
-            createdAt={article.author.createdAt}
-          />
-          <RateComponent ratingPoints={feedback?.ratingPoints || null} />
-        </SafeContainer>
-      </Container>
-    ) : null;
+    const { article, feedback, contentLoading, feedbackLoading } = this.state;
+
+    return contentLoading ? null : (
+      <>
+        <Container>
+          <Title>{article.title}</Title>
+          <BannerContainer style={{ ...currentTheme.shadows.sm }}>
+            <Banner source={{ uri: article.banner }} resizeMode="cover" />
+          </BannerContainer>
+          <SafeContainer>
+            <StatusComponent
+              categories={article.categories}
+              publishedAt={article.publishedAt}
+              averageRating={article.averageRating}
+            />
+            <ContentComponent content={article.content as ContentBlock} />
+            <AuthorComponent
+              name={article.author.name}
+              createdAt={article.author.createdAt}
+            />
+            <RateComponent
+              ratingPoints={feedback?.ratingPoints || null}
+              onSelectPoints={(points) =>
+                this.articleViewModel.handleSaveFeedback(points)
+              }
+            />
+          </SafeContainer>
+        </Container>
+        {feedbackLoading ? <PageLoadingComponent /> : null}
+      </>
+    );
   }
 }

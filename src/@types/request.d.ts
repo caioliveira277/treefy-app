@@ -57,11 +57,15 @@ export type ArticlesRequest = {
   data: ArticleRequest['data'][];
 };
 
-export type FeedbacksRequest = {
+export type FeedbackRequest = {
   data: {
     id: number;
     attributes: {
       ratingPoints: number;
     };
-  }[];
+  };
+};
+
+export type FeedbacksRequest = {
+  data: FeedbackRequest['data'][];
 };

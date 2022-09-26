@@ -18,21 +18,24 @@ import {
 
 export interface RateComponentProps {
   ratingPoints: number | null;
+  onSelectPoints: (points: number) => void;
 }
 
 export const RateComponent: React.FC<RateComponentProps> = ({
   ratingPoints,
+  onSelectPoints,
 }) => {
   const theme = useTheme();
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
-  const handleActiveIndex = (index: number) => {
+  const handleSetIndex = (index: number) => {
     setActiveIndex(index + 1);
   };
+
   const isActive = (index: number) => activeIndex - 1 >= index;
 
   useEffect(() => {
-    if (ratingPoints) setActiveIndex(ratingPoints - 1);
+    if (ratingPoints) setActiveIndex(ratingPoints);
   }, [ratingPoints]);
 
   return (
@@ -53,7 +56,7 @@ export const RateComponent: React.FC<RateComponentProps> = ({
             <SelectItem
               key={index}
               disabled={!!ratingPoints}
-              onPress={() => handleActiveIndex(index)}
+              onPress={() => handleSetIndex(index)}
               activeOpacity={0.8}
             >
               <HeartIconSelect
@@ -70,6 +73,7 @@ export const RateComponent: React.FC<RateComponentProps> = ({
           disabled={!!ratingPoints}
           style={{ ...theme.shadows.sm }}
           activeOpacity={0.5}
+          onPress={() => onSelectPoints(activeIndex)}
         >
           <TextButtonSendRate>
             {!ratingPoints ? 'Enviar' : 'Avaliação respondida!'}
