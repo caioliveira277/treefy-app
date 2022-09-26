@@ -19,6 +19,8 @@ export class ArticleViewModelImpl
 
   public feedbackLoading: boolean;
 
+  public getFeedbackLoading: boolean;
+
   public contentLoading: boolean;
 
   constructor(
@@ -35,11 +37,17 @@ export class ArticleViewModelImpl
     this.feedback = null;
 
     this.feedbackLoading = false;
+    this.getFeedbackLoading = true;
     this.contentLoading = true;
   }
 
   private handleChangeFeedbackLoading(state: boolean): void {
     this.feedbackLoading = state;
+    this.notifyViewAboutChanges();
+  }
+
+  private handleChangeGetFeedbackLoading(state: boolean): void {
+    this.getFeedbackLoading = state;
     this.notifyViewAboutChanges();
   }
 
@@ -98,6 +106,6 @@ export class ArticleViewModelImpl
     });
     this.feedback = feedbacks[0];
 
-    this.notifyViewAboutChanges();
+    this.handleChangeGetFeedbackLoading(false);
   }
 }

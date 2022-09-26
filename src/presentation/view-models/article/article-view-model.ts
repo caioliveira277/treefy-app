@@ -11,6 +11,7 @@ export interface ArticleViewModel extends BaseViewModel {
   feedback: FeedbackModel | null;
 
   feedbackLoading: boolean;
+  getFeedbackLoading: boolean;
   contentLoading: boolean;
 
   handleSaveFeedback(ratingPoints: number): Promise<void>;
