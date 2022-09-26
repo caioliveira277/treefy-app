@@ -16,18 +16,20 @@ import {
   RateComponent,
   StatusComponent,
 } from './components';
-import { ArticleModel } from '@/domain/models';
+import { ArticleModel, FeedbackModel } from '@/domain/models';
 import { currentTheme } from '@/presentation/themes';
 import { ContentBlock } from '@/@types/content-block';
 
 export interface ArticleViewProps
   extends NativeStackScreenProps<StackParamList, 'Article'> {
   articleViewModel: ArticleViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface ArticleViewState {
   webheight: number;
   article: ArticleModel;
+  feedback: FeedbackModel | null;
 }
 
 export class ArticleView
@@ -45,12 +47,14 @@ export class ArticleView
     this.state = {
       webheight: Dimensions.get('window').height,
       article: articleViewModel.article,
+      feedback: articleViewModel.feedback,
     };
   }
 
   public componentDidMount(): void {
     this.articleViewModel.attachView(this);
     this.articleViewModel.handleGetArticle();
+    this.articleViewModel.handleGetFeedback();
   }
 
   public componentWillUnmount(): void {
@@ -60,11 +64,12 @@ export class ArticleView
   public onViewModelChanged(): void {
     this.setState({
       article: this.articleViewModel.article,
+      feedback: this.articleViewModel.feedback,
     });
   }
 
   render() {
-    const { article } = this.state;
+    const { article, feedback } = this.state;
     return article.id ? (
       <Container>
         <Title>{article.title}</Title>
@@ -82,7 +87,7 @@ export class ArticleView
             name={article.author.name}
             createdAt={article.author.createdAt}
           />
-          <RateComponent />
+          <RateComponent ratingPoints={feedback?.ratingPoints || null} />
         </SafeContainer>
       </Container>
     ) : null;

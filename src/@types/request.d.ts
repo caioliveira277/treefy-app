@@ -56,3 +56,12 @@ export type ArticleRequest = {
 export type ArticlesRequest = {
   data: ArticleRequest['data'][];
 };
+
+export type FeedbacksRequest = {
+  data: {
+    id: number;
+    attributes: {
+      ratingPoints: number;
+    };
+  }[];
+};

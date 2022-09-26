@@ -1,7 +1,11 @@
 import { ArticleViewModelImpl } from '@/presentation/view-models';
 import { ArticleView } from '@/presentation/views';
 import { RouteProp } from '@react-navigation/native';
-import { makeRemoteGetArticles } from '@/main/factories/usecases';
+import {
+  makeRemoteGetArticles,
+  makeRemoteGetFeedbacks,
+} from '@/main/factories/usecases';
+import { AuthenticationConsumer } from '@/presentation/contexts';
 
 interface MakeArticleViewProps {
   route: RouteProp<StackParamList, 'Article'>;
@@ -9,7 +13,20 @@ interface MakeArticleViewProps {
 }
 
 export const makeArticleView: React.FC<MakeArticleViewProps> = (props) => {
-  const articleViewModel = new ArticleViewModelImpl(makeRemoteGetArticles());
+  const articleViewModel = new ArticleViewModelImpl(
+    makeRemoteGetArticles(),
+    makeRemoteGetFeedbacks()
+  );
 
-  return <ArticleView {...props} articleViewModel={articleViewModel} />;
+  return (
+    <AuthenticationConsumer>
+      {(authenticationContextParams) => (
+        <ArticleView
+          {...props}
+          contextConsumer={authenticationContextParams}
+          articleViewModel={articleViewModel}
+        />
+      )}
+    </AuthenticationConsumer>
+  );
 };

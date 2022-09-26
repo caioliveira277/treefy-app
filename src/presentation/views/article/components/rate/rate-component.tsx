@@ -1,5 +1,5 @@
 import { getIcon } from '@/presentation/utils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTheme } from 'styled-components';
 import {
   Container,
@@ -16,7 +16,13 @@ import {
   TextButtonSendRate,
 } from './styles';
 
-export const RateComponent: React.FC = () => {
+export interface RateComponentProps {
+  ratingPoints: number | null;
+}
+
+export const RateComponent: React.FC<RateComponentProps> = ({
+  ratingPoints,
+}) => {
   const theme = useTheme();
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
@@ -24,6 +30,10 @@ export const RateComponent: React.FC = () => {
     setActiveIndex(index + 1);
   };
   const isActive = (index: number) => activeIndex - 1 >= index;
+
+  useEffect(() => {
+    if (ratingPoints) setActiveIndex(ratingPoints - 1);
+  }, [ratingPoints]);
 
   return (
     <Container>
@@ -42,6 +52,7 @@ export const RateComponent: React.FC = () => {
           .map((_v, index) => (
             <SelectItem
               key={index}
+              disabled={!!ratingPoints}
               onPress={() => handleActiveIndex(index)}
               activeOpacity={0.8}
             >
@@ -55,8 +66,14 @@ export const RateComponent: React.FC = () => {
           ))}
       </SelectContainer>
       {activeIndex > 0 ? (
-        <ButtonSendRate style={{ ...theme.shadows.sm }} activeOpacity={0.5}>
-          <TextButtonSendRate>Enviar</TextButtonSendRate>
+        <ButtonSendRate
+          disabled={!!ratingPoints}
+          style={{ ...theme.shadows.sm }}
+          activeOpacity={0.5}
+        >
+          <TextButtonSendRate>
+            {!ratingPoints ? 'Enviar' : 'Avaliação respondida!'}
+          </TextButtonSendRate>
         </ButtonSendRate>
       ) : null}
     </Container>
