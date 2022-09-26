@@ -18,16 +18,13 @@ import {
 import RenderHtml from 'react-native-render-html';
 import { useWindowDimensions } from 'react-native';
 import { useTheme } from 'styled-components';
-import { ContentLoadingComponent } from './content-loading-component';
 
 export interface ContentComponentProps {
   content: ContentBlock;
-  isLoading: boolean;
 }
 
 export const ContentComponent: React.FC<ContentComponentProps> = ({
   content,
-  isLoading,
 }) => {
   const { width } = useWindowDimensions();
   const theme = useTheme();
@@ -139,9 +136,5 @@ export const ContentComponent: React.FC<ContentComponentProps> = ({
     setFormatedContents(formatContent() || []);
   }, [content]);
 
-  return isLoading ? (
-    <ContentLoadingComponent />
-  ) : (
-    <Container>{formatedContents}</Container>
-  );
+  return <Container>{formatedContents}</Container>;
 };

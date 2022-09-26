@@ -1,6 +1,5 @@
 import { ArticleModel } from '@/domain/models';
 import { formatDateTime, getIcon } from '@/presentation/utils';
-import { StatusLoadingComponent } from './status-loading-component';
 import {
   Container,
   CategoryContainer,
@@ -22,20 +21,16 @@ export interface StatusComponentProps {
   categories: ArticleModel['categories'];
   averageRating: ArticleModel['averageRating'];
   publishedAt: ArticleModel['publishedAt'];
-  isLoading: boolean;
 }
 
 export const StatusComponent: React.FC<StatusComponentProps> = ({
   averageRating,
   categories,
   publishedAt,
-  isLoading,
 }) => {
   const isLastCategory = (index: number) => index + 1 === categories.length;
 
-  return isLoading ? (
-    <StatusLoadingComponent />
-  ) : (
+  return (
     <Container>
       <CategoryContainer>
         <Label>Categorias:</Label>

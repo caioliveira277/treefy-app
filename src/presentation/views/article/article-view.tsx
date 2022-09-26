@@ -83,39 +83,32 @@ export class ArticleView
 
     return (
       <>
-        <Container>
-          <HeaderComponent
-            isLoading={contentLoading}
-            title={article.title}
-            banner={article.banner}
-          />
-          <SafeContainer>
-            <StatusComponent
-              isLoading={contentLoading}
-              categories={article.categories}
-              publishedAt={article.publishedAt}
-              averageRating={article.averageRating}
-            />
-            <ContentComponent
-              isLoading={contentLoading}
-              content={article.content as ContentBlock}
-            />
-            <AuthorComponent
-              isLoading={contentLoading}
-              name={article.author?.name}
-              createdAt={article.author?.createdAt}
-            />
-            {getFeedbackLoading || contentLoading ? null : (
+        {contentLoading ? null : (
+          <Container>
+            <HeaderComponent title={article.title} banner={article.banner} />
+            <SafeContainer>
+              <StatusComponent
+                categories={article.categories}
+                publishedAt={article.publishedAt}
+                averageRating={article.averageRating}
+              />
+              <ContentComponent content={article.content as ContentBlock} />
+              <AuthorComponent
+                name={article.author?.name}
+                createdAt={article.author?.createdAt}
+              />
               <RateComponent
                 ratingPoints={feedback?.ratingPoints || null}
                 onSelectPoints={(points) =>
                   this.articleViewModel.handleSaveFeedback(points)
                 }
               />
-            )}
-          </SafeContainer>
-        </Container>
-        {feedbackLoading ? <PageLoadingComponent /> : null}
+            </SafeContainer>
+          </Container>
+        )}
+        {feedbackLoading || contentLoading || getFeedbackLoading ? (
+          <PageLoadingComponent />
+        ) : null}
       </>
     );
   }
