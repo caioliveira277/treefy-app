@@ -18,6 +18,7 @@ import {
 import RenderHtml from 'react-native-render-html';
 import { useWindowDimensions } from 'react-native';
 import { useTheme } from 'styled-components';
+import * as Linking from 'expo-linking';
 
 export interface ContentComponentProps {
   content: ContentBlock;
@@ -31,6 +32,8 @@ export const ContentComponent: React.FC<ContentComponentProps> = ({
   const [formatedContents, setFormatedContents] = useState<
     Array<JSX.Element | null>
   >([]);
+
+  const handleGoToLink = (url: string) => Linking.openURL(url);
 
   const formatContent = () => {
     const formatText = (text: string) => text.replace(/\n|<br>/g, '');
@@ -80,7 +83,11 @@ export const ContentComponent: React.FC<ContentComponentProps> = ({
         }
         case 'LinkTool': {
           return (
-            <LinkContainer key={element.id} style={{ ...theme.shadows.sm }}>
+            <LinkContainer
+              key={element.id}
+              style={{ ...theme.shadows.sm }}
+              onPress={() => handleGoToLink(element.data.link)}
+            >
               {element.data.meta.image.url ? (
                 <LinkImage
                   source={{ uri: element.data.meta.image.url }}
