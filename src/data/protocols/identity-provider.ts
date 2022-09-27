@@ -1,23 +1,31 @@
 import { AccountModel } from '@/domain/models';
 import {
-  AuthenticationParams,
-  ChangePasswordParams,
-  ConfirmByCodeParms,
-  SendCodeToChangePasswordParams,
-  SendConfirmationCodeParams,
+  AuthenticationAuthParams,
+  AuthenticationChangePasswordParams,
+  SignupConfirmByCodeParms,
+  AuthenticationSendCodeToChangePasswordParams,
+  SignupSendConfirmationCodeParams,
   SignupParams,
-  UpdateUserAccountParams,
+  AuthenticationUpdateUserAccountParams,
 } from '@/domain/usecases';
 
 export interface IdentityProvider {
   configure(): void;
   signup(params: SignupParams): Promise<boolean>;
-  signin(params: AuthenticationParams): Promise<AccountModel>;
-  confirmSignup(params: ConfirmByCodeParms): Promise<boolean>;
-  sendConfirmationCode(params: SendConfirmationCodeParams): Promise<boolean>;
-  forgotPassword(params: SendCodeToChangePasswordParams): Promise<boolean>;
-  forgotPasswordSubmit(params: ChangePasswordParams): Promise<boolean>;
+  signin(params: AuthenticationAuthParams): Promise<AccountModel>;
+  confirmSignup(params: SignupConfirmByCodeParms): Promise<boolean>;
+  sendConfirmationCode(
+    params: SignupSendConfirmationCodeParams
+  ): Promise<boolean>;
+  forgotPassword(
+    params: AuthenticationSendCodeToChangePasswordParams
+  ): Promise<boolean>;
+  forgotPasswordSubmit(
+    params: AuthenticationChangePasswordParams
+  ): Promise<boolean>;
   getCurrentAuthenticatedUser(): Promise<AccountModel>;
-  updateUserAccount(params: UpdateUserAccountParams): Promise<boolean>;
+  updateUserAccount(
+    params: AuthenticationUpdateUserAccountParams
+  ): Promise<boolean>;
   signout(): Promise<boolean>;
 }

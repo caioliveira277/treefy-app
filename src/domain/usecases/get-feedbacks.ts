@@ -1,10 +1,10 @@
 import { FeedbackModel } from '@/domain/models';
 
-export type GetByArticleIdFeedbackParams = {
+export type GetFeedbacksByArticleIdParams = {
   articleId: number;
   accessToken: string;
 };
 
 export interface GetFeedbacks {
-  byArticleId(params: GetByArticleIdFeedbackParams): Promise<FeedbackModel[]>;
+  byArticleId(params: GetFeedbacksByArticleIdParams): Promise<FeedbackModel[]>;
 }

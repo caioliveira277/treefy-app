@@ -1,4 +1,7 @@
-import { AllCategoryParams, GetCategories } from '@/domain/usecases';
+import {
+  GetCategoriesAllCategoryParams,
+  GetCategories,
+} from '@/domain/usecases';
 import { HttpClient, HttpStatusCode } from '@/data/protocols';
 import { CategoryModel } from '@/domain/models';
 import { CategoriesRequest } from '@/@types/request';
@@ -23,7 +26,9 @@ export class RemoteGetCategories implements GetCategories {
     return formatedParams;
   }
 
-  public async all(params: AllCategoryParams): Promise<CategoryModel[]> {
+  public async all(
+    params: GetCategoriesAllCategoryParams
+  ): Promise<CategoryModel[]> {
     try {
       const response = await this.httpClient.request<CategoriesRequest>({
         method: 'GET',

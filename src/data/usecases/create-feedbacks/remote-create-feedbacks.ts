@@ -1,4 +1,7 @@
-import { CreateFeedbackParams, CreateFeedbacks } from '@/domain/usecases';
+import {
+  CreateFeedbacksCreateParams,
+  CreateFeedbacks,
+} from '@/domain/usecases';
 import { HttpClient, HttpStatusCode } from '@/data/protocols';
 import { FeedbackModel } from '@/domain/models';
 import { FeedbackRequest } from '@/@types/request';
@@ -24,7 +27,9 @@ export class RemoteCreateFeedbacks implements CreateFeedbacks {
     return formatedBody;
   }
 
-  public async create(params: CreateFeedbackParams): Promise<FeedbackModel> {
+  public async create(
+    params: CreateFeedbacksCreateParams
+  ): Promise<FeedbackModel> {
     try {
       const response = await this.httpClient.request<FeedbackRequest>({
         method: 'POST',

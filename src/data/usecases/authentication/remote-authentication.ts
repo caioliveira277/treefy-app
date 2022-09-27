@@ -1,9 +1,9 @@
 import {
   Authentication,
-  AuthenticationParams,
-  ChangePasswordParams,
-  SendCodeToChangePasswordParams,
-  UpdateUserAccountParams,
+  AuthenticationAuthParams,
+  AuthenticationChangePasswordParams,
+  AuthenticationSendCodeToChangePasswordParams,
+  AuthenticationUpdateUserAccountParams,
 } from '@/domain/usecases/authentication';
 import { IdentityProvider } from '@/data/protocols';
 import { AccountModel } from '@/domain/models';
@@ -15,19 +15,21 @@ export class RemoteAuthentication implements Authentication {
     this.identityProvider = identityProvider;
   }
 
-  public async auth(params: AuthenticationParams): Promise<AccountModel> {
+  public async auth(params: AuthenticationAuthParams): Promise<AccountModel> {
     const response = await this.identityProvider.signin(params);
     return response;
   }
 
   public async sendCodeToChangePassword(
-    params: SendCodeToChangePasswordParams
+    params: AuthenticationSendCodeToChangePasswordParams
   ): Promise<boolean> {
     const response = await this.identityProvider.forgotPassword(params);
     return response;
   }
 
-  public async changePassword(params: ChangePasswordParams): Promise<boolean> {
+  public async changePassword(
+    params: AuthenticationChangePasswordParams
+  ): Promise<boolean> {
     const response = await this.identityProvider.forgotPasswordSubmit(params);
     return response;
   }
@@ -43,7 +45,7 @@ export class RemoteAuthentication implements Authentication {
   }
 
   public async updateAccount(
-    params: UpdateUserAccountParams
+    params: AuthenticationUpdateUserAccountParams
   ): Promise<boolean> {
     const response = await this.identityProvider.updateUserAccount(params);
     return response;

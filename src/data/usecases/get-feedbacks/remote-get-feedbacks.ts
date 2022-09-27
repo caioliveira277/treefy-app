@@ -1,4 +1,4 @@
-import { GetByArticleIdFeedbackParams, GetFeedbacks } from '@/domain/usecases';
+import { GetFeedbacksByArticleIdParams, GetFeedbacks } from '@/domain/usecases';
 import { HttpClient, HttpStatusCode } from '@/data/protocols';
 import { FeedbackModel } from '@/domain/models';
 import { FeedbacksRequest } from '@/@types/request';
@@ -25,7 +25,7 @@ export class RemoteGetFeedbacks implements GetFeedbacks {
   }
 
   public async byArticleId(
-    params: GetByArticleIdFeedbackParams
+    params: GetFeedbacksByArticleIdParams
   ): Promise<FeedbackModel[]> {
     try {
       const response = await this.httpClient.request<FeedbacksRequest>({
