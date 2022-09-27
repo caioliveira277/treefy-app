@@ -12,6 +12,7 @@ export interface ProfileViewModel extends BaseViewModel {
 
   viewedArticles: number;
   countFeedback: number;
+  statusLoading: boolean;
 
   handleNavigation(routeName: any): void;
   handleLoggout(): Promise<void>;

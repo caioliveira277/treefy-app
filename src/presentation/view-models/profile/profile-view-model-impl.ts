@@ -20,6 +20,8 @@ export class ProfileViewModelImpl
 
   public countFeedback: number;
 
+  public statusLoading: boolean;
+
   constructor(
     authentication: Authentication,
     getViewedArticles: GetViewedArticles,
@@ -33,6 +35,12 @@ export class ProfileViewModelImpl
 
     this.viewedArticles = 0;
     this.countFeedback = 0;
+    this.statusLoading = true;
+  }
+
+  private handleChangeStatusLoadingState(state: boolean): void {
+    this.statusLoading = state;
+    this.notifyViewAboutChanges();
   }
 
   public async handleGetProfileStatus(): Promise<void> {
@@ -48,7 +56,7 @@ export class ProfileViewModelImpl
       accessToken,
     });
 
-    this.notifyViewAboutChanges();
+    this.handleChangeStatusLoadingState(false);
   }
 
   public handleNavigation(routeName: any): void {
