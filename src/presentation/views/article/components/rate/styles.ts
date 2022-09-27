@@ -59,7 +59,8 @@ export const ItemText = styled.Text<{ active: boolean }>`
 
 export const ButtonSendRate = styled.TouchableOpacity`
   margin-top: 20px;
-  background: ${({ theme }) => theme.colors.rate_active};
+  background: ${({ theme, disabled }) =>
+    !disabled ? theme.colors.rate_active : theme.colors.rate_inactive};
   align-items: center;
   justify-content: center;
   padding: 8px;

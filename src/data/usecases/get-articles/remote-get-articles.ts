@@ -2,10 +2,11 @@ import {
   GetAllByCategoryIdParams,
   GetAllBySearchParams,
   GetArticles,
+  GetOneByIdParams,
 } from '@/domain/usecases';
 import { HttpClient, HttpStatusCode } from '@/data/protocols';
 import { ArticleModel } from '@/domain/models';
-import { ArticlesRequest } from '@/@types/request';
+import { ArticleRequest, ArticlesRequest } from '@/@types/request';
 import { ArticleDataSource } from '@/data/data-sources';
 
 export class RemoteGetArticles implements GetArticles {
@@ -27,6 +28,7 @@ export class RemoteGetArticles implements GetArticles {
       'populate[categories][fields][1]': 'title',
       'populate[updatedBy][fields][0]': 'firstname',
       'populate[updatedBy][fields][1]': 'lastname',
+      'populate[updatedBy][fields][2]': 'createdAt',
       'sort[0]': 'publishedAt:desc',
     };
 
@@ -67,17 +69,46 @@ export class RemoteGetArticles implements GetArticles {
   public async allBySearch(
     params: GetAllBySearchParams
   ): Promise<ArticleModel[]> {
-    const response = await this.httpClient.request<ArticlesRequest>({
-      method: 'GET',
-      url: this.baseUrl,
-      params: this.formatParams(params, false),
-    });
-    if (
-      response.statusCode === HttpStatusCode.ok &&
-      response?.body?.data?.length
-    ) {
-      return new ArticleDataSource(response.body.data).toModel();
+    try {
+      const response = await this.httpClient.request<ArticlesRequest>({
+        method: 'GET',
+        url: this.baseUrl,
+        params: this.formatParams(params, false),
+      });
+      if (
+        response.statusCode === HttpStatusCode.ok &&
+        response?.body?.data?.length
+      ) {
+        return new ArticleDataSource(response.body.data).toModel();
+      }
+      return [];
+    } catch (error) {
+      return [];
     }
-    return [];
+  }
+
+  public async oneById(params: GetOneByIdParams): Promise<ArticleModel> {
+    try {
+      const response = await this.httpClient.request<ArticleRequest>({
+        method: 'GET',
+        url: `${this.baseUrl}/${params.articleId}`,
+        params: this.formatParams(params, true),
+      });
+      if (
+        response.statusCode === HttpStatusCode.ok &&
+        response?.body?.data.id
+      ) {
+        const articleModel = new ArticleDataSource([
+          response.body.data,
+        ]).toModel()[0];
+
+        articleModel.content = JSON.parse(articleModel.content as string);
+
+        return articleModel;
+      }
+      return {} as ArticleModel;
+    } catch (error) {
+      return {} as ArticleModel;
+    }
   }
 }

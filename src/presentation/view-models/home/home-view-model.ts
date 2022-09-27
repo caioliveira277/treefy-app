@@ -18,5 +18,5 @@ export interface HomeViewModel extends BaseViewModel {
   handleGetCategories(): Promise<void>;
   handleGetArticles(): Promise<void>;
   handleSearchArticles(search: string): Promise<void>;
-  handleNavigateToArticle(): void;
+  handleNavigateToArticle(articleId: number): void;
 }

@@ -33,7 +33,7 @@ import { InformativeContentsEmpty } from './informative-contents-empty';
 
 export interface InformativeContentsComponentProps {
   style?: StyleProp<ViewStyle>;
-  onPress: () => void;
+  onPress: (articleId: number) => void;
   articles: ArticleModel[];
   loading: boolean;
 }
@@ -57,7 +57,7 @@ export const InformativeContentsComponent: React.FC<
             <CardContainer
               activeOpacity={0.8}
               style={{ ...theme.shadows.sm }}
-              onPress={() => onPress()}
+              onPress={() => onPress(article.id)}
             >
               <CardContainerColumnContent>
                 <CardTitle>{article.title}</CardTitle>

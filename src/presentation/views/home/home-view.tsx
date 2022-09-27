@@ -107,7 +107,9 @@ export class HomeView
           style={spacing.informativeContents}
           articles={articles}
           loading={loadingArticles}
-          onPress={() => this.homeViewModel.handleNavigateToArticle()}
+          onPress={(articleId) =>
+            this.homeViewModel.handleNavigateToArticle(articleId)
+          }
         />
       </Container>
     );

@@ -3,17 +3,31 @@ import { ArticleViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
 import { Container, SafeContainer } from './styles';
-import { WebView } from 'react-native-webview';
 import { Dimensions } from 'react-native';
-import { RateComponent } from './components';
+import {
+  AuthorComponent,
+  ContentComponent,
+  HeaderComponent,
+  RateComponent,
+  StatusComponent,
+} from './components';
+import { ArticleModel, FeedbackModel } from '@/domain/models';
+import { ContentBlock } from '@/@types/content-block';
+import { PageLoadingComponent } from '@/presentation/components';
 
 export interface ArticleViewProps
   extends NativeStackScreenProps<StackParamList, 'Article'> {
   articleViewModel: ArticleViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface ArticleViewState {
   webheight: number;
+  article: ArticleModel;
+  feedback: FeedbackModel | null;
+  feedbackLoading: boolean;
+  getFeedbackLoading: boolean;
+  contentLoading: boolean;
 }
 
 export class ArticleView
@@ -25,52 +39,77 @@ export class ArticleView
   constructor(props: ArticleViewProps) {
     super(props);
 
-    this.state = {
-      webheight: Dimensions.get('window').height,
-    };
-
     const { articleViewModel } = this.props;
     this.articleViewModel = articleViewModel;
+
+    this.state = {
+      webheight: Dimensions.get('window').height,
+      article: articleViewModel.article,
+      feedback: articleViewModel.feedback,
+      feedbackLoading: articleViewModel.feedbackLoading,
+      getFeedbackLoading: articleViewModel.getFeedbackLoading,
+      contentLoading: articleViewModel.contentLoading,
+    };
   }
 
   public componentDidMount(): void {
     this.articleViewModel.attachView(this);
+    this.articleViewModel.handleGetArticle();
+    this.articleViewModel.handleGetFeedback();
   }
 
   public componentWillUnmount(): void {
     this.articleViewModel.detachView();
   }
 
-  public onViewModelChanged(): void {}
+  public onViewModelChanged(): void {
+    this.setState({
+      article: this.articleViewModel.article,
+      feedback: this.articleViewModel.feedback,
+      feedbackLoading: this.articleViewModel.feedbackLoading,
+      getFeedbackLoading: this.articleViewModel.getFeedbackLoading,
+      contentLoading: this.articleViewModel.contentLoading,
+    });
+  }
 
   render() {
+    const {
+      article,
+      feedback,
+      contentLoading,
+      feedbackLoading,
+      getFeedbackLoading,
+    } = this.state;
+
     return (
-      <Container>
-        <WebView
-          style={{
-            height: this.state.webheight,
-          }}
-          source={{
-            uri: 'https://caioliveira277.github.io/todo-list/public/assets/temp/article-example.html',
-          }}
-          onMessage={(event) => {
-            this.setState({
-              webheight: parseInt(event.nativeEvent.data),
-            });
-          }}
-          scrollEnabled={false}
-          javaScriptEnabled={true}
-          injectedJavaScript={`
-              setTimeout(function() { 
-                window.ReactNativeWebView.postMessage(document.documentElement.scrollHeight); 
-              }, 500);
-              true;
-            `}
-        />
-        <SafeContainer>
-          <RateComponent />
-        </SafeContainer>
-      </Container>
+      <>
+        {contentLoading ? null : (
+          <Container>
+            <HeaderComponent title={article.title} banner={article.banner} />
+            <SafeContainer>
+              <StatusComponent
+                categories={article.categories}
+                publishedAt={article.publishedAt}
+                averageRating={article.averageRating}
+              />
+              <ContentComponent content={article.content as ContentBlock} />
+              <AuthorComponent
+                name={article.author?.name}
+                createdAt={article.author?.createdAt}
+              />
+              <RateComponent
+                ratingPoints={feedback?.ratingPoints || null}
+                onSelectPoints={(points) =>
+                  this.articleViewModel.handleSaveFeedback(points)
+                }
+              />
+            </SafeContainer>
+          </Container>
+        )}
+        {feedbackLoading || contentLoading || getFeedbackLoading ? (
+          <PageLoadingComponent />
+        ) : null}
+      </>
     );
   }
 }

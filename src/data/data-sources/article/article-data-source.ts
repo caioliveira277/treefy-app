@@ -25,6 +25,9 @@ export class ArticleDataSource implements BaseDataSource {
       thumbnail: `${this.baseUrl}${article.attributes.thumbnail.data.attributes.url}`,
       author: {
         name: `${article.attributes.updatedBy.data.attributes.firstname} ${article.attributes.updatedBy.data.attributes.lastname}`,
+        createdAt: new Date(
+          article.attributes.updatedBy.data.attributes.createdAt
+        ),
       },
       averageRating: article.feedbacks.averageRatings,
       publishedAt: new Date(article.attributes.publishedAt),
