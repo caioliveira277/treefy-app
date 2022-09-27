@@ -50,10 +50,10 @@ export class HelpView
       <ProfileLayout title="Ajuda" image={getIcon('headset')}>
         <SubTitle style={spacing.subTitle}>Fale conosco:</SubTitle>
         <Paragraph style={spacing.paragraph}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
+          Disponibilizamos aos usuários os canais de comunicação para que entrem
+          em contato conosco em caso de dúvidas, problemas no aplicativo ou
+          propostas comerciais. O horário de funcionamento da central de ajuda é
+          de segunda à sexta-feira das 09:00 até as 18:00.
         </Paragraph>
         <SubTitle style={spacing.subTitle}>Canais de comunicação:</SubTitle>
         <ContainerComunicationChannel>
@@ -81,7 +81,7 @@ export class HelpView
         <ContainerComunicationChannel>
           <ContainerLabelIcon>
             <Icon source={getIcon('tel')} resizeMode="center" />
-            <Label>Telefone:</Label>
+            <Label>Contato:</Label>
           </ContainerLabelIcon>
           <ContainerLink>
             <LinkComponent

@@ -40,31 +40,29 @@ export class TermsUseView
       <ProfileLayout title="Termos de uso" image={getIcon('document-check')}>
         <SubTitle>Introdução</SubTitle>
         <Paragraph style={spacing.paragraph}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
+          Concordamos em fornecer a você usuário o serviço da Treefy. O serviço
+          inclui o aplicativo, recursos, serviços e tecnologias que fornecemos
+          para promover a missão da Treefy: Fortificar seu conhecimento para
+          obter um meio ambiente melhor. O serviço é composto pelos seguintes
+          termos:
         </Paragraph>
         <SubTitle>Artigo 1</SubTitle>
         <Paragraph style={spacing.paragraph}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
+          Não cobramos pelo uso do aplicativo e serviços cobertos por estes
+          termos. A Treefy é um serviço inteiramente gratuíto e nunca haverá
+          cobrança aos usuários que estão cadastradas na plataforma.
         </Paragraph>
         <SubTitle>Artigo 2</SubTitle>
         <Paragraph style={spacing.paragraph}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
+          Não vendemos seus dados pessoais para anunciantes nem compartilhamos
+          informações pessoais do usuários, como por exemplo: nome, e-mail entre
+          outras informações que estão cadastradas no aplicativo.
         </Paragraph>
         <SubTitle>Artigo 3</SubTitle>
         <Paragraph>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
+          A Treefy se responsabiliza pela proteção dos dados dos usuários e pela
+          manutenção de medidas de segurança, técnicas e administrativas aptas a
+          proteger os dados pessoas dos usuários cadastrados.
         </Paragraph>
         <ButtonComponent
           type="outline"
