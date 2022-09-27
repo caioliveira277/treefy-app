@@ -1,3 +1,12 @@
+export type MetaRequest = {
+  pagination: {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+  };
+};
+
 export type PaginationRequest = {
   pagination?: {
     page?: number;
@@ -12,6 +21,7 @@ export type ImageRequest = {
       url: string;
     };
   };
+  meta: MetaRequest;
 };
 
 type CategoriesRequest = {
@@ -24,6 +34,7 @@ type CategoriesRequest = {
       updatedAt: Date;
     };
   }[];
+  meta: MetaRequest;
 };
 
 export type ArticleRequest = {
@@ -51,10 +62,12 @@ export type ArticleRequest = {
       averageRatings: number | null;
     };
   };
+  meta: MetaRequest;
 };
 
 export type ArticlesRequest = {
   data: ArticleRequest['data'][];
+  meta: MetaRequest;
 };
 
 export type FeedbackRequest = {
@@ -64,8 +77,10 @@ export type FeedbackRequest = {
       ratingPoints: number;
     };
   };
+  meta: MetaRequest;
 };
 
 export type FeedbacksRequest = {
   data: FeedbackRequest['data'][];
+  meta: MetaRequest;
 };
