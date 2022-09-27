@@ -84,3 +84,10 @@ export type FeedbacksRequest = {
   data: FeedbackRequest['data'][];
   meta: MetaRequest;
 };
+
+export type ViewedArticlesRequest = {
+  data: {
+    id: number;
+  }[];
+  meta: MetaRequest;
+};
