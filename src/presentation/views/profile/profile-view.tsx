@@ -39,6 +39,7 @@ export class ProfileView
 
   public componentDidMount(): void {
     this.profileViewModel.attachView(this);
+    this.profileViewModel.handleGetProfileStatus();
   }
 
   public componentWillUnmount(): void {
@@ -55,9 +56,14 @@ export class ProfileView
   render() {
     const username =
       this.props.contextConsumer?.authentication?.authenticatedUser.name || '';
+
+    const { countFeedback, viewedArticles } = this.state;
     return (
       <ProfileLayout title={username} image={getProfile(username)} imageRounded>
-        <StatusComponent />
+        <StatusComponent
+          countFeedback={countFeedback}
+          viewedArticles={viewedArticles}
+        />
         <Separator />
         <NavigationComponent
           onPress={(routeName) =>

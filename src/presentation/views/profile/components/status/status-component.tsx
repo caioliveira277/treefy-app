@@ -14,9 +14,15 @@ import { StyleProp, ViewStyle } from 'react-native';
 
 export interface StatusComponentProps {
   style?: StyleProp<ViewStyle>;
+  viewedArticles: number;
+  countFeedback: number;
 }
 
-export const StatusComponent: React.FC<StatusComponentProps> = ({ style }) => {
+export const StatusComponent: React.FC<StatusComponentProps> = ({
+  style,
+  viewedArticles,
+  countFeedback,
+}) => {
   return (
     <Container style={style}>
       <Title>Seus status:</Title>
@@ -25,14 +31,14 @@ export const StatusComponent: React.FC<StatusComponentProps> = ({ style }) => {
           <StatusTitle>Artigos visualizados</StatusTitle>
           <StatusValueContainer>
             <Image source={statusBackground1} resizeMode="center" />
-            <StatusValue>56</StatusValue>
+            <StatusValue>{viewedArticles}</StatusValue>
           </StatusValueContainer>
         </StatusItemContainer>
         <StatusItemContainer>
           <StatusTitle>Feedbacks</StatusTitle>
           <StatusValueContainer>
             <Image source={statusBackground2} resizeMode="center" />
-            <StatusValue>12</StatusValue>
+            <StatusValue>{countFeedback}</StatusValue>
           </StatusValueContainer>
         </StatusItemContainer>
       </StatusContainer>
