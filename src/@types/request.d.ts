@@ -85,9 +85,14 @@ export type FeedbacksRequest = {
   meta: MetaRequest;
 };
 
-export type ViewedArticlesRequest = {
+export type ViewedArticleRequest = {
   data: {
     id: number;
-  }[];
+  };
+  meta: MetaRequest;
+};
+
+export type ViewedArticlesRequest = {
+  data: ViewedArticleRequest['data'][];
   meta: MetaRequest;
 };

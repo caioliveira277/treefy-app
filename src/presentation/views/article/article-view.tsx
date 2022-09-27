@@ -36,6 +36,8 @@ export class ArticleView
 {
   private articleViewModel: ArticleViewModel;
 
+  private timeToSaveAsViewed?: ReturnType<typeof setTimeout>;
+
   constructor(props: ArticleViewProps) {
     super(props);
 
@@ -56,10 +58,15 @@ export class ArticleView
     this.articleViewModel.attachView(this);
     this.articleViewModel.handleGetArticle();
     this.articleViewModel.handleGetFeedback();
+
+    this.timeToSaveAsViewed = setTimeout(() => {
+      this.articleViewModel.handleSaveArticleAsViewed();
+    }, 10000);
   }
 
   public componentWillUnmount(): void {
     this.articleViewModel.detachView();
+    clearTimeout(this.timeToSaveAsViewed);
   }
 
   public onViewModelChanged(): void {

@@ -3,6 +3,7 @@ import { ArticleView } from '@/presentation/views';
 import { RouteProp } from '@react-navigation/native';
 import {
   makeRemoteCreateFeedbacks,
+  makeRemoteCreateViewedArticles,
   makeRemoteGetArticles,
   makeRemoteGetFeedbacks,
 } from '@/main/factories/usecases';
@@ -17,7 +18,8 @@ export const makeArticleView: React.FC<MakeArticleViewProps> = (props) => {
   const articleViewModel = new ArticleViewModelImpl(
     makeRemoteGetArticles(),
     makeRemoteGetFeedbacks(),
-    makeRemoteCreateFeedbacks()
+    makeRemoteCreateFeedbacks(),
+    makeRemoteCreateViewedArticles()
   );
 
   return (
