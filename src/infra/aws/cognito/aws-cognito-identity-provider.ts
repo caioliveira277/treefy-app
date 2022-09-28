@@ -1,13 +1,13 @@
 import { IdentityProvider } from '@/data/protocols';
 import { AccountModel } from '@/domain/models';
 import {
-  AuthenticationParams,
-  ChangePasswordParams,
-  ConfirmByCodeParms,
-  SendCodeToChangePasswordParams,
-  SendConfirmationCodeParams,
+  AuthenticationAuthParams,
+  AuthenticationChangePasswordParams,
+  SignupConfirmByCodeParms,
+  AuthenticationSendCodeToChangePasswordParams,
+  SignupSendConfirmationCodeParams,
   SignupParams,
-  UpdateUserAccountParams,
+  AuthenticationUpdateUserAccountParams,
 } from '@/domain/usecases';
 import { Amplify, Auth } from 'aws-amplify';
 
@@ -37,7 +37,7 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
     }
   }
 
-  public async signin(params: AuthenticationParams): Promise<AccountModel> {
+  public async signin(params: AuthenticationAuthParams): Promise<AccountModel> {
     const account: AccountModel = {
       name: '',
       email: '',
@@ -58,26 +58,28 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
   }
 
   public async sendConfirmationCode(
-    params: SendConfirmationCodeParams
+    params: SignupSendConfirmationCodeParams
   ): Promise<boolean> {
     await Auth.resendSignUp(params.email);
     return true;
   }
 
-  public async confirmSignup(params: ConfirmByCodeParms): Promise<boolean> {
+  public async confirmSignup(
+    params: SignupConfirmByCodeParms
+  ): Promise<boolean> {
     await Auth.confirmSignUp(params.email, params.code);
     return true;
   }
 
   public async forgotPassword(
-    params: SendCodeToChangePasswordParams
+    params: AuthenticationSendCodeToChangePasswordParams
   ): Promise<boolean> {
     await Auth.forgotPassword(params.email);
     return true;
   }
 
   public async forgotPasswordSubmit(
-    params: ChangePasswordParams
+    params: AuthenticationChangePasswordParams
   ): Promise<boolean> {
     await Auth.forgotPasswordSubmit(
       params.email,
@@ -112,7 +114,7 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
   }
 
   public async updateUserAccount(
-    params: UpdateUserAccountParams
+    params: AuthenticationUpdateUserAccountParams
   ): Promise<boolean> {
     try {
       const { name, currentPassword, newPassword } = params;

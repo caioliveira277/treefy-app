@@ -1,6 +1,6 @@
 import {
-  ConfirmByCodeParms,
-  SendConfirmationCodeParams,
+  SignupConfirmByCodeParms,
+  SignupSendConfirmationCodeParams,
   Signup,
   SignupParams,
 } from '@/domain/usecases';
@@ -19,13 +19,15 @@ export class RemoteSignup implements Signup {
   }
 
   public async sendConfirmationCode(
-    params: SendConfirmationCodeParams
+    params: SignupSendConfirmationCodeParams
   ): Promise<boolean> {
     const response = await this.identityProvider.sendConfirmationCode(params);
     return response;
   }
 
-  public async confirmByCode(params: ConfirmByCodeParms): Promise<boolean> {
+  public async confirmByCode(
+    params: SignupConfirmByCodeParms
+  ): Promise<boolean> {
     const response = await this.identityProvider.confirmSignup(params);
     return response;
   }

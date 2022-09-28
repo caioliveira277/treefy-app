@@ -1,33 +1,35 @@
 import { AccountModel } from '@/domain/models/account-model';
 
-export type AuthenticationParams = {
+export type AuthenticationAuthParams = {
   email: string;
   password: string;
 };
 
-export type SendCodeToChangePasswordParams = {
+export type AuthenticationSendCodeToChangePasswordParams = {
   email: string;
 };
 
-export type ChangePasswordParams = {
+export type AuthenticationChangePasswordParams = {
   email: string;
   newPassword: string;
   code: string;
 };
 
-export type UpdateUserAccountParams = {
+export type AuthenticationUpdateUserAccountParams = {
   name: string;
   currentPassword?: string;
   newPassword?: string;
 };
 
 export interface Authentication {
-  auth(params: AuthenticationParams): Promise<AccountModel>;
+  auth(params: AuthenticationAuthParams): Promise<AccountModel>;
   sendCodeToChangePassword(
-    params: SendCodeToChangePasswordParams
+    params: AuthenticationSendCodeToChangePasswordParams
   ): Promise<boolean>;
-  changePassword(params: ChangePasswordParams): Promise<boolean>;
+  changePassword(params: AuthenticationChangePasswordParams): Promise<boolean>;
   getAuthenticatedUser(): Promise<AccountModel>;
-  updateAccount(params: UpdateUserAccountParams): Promise<boolean>;
+  updateAccount(
+    params: AuthenticationUpdateUserAccountParams
+  ): Promise<boolean>;
   loggout(): Promise<boolean>;
 }

@@ -4,17 +4,19 @@ export type SignupParams = {
   name: string;
 };
 
-export type SendConfirmationCodeParams = {
+export type SignupSendConfirmationCodeParams = {
   email: string;
 };
 
-export type ConfirmByCodeParms = {
+export type SignupConfirmByCodeParms = {
   email: string;
   code: string;
 };
 
 export interface Signup {
   signup(params: SignupParams): Promise<boolean>;
-  sendConfirmationCode(params: SendConfirmationCodeParams): Promise<boolean>;
-  confirmByCode(params: ConfirmByCodeParms): Promise<boolean>;
+  sendConfirmationCode(
+    params: SignupSendConfirmationCodeParams
+  ): Promise<boolean>;
+  confirmByCode(params: SignupConfirmByCodeParms): Promise<boolean>;
 }

@@ -1,4 +1,8 @@
-import { GetByArticleIdFeedbackParams, GetFeedbacks } from '@/domain/usecases';
+import {
+  GetFeedbacksByArticleIdParams,
+  GetFeedbacks,
+  GetFeedbacksQuantityGivenInArticles,
+} from '@/domain/usecases';
 import { HttpClient, HttpStatusCode } from '@/data/protocols';
 import { FeedbackModel } from '@/domain/models';
 import { FeedbacksRequest } from '@/@types/request';
@@ -16,16 +20,18 @@ export class RemoteGetFeedbacks implements GetFeedbacks {
   private formatParams(params: Record<string, any>) {
     const formatedParams: { [key: string]: string | number } = {
       'pagination[page]': params?.pagination?.page || 1,
-      'pagination[pageSize]': params?.pagination?.size || 10,
+      'pagination[pageSize]': params?.pagination?.size || 1,
       'fields[0]': 'ratingPoints',
-      'filters[article]': params?.articleId,
     };
+
+    if (params?.articleId)
+      formatedParams['filters[article]'] = params?.articleId;
 
     return formatedParams;
   }
 
   public async byArticleId(
-    params: GetByArticleIdFeedbackParams
+    params: GetFeedbacksByArticleIdParams
   ): Promise<FeedbackModel[]> {
     try {
       const response = await this.httpClient.request<FeedbacksRequest>({
@@ -46,6 +52,31 @@ export class RemoteGetFeedbacks implements GetFeedbacks {
       return [];
     } catch (error) {
       return [];
+    }
+  }
+
+  public async quantityGivenInArticles(
+    params: GetFeedbacksQuantityGivenInArticles
+  ): Promise<number> {
+    try {
+      const response = await this.httpClient.request<FeedbacksRequest>({
+        method: 'GET',
+        url: this.baseUrl,
+        params: this.formatParams(params),
+        headers: {
+          authorization: params.accessToken,
+        },
+      });
+
+      if (
+        response.statusCode === HttpStatusCode.ok &&
+        response?.body?.data?.length
+      ) {
+        return response?.body?.meta.pagination.total;
+      }
+      return 0;
+    } catch (error) {
+      return 0;
     }
   }
 }

@@ -1,8 +1,8 @@
 import {
-  GetAllByCategoryIdParams,
-  GetAllBySearchParams,
+  GetArticlesAllByCategoryIdParams,
+  GetArticlesAllBySearchParams,
   GetArticles,
-  GetOneByIdParams,
+  GetArticlesOneByIdParams,
 } from '@/domain/usecases';
 import { HttpClient, HttpStatusCode } from '@/data/protocols';
 import { ArticleModel } from '@/domain/models';
@@ -46,7 +46,7 @@ export class RemoteGetArticles implements GetArticles {
   }
 
   public async allByCategoryId(
-    params: GetAllByCategoryIdParams
+    params: GetArticlesAllByCategoryIdParams
   ): Promise<ArticleModel[]> {
     try {
       const response = await this.httpClient.request<ArticlesRequest>({
@@ -67,7 +67,7 @@ export class RemoteGetArticles implements GetArticles {
   }
 
   public async allBySearch(
-    params: GetAllBySearchParams
+    params: GetArticlesAllBySearchParams
   ): Promise<ArticleModel[]> {
     try {
       const response = await this.httpClient.request<ArticlesRequest>({
@@ -87,7 +87,9 @@ export class RemoteGetArticles implements GetArticles {
     }
   }
 
-  public async oneById(params: GetOneByIdParams): Promise<ArticleModel> {
+  public async oneById(
+    params: GetArticlesOneByIdParams
+  ): Promise<ArticleModel> {
     try {
       const response = await this.httpClient.request<ArticleRequest>({
         method: 'GET',

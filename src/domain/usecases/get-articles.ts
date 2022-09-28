@@ -1,20 +1,22 @@
 import { PaginationRequest } from '@/@types/request';
 import { ArticleModel } from '@/domain/models';
 
-export type GetAllByCategoryIdParams = {
+export type GetArticlesAllByCategoryIdParams = {
   categoryId: number;
 } & PaginationRequest;
 
-export type GetAllBySearchParams = {
+export type GetArticlesAllBySearchParams = {
   search: string;
 } & PaginationRequest;
 
-export type GetOneByIdParams = {
+export type GetArticlesOneByIdParams = {
   articleId: number;
 };
 
 export interface GetArticles {
-  allByCategoryId(params: GetAllByCategoryIdParams): Promise<ArticleModel[]>;
-  allBySearch(params: GetAllBySearchParams): Promise<ArticleModel[]>;
-  oneById(params: GetOneByIdParams): Promise<ArticleModel>;
+  allByCategoryId(
+    params: GetArticlesAllByCategoryIdParams
+  ): Promise<ArticleModel[]>;
+  allBySearch(params: GetArticlesAllBySearchParams): Promise<ArticleModel[]>;
+  oneById(params: GetArticlesOneByIdParams): Promise<ArticleModel>;
 }

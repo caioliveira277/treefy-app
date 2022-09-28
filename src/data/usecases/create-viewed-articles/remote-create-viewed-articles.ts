@@ -1,16 +1,14 @@
 import {
-  CreateFeedbacksCreateParams,
-  CreateFeedbacks,
+  CreateViewedArticles,
+  CreateViewedArticlesCreateParams,
 } from '@/domain/usecases';
 import { HttpClient, HttpStatusCode } from '@/data/protocols';
-import { FeedbackModel } from '@/domain/models';
-import { FeedbackRequest } from '@/@types/request';
-import { FeedbackDataSource } from '@/data/data-sources';
+import { ViewedArticleRequest } from '@/@types/request';
 
-export class RemoteCreateFeedbacks implements CreateFeedbacks {
+export class RemoteCreateViewedArticles implements CreateViewedArticles {
   private readonly httpClient: HttpClient;
 
-  private readonly baseUrl = `${process.env.API_BASE_URL}/api/feedbacks`;
+  private readonly baseUrl = `${process.env.API_BASE_URL}/api/viewed-articles`;
 
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
@@ -20,7 +18,6 @@ export class RemoteCreateFeedbacks implements CreateFeedbacks {
     const formatedBody: { data: { [key: string]: string | number } } = {
       data: {
         article: params?.articleId,
-        ratingPoints: params?.ratingPoints,
       },
     };
 
@@ -28,10 +25,10 @@ export class RemoteCreateFeedbacks implements CreateFeedbacks {
   }
 
   public async create(
-    params: CreateFeedbacksCreateParams
-  ): Promise<FeedbackModel> {
+    params: CreateViewedArticlesCreateParams
+  ): Promise<boolean> {
     try {
-      const response = await this.httpClient.request<FeedbackRequest>({
+      const response = await this.httpClient.request<ViewedArticleRequest>({
         method: 'POST',
         url: this.baseUrl,
         body: this.formatBody(params),
@@ -41,11 +38,11 @@ export class RemoteCreateFeedbacks implements CreateFeedbacks {
       });
 
       if (response.statusCode === HttpStatusCode.ok && response.body?.data) {
-        return new FeedbackDataSource([response.body.data]).toModel()[0];
+        return true;
       }
     } catch (error) {
-      return {} as FeedbackModel;
+      return false;
     }
-    return {} as FeedbackModel;
+    return false;
   }
 }

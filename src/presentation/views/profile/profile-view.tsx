@@ -17,6 +17,7 @@ export interface ProfileViewProps
 export interface ProfileViewState {
   viewedArticles: number;
   countFeedback: number;
+  statusLoading: boolean;
 }
 
 export class ProfileView
@@ -34,11 +35,13 @@ export class ProfileView
     this.state = {
       countFeedback: profileViewModel.countFeedback,
       viewedArticles: profileViewModel.viewedArticles,
+      statusLoading: profileViewModel.statusLoading,
     };
   }
 
   public componentDidMount(): void {
     this.profileViewModel.attachView(this);
+    this.profileViewModel.handleGetProfileStatus();
   }
 
   public componentWillUnmount(): void {
@@ -49,15 +52,22 @@ export class ProfileView
     this.setState({
       countFeedback: this.profileViewModel.countFeedback,
       viewedArticles: this.profileViewModel.viewedArticles,
+      statusLoading: this.profileViewModel.statusLoading,
     });
   }
 
   render() {
     const username =
       this.props.contextConsumer?.authentication?.authenticatedUser.name || '';
+
+    const { countFeedback, viewedArticles, statusLoading } = this.state;
     return (
       <ProfileLayout title={username} image={getProfile(username)} imageRounded>
-        <StatusComponent />
+        <StatusComponent
+          countFeedback={countFeedback}
+          viewedArticles={viewedArticles}
+          isLoading={statusLoading}
+        />
         <Separator />
         <NavigationComponent
           onPress={(routeName) =>
