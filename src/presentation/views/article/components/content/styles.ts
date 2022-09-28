@@ -67,7 +67,6 @@ export const ListContainer = styled.View`
 export const ListItemContainer = styled.View`
   flex-direction: row;
   align-items: flex-start;
-  margin-bottom: 10px;
 `;
 
 export const Unordered = styled.View`

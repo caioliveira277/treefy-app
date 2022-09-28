@@ -37,8 +37,8 @@ export interface ContentBlockLink {
     meta: {
       title: string;
       description: string;
-      image: {
-        url: string;
+      image?: {
+        url?: string;
       };
     };
   };

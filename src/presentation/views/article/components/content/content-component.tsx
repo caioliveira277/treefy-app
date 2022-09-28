@@ -88,7 +88,7 @@ export const ContentComponent: React.FC<ContentComponentProps> = ({
               style={{ ...theme.shadows.sm }}
               onPress={() => handleGoToLink(element.data.link)}
             >
-              {element.data.meta.image.url ? (
+              {element.data.meta?.image?.url ? (
                 <LinkImage
                   source={{ uri: element.data.meta.image.url }}
                   resizeMode="cover"
