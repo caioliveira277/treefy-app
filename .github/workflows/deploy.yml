@@ -10,6 +10,7 @@ env:
   USERPOOLID: ${{ secrets.USERPOOLID }}
   IDENTITYPOOLID: ${{ secrets.IDENTITYPOOLID }}
   USERPOOLWEBCLIENTID: ${{ secrets.USERPOOLWEBCLIENTID }}
+  API_BASE_URL: ${{ secrets.API_BASE_URL }}
 
 jobs:
   Publish:
