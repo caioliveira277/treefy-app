@@ -2,7 +2,6 @@ import { SpecieModel } from '@/domain/models';
 
 export type GetSpeciesByNameParams = {
   name: string;
-  accessToken: string;
 };
 
 export interface GetSpecies {

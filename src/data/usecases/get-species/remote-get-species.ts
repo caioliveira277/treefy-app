@@ -29,9 +29,6 @@ export class RemoteGetSpecies implements GetSpecies {
         method: 'GET',
         url: this.baseUrl,
         params: this.formatParams(params),
-        headers: {
-          authorization: params.accessToken,
-        },
       });
 
       if (
