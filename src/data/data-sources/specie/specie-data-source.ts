@@ -1,6 +1,7 @@
 import { SpecieModel } from '@/domain/models';
 import { BaseDataSource } from '@/data/data-sources/base-data-source';
-import { RangeTimes, SpeciesRequest } from '@/@types/request';
+import { SpeciesRequest } from '@/@types/request';
+import { RangeTimes } from '@/@types/enums';
 
 export class SpecieDataSource implements BaseDataSource {
   public data: SpeciesRequest['data'];

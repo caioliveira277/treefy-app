@@ -1,4 +1,4 @@
-import { RangeTimes } from '@/@types/request';
+import { RangeTimes } from '@/@types/enums';
 
 export type SpecieModel = {
   id: number;
