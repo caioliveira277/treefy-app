@@ -96,3 +96,10 @@ export type ViewedArticlesRequest = {
   data: ViewedArticleRequest['data'][];
   meta: MetaRequest;
 };
+
+export enum RangeTimes {
+  hours = 'horas',
+  days = 'dias',
+  weeks = 'semanas',
+  months = 'meses',
+}
