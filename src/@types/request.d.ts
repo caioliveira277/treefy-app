@@ -103,3 +103,23 @@ export enum RangeTimes {
   weeks = 'semanas',
   months = 'meses',
 }
+
+export type SpecieRequest = {
+  data: {
+    id: number;
+    attributes: {
+      name: string;
+      description: string;
+      waterTimes: number;
+      waterRange: keyof typeof RangeTimes;
+      sunTimes: number;
+      sunRange: keyof typeof RangeTimes;
+    };
+  };
+  meta: MetaRequest;
+};
+
+export type SpeciesRequest = {
+  data: SpecieRequest['data'][];
+  meta: MetaRequest;
+};
