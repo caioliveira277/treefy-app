@@ -56,11 +56,11 @@ export const ContentComponent: React.FC<ContentComponentProps> = ({
             color: theme.colors.secondary,
             fontSize: theme.fonts.sizes.lg,
             fontFamily: theme.fonts.families.bold,
-            margin: '15px 0 5px 0',
+            margin: '10px 0 0 0',
           },
           h3: {
             color: theme.colors.secondary,
-            margin: '15px 0 5px 0',
+            margin: '10px 0 0 0',
             fontSize: theme.fonts.sizes.md,
             fontFamily: theme.fonts.families.bold,
           },
@@ -108,7 +108,7 @@ export const ContentComponent: React.FC<ContentComponentProps> = ({
             <ContainerImage key={element.id}>
               <Image
                 source={{
-                  uri: `${process.env.API_BASE_URL}${element.data.file.url}`,
+                  uri: element.data.file.url,
                 }}
                 resizeMode="cover"
               />

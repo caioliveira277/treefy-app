@@ -21,8 +21,8 @@ export class ArticleDataSource implements BaseDataSource {
         id: category.id,
         title: category.attributes.title,
       })),
-      banner: `${this.baseUrl}${article.attributes.banner.data.attributes.url}`,
-      thumbnail: `${this.baseUrl}${article.attributes.thumbnail.data.attributes.url}`,
+      banner: article.attributes.banner.data.attributes.url,
+      thumbnail: article.attributes.thumbnail.data.attributes.url,
       author: {
         name: `${article.attributes.updatedBy.data.attributes.firstname} ${article.attributes.updatedBy.data.attributes.lastname}`,
         createdAt: new Date(

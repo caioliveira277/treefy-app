@@ -91,7 +91,8 @@ export class HomeView
           style={spacing.searchInput}
           onSubmit={(search) => this.homeViewModel.handleSearchArticles(search)}
         />
-        {isArticleSearch || !categories.length ? null : (
+        {isArticleSearch ||
+        (!loadingCategories && !categories.length) ? null : (
           <CategoriesCarrouselComponent
             categories={categories}
             selectedCategoryId={selectedCategoryId}

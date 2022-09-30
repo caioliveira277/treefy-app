@@ -17,7 +17,7 @@ export class CategoryDataSource implements BaseDataSource {
       createdAt: new Date(category.attributes.createdAt),
       updatedAt: new Date(category.attributes.updatedAt),
       title: category.attributes.title,
-      image: `${this.baseUrl}${category.attributes.image.data.attributes.url}`,
+      image: category.attributes.image.data.attributes.url,
     }));
   }
 }

@@ -61,7 +61,7 @@ export const LinkDescription = styled.Text`
 
 // list
 export const ListContainer = styled.View`
-  padding: 10px;
+  padding-left: 10px;
 `;
 
 export const ListItemContainer = styled.View`
