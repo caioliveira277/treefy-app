@@ -38,8 +38,9 @@ export class RemoteGetArticles implements GetArticles {
       formatedParams['filters[categories][id][$in][0]'] = params.categoryId;
 
     if (params.search) {
-      formatedParams['filters[$or][0][title][$contains]'] = params.search;
-      formatedParams['filters[$or][1][description][$contains]'] = params.search;
+      formatedParams['filters[$or][0][title][$containsi]'] = params.search;
+      formatedParams['filters[$or][1][description][$containsi]'] =
+        params.search;
     }
 
     return formatedParams;
