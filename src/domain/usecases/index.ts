@@ -7,3 +7,4 @@ export * from './create-feedbacks';
 export * from './get-viewed-articles';
 export * from './create-viewed-articles';
 export * from './get-species';
+export * from './get-user-plants';
