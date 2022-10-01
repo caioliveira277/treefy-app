@@ -118,3 +118,30 @@ export type SpeciesRequest = {
   data: SpecieRequest['data'][];
   meta: MetaRequest;
 };
+
+export type UserPlantRequest = {
+  data: {
+    id: number;
+    attributes: {
+      name: string;
+      annotation: string;
+      waterTimes: number;
+      waterRange: keyof typeof RangeTimes;
+      sunTimes: number;
+      sunRange: keyof typeof RangeTimes;
+      specie: {
+        data: {
+          attributes: {
+            id: number;
+          };
+        };
+      };
+    };
+  };
+  meta: MetaRequest;
+};
+
+export type UserPlantsRequest = {
+  data: UserPlantRequest['data'][];
+  meta: MetaRequest;
+};
