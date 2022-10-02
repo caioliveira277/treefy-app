@@ -10,3 +10,5 @@ export * from './profile/profile-view-factory';
 export * from './change-profile/change-profile-factory';
 export * from './home/home-view-factory';
 export * from './article/article-view-factory';
+export * from './help/help-view-factory';
+export * from './terms-use/terms-use-view-factory';

@@ -41,6 +41,7 @@ export class AuthenticationProvider
   }
 
   public setAuthenticatedUser = (user: AccountModel): void => {
+    console.log(user.accessToken);
     this.setState({
       authenticatedUser: user,
       isAuthenticated: !!user.clientId,
