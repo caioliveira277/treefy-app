@@ -12,3 +12,4 @@ export * from './home/home-view-factory';
 export * from './article/article-view-factory';
 export * from './help/help-view-factory';
 export * from './terms-use/terms-use-view-factory';
+export * from './my-garden/my-garden-view-factory';
