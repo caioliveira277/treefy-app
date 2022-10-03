@@ -6,3 +6,4 @@ export * from './get-articles/remote-get-articles-factory';
 export * from './create-feedbacks/remote-create-feedbacks-factory';
 export * from './get-viewed-articles/remote-get-viewed-articles-factory';
 export * from './create-viewed-articles/remote-create-viewed-articles-factory';
+export * from './get-user-plants/remote-get-user-plants-factory';
