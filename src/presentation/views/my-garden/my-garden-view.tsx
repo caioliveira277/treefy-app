@@ -6,94 +6,20 @@ import { Container, spacing } from './styles';
 import {
   HeaderComponent,
   NextCareComponent,
-  ItemData,
   BackdropFormComponent,
 } from './components';
 import { ModalState } from '@/presentation/@types/generics';
-import Plant1Image from '@assets/images/plant1.png';
+import { UserPlantModel } from '@/domain/models';
 
-// TODO: remove after implementation
-const temporaryData: ItemData[] = [
-  {
-    key: 1,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'water',
-  },
-  {
-    key: 2,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'sun',
-  },
-  {
-    key: 3,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'water',
-  },
-  {
-    key: 4,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'sun',
-  },
-  {
-    key: 5,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'water',
-  },
-  {
-    key: 6,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'sun',
-  },
-  {
-    key: 7,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'water',
-  },
-  {
-    key: 8,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'sun',
-  },
-  {
-    key: 9,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'water',
-  },
-];
 export interface MyGardenViewProps
   extends NativeStackScreenProps<StackParamList, 'MyGarden'> {
   myGardenViewModel: MyGardenViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface MyGardenViewState {
   modalState: ModalState;
+  userPlants: UserPlantModel[];
 }
 
 export class MyGardenView
@@ -110,11 +36,13 @@ export class MyGardenView
 
     this.state = {
       modalState: ModalState.close,
+      userPlants: myGardenViewModel.userPlants,
     };
   }
 
   public componentDidMount(): void {
     this.myGardenViewModel.attachView(this);
+    this.myGardenViewModel.handleGetUserPlants();
   }
 
   public componentWillUnmount(): void {
@@ -124,11 +52,12 @@ export class MyGardenView
   public onViewModelChanged() {
     this.setState({
       modalState: this.myGardenViewModel.modalState,
+      userPlants: this.myGardenViewModel.userPlants,
     });
   }
 
   render() {
-    const { modalState } = this.state;
+    const { modalState, userPlants } = this.state;
     return (
       <Container>
         <HeaderComponent
@@ -137,7 +66,7 @@ export class MyGardenView
             this.myGardenViewModel.handleModalState(state)
           }
         />
-        <NextCareComponent style={spacing.nextCare} data={temporaryData} />
+        <NextCareComponent style={spacing.nextCare} userPlants={userPlants} />
         <BackdropFormComponent
           modalState={modalState}
           onClose={(closeState) =>

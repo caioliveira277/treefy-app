@@ -15,11 +15,11 @@ export class UserPlantDataSource implements BaseDataSource {
       id: plant.id,
       annotation: plant.attributes.annotation,
       name: plant.attributes.name,
-      specieId: plant.attributes.specie.data.attributes.id,
+      specieId: plant.attributes.species.data?.id || null,
       sunTimes: plant.attributes.sunTimes,
-      sunRange: RangeTimes[plant.attributes.sunRange],
+      sunRange: RangeTimes[plant.attributes.sunRange] || null,
       waterTimes: plant.attributes.waterTimes,
-      waterRange: RangeTimes[plant.attributes.waterRange],
+      waterRange: RangeTimes[plant.attributes.waterRange] || null,
     }));
   }
 }

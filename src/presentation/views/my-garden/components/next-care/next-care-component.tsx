@@ -1,10 +1,4 @@
-import { useState } from 'react';
-import {
-  StyleProp,
-  ViewStyle,
-  ImageSourcePropType,
-  ListRenderItemInfo,
-} from 'react-native';
+import { StyleProp, ViewStyle, ListRenderItemInfo } from 'react-native';
 import {
   Container,
   Title,
@@ -25,30 +19,27 @@ import {
 import { getIcon } from '@/presentation/utils';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useTheme } from 'styled-components';
+import { UserPlantModel } from '@/domain/models';
+import Plant1Image from '@assets/images/plant1.png';
+import { useEffect, useState } from 'react';
 
-export type TypeItem = 'water' | 'sun';
-
-export type ItemData = {
-  key: number;
-  image: ImageSourcePropType;
-  title: string;
-  time: string;
-  description: string;
-  type: TypeItem;
-};
 export interface NextCareComponentProps {
   style?: StyleProp<ViewStyle>;
-  data: ItemData[];
+  userPlants: UserPlantModel[];
 }
+
+type Item = { type: 'sun' | 'water'; key: string | number } & UserPlantModel;
 
 export const NextCareComponent: React.FC<NextCareComponentProps> = ({
   style,
-  data,
+  userPlants,
 }) => {
   const theme = useTheme();
-  const [list] = useState<ItemData[]>(data);
+  const [list, setList] = useState<Item[]>([]);
 
-  const renderItem = ({ item }: ListRenderItemInfo<ItemData>) => (
+  const isSun = (type: 'sun' | 'water') => type === 'sun';
+
+  const renderItem = ({ item }: ListRenderItemInfo<Item>) => (
     <ContainerContent
       style={{
         ...theme.shadows.sm,
@@ -66,26 +57,25 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
         <ConteinerItemText>
           <ContainerItemTitle>
             <Icon
-              source={
-                item.type === 'sun' ? getIcon('sun') : getIcon('water-drop')
-              }
+              source={isSun(item.type) ? getIcon('sun') : getIcon('water-drop')}
               width={11}
               height={11}
               resizeMode="center"
             />
             <ItemTitle>
-              {item.type === 'sun' ? 'Expor ao sol' : 'Regar'} {item.time}
+              {isSun(item.type) ? 'Expor ao sol' : 'Regar'}{' '}
+              {isSun(item.type) ? item.sunRange : item.waterRange}
             </ItemTitle>
           </ContainerItemTitle>
-          <ItemSubtitle>{item.title}</ItemSubtitle>
-          <ItemDescription>{item.description}</ItemDescription>
+          <ItemSubtitle>{item.name}</ItemSubtitle>
+          <ItemDescription>{item.annotation}</ItemDescription>
         </ConteinerItemText>
-        <ItemImage source={item.image} resizeMode="center" />
+        <ItemImage source={Plant1Image} resizeMode="center" />
       </ContainerItem>
     </ContainerContent>
   );
 
-  const renderHiddenItem = ({}: ListRenderItemInfo<ItemData>) => (
+  const renderHiddenItem = () => (
     <ContainerHiddenItem>
       <ContainerHiddenContent type="edit">
         <Icon
@@ -105,6 +95,22 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
       </ContainerHiddenContent>
     </ContainerHiddenItem>
   );
+
+  const getFormatedList = (plants: UserPlantModel[]): Item[] => {
+    const result: Item[] = [];
+
+    plants.forEach((plant, i) => {
+      result.push({ ...plant, type: 'sun', key: plant.id });
+      result.push({ ...plant, type: 'water', key: `${plant.id}-${i}` });
+    });
+
+    return result;
+  };
+
+  useEffect(() => {
+    setList(getFormatedList(userPlants));
+  }, [userPlants]);
+
   return (
     <Container style={style}>
       <Title>Próximos cuidados:</Title>

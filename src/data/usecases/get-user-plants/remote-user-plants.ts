@@ -7,7 +7,7 @@ import { GetUserPlants, GetUserPlantsAllParams } from '@/domain/usecases';
 export class RemoteGetUserPlants implements GetUserPlants {
   private readonly httpClient: HttpClient;
 
-  private readonly baseUrl = `${process.env.API_BASE_URL}/api/species`;
+  private readonly baseUrl = `${process.env.API_BASE_URL}/api/user-plants`;
 
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
@@ -17,7 +17,8 @@ export class RemoteGetUserPlants implements GetUserPlants {
     const formatedParams: { [key: string]: string | number } = {
       'pagination[page]': params?.pagination?.page || 1,
       'pagination[pageSize]': params?.pagination?.size || 1,
-      'filters[name][$containsi]': params?.name || '',
+      'populate[species][fields][0]': 'id',
+      'populate[species][fields][1]': 'name',
     };
 
     return formatedParams;
@@ -29,8 +30,10 @@ export class RemoteGetUserPlants implements GetUserPlants {
         method: 'GET',
         url: this.baseUrl,
         params: this.formatParams(params),
+        headers: {
+          authorization: params.accessToken,
+        },
       });
-
       if (
         response.statusCode === HttpStatusCode.ok &&
         response?.body?.data?.length
