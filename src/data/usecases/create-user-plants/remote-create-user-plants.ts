@@ -6,12 +6,11 @@ import { HttpClient, HttpStatusCode } from '@/data/protocols';
 import { UserPlantModel } from '@/domain/models';
 import { UserPlantRequest } from '@/@types/request';
 import { UserPlantDataSource } from '@/data/data-sources';
-import { RangeTimes } from '@/@types/enums';
 
 export class RemoteCreateUserPlants implements CreateUserPlants {
   private readonly httpClient: HttpClient;
 
-  private readonly baseUrl = `${process.env.API_BASE_URL}/api/userPlants`;
+  private readonly baseUrl = `${process.env.API_BASE_URL}/api/user-plants`;
 
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
@@ -23,9 +22,9 @@ export class RemoteCreateUserPlants implements CreateUserPlants {
         name: params?.name,
         annotation: params?.annotation,
         waterTimes: params?.waterTimes,
-        waterRange: Object.keys(RangeTimes).indexOf(params?.waterRange),
+        waterRange: params?.waterRange || null,
         sunTimes: params?.sunTimes,
-        sunRange: Object.keys(RangeTimes).indexOf(params?.sunRange),
+        sunRange: params?.sunRange || null,
       },
     };
 
