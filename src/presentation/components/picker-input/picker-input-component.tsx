@@ -39,6 +39,7 @@ export const PickerComponent: React.FC<PickerComponentProps> = (props) => {
         }}
         dropdownIconColor={theme.colors.body}
       >
+        <Picker.Item label="Selecione" value="" />
         {props.children}
       </Picker>
     </Container>
