@@ -5,7 +5,7 @@ import {
   makeRemoteCreateUserPlants,
   makeRemoteGetUserPlants,
 } from '@/main/factories/usecases';
-import { AuthenticationConsumer } from '@/presentation/contexts';
+import { AuthenticationConsumer, ToastConsumer } from '@/presentation/contexts';
 
 interface MakeMyGardenViewProps {
   route: RouteProp<StackParamList, 'MyGarden'>;
@@ -20,11 +20,18 @@ export const makeGardenView: React.FC<MakeMyGardenViewProps> = (props) => {
   return (
     <AuthenticationConsumer>
       {(authenticationContextParams) => (
-        <MyGardenView
-          contextConsumer={{ ...authenticationContextParams }}
-          {...props}
-          myGardenViewModel={myGardenViewModel}
-        />
+        <ToastConsumer>
+          {(toastContextParams) => (
+            <MyGardenView
+              contextConsumer={{
+                ...authenticationContextParams,
+                ...toastContextParams,
+              }}
+              {...props}
+              myGardenViewModel={myGardenViewModel}
+            />
+          )}
+        </ToastConsumer>
       )}
     </AuthenticationConsumer>
   );

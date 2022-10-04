@@ -10,6 +10,7 @@ import {
 } from './components';
 import { ModalState } from '@/presentation/@types/generics';
 import { UserPlantModel } from '@/domain/models';
+import { PageLoadingComponent } from '@/presentation/components';
 
 export interface MyGardenViewProps
   extends NativeStackScreenProps<StackParamList, 'MyGarden'> {
@@ -20,6 +21,8 @@ export interface MyGardenViewProps
 export interface MyGardenViewState {
   modalState: ModalState;
   userPlants: UserPlantModel[];
+  currentUserPlant: UserPlantModel;
+  loadingSave: boolean;
 }
 
 export class MyGardenView
@@ -37,6 +40,8 @@ export class MyGardenView
     this.state = {
       modalState: ModalState.close,
       userPlants: myGardenViewModel.userPlants,
+      loadingSave: myGardenViewModel.loadingSave,
+      currentUserPlant: myGardenViewModel.currentUserPlant,
     };
   }
 
@@ -53,11 +58,14 @@ export class MyGardenView
     this.setState({
       modalState: this.myGardenViewModel.modalState,
       userPlants: this.myGardenViewModel.userPlants,
+      loadingSave: this.myGardenViewModel.loadingSave,
+      currentUserPlant: this.myGardenViewModel.currentUserPlant,
     });
   }
 
   render() {
-    const { modalState, userPlants } = this.state;
+    const { modalState, userPlants, loadingSave, currentUserPlant } =
+      this.state;
     return (
       <Container>
         <HeaderComponent
@@ -69,6 +77,7 @@ export class MyGardenView
         <NextCareComponent style={spacing.nextCare} userPlants={userPlants} />
         <BackdropFormComponent
           modalState={modalState}
+          currentUserPlant={currentUserPlant}
           onClose={(closeState) =>
             this.myGardenViewModel.handleModalState(closeState)
           }
@@ -76,6 +85,7 @@ export class MyGardenView
             this.myGardenViewModel.handleSaveUserPlant(formData)
           }
         />
+        {loadingSave ? <PageLoadingComponent /> : null}
       </Container>
     );
   }

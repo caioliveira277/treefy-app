@@ -1,7 +1,7 @@
 import { RangeTimes } from '@/@types/enums';
 
 export type UserPlantModel = {
-  id: number;
+  id: number | null;
   specieId: number | null;
   name: string;
   annotation: string;

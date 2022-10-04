@@ -23,13 +23,12 @@ import {
 import { RangeTimes } from '@/@types/enums';
 import { UserPlantModel } from '@/domain/models';
 
-type FormData = Omit<UserPlantModel, 'id' | 'specieId'>;
-
 export interface BackdropFormComponentProps {
   style?: StyleProp<ViewStyle>;
   modalState: ModalState;
+  currentUserPlant: UserPlantModel;
   onClose?: (closeState: ModalState) => void;
-  onSubmit?: (formData: FormData) => void;
+  onSubmit?: (formData: UserPlantModel) => void;
 }
 
 const ranges = Object.keys(RangeTimes).map((key) => ({
@@ -41,18 +40,12 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
   modalState,
   onClose = () => null,
   onSubmit = () => null,
+  currentUserPlant,
 }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['50%', '95%'], []);
 
-  const [formState, setFormState] = useState<FormData>({
-    name: '',
-    annotation: '',
-    sunRange: RangeTimes.days,
-    sunTimes: null,
-    waterRange: RangeTimes.days,
-    waterTimes: null,
-  });
+  const [formState, setFormState] = useState<UserPlantModel>(currentUserPlant);
 
   const isOpen = () => modalState === ModalState.open;
 
@@ -69,8 +62,14 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
   useEffect(() => {
     if (isOpen()) {
       bottomSheetRef.current?.snapToIndex(1);
+    } else {
+      bottomSheetRef.current?.close();
     }
   }, [modalState]);
+
+  useEffect(() => {
+    setFormState(currentUserPlant);
+  }, [currentUserPlant]);
 
   return (
     <BottomSheet
@@ -103,6 +102,7 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
             iconSize={18}
             placeholderText="Nome da plantinha"
             style={styles.input}
+            value={formState.name}
             onChangeText={(text) =>
               setFormState((state) => ({ ...state, name: text }))
             }
@@ -118,6 +118,7 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
             iconSize={15}
             placeholderText="Caracteristicas, cor..."
             style={styles.input}
+            value={formState.annotation}
             onChangeText={(text) =>
               setFormState((state) => ({ ...state, annotation: text }))
             }
@@ -140,6 +141,7 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
               style={styles.inputPeriodNumberContainer}
               styleInput={styles.inputPeriodNumber}
               keyboardType="number-pad"
+              value={String(formState.sunTimes || '')}
               onChangeText={(text) =>
                 setFormState((state) => ({
                   ...state,
@@ -148,16 +150,15 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
               }
             />
             <PickerComponent
-              selectedValue={formState.sunRange || undefined}
+              selectedValue={formState.sunRange || ''}
               onValueChange={(itemValue) =>
                 setFormState((state) => ({
                   ...state,
-                  sunRange: itemValue as RangeTimes,
+                  sunRange: (itemValue as RangeTimes) || null,
                 }))
               }
             >
               {renderPeriodsItem()}
-              <PickerItemComponent />
             </PickerComponent>
           </PeriodContainer>
           <LegendComponent>Regagem:</LegendComponent>
@@ -171,6 +172,7 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
               style={styles.inputPeriodNumberContainer}
               styleInput={styles.inputPeriodNumber}
               keyboardType="number-pad"
+              value={String(formState.waterTimes || '')}
               onChangeText={(text) =>
                 setFormState((state) => ({
                   ...state,
@@ -179,16 +181,15 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
               }
             />
             <PickerComponent
-              selectedValue={formState.waterRange || undefined}
+              selectedValue={formState.waterRange || ''}
               onValueChange={(itemValue) =>
                 setFormState((state) => ({
                   ...state,
-                  waterRange: itemValue as RangeTimes,
+                  waterRange: (itemValue as RangeTimes) || null,
                 }))
               }
             >
               {renderPeriodsItem()}
-              <PickerItemComponent />
             </PickerComponent>
           </PeriodContainer>
           <ButtonComponent
