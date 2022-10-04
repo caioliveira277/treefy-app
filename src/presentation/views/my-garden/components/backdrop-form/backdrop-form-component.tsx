@@ -8,7 +8,6 @@ import {
   TextInputComponent,
   PickerComponent,
   PickerItemComponent,
-  PickerComponentItemValue,
 } from '@/presentation/components';
 import {
   Container,
@@ -21,51 +20,57 @@ import {
   CustomLabelSmall,
   PeriodContainer,
 } from './styles';
+import { RangeTimes } from '@/@types/enums';
+import { UserPlantModel } from '@/domain/models';
+
+type FormData = Omit<UserPlantModel, 'id' | 'specieId'>;
 
 export interface BackdropFormComponentProps {
   style?: StyleProp<ViewStyle>;
   modalState: ModalState;
   onClose?: (closeState: ModalState) => void;
+  onSubmit?: (formData: FormData) => void;
 }
 
-type Period = { label: string; value: string };
-const periods: Period[] = [
-  { label: 'Selecione o período', value: '' },
-  { label: 'Dias', value: 'days' },
-  { label: 'Semanas', value: 'weeks' },
-  { label: 'Meses', value: 'months' },
-  { label: 'Anos', value: 'years' },
-];
+const ranges = Object.keys(RangeTimes).map((key) => ({
+  label: RangeTimes[key as keyof typeof RangeTimes],
+  value: key,
+}));
 
 export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
   modalState,
   onClose = () => null,
+  onSubmit = () => null,
 }) => {
-  const isOpen = () => modalState === ModalState.open;
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['50%', '95%'], []);
-  const [sunPeriod, setSunPeriod] = useState<PickerComponentItemValue>(
-    periods[0].value
-  );
-  const [waterPeriod, setWaterPeriod] = useState<PickerComponentItemValue>(
-    periods[0].value
-  );
 
-  useEffect(() => {
-    if (isOpen()) {
-      bottomSheetRef.current?.snapToIndex(1);
-    }
-  }, [modalState]);
+  const [formState, setFormState] = useState<FormData>({
+    name: '',
+    annotation: '',
+    sunRange: RangeTimes.days,
+    sunTimes: null,
+    waterRange: RangeTimes.days,
+    waterTimes: null,
+  });
+
+  const isOpen = () => modalState === ModalState.open;
 
   const handleClose = useCallback(() => {
     onClose(ModalState.close);
   }, []);
 
   const renderPeriodsItem = useCallback(() => {
-    return periods.map((period, index) => (
-      <PickerItemComponent {...period} key={index} />
+    return ranges.map((range, index) => (
+      <PickerItemComponent {...range} key={index} />
     ));
   }, []);
+
+  useEffect(() => {
+    if (isOpen()) {
+      bottomSheetRef.current?.snapToIndex(1);
+    }
+  }, [modalState]);
 
   return (
     <BottomSheet
@@ -98,6 +103,9 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
             iconSize={18}
             placeholderText="Nome da plantinha"
             style={styles.input}
+            onChangeText={(text) =>
+              setFormState((state) => ({ ...state, name: text }))
+            }
           />
           <TextInputComponent
             label={
@@ -110,6 +118,9 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
             iconSize={15}
             placeholderText="Caracteristicas, cor..."
             style={styles.input}
+            onChangeText={(text) =>
+              setFormState((state) => ({ ...state, annotation: text }))
+            }
           />
           <TextInputComponent
             label="Espécie:"
@@ -129,10 +140,21 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
               style={styles.inputPeriodNumberContainer}
               styleInput={styles.inputPeriodNumber}
               keyboardType="number-pad"
+              onChangeText={(text) =>
+                setFormState((state) => ({
+                  ...state,
+                  sunTimes: Number(text) || 0,
+                }))
+              }
             />
             <PickerComponent
-              selectedValue={sunPeriod}
-              onValueChange={(itemValue) => setSunPeriod(itemValue)}
+              selectedValue={formState.sunRange || undefined}
+              onValueChange={(itemValue) =>
+                setFormState((state) => ({
+                  ...state,
+                  sunRange: itemValue as RangeTimes,
+                }))
+              }
             >
               {renderPeriodsItem()}
               <PickerItemComponent />
@@ -149,16 +171,32 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
               style={styles.inputPeriodNumberContainer}
               styleInput={styles.inputPeriodNumber}
               keyboardType="number-pad"
+              onChangeText={(text) =>
+                setFormState((state) => ({
+                  ...state,
+                  waterTimes: Number(text) || 0,
+                }))
+              }
             />
             <PickerComponent
-              selectedValue={waterPeriod}
-              onValueChange={(itemValue) => setWaterPeriod(itemValue)}
+              selectedValue={formState.waterRange || undefined}
+              onValueChange={(itemValue) =>
+                setFormState((state) => ({
+                  ...state,
+                  waterRange: itemValue as RangeTimes,
+                }))
+              }
             >
               {renderPeriodsItem()}
               <PickerItemComponent />
             </PickerComponent>
           </PeriodContainer>
-          <ButtonComponent style={styles.button}>Salvar</ButtonComponent>
+          <ButtonComponent
+            style={styles.button}
+            onPress={() => onSubmit(formState)}
+          >
+            Salvar
+          </ButtonComponent>
         </Container>
       </BottomSheetScrollView>
     </BottomSheet>

@@ -72,6 +72,9 @@ export class MyGardenView
           onClose={(closeState) =>
             this.myGardenViewModel.handleModalState(closeState)
           }
+          onSubmit={(formData) =>
+            this.myGardenViewModel.handleSaveUserPlant(formData)
+          }
         />
       </Container>
     );
