@@ -100,7 +100,7 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
     const result: Item[] = [];
 
     plants.forEach((plant, i) => {
-      result.push({ ...plant, type: 'sun', key: plant.id });
+      result.push({ ...plant, type: 'sun', key: String(plant.id) });
       result.push({ ...plant, type: 'water', key: `${plant.id}-${i}` });
     });
 

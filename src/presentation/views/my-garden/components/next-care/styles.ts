@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { TypeItem } from './next-care-component';
 
 export const Container = styled.View``;
 
@@ -96,7 +95,7 @@ export const ContainerHiddenContent = styled.View<{
 `;
 
 export const ContainerItem = styled.View<{
-  type: TypeItem;
+  type: 'sun' | 'water';
 }>`
   flex-direction: row;
   align-items: center;
