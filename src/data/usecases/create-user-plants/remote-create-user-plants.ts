@@ -16,6 +16,15 @@ export class RemoteCreateUserPlants implements CreateUserPlants {
     this.httpClient = httpClient;
   }
 
+  private formatParams() {
+    const formatedParams: { [key: string]: string | number } = {
+      'populate[species][fields][0]': 'id',
+      'populate[species][fields][1]': 'name',
+    };
+
+    return formatedParams;
+  }
+
   private formatBody(params: Record<string, any>) {
     const formatedBody: { data: { [key: string]: string | number } } = {
       data: {
@@ -38,6 +47,7 @@ export class RemoteCreateUserPlants implements CreateUserPlants {
       const response = await this.httpClient.request<UserPlantRequest>({
         method: 'POST',
         url: this.baseUrl,
+        params: this.formatParams(),
         body: this.formatBody(params),
         headers: {
           authorization: params.accessToken,

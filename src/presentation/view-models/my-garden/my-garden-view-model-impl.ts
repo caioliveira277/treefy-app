@@ -83,12 +83,12 @@ export class MyGardenViewModelImpl
       ...plantData,
     });
 
-    this.userPlants.push(userPlant);
+    this.userPlants = [...this.userPlants, userPlant];
     this.handleChangeModalState(ModalState.close);
     this.handleChangeLoadingSaveState(false);
 
     this.baseView?.props.contextConsumer?.toast?.showCustom(
-      'Show! Nova planta cadastrada!',
+      'Ótimo! Nova planta cadastrada',
       'Você acabou de cadastrar uma nova planta no seu jardim :)',
       'success'
     );
@@ -100,20 +100,19 @@ export class MyGardenViewModelImpl
     const user =
       this.baseView?.props.contextConsumer?.authentication?.authenticatedUser;
 
-    const userPlant = await this.updateUserPlants.update({
+    const updatedPlant = await this.updateUserPlants.update({
       accessToken: user?.accessToken || '',
       ...plantData,
       id: plantData.id as number,
     });
 
-    const index = this.userPlants.findIndex(
-      (plant) => plant.id === plantData.id
+    this.userPlants = this.userPlants.map((plant) =>
+      plant.id === plantData.id ? updatedPlant : plant
     );
-    this.userPlants[index] = userPlant;
 
     this.handleChangeLoadingSaveState(false);
     this.baseView?.props.contextConsumer?.toast?.showCustom(
-      'Show! Informações atualizadas!',
+      'Show! Informações atualizadas',
       'Deu tudo certo com a atualização da sua planta :)',
       'success'
     );
