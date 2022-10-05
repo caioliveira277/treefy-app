@@ -26,7 +26,7 @@ import { UserPlantModel } from '@/domain/models';
 export interface BackdropFormComponentProps {
   style?: StyleProp<ViewStyle>;
   modalState: ModalState;
-  currentUserPlant: UserPlantModel;
+  currentPlant: UserPlantModel;
   onClose?: (closeState: ModalState) => void;
   onSubmit?: (formData: UserPlantModel) => void;
 }
@@ -40,12 +40,12 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
   modalState,
   onClose = () => null,
   onSubmit = () => null,
-  currentUserPlant,
+  currentPlant,
 }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['50%', '95%'], []);
 
-  const [formState, setFormState] = useState<UserPlantModel>(currentUserPlant);
+  const [formState, setFormState] = useState<UserPlantModel>(currentPlant);
 
   const isOpen = () => modalState === ModalState.open;
 
@@ -68,8 +68,8 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
   }, [modalState]);
 
   useEffect(() => {
-    setFormState(currentUserPlant);
-  }, [currentUserPlant]);
+    setFormState(currentPlant);
+  }, [currentPlant]);
 
   return (
     <BottomSheet

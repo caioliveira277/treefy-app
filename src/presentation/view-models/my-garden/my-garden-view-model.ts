@@ -9,10 +9,11 @@ export interface MyGardenViewModel extends BaseViewModel {
 
   modalState: ModalState;
   userPlants: UserPlantModel[];
-  currentUserPlant: UserPlantModel;
+  currentPlant: UserPlantModel;
   loadingSave: boolean;
 
-  handleGetUserPlants(): Promise<void>;
-  handleModalState(state: ModalState): void;
-  handleSaveUserPlant(formData: UserPlantModel): Promise<void>;
+  handleGetPlants(): Promise<void>;
+  handleChangeModalState(state: ModalState): void;
+  handleSavePlant(plantData: UserPlantModel): Promise<void>;
+  handleEditPlant(selectedPlant: UserPlantModel): void;
 }

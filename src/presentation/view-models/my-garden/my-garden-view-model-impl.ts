@@ -18,7 +18,7 @@ export class MyGardenViewModelImpl
 
   public loadingSave: boolean;
 
-  public currentUserPlant: UserPlantModel;
+  public currentPlant: UserPlantModel;
 
   public constructor(
     getUserPlants: GetUserPlants,
@@ -31,10 +31,10 @@ export class MyGardenViewModelImpl
     this.userPlants = [];
     this.modalState = ModalState.close;
     this.loadingSave = false;
-    this.currentUserPlant = {} as UserPlantModel;
+    this.currentPlant = {} as UserPlantModel;
   }
 
-  public async handleGetUserPlants(): Promise<void> {
+  public async handleGetPlants(): Promise<void> {
     const user =
       this.baseView?.props.contextConsumer?.authentication?.authenticatedUser;
 
@@ -51,7 +51,7 @@ export class MyGardenViewModelImpl
   }
 
   private handleClearCurrentUserPlant(): void {
-    this.currentUserPlant = {
+    this.currentPlant = {
       id: null,
       specieId: null,
       name: '',
@@ -64,7 +64,7 @@ export class MyGardenViewModelImpl
     this.notifyViewAboutChanges();
   }
 
-  public async handleSaveUserPlant(
+  public async handleSavePlant(
     formData: Omit<UserPlantModel, 'id' | 'specieId'>
   ): Promise<void> {
     this.handleChangeLoadingSaveState(true);
@@ -78,7 +78,7 @@ export class MyGardenViewModelImpl
     });
 
     this.userPlants.push(userPlant);
-    this.handleModalState(ModalState.close);
+    this.handleChangeModalState(ModalState.close);
     this.handleChangeLoadingSaveState(false);
 
     this.baseView?.props.contextConsumer?.toast?.showCustom(
@@ -88,7 +88,13 @@ export class MyGardenViewModelImpl
     );
   }
 
-  public handleModalState(state: ModalState): void {
+  public handleEditPlant(userPlant: UserPlantModel): void {
+    this.currentPlant = userPlant;
+    this.modalState = ModalState.open;
+    this.notifyViewAboutChanges();
+  }
+
+  public handleChangeModalState(state: ModalState): void {
     this.handleClearCurrentUserPlant();
     this.modalState = state;
     this.notifyViewAboutChanges();

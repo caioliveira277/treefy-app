@@ -21,7 +21,7 @@ export interface MyGardenViewProps
 export interface MyGardenViewState {
   modalState: ModalState;
   userPlants: UserPlantModel[];
-  currentUserPlant: UserPlantModel;
+  currentPlant: UserPlantModel;
   loadingSave: boolean;
 }
 
@@ -41,13 +41,13 @@ export class MyGardenView
       modalState: ModalState.close,
       userPlants: myGardenViewModel.userPlants,
       loadingSave: myGardenViewModel.loadingSave,
-      currentUserPlant: myGardenViewModel.currentUserPlant,
+      currentPlant: myGardenViewModel.currentPlant,
     };
   }
 
   public componentDidMount(): void {
     this.myGardenViewModel.attachView(this);
-    this.myGardenViewModel.handleGetUserPlants();
+    this.myGardenViewModel.handleGetPlants();
   }
 
   public componentWillUnmount(): void {
@@ -59,30 +59,35 @@ export class MyGardenView
       modalState: this.myGardenViewModel.modalState,
       userPlants: this.myGardenViewModel.userPlants,
       loadingSave: this.myGardenViewModel.loadingSave,
-      currentUserPlant: this.myGardenViewModel.currentUserPlant,
+      currentPlant: this.myGardenViewModel.currentPlant,
     });
   }
 
   render() {
-    const { modalState, userPlants, loadingSave, currentUserPlant } =
-      this.state;
+    const { modalState, userPlants, loadingSave, currentPlant } = this.state;
     return (
       <Container>
         <HeaderComponent
           style={spacing.header}
           toggleModal={(state) =>
-            this.myGardenViewModel.handleModalState(state)
+            this.myGardenViewModel.handleChangeModalState(state)
           }
         />
-        <NextCareComponent style={spacing.nextCare} userPlants={userPlants} />
+        <NextCareComponent
+          style={spacing.nextCare}
+          plants={userPlants}
+          onEdit={(selectedPlant) =>
+            this.myGardenViewModel.handleEditPlant(selectedPlant)
+          }
+        />
         <BackdropFormComponent
           modalState={modalState}
-          currentUserPlant={currentUserPlant}
+          currentPlant={currentPlant}
           onClose={(closeState) =>
-            this.myGardenViewModel.handleModalState(closeState)
+            this.myGardenViewModel.handleChangeModalState(closeState)
           }
           onSubmit={(formData) =>
-            this.myGardenViewModel.handleSaveUserPlant(formData)
+            this.myGardenViewModel.handleSavePlant(formData)
           }
         />
         {loadingSave ? <PageLoadingComponent /> : null}
