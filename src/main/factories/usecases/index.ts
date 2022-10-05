@@ -8,3 +8,4 @@ export * from './get-viewed-articles/remote-get-viewed-articles-factory';
 export * from './create-viewed-articles/remote-create-viewed-articles-factory';
 export * from './get-user-plants/remote-get-user-plants-factory';
 export * from './create-user-plants/remote-create-user-plants-factory';
+export * from './update-user-plants/remote-update-user-plants-factory';

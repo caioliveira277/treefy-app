@@ -9,3 +9,4 @@ export * from './create-viewed-articles';
 export * from './get-species';
 export * from './get-user-plants';
 export * from './create-user-plants';
+export * from './update-user-plants';

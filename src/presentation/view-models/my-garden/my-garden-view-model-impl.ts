@@ -1,5 +1,9 @@
 import { UserPlantModel } from '@/domain/models';
-import { CreateUserPlants, GetUserPlants } from '@/domain/usecases';
+import {
+  CreateUserPlants,
+  GetUserPlants,
+  UpdateUserPlants,
+} from '@/domain/usecases';
 import { ModalState } from '@/presentation/@types/generics';
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { MyGardenViewModel } from './my-garden-view-model';
@@ -12,6 +16,8 @@ export class MyGardenViewModelImpl
 
   public readonly createUserPlants: CreateUserPlants;
 
+  public readonly updateUserPlants: UpdateUserPlants;
+
   public modalState: ModalState;
 
   public userPlants: UserPlantModel[];
@@ -22,11 +28,13 @@ export class MyGardenViewModelImpl
 
   public constructor(
     getUserPlants: GetUserPlants,
-    createUserPlants: CreateUserPlants
+    createUserPlants: CreateUserPlants,
+    updateUserPlants: UpdateUserPlants
   ) {
     super();
     this.getUserPlants = getUserPlants;
     this.createUserPlants = createUserPlants;
+    this.updateUserPlants = updateUserPlants;
 
     this.userPlants = [];
     this.modalState = ModalState.close;
@@ -64,9 +72,7 @@ export class MyGardenViewModelImpl
     this.notifyViewAboutChanges();
   }
 
-  public async handleSavePlant(
-    formData: Omit<UserPlantModel, 'id' | 'specieId'>
-  ): Promise<void> {
+  public async handleSavePlant(plantData: UserPlantModel): Promise<void> {
     this.handleChangeLoadingSaveState(true);
 
     const user =
@@ -74,7 +80,7 @@ export class MyGardenViewModelImpl
 
     const userPlant = await this.createUserPlants.create({
       accessToken: user?.accessToken || '',
-      ...formData,
+      ...plantData,
     });
 
     this.userPlants.push(userPlant);
@@ -84,6 +90,31 @@ export class MyGardenViewModelImpl
     this.baseView?.props.contextConsumer?.toast?.showCustom(
       'Show! Nova planta cadastrada!',
       'Você acabou de cadastrar uma nova planta no seu jardim :)',
+      'success'
+    );
+  }
+
+  public async handleUpdatePlant(plantData: UserPlantModel): Promise<void> {
+    this.handleChangeLoadingSaveState(true);
+
+    const user =
+      this.baseView?.props.contextConsumer?.authentication?.authenticatedUser;
+
+    const userPlant = await this.updateUserPlants.update({
+      accessToken: user?.accessToken || '',
+      ...plantData,
+      id: plantData.id as number,
+    });
+
+    const index = this.userPlants.findIndex(
+      (plant) => plant.id === plantData.id
+    );
+    this.userPlants[index] = userPlant;
+
+    this.handleChangeLoadingSaveState(false);
+    this.baseView?.props.contextConsumer?.toast?.showCustom(
+      'Show! Informações atualizadas!',
+      'Deu tudo certo com a atualização da sua planta :)',
       'success'
     );
   }

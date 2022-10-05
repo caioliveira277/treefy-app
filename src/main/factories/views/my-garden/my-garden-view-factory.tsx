@@ -4,6 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 import {
   makeRemoteCreateUserPlants,
   makeRemoteGetUserPlants,
+  makeRemoteUpdateUserPlants,
 } from '@/main/factories/usecases';
 import { AuthenticationConsumer, ToastConsumer } from '@/presentation/contexts';
 
@@ -15,7 +16,8 @@ interface MakeMyGardenViewProps {
 export const makeGardenView: React.FC<MakeMyGardenViewProps> = (props) => {
   const myGardenViewModel = new MyGardenViewModelImpl(
     makeRemoteGetUserPlants(),
-    makeRemoteCreateUserPlants()
+    makeRemoteCreateUserPlants(),
+    makeRemoteUpdateUserPlants()
   );
   return (
     <AuthenticationConsumer>

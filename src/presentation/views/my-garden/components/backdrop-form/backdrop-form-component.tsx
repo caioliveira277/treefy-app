@@ -59,6 +59,8 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
     ));
   }, []);
 
+  const isUpdate = () => !!formState.id;
+
   useEffect(() => {
     if (isOpen()) {
       bottomSheetRef.current?.snapToIndex(1);
@@ -85,7 +87,7 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
     >
       <BottomSheetScrollView style={bottomSheetStyles.bottomSheetScrollView}>
         <Container>
-          <Title>Nova planta</Title>
+          <Title>{isUpdate() ? 'Alterar informações' : 'Nova planta'}</Title>
           <Description>
             Os campos obrigatórios estão marcados com um “<TextRed>*</TextRed>”,
             se ainda não sabe muito sobre a sua nova planta, não se preocupe!
@@ -196,7 +198,7 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
             style={styles.button}
             onPress={() => onSubmit(formState)}
           >
-            Salvar
+            {isUpdate() ? 'Atualizar' : 'Salvar'}
           </ButtonComponent>
         </Container>
       </BottomSheetScrollView>

@@ -87,7 +87,9 @@ export class MyGardenView
             this.myGardenViewModel.handleChangeModalState(closeState)
           }
           onSubmit={(formData) =>
-            this.myGardenViewModel.handleSavePlant(formData)
+            this.myGardenViewModel[
+              formData.id ? 'handleUpdatePlant' : 'handleSavePlant'
+            ](formData)
           }
         />
         {loadingSave ? <PageLoadingComponent /> : null}
