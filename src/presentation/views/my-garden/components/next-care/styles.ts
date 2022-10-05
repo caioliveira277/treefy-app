@@ -1,3 +1,4 @@
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 export const Container = styled.View``;
@@ -108,3 +109,9 @@ export const ContainerItem = styled.View<{
   border-width: 1.5px;
   border-style: dashed;
 `;
+
+export const styles = StyleSheet.create({
+  containerStyle: {
+    paddingBottom: 190,
+  },
+});

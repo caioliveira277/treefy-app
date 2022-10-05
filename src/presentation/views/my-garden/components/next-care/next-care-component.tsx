@@ -15,9 +15,10 @@ import {
   ItemSubtitle,
   ContainerContent,
   ContainerHiddenContent,
+  styles,
 } from './styles';
 import { getIcon } from '@/presentation/utils';
-import { SwipeListView } from 'react-native-swipe-list-view';
+import { RowMap, SwipeListView } from 'react-native-swipe-list-view';
 import { useTheme } from 'styled-components';
 import { UserPlantModel } from '@/domain/models';
 import Plant1Image from '@assets/images/plant1.png';
@@ -25,17 +26,26 @@ import { useEffect, useState } from 'react';
 
 export interface NextCareComponentProps {
   style?: StyleProp<ViewStyle>;
-  userPlants: UserPlantModel[];
+  plants: UserPlantModel[];
+  onFinish?: (selectedPlant: UserPlantModel) => void;
+  onEdit?: (selectedPlant: UserPlantModel) => void;
 }
 
 type Item = { type: 'sun' | 'water'; key: string | number } & UserPlantModel;
 
 export const NextCareComponent: React.FC<NextCareComponentProps> = ({
   style,
-  userPlants,
+  plants,
+  onFinish = () => null,
+  onEdit = () => null,
 }) => {
   const theme = useTheme();
   const [list, setList] = useState<Item[]>([]);
+
+  const params = {
+    finish: -75,
+    edit: 75,
+  };
 
   const isSun = (type: 'sun' | 'water') => type === 'sun';
 
@@ -96,10 +106,10 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
     </ContainerHiddenItem>
   );
 
-  const getFormatedList = (plants: UserPlantModel[]): Item[] => {
+  const getFormatedList = (plantList: UserPlantModel[]): Item[] => {
     const result: Item[] = [];
 
-    plants.forEach((plant, i) => {
+    plantList.forEach((plant, i) => {
       result.push({ ...plant, type: 'sun', key: String(plant.id) });
       result.push({ ...plant, type: 'water', key: `${plant.id}-${i}` });
     });
@@ -107,9 +117,26 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
     return result;
   };
 
+  const handleOpenRow = (
+    rowKey: string,
+    rowMap: RowMap<Item>,
+    toValue: number
+  ) => {
+    if (!rowMap[rowKey]) return;
+
+    rowMap[rowKey].closeRow();
+    const item = rowMap[rowKey].props.item;
+
+    if (params.finish === toValue) {
+      onFinish(item as UserPlantModel);
+    } else {
+      onEdit(item as UserPlantModel);
+    }
+  };
+
   useEffect(() => {
-    setList(getFormatedList(userPlants));
-  }, [userPlants]);
+    setList(getFormatedList(plants));
+  }, [plants]);
 
   return (
     <Container style={style}>
@@ -123,11 +150,12 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
         data={list}
         renderItem={renderItem}
         renderHiddenItem={renderHiddenItem}
-        stopLeftSwipe={75}
-        stopRightSwipe={-75}
-        contentContainerStyle={{
-          paddingBottom: 190,
-        }}
+        stopLeftSwipe={params.edit}
+        leftOpenValue={params.edit}
+        stopRightSwipe={params.finish}
+        rightOpenValue={params.finish}
+        onRowDidOpen={handleOpenRow}
+        contentContainerStyle={styles.containerStyle}
       />
     </Container>
   );
