@@ -6,7 +6,7 @@ import {
 import { ItemValue } from '@react-native-picker/picker/typings/Picker';
 import { styles, Container } from './styles';
 import { useTheme } from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface PickerComponentProps extends PickerProps {}
 export interface PickerItemComponentProps extends PickerItemProps {}
@@ -21,6 +21,11 @@ export const PickerItemComponent: React.FC<PickerItemComponentProps> = (
 export const PickerComponent: React.FC<PickerComponentProps> = (props) => {
   const theme = useTheme();
   const [selectedItem, setSelectedItem] = useState<ItemValue>();
+
+  useEffect(() => {
+    setSelectedItem(props.selectedValue);
+  }, [props.selectedValue]);
+
   return (
     <Container>
       <Picker

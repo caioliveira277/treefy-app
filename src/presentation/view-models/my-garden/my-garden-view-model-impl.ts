@@ -110,6 +110,7 @@ export class MyGardenViewModelImpl
       plant.id === plantData.id ? updatedPlant : plant
     );
 
+    this.handleChangeModalState(ModalState.close);
     this.handleChangeLoadingSaveState(false);
     this.baseView?.props.contextConsumer?.toast?.showCustom(
       'Show! Informações atualizadas',

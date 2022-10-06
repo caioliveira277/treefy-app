@@ -17,9 +17,9 @@ export class UserPlantDataSource implements BaseDataSource {
       name: plant.attributes.name,
       specieId: plant.attributes.species.data?.id || null,
       sunTimes: plant.attributes.sunTimes,
-      sunRange: RangeTimes[plant.attributes.sunRange] || null,
+      sunRange: (plant.attributes.sunRange as RangeTimes) || null,
       waterTimes: plant.attributes.waterTimes,
-      waterRange: RangeTimes[plant.attributes.waterRange] || null,
+      waterRange: (plant.attributes.waterRange as RangeTimes) || null,
     }));
   }
 }

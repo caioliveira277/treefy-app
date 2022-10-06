@@ -44,7 +44,6 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
 }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['50%', '95%'], []);
-
   const [formState, setFormState] = useState<UserPlantModel>(currentPlant);
 
   const isOpen = () => modalState === ModalState.open;
