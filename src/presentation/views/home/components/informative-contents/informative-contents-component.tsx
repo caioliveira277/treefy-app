@@ -22,6 +22,7 @@ import {
   CardContainerColumnImage,
   CardImageBackground,
   CardImage,
+  styles,
 } from './styles';
 import { formatDateTime, getIcon } from '@/presentation/utils';
 import { useTheme } from 'styled-components';
@@ -49,8 +50,11 @@ export const InformativeContentsComponent: React.FC<
 
       {loading ? (
         <InformativeContentsLoading />
-      ) : !articles.length ? (
-        <EmptyContentComponent description="Oops! Nenhum conteúdo encontrado :(" />
+      ) : !loading && !articles.length ? (
+        <EmptyContentComponent
+          style={styles.empty}
+          description="Oops! Nenhum conteúdo encontrado :("
+        />
       ) : (
         articles.map((article) => (
           <TransparentContainer key={article.id}>

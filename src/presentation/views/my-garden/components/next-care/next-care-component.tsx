@@ -24,6 +24,7 @@ import { UserPlantModel } from '@/domain/models';
 import Plant1Image from '@assets/images/plant1.png';
 import { useEffect, useState } from 'react';
 import { NextCareLoadingComponent } from './next-care-loading-component';
+import { EmptyContentComponent } from '@/presentation/components';
 
 export interface NextCareComponentProps {
   style?: StyleProp<ViewStyle>;
@@ -151,6 +152,10 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
       </Description>
       {loading ? (
         <NextCareLoadingComponent />
+      ) : !loading && !plants.length ? (
+        <Container style={styles.empty}>
+          <EmptyContentComponent description="Oops! Você ainda não cadastrou nenhuma planta :(" />
+        </Container>
       ) : (
         <SwipeListView
           data={list}

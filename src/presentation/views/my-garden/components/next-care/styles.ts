@@ -114,4 +114,9 @@ export const styles = StyleSheet.create({
   containerStyle: {
     paddingBottom: 190,
   },
+  empty: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginTop: 20,
+  },
 });

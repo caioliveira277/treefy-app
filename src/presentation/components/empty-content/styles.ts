@@ -3,10 +3,8 @@ import styled from 'styled-components/native';
 export const CardEmptyContainer = styled.View`
   height: 210px;
   width: 100%;
-  margin-top: 35px;
   align-items: center;
   justify-content: flex-end;
-  margin-bottom: 40px;
 `;
 export const CardEmptyBackgroundImage = styled.Image`
   width: 100%;

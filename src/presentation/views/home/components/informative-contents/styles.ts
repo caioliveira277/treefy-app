@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import * as HomeStyles from '../../styles';
+import { StyleSheet } from 'react-native';
 
 export const Container = styled(HomeStyles.ContainerPadding)``;
 
@@ -135,3 +136,9 @@ export const CardFooterRateText = styled.Text`
   font-size: ${({ theme }) => theme.fonts.sizes.sm};
   color: ${({ theme }) => theme.colors.rate_active};
 `;
+
+export const styles = StyleSheet.create({
+  empty: {
+    marginTop: 20,
+  },
+});
