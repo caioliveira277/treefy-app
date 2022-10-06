@@ -23,12 +23,14 @@ import { useTheme } from 'styled-components';
 import { UserPlantModel } from '@/domain/models';
 import Plant1Image from '@assets/images/plant1.png';
 import { useEffect, useState } from 'react';
+import { NextCareLoadingComponent } from './next-care-loading-component';
 
 export interface NextCareComponentProps {
   style?: StyleProp<ViewStyle>;
   plants: UserPlantModel[];
   onFinish?: (selectedPlant: UserPlantModel) => void;
   onEdit?: (selectedPlant: UserPlantModel) => void;
+  loading: boolean;
 }
 
 type Item = { type: 'sun' | 'water'; key: string | number } & UserPlantModel;
@@ -38,6 +40,7 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
   plants,
   onFinish = () => null,
   onEdit = () => null,
+  loading,
 }) => {
   const theme = useTheme();
   const [list, setList] = useState<Item[]>([]);
@@ -146,17 +149,21 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
         <TextBold>concluir</TextBold> e para o lado <TextBold>direto</TextBold>{' '}
         para <TextBold>editar</TextBold>
       </Description>
-      <SwipeListView
-        data={list}
-        renderItem={renderItem}
-        renderHiddenItem={renderHiddenItem}
-        stopLeftSwipe={params.edit}
-        leftOpenValue={params.edit}
-        stopRightSwipe={params.finish}
-        rightOpenValue={params.finish}
-        onRowDidOpen={handleOpenRow}
-        contentContainerStyle={styles.containerStyle}
-      />
+      {loading ? (
+        <NextCareLoadingComponent />
+      ) : (
+        <SwipeListView
+          data={list}
+          renderItem={renderItem}
+          renderHiddenItem={renderHiddenItem}
+          stopLeftSwipe={params.edit}
+          leftOpenValue={params.edit}
+          stopRightSwipe={params.finish}
+          rightOpenValue={params.finish}
+          onRowDidOpen={handleOpenRow}
+          contentContainerStyle={styles.containerStyle}
+        />
+      )}
     </Container>
   );
 };

@@ -22,7 +22,8 @@ export interface MyGardenViewState {
   modalState: ModalState;
   userPlants: UserPlantModel[];
   currentPlant: UserPlantModel;
-  loadingSave: boolean;
+  saveLoading: boolean;
+  getPlantsLoading: boolean;
 }
 
 export class MyGardenView
@@ -40,8 +41,9 @@ export class MyGardenView
     this.state = {
       modalState: ModalState.close,
       userPlants: myGardenViewModel.userPlants,
-      loadingSave: myGardenViewModel.loadingSave,
+      saveLoading: myGardenViewModel.saveLoading,
       currentPlant: myGardenViewModel.currentPlant,
+      getPlantsLoading: myGardenViewModel.getPlantsLoading,
     };
   }
 
@@ -58,13 +60,20 @@ export class MyGardenView
     this.setState({
       modalState: this.myGardenViewModel.modalState,
       userPlants: this.myGardenViewModel.userPlants,
-      loadingSave: this.myGardenViewModel.loadingSave,
+      saveLoading: this.myGardenViewModel.saveLoading,
       currentPlant: this.myGardenViewModel.currentPlant,
+      getPlantsLoading: this.myGardenViewModel.getPlantsLoading,
     });
   }
 
   render() {
-    const { modalState, userPlants, loadingSave, currentPlant } = this.state;
+    const {
+      modalState,
+      userPlants,
+      saveLoading,
+      currentPlant,
+      getPlantsLoading,
+    } = this.state;
     return (
       <Container>
         <HeaderComponent
@@ -75,6 +84,7 @@ export class MyGardenView
         />
         <NextCareComponent
           style={spacing.nextCare}
+          loading={getPlantsLoading}
           plants={userPlants}
           onEdit={(selectedPlant) =>
             this.myGardenViewModel.handleEditPlant(selectedPlant)
@@ -92,7 +102,7 @@ export class MyGardenView
             ](formData)
           }
         />
-        {loadingSave ? <PageLoadingComponent /> : null}
+        {saveLoading ? <PageLoadingComponent /> : null}
       </Container>
     );
   }

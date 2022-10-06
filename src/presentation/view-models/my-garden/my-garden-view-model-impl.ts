@@ -22,7 +22,9 @@ export class MyGardenViewModelImpl
 
   public userPlants: UserPlantModel[];
 
-  public loadingSave: boolean;
+  public saveLoading: boolean;
+
+  public getPlantsLoading: boolean;
 
   public currentPlant: UserPlantModel;
 
@@ -38,11 +40,14 @@ export class MyGardenViewModelImpl
 
     this.userPlants = [];
     this.modalState = ModalState.close;
-    this.loadingSave = false;
+    this.saveLoading = false;
+    this.getPlantsLoading = true;
     this.currentPlant = {} as UserPlantModel;
   }
 
   public async handleGetPlants(): Promise<void> {
+    this.handleChangeGetPlantsLoadingState(true);
+
     const user =
       this.baseView?.props.contextConsumer?.authentication?.authenticatedUser;
 
@@ -50,11 +55,16 @@ export class MyGardenViewModelImpl
       accessToken: user?.accessToken || '',
     });
 
+    this.handleChangeGetPlantsLoadingState(false);
+  }
+
+  private handleChangeSaveLoadingState(state: boolean): void {
+    this.saveLoading = state;
     this.notifyViewAboutChanges();
   }
 
-  private handleChangeLoadingSaveState(state: boolean): void {
-    this.loadingSave = state;
+  private handleChangeGetPlantsLoadingState(state: boolean): void {
+    this.getPlantsLoading = state;
     this.notifyViewAboutChanges();
   }
 
@@ -73,7 +83,7 @@ export class MyGardenViewModelImpl
   }
 
   public async handleSavePlant(plantData: UserPlantModel): Promise<void> {
-    this.handleChangeLoadingSaveState(true);
+    this.handleChangeSaveLoadingState(true);
 
     const user =
       this.baseView?.props.contextConsumer?.authentication?.authenticatedUser;
@@ -85,7 +95,7 @@ export class MyGardenViewModelImpl
 
     this.userPlants = [...this.userPlants, userPlant];
     this.handleChangeModalState(ModalState.close);
-    this.handleChangeLoadingSaveState(false);
+    this.handleChangeSaveLoadingState(false);
 
     this.baseView?.props.contextConsumer?.toast?.showCustom(
       'Ótimo! Nova planta cadastrada',
@@ -95,7 +105,7 @@ export class MyGardenViewModelImpl
   }
 
   public async handleUpdatePlant(plantData: UserPlantModel): Promise<void> {
-    this.handleChangeLoadingSaveState(true);
+    this.handleChangeSaveLoadingState(true);
 
     const user =
       this.baseView?.props.contextConsumer?.authentication?.authenticatedUser;
@@ -111,7 +121,7 @@ export class MyGardenViewModelImpl
     );
 
     this.handleChangeModalState(ModalState.close);
-    this.handleChangeLoadingSaveState(false);
+    this.handleChangeSaveLoadingState(false);
     this.baseView?.props.contextConsumer?.toast?.showCustom(
       'Show! Informações atualizadas',
       'Deu tudo certo com a atualização da sua planta :)',
