@@ -5,11 +5,17 @@ import {
 } from './styles';
 import emptyContent from '@assets/images/empty-content.png';
 
-export const InformativeContentsEmpty: React.FC = () => {
+export interface EmptyContentComponentProps {
+  description: string;
+}
+
+export const EmptyContentComponent: React.FC<EmptyContentComponentProps> = ({
+  description,
+}) => {
   return (
     <CardEmptyContainer>
       <CardEmptyBackgroundImage source={emptyContent} resizeMode="stretch" />
-      <CardEmptyText>Oops! Nenhum conteúdo encontrado :(</CardEmptyText>
+      <CardEmptyText>{description}</CardEmptyText>
     </CardEmptyContainer>
   );
 };

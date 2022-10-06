@@ -29,7 +29,7 @@ import backgroundCardIlustration from '@assets/images/background-card-ilustratio
 import { StyleProp, ViewStyle } from 'react-native';
 import { ArticleModel } from '@/domain/models';
 import { InformativeContentsLoading } from './informative-contents-loading';
-import { InformativeContentsEmpty } from './informative-contents-empty';
+import { EmptyContentComponent } from '@/presentation/components';
 
 export interface InformativeContentsComponentProps {
   style?: StyleProp<ViewStyle>;
@@ -50,7 +50,7 @@ export const InformativeContentsComponent: React.FC<
       {loading ? (
         <InformativeContentsLoading />
       ) : !articles.length ? (
-        <InformativeContentsEmpty />
+        <EmptyContentComponent description="Oops! Nenhum conteúdo encontrado :(" />
       ) : (
         articles.map((article) => (
           <TransparentContainer key={article.id}>
