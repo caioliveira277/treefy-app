@@ -73,7 +73,7 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
             <Icon
               source={isSun(item.type) ? getIcon('sun') : getIcon('water-drop')}
               width={11}
-              height={11}
+              height={12}
               resizeMode="center"
             />
             <ItemTitle>
