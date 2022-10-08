@@ -55,6 +55,7 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
 
   const renderItem = ({ item }: ListRenderItemInfo<Item>) => (
     <ContainerContent
+      key={item.id}
       style={{
         ...theme.shadows.sm,
         shadowOffset: {
@@ -114,8 +115,8 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
     const result: Item[] = [];
 
     plantList.forEach((plant, i) => {
-      result.push({ ...plant, type: 'sun', key: String(plant.id) });
-      result.push({ ...plant, type: 'water', key: `${plant.id}-${i}` });
+      result.push({ ...plant, type: 'sun', key: i });
+      result.push({ ...plant, type: 'water', key: i + 1 });
     });
 
     return result;
@@ -166,6 +167,7 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
           stopRightSwipe={params.finish}
           rightOpenValue={params.finish}
           onRowDidOpen={handleOpenRow}
+          keyExtractor={(_, i) => i.toString()}
           contentContainerStyle={styles.containerStyle}
         />
       )}
