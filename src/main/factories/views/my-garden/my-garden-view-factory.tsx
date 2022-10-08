@@ -21,6 +21,10 @@ export const makeGardenView: React.FC<MakeMyGardenViewProps> = (props) => {
     makeRemoteUpdateUserPlants(),
     CompositeValidator.build([
       ...BuilderValidator.field('name').required().build(),
+      ...BuilderValidator.field('sunTimes').requiredIf('sunRange').build(),
+      ...BuilderValidator.field('sunRange').requiredIf('sunTimes').build(),
+      ...BuilderValidator.field('waterTimes').requiredIf('waterRange').build(),
+      ...BuilderValidator.field('waterRange').requiredIf('waterTimes').build(),
     ])
   );
   return (

@@ -27,6 +27,7 @@ export interface TextInputComponentProps {
   keyboardType?: KeyboardType;
   errorMessage?: string;
   infoMessage?: string;
+  enforceErrorFocus?: boolean;
   onChangeText?: (value: string) => void;
 }
 
@@ -43,6 +44,7 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
   errorMessage,
   infoMessage,
   onChangeText,
+  enforceErrorFocus,
 }) => {
   const theme = useTheme();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
@@ -71,7 +73,7 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
       <ContainerInput
         theme={theme}
         style={isTextarea() ? textareaStyles.container : {}}
-        hasError={!!errorMessage}
+        hasError={!!errorMessage || !!enforceErrorFocus}
       >
         <GenericIcon
           iconSize={iconSize}

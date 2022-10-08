@@ -6,8 +6,6 @@ import {
   ButtonComponent,
   LegendComponent,
   TextInputComponent,
-  PickerComponent,
-  PickerItemComponent,
 } from '@/presentation/components';
 import {
   Container,
@@ -17,12 +15,10 @@ import {
   TextRed,
   styles,
   CustomLabel,
-  CustomLabelSmall,
-  PeriodContainer,
 } from './styles';
-import { RangeTimes } from '@/@types/enums';
 import { UserPlantModel } from '@/domain/models';
 import { ItemValue } from '@react-native-picker/picker/typings/Picker';
+import { PeriodSectionComponent } from './period-section-component';
 
 export interface BackdropFormComponentProps {
   style?: StyleProp<ViewStyle>;
@@ -36,11 +32,6 @@ export interface BackdropFormComponentProps {
   ) => void;
   onSubmit?: (formData: UserPlantModel) => void;
 }
-
-const ranges = Object.keys(RangeTimes).map((key) => ({
-  label: RangeTimes[key as keyof typeof RangeTimes],
-  value: key,
-}));
 
 export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
   modalState,
@@ -57,12 +48,6 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
 
   const handleClose = useCallback(() => {
     onClose(ModalState.close);
-  }, []);
-
-  const renderPeriodsItem = useCallback(() => {
-    return ranges.map((range, index) => (
-      <PickerItemComponent {...range} key={index} />
-    ));
   }, []);
 
   const isUpdate = () => !!defaultData.id;
@@ -129,46 +114,26 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
           />
           <LegendComponent>Exposição ao sol:</LegendComponent>
           <CustomLabel>De quanto em quanto tempo?</CustomLabel>
-          <PeriodContainer>
-            <CustomLabelSmall>A cada:</CustomLabelSmall>
-            <TextInputComponent
-              iconName="sun"
-              iconSize={16}
-              placeholderText="0"
-              style={styles.inputPeriodNumberContainer}
-              styleInput={styles.inputPeriodNumber}
-              keyboardType="number-pad"
-              value={String(defaultData.sunTimes || '')}
-              onChangeText={(text) => onChange('sunTimes', Number(text) || 0)}
-            />
-            <PickerComponent
-              selectedValue={defaultData.sunRange || ''}
-              onValueChange={(value) => onChange('sunRange', value)}
-            >
-              {renderPeriodsItem()}
-            </PickerComponent>
-          </PeriodContainer>
+          <PeriodSectionComponent
+            iconName="sun"
+            defaultTimes={defaultData.sunTimes}
+            defaultRange={defaultData.sunRange}
+            onChange={(key, value) =>
+              onChange(key === 'times' ? 'sunTimes' : 'sunRange', value)
+            }
+            hasError={!!errors.sunTimes || !!errors.sunRange}
+          />
           <LegendComponent>Regagem:</LegendComponent>
           <CustomLabel>De quanto em quanto tempo?</CustomLabel>
-          <PeriodContainer>
-            <CustomLabelSmall>A cada:</CustomLabelSmall>
-            <TextInputComponent
-              iconName="water-drop"
-              iconSize={16}
-              placeholderText="0"
-              style={styles.inputPeriodNumberContainer}
-              styleInput={styles.inputPeriodNumber}
-              keyboardType="number-pad"
-              value={String(defaultData.waterTimes || '')}
-              onChangeText={(text) => onChange('waterTimes', Number(text) || 0)}
-            />
-            <PickerComponent
-              selectedValue={defaultData.waterRange || ''}
-              onValueChange={(value) => onChange('waterRange', value)}
-            >
-              {renderPeriodsItem()}
-            </PickerComponent>
-          </PeriodContainer>
+          <PeriodSectionComponent
+            iconName="water-drop"
+            defaultTimes={defaultData.waterTimes}
+            defaultRange={defaultData.waterRange}
+            onChange={(key, value) =>
+              onChange(key === 'times' ? 'waterTimes' : 'waterRange', value)
+            }
+            hasError={!!errors.waterTimes || !!errors.waterRange}
+          />
           <ButtonComponent
             style={styles.button}
             onPress={() => onSubmit(defaultData)}

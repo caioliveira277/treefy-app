@@ -69,6 +69,14 @@ export class MyGardenViewModelImpl
   public handleChangeForm(key: keyof UserPlantModel, value: any): void {
     this.form[key] = value as never;
     this.formErrors[key] = this.validation.validate(key, this.form);
+
+    if (key.endsWith('Range') || key.endsWith('Times')) {
+      this.formErrors = this.validation.validateAll(
+        ['waterTimes', 'waterRange', 'sunTimes', 'sunRange'],
+        this.form
+      ).errors;
+    }
+
     this.notifyViewAboutChanges();
   }
 
@@ -95,7 +103,10 @@ export class MyGardenViewModelImpl
   }
 
   private handleValidateForm(): boolean {
-    const validation = this.validation.validateAll(['name'], this.form);
+    const validation = this.validation.validateAll(
+      ['name', 'sunTimes', 'sunRange', 'waterTimes', 'waterRange'],
+      this.form
+    );
 
     if (validation.hasError) {
       this.formErrors = validation.errors;

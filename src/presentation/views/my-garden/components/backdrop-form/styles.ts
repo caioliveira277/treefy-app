@@ -7,10 +7,13 @@ export const Container = styled.View`
   padding: 40px 20px;
 `;
 
+export const PeriodSectionContainer = styled.View`
+  margin-bottom: 30px;
+`;
+
 export const PeriodContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-bottom: 30px;
 `;
 
 export const Title = styled.Text`

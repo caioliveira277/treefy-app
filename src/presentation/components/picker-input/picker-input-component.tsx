@@ -8,7 +8,9 @@ import { styles, Container } from './styles';
 import { useTheme } from 'styled-components';
 import { useEffect, useState } from 'react';
 
-export interface PickerComponentProps extends PickerProps {}
+export interface PickerComponentProps extends PickerProps {
+  enforceErrorFocus?: boolean;
+}
 export interface PickerItemComponentProps extends PickerItemProps {}
 export type PickerComponentItemValue = {} & ItemValue;
 
@@ -27,7 +29,7 @@ export const PickerComponent: React.FC<PickerComponentProps> = (props) => {
   }, [props.selectedValue]);
 
   return (
-    <Container>
+    <Container hasError={!!props.enforceErrorFocus}>
       <Picker
         {...props}
         onValueChange={(itemValue, itemIndex) => {
