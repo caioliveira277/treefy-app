@@ -5,6 +5,7 @@ import {
   UpdateUserPlants,
 } from '@/domain/usecases';
 import { ModalState } from '@/presentation/@types/generics';
+import { Validation } from '@/presentation/protocols/validation';
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { MyGardenViewModel } from './my-garden-view-model';
 
@@ -18,6 +19,8 @@ export class MyGardenViewModelImpl
 
   public readonly updateUserPlants: UpdateUserPlants;
 
+  public readonly validation: Validation;
+
   public modalState: ModalState;
 
   public userPlants: UserPlantModel[];
@@ -26,23 +29,28 @@ export class MyGardenViewModelImpl
 
   public getPlantsLoading: boolean;
 
-  public currentPlant: UserPlantModel;
+  public form: UserPlantModel;
+
+  public formErrors: MyGardenViewModel['formErrors'];
 
   public constructor(
     getUserPlants: GetUserPlants,
     createUserPlants: CreateUserPlants,
-    updateUserPlants: UpdateUserPlants
+    updateUserPlants: UpdateUserPlants,
+    validation: Validation
   ) {
     super();
     this.getUserPlants = getUserPlants;
     this.createUserPlants = createUserPlants;
     this.updateUserPlants = updateUserPlants;
+    this.validation = validation;
 
     this.userPlants = [];
     this.modalState = ModalState.close;
     this.saveLoading = false;
     this.getPlantsLoading = true;
-    this.currentPlant = {} as UserPlantModel;
+    this.form = {} as UserPlantModel;
+    this.formErrors = {} as MyGardenViewModel['formErrors'];
   }
 
   public async handleGetPlants(): Promise<void> {
@@ -58,6 +66,12 @@ export class MyGardenViewModelImpl
     this.handleChangeGetPlantsLoadingState(false);
   }
 
+  public handleChangeForm(key: keyof UserPlantModel, value: any): void {
+    this.form[key] = value as never;
+    this.formErrors[key] = this.validation.validate(key, this.form);
+    this.notifyViewAboutChanges();
+  }
+
   private handleChangeSaveLoadingState(state: boolean): void {
     this.saveLoading = state;
     this.notifyViewAboutChanges();
@@ -69,20 +83,31 @@ export class MyGardenViewModelImpl
   }
 
   private handleClearCurrentUserPlant(): void {
-    this.currentPlant = {
-      id: null,
-      specieId: null,
-      name: '',
-      annotation: '',
-      sunRange: null,
-      sunTimes: null,
-      waterRange: null,
-      waterTimes: null,
-    };
+    Object.keys(this.form).forEach((key) => {
+      this.form[key as keyof UserPlantModel] = (
+        key === 'annotation' || key === 'name' ? '' : null
+      ) as never;
+
+      this.formErrors[key as keyof UserPlantModel] = '';
+    });
+
     this.notifyViewAboutChanges();
   }
 
-  public async handleSavePlant(plantData: UserPlantModel): Promise<void> {
+  private handleValidateForm(): boolean {
+    const validation = this.validation.validateAll(['name'], this.form);
+
+    if (validation.hasError) {
+      this.formErrors = validation.errors;
+      this.notifyViewAboutChanges();
+    }
+
+    return validation.hasError;
+  }
+
+  public async handleSavePlant(): Promise<void> {
+    if (this.handleValidateForm()) return;
+
     this.handleChangeSaveLoadingState(true);
 
     const user =
@@ -90,7 +115,7 @@ export class MyGardenViewModelImpl
 
     const userPlant = await this.createUserPlants.create({
       accessToken: user?.accessToken || '',
-      ...plantData,
+      ...this.form,
     });
 
     this.userPlants = [...this.userPlants, userPlant];
@@ -104,7 +129,9 @@ export class MyGardenViewModelImpl
     );
   }
 
-  public async handleUpdatePlant(plantData: UserPlantModel): Promise<void> {
+  public async handleUpdatePlant(): Promise<void> {
+    if (this.handleValidateForm()) return;
+
     this.handleChangeSaveLoadingState(true);
 
     const user =
@@ -112,12 +139,12 @@ export class MyGardenViewModelImpl
 
     const updatedPlant = await this.updateUserPlants.update({
       accessToken: user?.accessToken || '',
-      ...plantData,
-      id: plantData.id as number,
+      ...this.form,
+      id: this.form.id as number,
     });
 
     this.userPlants = this.userPlants.map((plant) =>
-      plant.id === plantData.id ? updatedPlant : plant
+      plant.id === this.form.id ? updatedPlant : plant
     );
 
     this.handleChangeModalState(ModalState.close);
@@ -130,7 +157,7 @@ export class MyGardenViewModelImpl
   }
 
   public handleEditPlant(userPlant: UserPlantModel): void {
-    this.currentPlant = userPlant;
+    this.form = userPlant;
     this.modalState = ModalState.open;
     this.notifyViewAboutChanges();
   }

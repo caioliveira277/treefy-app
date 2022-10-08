@@ -7,6 +7,7 @@ import {
   makeRemoteUpdateUserPlants,
 } from '@/main/factories/usecases';
 import { AuthenticationConsumer, ToastConsumer } from '@/presentation/contexts';
+import { BuilderValidator, CompositeValidator } from '@/validations';
 
 interface MakeMyGardenViewProps {
   route: RouteProp<StackParamList, 'MyGarden'>;
@@ -17,7 +18,10 @@ export const makeGardenView: React.FC<MakeMyGardenViewProps> = (props) => {
   const myGardenViewModel = new MyGardenViewModelImpl(
     makeRemoteGetUserPlants(),
     makeRemoteCreateUserPlants(),
-    makeRemoteUpdateUserPlants()
+    makeRemoteUpdateUserPlants(),
+    CompositeValidator.build([
+      ...BuilderValidator.field('name').required().build(),
+    ])
   );
   return (
     <AuthenticationConsumer>

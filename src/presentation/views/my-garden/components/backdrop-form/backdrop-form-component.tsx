@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useCallback, useState } from 'react';
+import { useEffect, useMemo, useRef, useCallback } from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 import { ModalState } from '@/presentation/@types/generics';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
@@ -22,12 +22,18 @@ import {
 } from './styles';
 import { RangeTimes } from '@/@types/enums';
 import { UserPlantModel } from '@/domain/models';
+import { ItemValue } from '@react-native-picker/picker/typings/Picker';
 
 export interface BackdropFormComponentProps {
   style?: StyleProp<ViewStyle>;
   modalState: ModalState;
-  currentPlant: UserPlantModel;
+  defaultData: UserPlantModel;
+  errors: Record<keyof UserPlantModel, string>;
   onClose?: (closeState: ModalState) => void;
+  onChange?: (
+    key: keyof UserPlantModel,
+    value: string | number | ItemValue
+  ) => void;
   onSubmit?: (formData: UserPlantModel) => void;
 }
 
@@ -38,13 +44,14 @@ const ranges = Object.keys(RangeTimes).map((key) => ({
 
 export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
   modalState,
+  defaultData,
+  errors,
   onClose = () => null,
   onSubmit = () => null,
-  currentPlant,
+  onChange = () => null,
 }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['50%', '95%'], []);
-  const [formState, setFormState] = useState<UserPlantModel>(currentPlant);
 
   const isOpen = () => modalState === ModalState.open;
 
@@ -58,7 +65,7 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
     ));
   }, []);
 
-  const isUpdate = () => !!formState.id;
+  const isUpdate = () => !!defaultData.id;
 
   useEffect(() => {
     if (isOpen()) {
@@ -67,10 +74,6 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
       bottomSheetRef.current?.close();
     }
   }, [modalState]);
-
-  useEffect(() => {
-    setFormState(currentPlant);
-  }, [currentPlant]);
 
   return (
     <BottomSheet
@@ -103,26 +106,19 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
             iconSize={18}
             placeholderText="Nome da plantinha"
             style={styles.input}
-            value={formState.name}
-            onChangeText={(text) =>
-              setFormState((state) => ({ ...state, name: text }))
-            }
+            value={defaultData.name}
+            onChangeText={(text) => onChange('name', text)}
+            errorMessage={errors.name}
           />
           <TextInputComponent
-            label={
-              <>
-                Anotações: <TextRed>*</TextRed>
-              </>
-            }
+            label="Anotações:"
             iconName="content"
             type="textarea"
             iconSize={15}
             placeholderText="Caracteristicas, cor..."
             style={styles.input}
-            value={formState.annotation}
-            onChangeText={(text) =>
-              setFormState((state) => ({ ...state, annotation: text }))
-            }
+            value={defaultData.annotation}
+            onChangeText={(text) => onChange('annotation', text)}
           />
           <TextInputComponent
             label="Espécie:"
@@ -142,22 +138,12 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
               style={styles.inputPeriodNumberContainer}
               styleInput={styles.inputPeriodNumber}
               keyboardType="number-pad"
-              value={String(formState.sunTimes || '')}
-              onChangeText={(text) =>
-                setFormState((state) => ({
-                  ...state,
-                  sunTimes: Number(text) || 0,
-                }))
-              }
+              value={String(defaultData.sunTimes || '')}
+              onChangeText={(text) => onChange('sunTimes', Number(text) || 0)}
             />
             <PickerComponent
-              selectedValue={formState.sunRange || ''}
-              onValueChange={(itemValue) =>
-                setFormState((state) => ({
-                  ...state,
-                  sunRange: (itemValue as RangeTimes) || null,
-                }))
-              }
+              selectedValue={defaultData.sunRange || ''}
+              onValueChange={(value) => onChange('sunRange', value)}
             >
               {renderPeriodsItem()}
             </PickerComponent>
@@ -173,29 +159,19 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
               style={styles.inputPeriodNumberContainer}
               styleInput={styles.inputPeriodNumber}
               keyboardType="number-pad"
-              value={String(formState.waterTimes || '')}
-              onChangeText={(text) =>
-                setFormState((state) => ({
-                  ...state,
-                  waterTimes: Number(text) || 0,
-                }))
-              }
+              value={String(defaultData.waterTimes || '')}
+              onChangeText={(text) => onChange('waterTimes', Number(text) || 0)}
             />
             <PickerComponent
-              selectedValue={formState.waterRange || ''}
-              onValueChange={(itemValue) =>
-                setFormState((state) => ({
-                  ...state,
-                  waterRange: (itemValue as RangeTimes) || null,
-                }))
-              }
+              selectedValue={defaultData.waterRange || ''}
+              onValueChange={(value) => onChange('waterRange', value)}
             >
               {renderPeriodsItem()}
             </PickerComponent>
           </PeriodContainer>
           <ButtonComponent
             style={styles.button}
-            onPress={() => onSubmit(formState)}
+            onPress={() => onSubmit(defaultData)}
           >
             {isUpdate() ? 'Atualizar' : 'Salvar'}
           </ButtonComponent>

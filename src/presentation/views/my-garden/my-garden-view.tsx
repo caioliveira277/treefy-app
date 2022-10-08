@@ -21,7 +21,8 @@ export interface MyGardenViewProps
 export interface MyGardenViewState {
   modalState: ModalState;
   userPlants: UserPlantModel[];
-  currentPlant: UserPlantModel;
+  form: UserPlantModel;
+  formErrors: Record<keyof UserPlantModel, string>;
   saveLoading: boolean;
   getPlantsLoading: boolean;
 }
@@ -42,7 +43,8 @@ export class MyGardenView
       modalState: ModalState.close,
       userPlants: myGardenViewModel.userPlants,
       saveLoading: myGardenViewModel.saveLoading,
-      currentPlant: myGardenViewModel.currentPlant,
+      form: myGardenViewModel.form,
+      formErrors: myGardenViewModel.formErrors,
       getPlantsLoading: myGardenViewModel.getPlantsLoading,
     };
   }
@@ -61,7 +63,8 @@ export class MyGardenView
       modalState: this.myGardenViewModel.modalState,
       userPlants: this.myGardenViewModel.userPlants,
       saveLoading: this.myGardenViewModel.saveLoading,
-      currentPlant: this.myGardenViewModel.currentPlant,
+      form: this.myGardenViewModel.form,
+      formErrors: this.myGardenViewModel.formErrors,
       getPlantsLoading: this.myGardenViewModel.getPlantsLoading,
     });
   }
@@ -71,7 +74,8 @@ export class MyGardenView
       modalState,
       userPlants,
       saveLoading,
-      currentPlant,
+      form,
+      formErrors,
       getPlantsLoading,
     } = this.state;
     return (
@@ -92,14 +96,18 @@ export class MyGardenView
         />
         <BackdropFormComponent
           modalState={modalState}
-          currentPlant={currentPlant}
+          defaultData={form}
+          errors={formErrors}
+          onChange={(key, value) =>
+            this.myGardenViewModel.handleChangeForm(key, value)
+          }
           onClose={(closeState) =>
             this.myGardenViewModel.handleChangeModalState(closeState)
           }
           onSubmit={(formData) =>
             this.myGardenViewModel[
               formData.id ? 'handleUpdatePlant' : 'handleSavePlant'
-            ](formData)
+            ]()
           }
         />
         {saveLoading ? <PageLoadingComponent /> : null}
