@@ -62,10 +62,11 @@ export const ItemDescription = styled.Text<{ type: MyGardenCardType }>`
   font-family: ${({ theme }) => theme.fonts.families.regular};
 `;
 
-export const ItemImage = styled.Image`
+export const ItemImage = styled.Image<{ type: MyGardenCardType }>`
   width: 49px;
   height: 49px;
   border-radius: 10px;
+  opacity: ${({ type }) => (type === 'incompleted' ? 0.6 : 1)};
 `;
 
 export const ContainerHiddenItem = styled.View`

@@ -18,7 +18,7 @@ import {
   styles,
 } from './styles';
 import { getIcon, IconName } from '@/presentation/utils';
-import { RowMap, SwipeListView } from 'react-native-swipe-list-view';
+import { RowMap, SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import { useTheme } from 'styled-components';
 import { UserPlantModel } from '@/domain/models';
 import Plant1Image from '@assets/images/plant1.png';
@@ -53,47 +53,6 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
   };
 
   const isSun = (type: MyGardenCardType) => type === 'sun';
-
-  const renderItem = ({ item }: ListRenderItemInfo<Item>) => (
-    <ContainerContent
-      key={item.id}
-      style={{
-        ...theme.shadows.sm,
-        shadowOffset: {
-          width: 0,
-          height: 1,
-        },
-        shadowOpacity: 0.18,
-        shadowRadius: 1.0,
-
-        elevation: 1,
-      }}
-    >
-      <ContainerItem type={item.type}>
-        <ConteinerItemText>
-          <ContainerItemTitle>
-            <Icon
-              source={getIcon(item.type as IconName)}
-              width={11}
-              height={12}
-              resizeMode="center"
-            />
-            {item.type !== 'incompleted' ? (
-              <ItemTitle type={item.type}>
-                {isSun(item.type) ? 'Expor ao sol' : 'Regar'}{' '}
-                {isSun(item.type) ? item.sunRange : item.waterRange}
-              </ItemTitle>
-            ) : (
-              <ItemTitle type={item.type}>Nenhuma tarefa agendada</ItemTitle>
-            )}
-          </ContainerItemTitle>
-          <ItemSubtitle type={item.type}>{item.name}</ItemSubtitle>
-          <ItemDescription type={item.type}>{item.annotation}</ItemDescription>
-        </ConteinerItemText>
-        <ItemImage source={Plant1Image} resizeMode="center" />
-      </ContainerItem>
-    </ContainerContent>
-  );
 
   const renderHiddenItem = () => (
     <ContainerHiddenItem>
@@ -149,6 +108,63 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
     }
   };
 
+  const renderItem = ({ item }: ListRenderItemInfo<Item>) => (
+    <SwipeRow
+      disableLeftSwipe={item.type === 'incompleted'}
+      stopLeftSwipe={params.edit}
+      leftOpenValue={params.edit}
+      stopRightSwipe={params.finish}
+      rightOpenValue={params.finish}
+      item={item}
+    >
+      {renderHiddenItem()}
+      <ContainerContent
+        key={item.id}
+        style={{
+          ...theme.shadows.sm,
+          shadowOffset: {
+            width: 0,
+            height: 1,
+          },
+          shadowOpacity: 0.18,
+          shadowRadius: 1.0,
+
+          elevation: 1,
+        }}
+      >
+        <ContainerItem type={item.type}>
+          <ConteinerItemText>
+            <ContainerItemTitle>
+              <Icon
+                source={getIcon(item.type as IconName)}
+                width={11}
+                height={12}
+                resizeMode="center"
+              />
+              {item.type !== 'incompleted' ? (
+                <ItemTitle type={item.type}>
+                  {isSun(item.type) ? 'Expor ao sol' : 'Regar'}{' '}
+                  {isSun(item.type) ? item.sunRange : item.waterRange}
+                </ItemTitle>
+              ) : (
+                <ItemTitle type={item.type}>Nenhuma tarefa agendada</ItemTitle>
+              )}
+            </ContainerItemTitle>
+            <ItemSubtitle type={item.type}>{item.name}</ItemSubtitle>
+            <ItemDescription type={item.type}>
+              {item.annotation}
+            </ItemDescription>
+          </ConteinerItemText>
+          <ItemImage
+            type={item.type}
+            source={Plant1Image}
+            resizeMode="center"
+          />
+        </ContainerItem>
+      </ContainerContent>
+    </SwipeRow>
+  );
+
   useEffect(() => {
     setList(getFormatedList(plants));
   }, [plants]);
@@ -171,14 +187,9 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
         <SwipeListView
           data={list}
           renderItem={renderItem}
-          renderHiddenItem={renderHiddenItem}
-          stopLeftSwipe={params.edit}
-          leftOpenValue={params.edit}
-          stopRightSwipe={params.finish}
-          rightOpenValue={params.finish}
-          onRowDidOpen={handleOpenRow}
           keyExtractor={(_, i) => i.toString()}
           contentContainerStyle={styles.containerStyle}
+          onRowDidOpen={handleOpenRow}
         />
       )}
     </Container>
