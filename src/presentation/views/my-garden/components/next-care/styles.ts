@@ -1,3 +1,4 @@
+import { MyGardenCardType } from '@/presentation/@types/generics';
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -38,23 +39,26 @@ export const ContainerItemTitle = styled.View`
   margin-bottom: 5px;
 `;
 
-export const ItemTitle = styled.Text`
+export const ItemTitle = styled.Text<{ type: MyGardenCardType }>`
   font-size: ${({ theme }) => theme.fonts.sizes.md};
-  color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme, type }) =>
+    type === 'incompleted' ? theme.colors.placeholder : theme.colors.secondary};
   font-family: ${({ theme }) => theme.fonts.families.medium};
   margin-left: 5px;
 `;
 
-export const ItemSubtitle = styled.Text`
+export const ItemSubtitle = styled.Text<{ type: MyGardenCardType }>`
   font-size: ${({ theme }) => theme.fonts.sizes.sm};
-  color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme, type }) =>
+    type === 'incompleted' ? theme.colors.placeholder : theme.colors.secondary};
   font-family: ${({ theme }) => theme.fonts.families.regular};
   margin-bottom: 3px;
 `;
 
-export const ItemDescription = styled.Text`
+export const ItemDescription = styled.Text<{ type: MyGardenCardType }>`
   font-size: ${({ theme }) => theme.fonts.sizes.sm};
-  color: ${({ theme }) => theme.colors.placeholder};
+  color: ${({ theme, type }) =>
+    type === 'incompleted' ? theme.colors.placeholder : theme.colors.secondary};
   font-family: ${({ theme }) => theme.fonts.families.regular};
 `;
 
@@ -96,7 +100,7 @@ export const ContainerHiddenContent = styled.View<{
 `;
 
 export const ContainerItem = styled.View<{
-  type: 'sun' | 'water';
+  type: MyGardenCardType;
 }>`
   flex-direction: row;
   align-items: center;
@@ -105,7 +109,11 @@ export const ContainerItem = styled.View<{
   height: 85px;
   border-radius: ${({ theme }) => theme.borders.border_radius_md};
   border-color: ${({ type, theme }) =>
-    type === 'sun' ? theme.colors.sun : theme.colors.water};
+    type === 'sun'
+      ? theme.colors.sun
+      : type === 'water'
+      ? theme.colors.water
+      : theme.colors.placeholder};
   border-width: 1.5px;
   border-style: dashed;
 `;

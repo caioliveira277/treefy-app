@@ -168,7 +168,7 @@ export class MyGardenViewModelImpl
   }
 
   public handleEditPlant(userPlant: UserPlantModel): void {
-    this.form = userPlant;
+    this.form = { ...userPlant };
     this.modalState = ModalState.open;
     this.notifyViewAboutChanges();
   }

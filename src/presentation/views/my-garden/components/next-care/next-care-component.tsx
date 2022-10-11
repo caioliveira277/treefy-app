@@ -17,7 +17,7 @@ import {
   ContainerHiddenContent,
   styles,
 } from './styles';
-import { getIcon } from '@/presentation/utils';
+import { getIcon, IconName } from '@/presentation/utils';
 import { RowMap, SwipeListView } from 'react-native-swipe-list-view';
 import { useTheme } from 'styled-components';
 import { UserPlantModel } from '@/domain/models';
@@ -25,6 +25,7 @@ import Plant1Image from '@assets/images/plant1.png';
 import { useEffect, useState } from 'react';
 import { NextCareLoadingComponent } from './next-care-loading-component';
 import { EmptyContentComponent } from '@/presentation/components';
+import { MyGardenCardType } from '@/presentation/@types/generics';
 
 export interface NextCareComponentProps {
   style?: StyleProp<ViewStyle>;
@@ -34,7 +35,7 @@ export interface NextCareComponentProps {
   loading: boolean;
 }
 
-type Item = { type: 'sun' | 'water'; key: string | number } & UserPlantModel;
+type Item = { type: MyGardenCardType; key: string | number } & UserPlantModel;
 
 export const NextCareComponent: React.FC<NextCareComponentProps> = ({
   style,
@@ -51,7 +52,7 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
     edit: 75,
   };
 
-  const isSun = (type: 'sun' | 'water') => type === 'sun';
+  const isSun = (type: MyGardenCardType) => type === 'sun';
 
   const renderItem = ({ item }: ListRenderItemInfo<Item>) => (
     <ContainerContent
@@ -72,18 +73,22 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
         <ConteinerItemText>
           <ContainerItemTitle>
             <Icon
-              source={isSun(item.type) ? getIcon('sun') : getIcon('water-drop')}
+              source={getIcon(item.type as IconName)}
               width={11}
               height={12}
               resizeMode="center"
             />
-            <ItemTitle>
-              {isSun(item.type) ? 'Expor ao sol' : 'Regar'}{' '}
-              {isSun(item.type) ? item.sunRange : item.waterRange}
-            </ItemTitle>
+            {item.type !== 'incompleted' ? (
+              <ItemTitle type={item.type}>
+                {isSun(item.type) ? 'Expor ao sol' : 'Regar'}{' '}
+                {isSun(item.type) ? item.sunRange : item.waterRange}
+              </ItemTitle>
+            ) : (
+              <ItemTitle type={item.type}>Nenhuma tarefa agendada</ItemTitle>
+            )}
           </ContainerItemTitle>
-          <ItemSubtitle>{item.name}</ItemSubtitle>
-          <ItemDescription>{item.annotation}</ItemDescription>
+          <ItemSubtitle type={item.type}>{item.name}</ItemSubtitle>
+          <ItemDescription type={item.type}>{item.annotation}</ItemDescription>
         </ConteinerItemText>
         <ItemImage source={Plant1Image} resizeMode="center" />
       </ContainerItem>
@@ -115,8 +120,13 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
     const result: Item[] = [];
 
     plantList.forEach((plant, i) => {
-      result.push({ ...plant, type: 'sun', key: i });
-      result.push({ ...plant, type: 'water', key: i + 1 });
+      if (plant.sunRange) result.push({ ...plant, type: 'sun', key: i });
+
+      if (plant.waterRange)
+        result.push({ ...plant, type: 'water', key: i + 1 });
+
+      if (!plant.waterRange && !plant.sunRange)
+        result.push({ ...plant, type: 'incompleted', key: i + 1 });
     });
 
     return result;
