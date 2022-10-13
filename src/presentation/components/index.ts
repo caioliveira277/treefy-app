@@ -7,3 +7,4 @@ export * from './page-loading/page-loading-component';
 export * from './toast-message/toast-message-component';
 export * from './skeleton-loading/skeleton-loading-component';
 export * from './empty-content/empty-content-component';
+export * from './search-input/search-input-component';

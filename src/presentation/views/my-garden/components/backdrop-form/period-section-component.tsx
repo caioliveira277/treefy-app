@@ -1,5 +1,6 @@
 import { RangeTimes } from '@/@types/enums';
 import { UserPlantModel } from '@/domain/models';
+import { MyGardenCardType } from '@/presentation/@types/generics';
 import {
   PickerComponent,
   PickerItemComponent,
@@ -16,7 +17,7 @@ import {
 } from './styles';
 
 export interface PeriodSectionComponentProps {
-  iconName: 'water-drop' | 'sun';
+  iconName: MyGardenCardType;
   defaultTimes: UserPlantModel['waterTimes'] | UserPlantModel['sunTimes'];
   defaultRange: UserPlantModel['waterRange'] | UserPlantModel['sunRange'];
   onChange?: (key: 'times' | 'range', value: ItemValue | number) => void;

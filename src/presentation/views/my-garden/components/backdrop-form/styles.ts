@@ -42,6 +42,25 @@ export const CustomLabelSmall = styled(Label)`
   margin: 0;
 `;
 
+export const SelectContainer = styled.View`
+  margin-bottom: 30px;
+`;
+
+export const SelectButton = styled.TouchableOpacity`
+  border-radius: ${({ theme }) => theme.borders.border_radius_sm};
+  border: 1px dashed ${({ theme }) => theme.colors.placeholder};
+  padding: 12px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SelectButtonText = styled.Text`
+  color: ${({ theme }) => theme.colors.placeholder};
+  font-size: ${({ theme }) => theme.fonts.sizes.lg};
+  font-family: ${({ theme }) => theme.fonts.families.medium};
+`;
+
 export const bottomSheetStyles = StyleSheet.create({
   bottomSheetScrollView: {
     backgroundColor: currentTheme.colors.contrast,
