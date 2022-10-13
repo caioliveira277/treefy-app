@@ -3,13 +3,13 @@ import { HomeViewModel } from '@/presentation/view-models';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BaseView } from '../base-view';
 import {
-  SearchInputComponent,
   SalutationComponent,
   CategoriesCarrouselComponent,
   InformativeContentsComponent,
 } from './components';
 import { Container, spacing } from './styles';
 import { ArticleModel, CategoryModel } from '@/domain/models';
+import { SearchInputComponent } from '@/presentation/components';
 
 export interface HomeViewProps
   extends NativeStackScreenProps<StackParamList, 'Home'> {
@@ -88,8 +88,11 @@ export class HomeView
           }
         />
         <SearchInputComponent
+          titleFontSize="xl"
           style={spacing.searchInput}
           onSubmit={(search) => this.homeViewModel.handleSearchArticles(search)}
+          placeholder="Encontre conteúdos relacionados"
+          infoMessage="Ex: Como cuidar, dicas, girassóis, adubo..."
         />
         {isArticleSearch ||
         (!loadingCategories && !categories.length) ? null : (

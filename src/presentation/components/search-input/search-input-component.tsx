@@ -8,7 +8,7 @@ import {
   InformativeText,
   Icon,
 } from './styles';
-import { useTheme } from 'styled-components';
+import { DefaultTheme, useTheme } from 'styled-components';
 import { getIcon } from '@/presentation/utils';
 import { StyleProp, ViewStyle } from 'react-native';
 import { useDebounce } from '@/presentation/hooks';
@@ -16,11 +16,17 @@ import { useDebounce } from '@/presentation/hooks';
 export interface SearchInputComponentProps {
   style?: StyleProp<ViewStyle>;
   onSubmit: (search: string) => void;
+  infoMessage?: string;
+  placeholder?: string;
+  titleFontSize: keyof DefaultTheme['fonts']['sizes'];
 }
 
 export const SearchInputComponent: React.FC<SearchInputComponentProps> = ({
   style,
   onSubmit,
+  infoMessage,
+  placeholder = '',
+  titleFontSize,
 }) => {
   const [search, setSearch] = useState('');
   const searchDebounce = useDebounce<string>(search, 500);
@@ -35,13 +41,13 @@ export const SearchInputComponent: React.FC<SearchInputComponentProps> = ({
 
   return (
     <Container style={style}>
-      <Label>Buscar:</Label>
+      <Label titleFontSize={titleFontSize}>Buscar:</Label>
       <InputContainer style={{ ...theme.shadows.sm }}>
         <Input
           onChangeText={handleInputSearch}
           value={search}
           placeholderTextColor={theme.colors.placeholder}
-          placeholder="Encontre conteúdos relacionados"
+          placeholder={placeholder}
         />
         <Button onPress={handleClear}>
           {search ? (
@@ -51,9 +57,7 @@ export const SearchInputComponent: React.FC<SearchInputComponentProps> = ({
           )}
         </Button>
       </InputContainer>
-      <InformativeText>
-        Ex: Como cuidar, dicas, girassóis, adubo...
-      </InformativeText>
+      {infoMessage ? <InformativeText>{infoMessage}</InformativeText> : null}
     </Container>
   );
 };

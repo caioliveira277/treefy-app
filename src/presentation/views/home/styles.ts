@@ -23,6 +23,8 @@ export const spacing = StyleSheet.create({
   },
   searchInput: {
     marginBottom: 30,
+    paddingRight: 20,
+    paddingLeft: 20,
   },
   carrousel: {
     marginBottom: 30,
