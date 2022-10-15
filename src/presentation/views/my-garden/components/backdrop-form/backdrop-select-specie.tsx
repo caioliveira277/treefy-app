@@ -15,6 +15,7 @@ import {
 } from './styles';
 import { SpecieModel } from '@/domain/models';
 import {
+  ButtonComponent,
   EmptyContentComponent,
   SearchInputComponent,
 } from '@/presentation/components';
@@ -28,8 +29,10 @@ export interface BackdropSelectSpecieProps {
   modalState: ModalState;
   species: SpecieModel[];
   loading: boolean;
+  haveSelected: boolean;
   onClose?: (closeState: ModalState) => void;
   onSubmit?: (search: string) => void;
+  onSelect?: (specie: SpecieModel | null) => void;
 }
 
 export const BackdropSelectSpecieComponent: React.FC<
@@ -38,8 +41,10 @@ export const BackdropSelectSpecieComponent: React.FC<
   modalState,
   species,
   loading,
+  haveSelected,
   onClose = () => null,
   onSubmit = () => null,
+  onSelect = () => null,
 }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [search, setSearch] = useState('');
@@ -60,6 +65,7 @@ export const BackdropSelectSpecieComponent: React.FC<
   const renderItem: ListRenderItem<SpecieModel> = ({ item }) => (
     <ContainerItem
       key={item.id}
+      onPress={() => onSelect(item)}
       style={{
         ...theme.shadows.sm,
         shadowOffset: {
@@ -125,6 +131,15 @@ export const BackdropSelectSpecieComponent: React.FC<
           ) : (
             <FlatList data={species} renderItem={renderItem} />
           )}
+          {haveSelected ? (
+            <ButtonComponent
+              style={styles.buttonRemoveSelection}
+              type="outline"
+              onPress={() => onSelect(null)}
+            >
+              Remover seleção
+            </ButtonComponent>
+          ) : null}
         </Container>
       </BottomSheetView>
     </BottomSheet>

@@ -18,11 +18,16 @@ import {
   SelectButton,
   SelectButtonText,
   SelectContainer,
+  ContainerItem,
+  ContainerContent,
+  ItemTitle,
+  ItemDescription,
+  ItemImage,
 } from './styles';
 import { SpecieModel, UserPlantModel } from '@/domain/models';
-import { ItemValue } from '@react-native-picker/picker/typings/Picker';
 import { PeriodSectionComponent } from './period-section-component';
 import { BackdropSelectSpecieComponent } from './backdrop-select-specie';
+import Plant1Image from '@assets/images/plant1.png';
 
 export interface BackdropFormComponentProps {
   style?: StyleProp<ViewStyle>;
@@ -33,10 +38,7 @@ export interface BackdropFormComponentProps {
   speciesLoading: boolean;
   onSubmitSpecieSearch?: (search: string) => void;
   onClose?: (closeState: ModalState) => void;
-  onChange?: (
-    key: keyof UserPlantModel,
-    value: string | number | ItemValue
-  ) => void;
+  onChange?: (key: keyof UserPlantModel, value: any) => void;
   onSubmit?: (formData: UserPlantModel) => void;
 }
 
@@ -122,19 +124,28 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
             />
             <SelectContainer>
               <CustomLabel>Selecione a espécie:</CustomLabel>
-              <SelectButton
-                onPress={() => setOpenSelectSpecie(ModalState.open)}
-              >
-                <SelectButtonText>Selecione</SelectButtonText>
-              </SelectButton>
+              {defaultData.specie ? (
+                <ContainerItem
+                  onPress={() => setOpenSelectSpecie(ModalState.open)}
+                  withBorder
+                  noMargin
+                >
+                  <ContainerContent>
+                    <ItemTitle>{defaultData.specie.name}</ItemTitle>
+                    <ItemDescription>
+                      {defaultData.specie.description}
+                    </ItemDescription>
+                  </ContainerContent>
+                  <ItemImage source={Plant1Image} />
+                </ContainerItem>
+              ) : (
+                <SelectButton
+                  onPress={() => setOpenSelectSpecie(ModalState.open)}
+                >
+                  <SelectButtonText>Selecione</SelectButtonText>
+                </SelectButton>
+              )}
             </SelectContainer>
-            <TextInputComponent
-              label="Espécie:"
-              iconName="search"
-              iconSize={16}
-              placeholderText="Encontre a espécie"
-              style={styles.input}
-            />
             <LegendComponent>Exposição ao sol:</LegendComponent>
             <CustomLabel>De quanto em quanto tempo?</CustomLabel>
             <PeriodSectionComponent
@@ -167,11 +178,16 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
         </BottomSheetScrollView>
       </BottomSheet>
       <BackdropSelectSpecieComponent
-        onSubmit={onSubmitSpecieSearch}
-        onClose={() => setOpenSelectSpecie(ModalState.close)}
         modalState={openSelectSpecie}
         loading={speciesLoading}
         species={species}
+        haveSelected={!!defaultData.specie}
+        onSubmit={onSubmitSpecieSearch}
+        onClose={() => setOpenSelectSpecie(ModalState.close)}
+        onSelect={(specie) => {
+          setOpenSelectSpecie(ModalState.close);
+          onChange('specie', specie);
+        }}
       />
     </>
   );

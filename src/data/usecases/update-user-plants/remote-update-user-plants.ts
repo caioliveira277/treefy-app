@@ -25,6 +25,7 @@ export class RemoteUpdateUserPlants implements UpdateUserPlants {
         waterRange: params?.waterRange || null,
         sunTimes: params?.sunTimes,
         sunRange: params?.sunRange || null,
+        species: params?.specie?.id || null,
       },
     };
 

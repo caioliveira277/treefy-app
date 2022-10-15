@@ -62,14 +62,19 @@ export const SelectButtonText = styled.Text`
 `;
 
 // specie
-export const ContainerItem = styled.TouchableOpacity`
+export const ContainerItem = styled.TouchableOpacity<{
+  withBorder?: boolean;
+  noMargin?: boolean;
+}>`
   background-color: ${({ theme }) => theme.colors.contrast};
   min-height: 68px;
   border-radius: ${({ theme }) => theme.borders.border_radius_md};
   padding: 10px;
   flex-direction: row;
   align-items: center;
-  margin: 0 20px 10px;
+  margin: ${({ noMargin }) => (noMargin ? '0' : '0 20px 10px')};
+  border: ${({ theme, withBorder }) =>
+    withBorder ? `1px dashed ${theme.colors.placeholder}` : 'none'};
 `;
 
 export const ContainerContent = styled.View`
@@ -122,6 +127,9 @@ export const styles = StyleSheet.create({
   },
   button: {
     marginTop: 10,
+  },
+  buttonRemoveSelection: {
+    marginTop: 30,
   },
   noPaddingX: {
     paddingLeft: 0,
