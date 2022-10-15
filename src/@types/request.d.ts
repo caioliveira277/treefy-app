@@ -129,14 +129,7 @@ export type UserPlantRequest = {
       waterRange: keyof typeof RangeTimes;
       sunTimes: number;
       sunRange: keyof typeof RangeTimes;
-      species: {
-        data: {
-          id: number;
-          attributes: {
-            name: string;
-          } | null;
-        };
-      };
+      species: SpecieRequest;
     };
   };
   meta: MetaRequest;

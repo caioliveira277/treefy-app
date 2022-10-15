@@ -65,14 +65,14 @@ export const ItemDescription = styled.Text<{ type: MyGardenCardType }>`
 export const ItemImage = styled.Image<{ type: MyGardenCardType }>`
   width: 49px;
   height: 49px;
-  border-radius: 10px;
+  border-radius: ${({ theme }) => theme.borders.border_radius_md};
   opacity: ${({ type }) => (type === 'incompleted' ? 0.6 : 1)};
 `;
 
 export const ContainerHiddenItem = styled.View`
   background-color: #f5f5f5;
   border-radius: ${({ theme }) => theme.borders.border_radius_md};
-  height: 85px;
+  min-height: 85px;
   flex-direction: row;
   justify-content: space-between;
   margin: 10px 20px;
@@ -82,7 +82,7 @@ export const ContainerHiddenItem = styled.View`
 export const ContainerContent = styled.View`
   background-color: ${({ theme }) => theme.colors.contrast};
   margin: 10px 20px;
-  height: 85px;
+  min-height: 85px;
   border-radius: ${({ theme }) => theme.borders.border_radius_md};
   overflow: hidden;
   align-items: center;

@@ -19,7 +19,7 @@ import {
   SelectButtonText,
   SelectContainer,
 } from './styles';
-import { UserPlantModel } from '@/domain/models';
+import { SpecieModel, UserPlantModel } from '@/domain/models';
 import { ItemValue } from '@react-native-picker/picker/typings/Picker';
 import { PeriodSectionComponent } from './period-section-component';
 import { BackdropSelectSpecieComponent } from './backdrop-select-specie';
@@ -29,6 +29,9 @@ export interface BackdropFormComponentProps {
   modalState: ModalState;
   defaultData: UserPlantModel;
   errors: Record<keyof UserPlantModel, string>;
+  species: SpecieModel[];
+  speciesLoading: boolean;
+  onSubmitSpecieSearch?: (search: string) => void;
   onClose?: (closeState: ModalState) => void;
   onChange?: (
     key: keyof UserPlantModel,
@@ -41,6 +44,9 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
   modalState,
   defaultData,
   errors,
+  species,
+  speciesLoading = false,
+  onSubmitSpecieSearch = () => null,
   onClose = () => null,
   onSubmit = () => null,
   onChange = () => null,
@@ -161,8 +167,11 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
         </BottomSheetScrollView>
       </BottomSheet>
       <BackdropSelectSpecieComponent
+        onSubmit={onSubmitSpecieSearch}
         onClose={() => setOpenSelectSpecie(ModalState.close)}
         modalState={openSelectSpecie}
+        loading={speciesLoading}
+        species={species}
       />
     </>
   );

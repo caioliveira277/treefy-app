@@ -1,6 +1,7 @@
-import { UserPlantModel } from '@/domain/models';
+import { SpecieModel, UserPlantModel } from '@/domain/models';
 import {
   CreateUserPlants,
+  GetSpecies,
   GetUserPlants,
   UpdateUserPlants,
 } from '@/domain/usecases';
@@ -14,6 +15,8 @@ export class MyGardenViewModelImpl
   implements MyGardenViewModel
 {
   public readonly getUserPlants: GetUserPlants;
+
+  public readonly getSpecies: GetSpecies;
 
   public readonly createUserPlants: CreateUserPlants;
 
@@ -33,14 +36,20 @@ export class MyGardenViewModelImpl
 
   public formErrors: MyGardenViewModel['formErrors'];
 
+  public species: SpecieModel[];
+
+  public getSpeciesLoading: boolean;
+
   public constructor(
     getUserPlants: GetUserPlants,
+    getSpecies: GetSpecies,
     createUserPlants: CreateUserPlants,
     updateUserPlants: UpdateUserPlants,
     validation: Validation
   ) {
     super();
     this.getUserPlants = getUserPlants;
+    this.getSpecies = getSpecies;
     this.createUserPlants = createUserPlants;
     this.updateUserPlants = updateUserPlants;
     this.validation = validation;
@@ -51,6 +60,8 @@ export class MyGardenViewModelImpl
     this.getPlantsLoading = true;
     this.form = {} as UserPlantModel;
     this.formErrors = {} as MyGardenViewModel['formErrors'];
+    this.getSpeciesLoading = true;
+    this.species = [];
   }
 
   public async handleGetPlants(): Promise<void> {
@@ -87,6 +98,11 @@ export class MyGardenViewModelImpl
 
   private handleChangeGetPlantsLoadingState(state: boolean): void {
     this.getPlantsLoading = state;
+    this.notifyViewAboutChanges();
+  }
+
+  private handleChangeGetSpeciesLoadingState(state: boolean): void {
+    this.getSpeciesLoading = state;
     this.notifyViewAboutChanges();
   }
 
@@ -165,6 +181,17 @@ export class MyGardenViewModelImpl
       'Deu tudo certo com a atualização da sua planta :)',
       'success'
     );
+  }
+
+  public async handleSearchSpecies(search: string): Promise<void> {
+    this.handleChangeGetSpeciesLoadingState(true);
+
+    const species = await this.getSpecies.byName({
+      name: search,
+    });
+
+    this.species = species;
+    this.handleChangeGetSpeciesLoadingState(false);
   }
 
   public handleEditPlant(userPlant: UserPlantModel): void {

@@ -1,6 +1,7 @@
-import { UserPlantModel } from '@/domain/models';
+import { SpecieModel, UserPlantModel } from '@/domain/models';
 import {
   CreateUserPlants,
+  GetSpecies,
   GetUserPlants,
   UpdateUserPlants,
 } from '@/domain/usecases';
@@ -13,15 +14,19 @@ export interface MyGardenViewModel extends BaseViewModel {
   createUserPlants: CreateUserPlants;
   updateUserPlants: UpdateUserPlants;
   validation: Validation;
+  getSpecies: GetSpecies;
 
   modalState: ModalState;
   userPlants: UserPlantModel[];
+  species: SpecieModel[];
   saveLoading: boolean;
   getPlantsLoading: boolean;
+  getSpeciesLoading: boolean;
 
   form: UserPlantModel;
   formErrors: Record<keyof UserPlantModel, string>;
 
+  handleSearchSpecies(search: string): Promise<void>;
   handleGetPlants(): Promise<void>;
   handleChangeModalState(state: ModalState): void;
   handleChangeForm(key: keyof UserPlantModel, value: any): void;

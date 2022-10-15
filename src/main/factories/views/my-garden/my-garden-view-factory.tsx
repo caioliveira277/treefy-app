@@ -3,6 +3,7 @@ import { MyGardenView } from '@/presentation/views';
 import { RouteProp } from '@react-navigation/native';
 import {
   makeRemoteCreateUserPlants,
+  makeRemoteGetSpecies,
   makeRemoteGetUserPlants,
   makeRemoteUpdateUserPlants,
 } from '@/main/factories/usecases';
@@ -17,6 +18,7 @@ interface MakeMyGardenViewProps {
 export const makeGardenView: React.FC<MakeMyGardenViewProps> = (props) => {
   const myGardenViewModel = new MyGardenViewModelImpl(
     makeRemoteGetUserPlants(),
+    makeRemoteGetSpecies(),
     makeRemoteCreateUserPlants(),
     makeRemoteUpdateUserPlants(),
     CompositeValidator.build([

@@ -9,7 +9,7 @@ import {
   BackdropFormComponent,
 } from './components';
 import { ModalState } from '@/presentation/@types/generics';
-import { UserPlantModel } from '@/domain/models';
+import { SpecieModel, UserPlantModel } from '@/domain/models';
 import { PageLoadingComponent } from '@/presentation/components';
 
 export interface MyGardenViewProps
@@ -25,6 +25,8 @@ export interface MyGardenViewState {
   formErrors: Record<keyof UserPlantModel, string>;
   saveLoading: boolean;
   getPlantsLoading: boolean;
+  species: SpecieModel[];
+  getSpeciesLoading: boolean;
 }
 
 export class MyGardenView
@@ -46,6 +48,8 @@ export class MyGardenView
       form: myGardenViewModel.form,
       formErrors: myGardenViewModel.formErrors,
       getPlantsLoading: myGardenViewModel.getPlantsLoading,
+      getSpeciesLoading: myGardenViewModel.getSpeciesLoading,
+      species: myGardenViewModel.species,
     };
   }
 
@@ -66,6 +70,8 @@ export class MyGardenView
       form: this.myGardenViewModel.form,
       formErrors: this.myGardenViewModel.formErrors,
       getPlantsLoading: this.myGardenViewModel.getPlantsLoading,
+      getSpeciesLoading: this.myGardenViewModel.getSpeciesLoading,
+      species: this.myGardenViewModel.species,
     });
   }
 
@@ -77,6 +83,8 @@ export class MyGardenView
       form,
       formErrors,
       getPlantsLoading,
+      species,
+      getSpeciesLoading,
     } = this.state;
     return (
       <Container>
@@ -97,7 +105,12 @@ export class MyGardenView
         <BackdropFormComponent
           modalState={modalState}
           defaultData={form}
+          species={species}
+          speciesLoading={getSpeciesLoading}
           errors={formErrors}
+          onSubmitSpecieSearch={(search) =>
+            this.myGardenViewModel.handleSearchSpecies(search)
+          }
           onChange={(key, value) =>
             this.myGardenViewModel.handleChangeForm(key, value)
           }

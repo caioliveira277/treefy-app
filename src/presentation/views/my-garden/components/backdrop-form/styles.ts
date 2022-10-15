@@ -61,6 +61,40 @@ export const SelectButtonText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.families.medium};
 `;
 
+// specie
+export const ContainerItem = styled.TouchableOpacity`
+  background-color: ${({ theme }) => theme.colors.contrast};
+  min-height: 68px;
+  border-radius: ${({ theme }) => theme.borders.border_radius_md};
+  padding: 10px;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 20px 10px;
+`;
+
+export const ContainerContent = styled.View`
+  flex: 1;
+`;
+
+export const ItemTitle = styled.Text`
+  font-size: ${({ theme }) => theme.fonts.sizes.sm};
+  color: ${({ theme }) => theme.colors.secondary};
+  font-family: ${({ theme }) => theme.fonts.families.medium};
+  margin-bottom: 5px;
+`;
+
+export const ItemDescription = styled.Text`
+  font-size: ${({ theme }) => theme.fonts.sizes.sm};
+  color: ${({ theme }) => theme.colors.secondary};
+  font-family: ${({ theme }) => theme.fonts.families.regular};
+`;
+
+export const ItemImage = styled.Image`
+  width: 49px;
+  height: 49px;
+  border-radius: ${({ theme }) => theme.borders.border_radius_md};
+`;
+
 export const bottomSheetStyles = StyleSheet.create({
   bottomSheetScrollView: {
     backgroundColor: currentTheme.colors.contrast,
@@ -75,6 +109,9 @@ export const styles = StyleSheet.create({
   input: {
     marginBottom: 25,
   },
+  search: {
+    marginBottom: 25,
+  },
   inputPeriodNumberContainer: {
     width: 80,
     marginLeft: 10,
@@ -85,5 +122,17 @@ export const styles = StyleSheet.create({
   },
   button: {
     marginTop: 10,
+  },
+  noPaddingX: {
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
+  noPaddingY: {
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
+  empty: {
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 });
