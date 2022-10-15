@@ -187,6 +187,10 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
         onSelect={(specie) => {
           setOpenSelectSpecie(ModalState.close);
           onChange('specie', specie);
+          onChange('sunTimes', specie?.sunTimes);
+          onChange('sunRange', specie?.sunRange);
+          onChange('waterTimes', specie?.waterTimes);
+          onChange('waterRange', specie?.waterRange);
         }}
       />
     </>
