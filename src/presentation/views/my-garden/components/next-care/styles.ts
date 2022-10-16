@@ -24,6 +24,22 @@ export const TextBold = styled(Description)`
   font-family: ${({ theme }) => theme.fonts.families.bold};
 `;
 
+export const ConfirmTitle = styled.Text`
+  font-size: ${({ theme }) => theme.fonts.sizes.xl};
+  color: ${({ theme }) => theme.colors.secondary};
+  font-family: ${({ theme }) => theme.fonts.families.medium};
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 10px;
+`;
+
+export const ConfirmDescription = styled.Text`
+  font-size: ${({ theme }) => theme.fonts.sizes.sm};
+  font-family: ${({ theme }) => theme.fonts.families.regular};
+  color: ${({ theme }) => theme.colors.body};
+  margin-bottom: 30px;
+`;
+
 export const Icon = styled.Image<{ width: number; height: number }>`
   width: ${({ width }) => width}px;
   height: ${({ height }) => height}px;
@@ -79,7 +95,7 @@ export const ContainerHiddenItem = styled.View`
   overflow: hidden;
 `;
 
-export const ContainerContent = styled.View`
+export const ContainerContent = styled.TouchableHighlight`
   background-color: ${({ theme }) => theme.colors.contrast};
   margin: 10px 20px;
   min-height: 85px;
@@ -87,6 +103,11 @@ export const ContainerContent = styled.View`
   overflow: hidden;
   align-items: center;
   justify-content: center;
+`;
+
+export const DeleteMask = styled.View`
+  background: ${({ theme }) => theme.colors.error};
+  flex: 1;
 `;
 
 export const ContainerHiddenContent = styled.View<{
@@ -127,5 +148,18 @@ export const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     marginTop: 20,
+  },
+  motiView: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+  },
+  withPaddingX: {
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  confirmButton: {
+    marginTop: 30,
+    marginBottom: 40,
   },
 });

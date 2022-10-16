@@ -111,7 +111,7 @@ export const BackdropSelectSpecieComponent: React.FC<
           <Container style={styles.noPaddingY}>
             <Title>Selecione a espécie</Title>
             <Description>
-              Essa seleção é opicinal e você pode mudar a qualquer momento
+              Essa seleção é opcional e você pode mudar a qualquer momento
             </Description>
             <SearchInputComponent
               style={styles.search}
