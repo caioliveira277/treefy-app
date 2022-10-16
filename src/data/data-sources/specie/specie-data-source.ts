@@ -16,9 +16,9 @@ export class SpecieDataSource implements BaseDataSource {
       description: specie.attributes.description,
       name: specie.attributes.name,
       sunTimes: specie.attributes.sunTimes,
-      sunRange: RangeTimes[specie.attributes.sunRange],
+      sunRange: specie.attributes.sunRange as RangeTimes,
       waterTimes: specie.attributes.waterTimes,
-      waterRange: RangeTimes[specie.attributes.waterRange],
+      waterRange: specie.attributes.waterRange as RangeTimes,
     }));
   }
 }
