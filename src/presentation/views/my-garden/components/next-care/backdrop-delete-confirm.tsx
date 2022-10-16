@@ -71,7 +71,20 @@ export const BackdropDeleteConfirmComponent: React.FC<
         <ContainerItem
           disabled
           withBorder
-          style={{ borderColor: theme.colors.error }}
+          style={[
+            {
+              ...theme.shadows.sm,
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.18,
+              shadowRadius: 1.0,
+
+              elevation: 1,
+            },
+            { borderColor: theme.colors.error },
+          ]}
         >
           <ContainerContent>
             <ItemTitle>{item?.name}</ItemTitle>
