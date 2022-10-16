@@ -10,3 +10,4 @@ export * from './get-user-plants/remote-get-user-plants';
 export * from './create-user-plants/remote-create-user-plants';
 export * from './update-user-plants/remote-update-user-plants';
 export * from './get-species/remote-get-species';
+export * from './delete-user-plants/remote-delete-user-plants';

@@ -75,6 +75,11 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
     setOpenConfirmDelete(ModalState.open);
   };
 
+  const handleCloseConfirmDelete = () => {
+    setConfirmDeleteItem(null);
+    setOpenConfirmDelete(ModalState.close);
+  };
+
   useEffect(() => {
     setList(getFormatedList(plants));
   }, [plants]);
@@ -124,11 +129,11 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
       <BackdropDeleteConfirmComponent
         modalState={openConfirmDelete}
         item={confirmDeleteItem}
-        onClose={() => {
-          setConfirmDeleteItem(null);
-          setOpenConfirmDelete(ModalState.close);
+        onClose={handleCloseConfirmDelete}
+        onConfirm={(item) => {
+          onDelete(item);
+          handleCloseConfirmDelete();
         }}
-        onConfirm={onDelete}
       />
     </>
   );

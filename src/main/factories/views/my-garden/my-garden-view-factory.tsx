@@ -6,6 +6,7 @@ import {
   makeRemoteGetSpecies,
   makeRemoteGetUserPlants,
   makeRemoteUpdateUserPlants,
+  makeRemoteDeleteUserPlants,
 } from '@/main/factories/usecases';
 import { AuthenticationConsumer, ToastConsumer } from '@/presentation/contexts';
 import { BuilderValidator, CompositeValidator } from '@/validations';
@@ -21,6 +22,7 @@ export const makeGardenView: React.FC<MakeMyGardenViewProps> = (props) => {
     makeRemoteGetSpecies(),
     makeRemoteCreateUserPlants(),
     makeRemoteUpdateUserPlants(),
+    makeRemoteDeleteUserPlants(),
     CompositeValidator.build([
       ...BuilderValidator.field('name').required().build(),
       ...BuilderValidator.field('sunTimes').requiredIf('sunRange').build(),

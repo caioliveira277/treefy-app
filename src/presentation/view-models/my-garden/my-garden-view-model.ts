@@ -1,6 +1,7 @@
 import { SpecieModel, UserPlantModel } from '@/domain/models';
 import {
   CreateUserPlants,
+  DeleteUserPlants,
   GetSpecies,
   GetUserPlants,
   UpdateUserPlants,
@@ -13,6 +14,7 @@ export interface MyGardenViewModel extends BaseViewModel {
   getUserPlants: GetUserPlants;
   createUserPlants: CreateUserPlants;
   updateUserPlants: UpdateUserPlants;
+  deleteUserPlants: DeleteUserPlants;
   validation: Validation;
   getSpecies: GetSpecies;
 
@@ -22,6 +24,7 @@ export interface MyGardenViewModel extends BaseViewModel {
   saveLoading: boolean;
   getPlantsLoading: boolean;
   getSpeciesLoading: boolean;
+  deletePlantLoading: boolean;
 
   form: UserPlantModel;
   formErrors: Record<keyof UserPlantModel, string>;
@@ -32,5 +35,6 @@ export interface MyGardenViewModel extends BaseViewModel {
   handleChangeForm(key: keyof UserPlantModel, value: any): void;
   handleSavePlant(): Promise<void>;
   handleUpdatePlant(): Promise<void>;
+  handleDeletePlant(plant: UserPlantModel): Promise<void>;
   handleEditPlant(selectedPlant: UserPlantModel): void;
 }

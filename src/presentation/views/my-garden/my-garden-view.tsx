@@ -27,6 +27,7 @@ export interface MyGardenViewState {
   getPlantsLoading: boolean;
   species: SpecieModel[];
   getSpeciesLoading: boolean;
+  deletePlantLoading: boolean;
 }
 
 export class MyGardenView
@@ -50,6 +51,7 @@ export class MyGardenView
       getPlantsLoading: myGardenViewModel.getPlantsLoading,
       getSpeciesLoading: myGardenViewModel.getSpeciesLoading,
       species: myGardenViewModel.species,
+      deletePlantLoading: myGardenViewModel.deletePlantLoading,
     };
   }
 
@@ -72,6 +74,7 @@ export class MyGardenView
       getPlantsLoading: this.myGardenViewModel.getPlantsLoading,
       getSpeciesLoading: this.myGardenViewModel.getSpeciesLoading,
       species: this.myGardenViewModel.species,
+      deletePlantLoading: this.myGardenViewModel.deletePlantLoading,
     });
   }
 
@@ -85,6 +88,7 @@ export class MyGardenView
       getPlantsLoading,
       species,
       getSpeciesLoading,
+      deletePlantLoading,
     } = this.state;
     return (
       <Container>
@@ -100,6 +104,9 @@ export class MyGardenView
           plants={userPlants}
           onEdit={(selectedPlant) =>
             this.myGardenViewModel.handleEditPlant(selectedPlant)
+          }
+          onDelete={(selectedPlant) =>
+            this.myGardenViewModel.handleDeletePlant(selectedPlant)
           }
         />
         <BackdropFormComponent
@@ -123,7 +130,7 @@ export class MyGardenView
             ]()
           }
         />
-        {saveLoading ? <PageLoadingComponent /> : null}
+        {saveLoading || deletePlantLoading ? <PageLoadingComponent /> : null}
       </Container>
     );
   }

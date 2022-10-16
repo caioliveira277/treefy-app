@@ -1,6 +1,7 @@
 import { SpecieModel, UserPlantModel } from '@/domain/models';
 import {
   CreateUserPlants,
+  DeleteUserPlants,
   GetSpecies,
   GetUserPlants,
   UpdateUserPlants,
@@ -22,6 +23,8 @@ export class MyGardenViewModelImpl
 
   public readonly updateUserPlants: UpdateUserPlants;
 
+  public readonly deleteUserPlants: DeleteUserPlants;
+
   public readonly validation: Validation;
 
   public modalState: ModalState;
@@ -40,11 +43,14 @@ export class MyGardenViewModelImpl
 
   public getSpeciesLoading: boolean;
 
+  public deletePlantLoading: boolean;
+
   public constructor(
     getUserPlants: GetUserPlants,
     getSpecies: GetSpecies,
     createUserPlants: CreateUserPlants,
     updateUserPlants: UpdateUserPlants,
+    deleteUserPlants: DeleteUserPlants,
     validation: Validation
   ) {
     super();
@@ -52,11 +58,13 @@ export class MyGardenViewModelImpl
     this.getSpecies = getSpecies;
     this.createUserPlants = createUserPlants;
     this.updateUserPlants = updateUserPlants;
+    this.deleteUserPlants = deleteUserPlants;
     this.validation = validation;
 
     this.userPlants = [];
     this.modalState = ModalState.close;
     this.saveLoading = false;
+    this.deletePlantLoading = false;
     this.getPlantsLoading = true;
     this.form = {} as UserPlantModel;
     this.formErrors = {} as MyGardenViewModel['formErrors'];
@@ -132,6 +140,11 @@ export class MyGardenViewModelImpl
     return validation.hasError;
   }
 
+  private handleChangeDeletePlantState(state: boolean) {
+    this.deletePlantLoading = state;
+    this.notifyViewAboutChanges();
+  }
+
   public async handleSavePlant(): Promise<void> {
     if (this.handleValidateForm()) return;
 
@@ -192,6 +205,37 @@ export class MyGardenViewModelImpl
 
     this.species = species;
     this.handleChangeGetSpeciesLoadingState(false);
+  }
+
+  public async handleDeletePlant(selectedPlant: UserPlantModel): Promise<void> {
+    this.handleChangeDeletePlantState(true);
+
+    const user =
+      this.baseView?.props.contextConsumer?.authentication?.authenticatedUser;
+
+    const deletedPlant = await this.deleteUserPlants.delete({
+      id: selectedPlant.id as number,
+      accessToken: user?.accessToken || '',
+    });
+
+    if (deletedPlant) {
+      this.userPlants = this.userPlants.filter(
+        (plant) => plant.id !== selectedPlant.id
+      );
+      this.baseView?.props.contextConsumer?.toast?.showCustom(
+        'Ok! Deletado com sucesso',
+        'Deletamos as tarefas da planta que você selecionou :)',
+        'success'
+      );
+    } else {
+      this.baseView?.props.contextConsumer?.toast?.showCustom(
+        'Oops! Algo deu errado ao deletar',
+        'Tivemos um problema para deletar a planta selecionada, tente novamente',
+        'error'
+      );
+    }
+
+    this.handleChangeDeletePlantState(false);
   }
 
   public handleEditPlant(userPlant: UserPlantModel): void {
