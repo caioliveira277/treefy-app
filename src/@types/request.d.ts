@@ -130,6 +130,8 @@ export type UserPlantRequest = {
       sunTimes: number;
       sunRange: keyof typeof RangeTimes;
       species: SpecieRequest;
+      lastSunExposure: Date | null;
+      lastWatering: Date | null;
     };
   };
   meta: MetaRequest;

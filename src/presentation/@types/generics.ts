@@ -10,4 +10,5 @@ export type MyGardenCardType = 'sun' | 'water' | 'incompleted';
 export interface MyGardenItem extends UserPlantModel {
   type: MyGardenCardType;
   key: string | number;
+  started: boolean;
 }

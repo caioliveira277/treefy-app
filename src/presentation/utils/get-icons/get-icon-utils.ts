@@ -26,7 +26,8 @@ export type IconName =
   | 'check-circle'
   | 'close'
   | 'incompleted'
-  | 'content';
+  | 'content'
+  | 'play';
 
 export const getIcon = (iconName: IconName) => {
   switch (iconName) {
@@ -86,5 +87,7 @@ export const getIcon = (iconName: IconName) => {
       return require('@assets/icons/close.png');
     case 'incompleted':
       return require('@assets/icons/incompleted.png');
+    case 'play':
+      return require('@assets/icons/play.png');
   }
 };

@@ -6,7 +6,11 @@ import React, { useEffect, useState } from 'react';
 import { NextCareLoadingComponent } from './next-care-loading-component';
 import { EmptyContentComponent } from '@/presentation/components';
 import { ItemComponent } from './item-component';
-import { ModalState, MyGardenItem } from '@/presentation/@types/generics';
+import {
+  ModalState,
+  MyGardenCardType,
+  MyGardenItem,
+} from '@/presentation/@types/generics';
 import { HiddenItemComponent } from './hidden-item-component';
 import { BackdropDeleteConfirmComponent } from './backdrop-delete-confirm';
 
@@ -37,17 +41,29 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
     edit: 75,
   };
 
+  const createItem = (
+    plant: UserPlantModel,
+    type: MyGardenCardType,
+    started: boolean
+  ) => ({
+    ...plant,
+    type,
+    key: '',
+    started,
+  });
+
   const getFormatedList = (plantList: UserPlantModel[]): MyGardenItem[] => {
     const result: MyGardenItem[] = [];
 
-    plantList.forEach((plant, i) => {
-      if (plant.sunRange) result.push({ ...plant, type: 'sun', key: i });
+    plantList.forEach((plant) => {
+      if (plant.sunRange)
+        result.push(createItem(plant, 'sun', !!plant.lastSunExposure));
 
       if (plant.waterRange)
-        result.push({ ...plant, type: 'water', key: i + 1 });
+        result.push(createItem(plant, 'water', !!plant.lastWatering));
 
       if (!plant.waterRange && !plant.sunRange)
-        result.push({ ...plant, type: 'incompleted', key: i + 1 });
+        result.push(createItem(plant, 'incompleted', false));
     });
 
     return result;
@@ -113,7 +129,7 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
                 rightOpenValue={params.finish}
                 item={props.item}
               >
-                <HiddenItemComponent />
+                <HiddenItemComponent {...props} />
                 <ItemComponent
                   {...props}
                   onLongPress={() => handleDeleteItem(props.item)}

@@ -10,4 +10,6 @@ export type UserPlantModel = {
   waterRange: RangeTimes | null;
   sunTimes: number | null;
   sunRange: RangeTimes | null;
+  lastSunExposure: Date | null;
+  lastWatering: Date | null;
 };

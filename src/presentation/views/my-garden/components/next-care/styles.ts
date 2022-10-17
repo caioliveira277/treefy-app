@@ -1,4 +1,5 @@
 import { MyGardenCardType } from '@/presentation/@types/generics';
+import { ThemeColors } from '@/presentation/themes/theme';
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -111,12 +112,16 @@ export const DeleteMask = styled.View`
 `;
 
 export const ContainerHiddenContent = styled.View<{
-  type: 'edit' | 'complete';
+  action: 'edit' | 'complete' | 'start';
+  type?: MyGardenCardType;
 }>`
-  background-color: ${({ type, theme }) =>
-    type === 'edit' ? theme.colors.edit : theme.colors.complete};
+  background-color: ${({ action, theme, type }) =>
+    theme.colors[action as keyof ThemeColors] ||
+    theme.colors[type as keyof ThemeColors] ||
+    theme.colors.placeholder};
   justify-content: center;
-  align-items: ${({ type }) => (type === 'edit' ? 'flex-start' : 'flex-end')};
+  align-items: ${({ action }) =>
+    action === 'edit' ? 'flex-start' : 'flex-end'};
   padding: 0px 30px;
   flex: 1;
 `;
