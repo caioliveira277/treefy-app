@@ -70,13 +70,15 @@ export const ItemComponent: React.FC<ItemComponentProps> = ({
                 height={12}
                 resizeMode="center"
               />
-              {item.type !== 'incompleted' ? (
+              {item.type === 'incompleted' ? (
+                <ItemTitle type={item.type}>Nenhuma tarefa agendada</ItemTitle>
+              ) : !item.started ? (
+                <ItemTitle type={item.type}>Arraste para iniciar</ItemTitle>
+              ) : (
                 <ItemTitle type={item.type}>
                   {isSun(item.type) ? 'Expor ao sol' : 'Regar'}{' '}
                   {isSun(item.type) ? item.sunRange : item.waterRange}
                 </ItemTitle>
-              ) : (
-                <ItemTitle type={item.type}>Nenhuma tarefa agendada</ItemTitle>
               )}
             </ContainerItemTitle>
             <ItemSubtitle type={item.type}>{item.name}</ItemSubtitle>

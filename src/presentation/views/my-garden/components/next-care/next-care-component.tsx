@@ -128,6 +128,7 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
                 stopRightSwipe={params.finish}
                 rightOpenValue={params.finish}
                 item={props.item}
+                swipeToOpenPercent={90}
               >
                 <HiddenItemComponent {...props} />
                 <ItemComponent
