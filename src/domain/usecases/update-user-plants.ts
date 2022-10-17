@@ -1,9 +1,10 @@
 import { RangeTimes } from '@/@types/enums';
-import { UserPlantModel } from '@/domain/models';
+import { SpecieModel, UserPlantModel } from '@/domain/models';
 
 export type UpdateUserPlantsCreateParams = {
   id: number;
   name: string;
+  specie: SpecieModel | null;
   annotation: string;
   waterTimes: number | null;
   waterRange: RangeTimes | null;

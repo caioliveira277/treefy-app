@@ -34,6 +34,7 @@ export class RemoteCreateUserPlants implements CreateUserPlants {
         waterRange: params?.waterRange || null,
         sunTimes: params?.sunTimes,
         sunRange: params?.sunRange || null,
+        species: params?.specie?.id || null,
       },
     };
 
