@@ -136,7 +136,13 @@ export const BackdropFormComponent: React.FC<BackdropFormComponentProps> = ({
                       {defaultData.specie.description}
                     </ItemDescription>
                   </ContainerContent>
-                  <ItemImage source={Plant1Image} />
+                  <ItemImage
+                    source={
+                      defaultData.specie
+                        ? { uri: defaultData.specie.image }
+                        : Plant1Image
+                    }
+                  />
                 </ContainerItem>
               ) : (
                 <SelectButton

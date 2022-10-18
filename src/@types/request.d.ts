@@ -105,6 +105,7 @@ export type SpecieRequest = {
     attributes: {
       name: string;
       description: string;
+      image: ImageRequest;
       waterTimes: number;
       waterRange: keyof typeof RangeTimes;
       sunTimes: number;

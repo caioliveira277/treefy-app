@@ -17,7 +17,8 @@ export class RemoteGetUserPlants implements GetUserPlants {
     const formatedParams: { [key: string]: string | number } = {
       'pagination[page]': params?.pagination?.page || 1,
       'pagination[pageSize]': params?.pagination?.size || 10,
-      'populate[species]': '*',
+      'populate[species][fields][0]': '*',
+      'populate[species][populate][image][fields][0]': 'url',
     };
 
     return formatedParams;

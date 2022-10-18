@@ -6,7 +6,7 @@ import {
   GetUserPlants,
   UpdateUserPlants,
 } from '@/domain/usecases';
-import { ModalState } from '@/presentation/@types/generics';
+import { ModalState, MyGardenItem } from '@/presentation/@types/generics';
 import { Validation } from '@/presentation/protocols/validation';
 import { BaseViewModel } from '../base-view-model';
 
@@ -35,6 +35,7 @@ export interface MyGardenViewModel extends BaseViewModel {
   handleChangeForm(key: keyof UserPlantModel, value: any): void;
   handleSavePlant(): Promise<void>;
   handleUpdatePlant(): Promise<void>;
-  handleDeletePlant(plant: UserPlantModel): Promise<void>;
+  handleDeletePlant(selectedPlant: UserPlantModel): Promise<void>;
+  handleFinishPlantTask(selectedPlant: MyGardenItem): Promise<void>;
   handleEditPlant(selectedPlant: UserPlantModel): void;
 }

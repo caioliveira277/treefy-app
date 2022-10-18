@@ -11,6 +11,7 @@ env:
   IDENTITYPOOLID: ${{ secrets.IDENTITYPOOLID }}
   USERPOOLWEBCLIENTID: ${{ secrets.USERPOOLWEBCLIENTID }}
   API_BASE_URL: ${{ secrets.API_BASE_URL }}
+  NODE_ENV: production
 
 jobs:
   Publish:

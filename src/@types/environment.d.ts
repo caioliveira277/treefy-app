@@ -6,6 +6,7 @@ declare global {
       IDENTITYPOOLID: string;
       USERPOOLWEBCLIENTID: string;
       API_BASE_URL: string;
+      NODE_ENV: 'development' | 'production';
     }
   }
 }

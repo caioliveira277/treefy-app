@@ -37,7 +37,6 @@ export const ItemComponent: React.FC<ItemComponentProps> = ({
   });
 
   const isSun = (type: MyGardenCardType) => type === 'sun';
-
   return (
     <ContainerContent
       key={item.id}
@@ -88,8 +87,8 @@ export const ItemComponent: React.FC<ItemComponentProps> = ({
           </ConteinerItemText>
           <ItemImage
             type={item.type}
-            source={Plant1Image}
-            resizeMode="center"
+            source={item?.specie ? { uri: item.specie.image } : Plant1Image}
+            resizeMode="cover"
           />
         </ContainerItem>
         <MotiView

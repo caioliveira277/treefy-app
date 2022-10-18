@@ -6,8 +6,9 @@ import {
   GetUserPlants,
   UpdateUserPlants,
 } from '@/domain/usecases';
-import { ModalState } from '@/presentation/@types/generics';
+import { ModalState, MyGardenItem } from '@/presentation/@types/generics';
 import { Validation } from '@/presentation/protocols/validation';
+import { Vibration } from 'react-native';
 import { BaseViewModelImpl } from '../base-view-model-impl';
 import { MyGardenViewModel } from './my-garden-view-model';
 
@@ -194,6 +195,55 @@ export class MyGardenViewModelImpl
       'Deu tudo certo com a atualização da sua planta :)',
       'success'
     );
+  }
+
+  private generateInformativeText(): string {
+    const index = Math.floor(Math.random() * (5 - 0 + 1)) + 0;
+    return [
+      'Você dá amor para a sua planta e ela retribui em beleza.',
+      'A planta te ensina a ser paciente e cuidadoso.',
+      'O cuidado com a planta é diário, porém, muito recompensador.',
+      'As plantas também se alimentam de sentimentos, cuide-as com carinho.',
+      'Cultiva as plantas com amor e receba flores de presente.',
+      'Plantar nos ensina que só podemos florir quando o solo é fértil e amigável.',
+    ][index];
+  }
+
+  public async handleFinishPlantTask(
+    selectedPlant: MyGardenItem
+  ): Promise<void> {
+    this.handleChangeSaveLoadingState(true);
+
+    Vibration.vibrate(100);
+
+    const user =
+      this.baseView?.props.contextConsumer?.authentication?.authenticatedUser;
+
+    const updatedPlant = await this.updateUserPlants.finish({
+      accessToken: user?.accessToken || '',
+      id: selectedPlant.id as number,
+      type: selectedPlant.type as 'sun' | 'water',
+    });
+
+    this.userPlants = this.userPlants.map((plant) =>
+      plant.id === selectedPlant.id ? updatedPlant : plant
+    );
+
+    this.handleChangeSaveLoadingState(false);
+
+    if (!selectedPlant.started) {
+      this.baseView?.props.contextConsumer?.toast?.showCustom(
+        'Show! Tarefa iniciada',
+        'Vamos te avisar quando for a hora de concluí-la :)',
+        'info'
+      );
+    } else {
+      this.baseView?.props.contextConsumer?.toast?.showCustom(
+        'Ótimo! Tarefa concluída :)',
+        this.generateInformativeText(),
+        'success'
+      );
+    }
   }
 
   public async handleSearchSpecies(search: string): Promise<void> {

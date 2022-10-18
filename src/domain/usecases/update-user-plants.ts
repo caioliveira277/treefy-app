@@ -13,6 +13,13 @@ export type UpdateUserPlantsCreateParams = {
   accessToken: string;
 };
 
+export type UpdateUserPlantsFinishParams = {
+  id: number;
+  accessToken: string;
+  type: 'sun' | 'water';
+};
+
 export interface UpdateUserPlants {
   update(params: UpdateUserPlantsCreateParams): Promise<UserPlantModel>;
+  finish(params: UpdateUserPlantsFinishParams): Promise<UserPlantModel>;
 }

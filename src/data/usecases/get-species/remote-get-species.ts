@@ -18,6 +18,7 @@ export class RemoteGetSpecies implements GetSpecies {
       'pagination[page]': params?.pagination?.page || 1,
       'pagination[pageSize]': params?.pagination?.size || 1,
       'filters[name][$containsi]': params?.name || '',
+      'populate[image][fields][0]': 'url',
     };
 
     return formatedParams;

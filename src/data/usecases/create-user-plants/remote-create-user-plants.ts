@@ -18,8 +18,8 @@ export class RemoteCreateUserPlants implements CreateUserPlants {
 
   private formatParams() {
     const formatedParams: { [key: string]: string | number } = {
-      'populate[species][fields][0]': 'id',
-      'populate[species][fields][1]': 'name',
+      'populate[species][fields][0]': '*',
+      'populate[species][populate][image][fields][0]': 'url',
     };
 
     return formatedParams;

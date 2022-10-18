@@ -105,6 +105,9 @@ export class MyGardenView
           onEdit={(selectedPlant) =>
             this.myGardenViewModel.handleEditPlant(selectedPlant)
           }
+          onFinish={(selectedPlant) =>
+            this.myGardenViewModel.handleFinishPlantTask(selectedPlant)
+          }
           onDelete={(selectedPlant) =>
             this.myGardenViewModel.handleDeletePlant(selectedPlant)
           }

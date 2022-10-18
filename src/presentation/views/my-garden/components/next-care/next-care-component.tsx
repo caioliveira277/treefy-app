@@ -17,7 +17,7 @@ import { BackdropDeleteConfirmComponent } from './backdrop-delete-confirm';
 export interface NextCareComponentProps {
   style?: StyleProp<ViewStyle>;
   plants: UserPlantModel[];
-  onFinish?: (selectedPlant: UserPlantModel) => void;
+  onFinish?: (selectedPlant: MyGardenItem) => void;
   onEdit?: (selectedPlant: UserPlantModel) => void;
   onDelete?: (selectedPlant: UserPlantModel) => void;
   loading: boolean;
@@ -36,9 +36,9 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
     useState<null | MyGardenItem>(null);
   const [openConfirmDelete, setOpenConfirmDelete] = useState(ModalState.close);
 
-  const params = {
-    finish: -75,
-    edit: 75,
+  const movement = {
+    right: -75,
+    left: 75,
   };
 
   const createItem = (
@@ -79,8 +79,8 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
     rowMap[rowKey].closeRow();
     const item = rowMap[rowKey].props.item;
 
-    if (params.finish === toValue) {
-      onFinish(item as UserPlantModel);
+    if (movement.right === toValue) {
+      onFinish(item as MyGardenItem);
     } else {
       onEdit(item as UserPlantModel);
     }
@@ -105,9 +105,9 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
       <Container style={style}>
         <Title>Próximos cuidados:</Title>
         <Description>
-          Arraste para o lado <TextBold>esquerdo</TextBold> para{' '}
+          Arraste para o lado <TextBold>direito</TextBold> para{' '}
           <TextBold>concluir</TextBold> e para o lado{' '}
-          <TextBold>direto</TextBold> para <TextBold>editar</TextBold>. {'\n'}
+          <TextBold>esquerdo</TextBold> para <TextBold>leftar</TextBold>. {'\n'}
           Caso queira <TextBold>excluir</TextBold>, pressione e segure o item
           desejado.
         </Description>
@@ -123,10 +123,10 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
             renderItem={(props) => (
               <SwipeRow
                 disableLeftSwipe={props.item.type === 'incompleted'}
-                stopLeftSwipe={params.edit}
-                leftOpenValue={params.edit}
-                stopRightSwipe={params.finish}
-                rightOpenValue={params.finish}
+                stopLeftSwipe={movement.left}
+                leftOpenValue={movement.left}
+                stopRightSwipe={movement.right}
+                rightOpenValue={movement.right}
                 item={props.item}
                 swipeToOpenPercent={90}
               >

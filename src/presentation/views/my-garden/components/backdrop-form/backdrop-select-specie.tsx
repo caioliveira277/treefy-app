@@ -22,7 +22,6 @@ import {
 import { FlatList, ListRenderItem } from 'react-native';
 import { useTheme } from 'styled-components';
 import { useDebounce } from '@/presentation/hooks';
-import Plant1Image from '@assets/images/plant1.png';
 import { SpeciesLoadingComponent } from './species-loading-component';
 
 export interface BackdropSelectSpecieProps {
@@ -82,7 +81,7 @@ export const BackdropSelectSpecieComponent: React.FC<
         <ItemTitle>{item.name}</ItemTitle>
         <ItemDescription>{item.description}</ItemDescription>
       </ContainerContent>
-      <ItemImage source={Plant1Image} />
+      <ItemImage source={{ uri: item.image }} />
     </ContainerItem>
   );
 
