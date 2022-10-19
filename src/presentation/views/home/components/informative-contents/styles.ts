@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import * as HomeStyles from '../../styles';
+import { StyleSheet } from 'react-native';
 
 export const Container = styled(HomeStyles.ContainerPadding)``;
 
@@ -100,26 +101,6 @@ export const CardImage = styled.Image`
   border-top-right-radius: 10px;
 `;
 
-export const CardEmptyContainer = styled.View`
-  height: 210px;
-  width: 100%;
-  margin-top: 35px;
-  align-items: center;
-  justify-content: flex-end;
-  margin-bottom: 40px;
-`;
-export const CardEmptyBackgroundImage = styled.Image`
-  width: 100%;
-  height: 210px;
-  position: absolute;
-`;
-export const CardEmptyText = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.families.regular};
-  font-size: ${({ theme }) => theme.fonts.sizes.md};
-  color: ${({ theme }) => theme.colors.secondary};
-  margin-bottom: 40px;
-`;
-
 export const CardFooterContainer = styled.View`
   flex-direction: row;
   align-items: center;
@@ -155,3 +136,9 @@ export const CardFooterRateText = styled.Text`
   font-size: ${({ theme }) => theme.fonts.sizes.sm};
   color: ${({ theme }) => theme.colors.rate_active};
 `;
+
+export const styles = StyleSheet.create({
+  empty: {
+    marginTop: 20,
+  },
+});

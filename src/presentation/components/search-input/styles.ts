@@ -1,10 +1,14 @@
-import styled from 'styled-components/native';
-import * as HomeStyles from '../../styles';
+import styled, { DefaultTheme } from 'styled-components/native';
 import * as InputComponents from '@/presentation/components/text-input/styles';
 
-export const Container = styled(HomeStyles.ContainerPadding)``;
+export const Container = styled.View``;
 
-export const Label = styled(HomeStyles.Title)`
+export const Label = styled.Text<{
+  titleFontSize: keyof DefaultTheme['fonts']['sizes'];
+}>`
+  font-family: ${({ theme }) => theme.fonts.families.medium};
+  color: ${({ theme }) => theme.colors.secondary};
+  font-size: ${({ theme, titleFontSize }) => theme.fonts.sizes[titleFontSize]};
   margin-bottom: 10px;
 `;
 

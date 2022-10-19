@@ -1,12 +1,9 @@
-import { MyGardenViewModelImpl } from '@/presentation/view-models';
-import { MyGardenView } from '@/presentation/views';
+import { makeGardenView } from '@/main/factories/views';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { MainRoutesParamsList } from '..';
 
 const Stack = createNativeStackNavigator<MainRoutesParamsList>();
 
 export const MyGardenRoutes: React.FC = () => {
-  const myGardenViewModel = new MyGardenViewModelImpl();
   return (
     <Stack.Navigator
       initialRouteName="MyGarden"
@@ -14,11 +11,7 @@ export const MyGardenRoutes: React.FC = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="MyGarden">
-        {(props) => (
-          <MyGardenView {...props} myGardenViewModel={myGardenViewModel} />
-        )}
-      </Stack.Screen>
+      <Stack.Screen name="MyGarden">{makeGardenView}</Stack.Screen>
     </Stack.Navigator>
   );
 };

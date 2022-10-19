@@ -20,12 +20,14 @@ export type IconName =
   | 'plant-active'
   | 'plant-inactive'
   | 'add-circle'
-  | 'water-drop'
+  | 'water'
   | 'sun'
   | 'edit-white'
   | 'check-circle'
   | 'close'
-  | 'content';
+  | 'incompleted'
+  | 'content'
+  | 'play';
 
 export const getIcon = (iconName: IconName) => {
   switch (iconName) {
@@ -71,8 +73,8 @@ export const getIcon = (iconName: IconName) => {
       return require('@assets/icons/navbar/plant-inactive.png');
     case 'add-circle':
       return require('@assets/icons/add-circle.png');
-    case 'water-drop':
-      return require('@assets/icons/water-drop.png');
+    case 'water':
+      return require('@assets/icons/water.png');
     case 'sun':
       return require('@assets/icons/sun.png');
     case 'check-circle':
@@ -83,5 +85,9 @@ export const getIcon = (iconName: IconName) => {
       return require('@assets/icons/content.png');
     case 'close':
       return require('@assets/icons/close.png');
+    case 'incompleted':
+      return require('@assets/icons/incompleted.png');
+    case 'play':
+      return require('@assets/icons/play.png');
   }
 };

@@ -6,6 +6,9 @@ import { RangeTimes } from '@/@types/enums';
 export class SpecieDataSource implements BaseDataSource {
   public data: SpeciesRequest['data'];
 
+  private readonly baseUrl =
+    process.env.NODE_ENV !== 'production' ? process.env.API_BASE_URL : '';
+
   constructor(data: SpeciesRequest['data']) {
     this.data = data;
   }
@@ -15,10 +18,11 @@ export class SpecieDataSource implements BaseDataSource {
       id: specie.id,
       description: specie.attributes.description,
       name: specie.attributes.name,
+      image: `${this.baseUrl}${specie.attributes.image.data.attributes.url}`,
       sunTimes: specie.attributes.sunTimes,
-      sunRange: RangeTimes[specie.attributes.sunRange],
+      sunRange: specie.attributes.sunRange as RangeTimes,
       waterTimes: specie.attributes.waterTimes,
-      waterRange: RangeTimes[specie.attributes.waterRange],
+      waterRange: specie.attributes.waterRange as RangeTimes,
     }));
   }
 }

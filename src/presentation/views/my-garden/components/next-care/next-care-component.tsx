@@ -1,128 +1,160 @@
-import { useState } from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
+import { Container, Title, Description, TextBold, styles } from './styles';
+import { RowMap, SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
+import { UserPlantModel } from '@/domain/models';
+import React, { useEffect, useState } from 'react';
+import { NextCareLoadingComponent } from './next-care-loading-component';
+import { EmptyContentComponent } from '@/presentation/components';
+import { ItemComponent } from './item-component';
 import {
-  StyleProp,
-  ViewStyle,
-  ImageSourcePropType,
-  ListRenderItemInfo,
-} from 'react-native';
-import {
-  Container,
-  Title,
-  Description,
-  TextBold,
-  ContainerHiddenItem,
-  Icon,
-  ContainerItem,
-  ItemImage,
-  ConteinerItemText,
-  ItemTitle,
-  ItemDescription,
-  ContainerItemTitle,
-  ItemSubtitle,
-  ContainerContent,
-  ContainerHiddenContent,
-} from './styles';
-import { getIcon } from '@/presentation/utils';
-import { SwipeListView } from 'react-native-swipe-list-view';
-import { useTheme } from 'styled-components';
+  ModalState,
+  MyGardenCardType,
+  MyGardenItem,
+} from '@/presentation/@types/generics';
+import { HiddenItemComponent } from './hidden-item-component';
+import { BackdropDeleteConfirmComponent } from './backdrop-delete-confirm';
+import * as Notifications from 'expo-notifications';
 
-export type TypeItem = 'water' | 'sun';
-
-export type ItemData = {
-  key: number;
-  image: ImageSourcePropType;
-  title: string;
-  time: string;
-  description: string;
-  type: TypeItem;
-};
 export interface NextCareComponentProps {
   style?: StyleProp<ViewStyle>;
-  data: ItemData[];
+  plants: UserPlantModel[];
+  onFinish?: (selectedPlant: MyGardenItem) => void;
+  onEdit?: (selectedPlant: UserPlantModel) => void;
+  onDelete?: (selectedPlant: UserPlantModel) => void;
+  loading: boolean;
 }
 
 export const NextCareComponent: React.FC<NextCareComponentProps> = ({
   style,
-  data,
+  plants,
+  loading,
+  onFinish = () => null,
+  onEdit = () => null,
+  onDelete = () => null,
 }) => {
-  const theme = useTheme();
-  const [list] = useState<ItemData[]>(data);
+  const [list, setList] = useState<MyGardenItem[]>([]);
+  const [confirmDeleteItem, setConfirmDeleteItem] =
+    useState<null | MyGardenItem>(null);
+  const [openConfirmDelete, setOpenConfirmDelete] = useState(ModalState.close);
 
-  const renderItem = ({ item }: ListRenderItemInfo<ItemData>) => (
-    <ContainerContent
-      style={{
-        ...theme.shadows.sm,
-        shadowOffset: {
-          width: 0,
-          height: 1,
-        },
-        shadowOpacity: 0.18,
-        shadowRadius: 1.0,
+  const movement = {
+    right: -75,
+    left: 75,
+  };
 
-        elevation: 1,
-      }}
-    >
-      <ContainerItem type={item.type}>
-        <ConteinerItemText>
-          <ContainerItemTitle>
-            <Icon
-              source={
-                item.type === 'sun' ? getIcon('sun') : getIcon('water-drop')
-              }
-              width={11}
-              height={11}
-              resizeMode="center"
-            />
-            <ItemTitle>
-              {item.type === 'sun' ? 'Expor ao sol' : 'Regar'} {item.time}
-            </ItemTitle>
-          </ContainerItemTitle>
-          <ItemSubtitle>{item.title}</ItemSubtitle>
-          <ItemDescription>{item.description}</ItemDescription>
-        </ConteinerItemText>
-        <ItemImage source={item.image} resizeMode="center" />
-      </ContainerItem>
-    </ContainerContent>
-  );
+  const createItem = (
+    plant: UserPlantModel,
+    type: MyGardenCardType,
+    started: boolean
+  ) => ({
+    ...plant,
+    type,
+    key: '',
+    started,
+  });
 
-  const renderHiddenItem = ({}: ListRenderItemInfo<ItemData>) => (
-    <ContainerHiddenItem>
-      <ContainerHiddenContent type="edit">
-        <Icon
-          width={18}
-          height={18}
-          source={getIcon('edit-white')}
-          resizeMode="center"
-        />
-      </ContainerHiddenContent>
-      <ContainerHiddenContent type="complete">
-        <Icon
-          width={22}
-          height={22}
-          source={getIcon('check-circle')}
-          resizeMode="center"
-        />
-      </ContainerHiddenContent>
-    </ContainerHiddenItem>
-  );
+  const getFormatedList = (plantList: UserPlantModel[]): MyGardenItem[] => {
+    const result: MyGardenItem[] = [];
+
+    plantList.forEach((plant) => {
+      if (plant.sunRange)
+        result.push(createItem(plant, 'sun', !!plant.lastSunExposure));
+
+      if (plant.waterRange)
+        result.push(createItem(plant, 'water', !!plant.lastWatering));
+
+      if (!plant.waterRange && !plant.sunRange)
+        result.push(createItem(plant, 'incompleted', false));
+    });
+
+    return result;
+  };
+
+  const handleOpenRow = (
+    rowKey: string,
+    rowMap: RowMap<MyGardenItem>,
+    toValue: number
+  ) => {
+    if (!rowMap[rowKey]) return;
+
+    rowMap[rowKey].closeRow();
+    const item = rowMap[rowKey].props.item;
+
+    if (movement.right === toValue) {
+      onFinish(item as MyGardenItem);
+    } else {
+      onEdit(item as UserPlantModel);
+    }
+  };
+
+  const handleDeleteItem = (item: MyGardenItem) => {
+    setConfirmDeleteItem(item);
+    setOpenConfirmDelete(ModalState.open);
+  };
+
+  const handleCloseConfirmDelete = () => {
+    setConfirmDeleteItem(null);
+    setOpenConfirmDelete(ModalState.close);
+  };
+
+  useEffect(() => {
+    Notifications.cancelAllScheduledNotificationsAsync().finally(() => {
+      setList(getFormatedList(plants));
+    });
+  }, [plants]);
+
   return (
-    <Container style={style}>
-      <Title>Próximos cuidados:</Title>
-      <Description>
-        Arraste para o lado <TextBold>esquerdo</TextBold> para{' '}
-        <TextBold>concluir</TextBold> e para o lado <TextBold>direto</TextBold>{' '}
-        para <TextBold>editar</TextBold>
-      </Description>
-      <SwipeListView
-        data={list}
-        renderItem={renderItem}
-        renderHiddenItem={renderHiddenItem}
-        stopLeftSwipe={75}
-        stopRightSwipe={-75}
-        contentContainerStyle={{
-          paddingBottom: 190,
+    <>
+      <Container style={style}>
+        <Title>Próximos cuidados:</Title>
+        <Description>
+          Arraste para o lado <TextBold>direito</TextBold> para{' '}
+          <TextBold>concluir</TextBold> e para o lado{' '}
+          <TextBold>esquerdo</TextBold> para <TextBold>leftar</TextBold>. {'\n'}
+          Caso queira <TextBold>excluir</TextBold>, pressione e segure o item
+          desejado.
+        </Description>
+        {loading ? (
+          <NextCareLoadingComponent />
+        ) : !loading && !plants.length ? (
+          <Container style={styles.empty}>
+            <EmptyContentComponent description="Oops! Você ainda não cadastrou nenhuma planta :(" />
+          </Container>
+        ) : (
+          <SwipeListView
+            data={list}
+            renderItem={(props) => (
+              <SwipeRow
+                disableLeftSwipe={props.item.type === 'incompleted'}
+                stopLeftSwipe={movement.left}
+                leftOpenValue={movement.left}
+                stopRightSwipe={movement.right}
+                rightOpenValue={movement.right}
+                item={props.item}
+                swipeToOpenPercent={90}
+              >
+                <HiddenItemComponent {...props} />
+                <ItemComponent
+                  {...props}
+                  onLongPress={() => handleDeleteItem(props.item)}
+                />
+              </SwipeRow>
+            )}
+            keyExtractor={(_, i) => i.toString()}
+            contentContainerStyle={styles.containerStyle}
+            onRowDidOpen={handleOpenRow}
+          />
+        )}
+      </Container>
+      <BackdropDeleteConfirmComponent
+        modalState={openConfirmDelete}
+        item={confirmDeleteItem}
+        onClose={handleCloseConfirmDelete}
+        onConfirm={(item) => {
+          onDelete(item);
+          handleCloseConfirmDelete();
         }}
       />
-    </Container>
+    </>
   );
 };

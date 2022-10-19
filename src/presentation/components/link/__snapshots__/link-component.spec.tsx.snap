@@ -60,7 +60,7 @@ exports[`LinkComponent Should match with a snapshot 1`] = `
             "rate_inactive": "#E5A6A7",
             "secondary": "#253239",
             "success": "#79AA05",
-            "sun": "#FEF3A7",
+            "sun": "#F0DE5F",
             "warning": "#C46403",
             "water": "#B0D8FE",
             "white": "#ffffff",

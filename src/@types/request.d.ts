@@ -105,6 +105,7 @@ export type SpecieRequest = {
     attributes: {
       name: string;
       description: string;
+      image: ImageRequest;
       waterTimes: number;
       waterRange: keyof typeof RangeTimes;
       sunTimes: number;
@@ -116,5 +117,28 @@ export type SpecieRequest = {
 
 export type SpeciesRequest = {
   data: SpecieRequest['data'][];
+  meta: MetaRequest;
+};
+
+export type UserPlantRequest = {
+  data: {
+    id: number;
+    attributes: {
+      name: string;
+      annotation: string;
+      waterTimes: number;
+      waterRange: keyof typeof RangeTimes;
+      sunTimes: number;
+      sunRange: keyof typeof RangeTimes;
+      species: SpecieRequest;
+      lastSunExposure: Date | null;
+      lastWatering: Date | null;
+    };
+  };
+  meta: MetaRequest;
+};
+
+export type UserPlantsRequest = {
+  data: UserPlantRequest['data'][];
   meta: MetaRequest;
 };

@@ -11,7 +11,7 @@ export const primaryTheme: DefaultTheme = {
     placeholder_light: '#EEEEEE',
     rate_active: '#D56D6D',
     rate_inactive: '#E5A6A7',
-    sun: '#FEF3A7',
+    sun: '#F0DE5F',
     water: '#B0D8FE',
     edit: '#4ABCBC',
     complete: '#4ABC86',

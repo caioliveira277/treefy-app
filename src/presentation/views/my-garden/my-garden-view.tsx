@@ -6,94 +6,28 @@ import { Container, spacing } from './styles';
 import {
   HeaderComponent,
   NextCareComponent,
-  ItemData,
   BackdropFormComponent,
 } from './components';
 import { ModalState } from '@/presentation/@types/generics';
-import Plant1Image from '@assets/images/plant1.png';
+import { SpecieModel, UserPlantModel } from '@/domain/models';
+import { PageLoadingComponent } from '@/presentation/components';
 
-// TODO: remove after implementation
-const temporaryData: ItemData[] = [
-  {
-    key: 1,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'water',
-  },
-  {
-    key: 2,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'sun',
-  },
-  {
-    key: 3,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'water',
-  },
-  {
-    key: 4,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'sun',
-  },
-  {
-    key: 5,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'water',
-  },
-  {
-    key: 6,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'sun',
-  },
-  {
-    key: 7,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'water',
-  },
-  {
-    key: 8,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'sun',
-  },
-  {
-    key: 9,
-    image: Plant1Image,
-    title: 'Primavera bougainvillea',
-    time: 'hoje ás 12:43h',
-    description: 'Vazo azul escuro ao lado da escada...',
-    type: 'water',
-  },
-];
 export interface MyGardenViewProps
   extends NativeStackScreenProps<StackParamList, 'MyGarden'> {
   myGardenViewModel: MyGardenViewModel;
+  contextConsumer: BaseView['props']['contextConsumer'];
 }
 
 export interface MyGardenViewState {
   modalState: ModalState;
+  userPlants: UserPlantModel[];
+  form: UserPlantModel;
+  formErrors: Record<keyof UserPlantModel, string>;
+  saveLoading: boolean;
+  getPlantsLoading: boolean;
+  species: SpecieModel[];
+  getSpeciesLoading: boolean;
+  deletePlantLoading: boolean;
 }
 
 export class MyGardenView
@@ -110,11 +44,20 @@ export class MyGardenView
 
     this.state = {
       modalState: ModalState.close,
+      userPlants: myGardenViewModel.userPlants,
+      saveLoading: myGardenViewModel.saveLoading,
+      form: myGardenViewModel.form,
+      formErrors: myGardenViewModel.formErrors,
+      getPlantsLoading: myGardenViewModel.getPlantsLoading,
+      getSpeciesLoading: myGardenViewModel.getSpeciesLoading,
+      species: myGardenViewModel.species,
+      deletePlantLoading: myGardenViewModel.deletePlantLoading,
     };
   }
 
   public componentDidMount(): void {
     this.myGardenViewModel.attachView(this);
+    this.myGardenViewModel.handleGetPlants();
   }
 
   public componentWillUnmount(): void {
@@ -124,26 +67,73 @@ export class MyGardenView
   public onViewModelChanged() {
     this.setState({
       modalState: this.myGardenViewModel.modalState,
+      userPlants: this.myGardenViewModel.userPlants,
+      saveLoading: this.myGardenViewModel.saveLoading,
+      form: this.myGardenViewModel.form,
+      formErrors: this.myGardenViewModel.formErrors,
+      getPlantsLoading: this.myGardenViewModel.getPlantsLoading,
+      getSpeciesLoading: this.myGardenViewModel.getSpeciesLoading,
+      species: this.myGardenViewModel.species,
+      deletePlantLoading: this.myGardenViewModel.deletePlantLoading,
     });
   }
 
   render() {
-    const { modalState } = this.state;
+    const {
+      modalState,
+      userPlants,
+      saveLoading,
+      form,
+      formErrors,
+      getPlantsLoading,
+      species,
+      getSpeciesLoading,
+      deletePlantLoading,
+    } = this.state;
     return (
       <Container>
         <HeaderComponent
           style={spacing.header}
           toggleModal={(state) =>
-            this.myGardenViewModel.handleModalState(state)
+            this.myGardenViewModel.handleChangeModalState(state)
           }
         />
-        <NextCareComponent style={spacing.nextCare} data={temporaryData} />
+        <NextCareComponent
+          style={spacing.nextCare}
+          loading={getPlantsLoading}
+          plants={userPlants}
+          onEdit={(selectedPlant) =>
+            this.myGardenViewModel.handleEditPlant(selectedPlant)
+          }
+          onFinish={(selectedPlant) =>
+            this.myGardenViewModel.handleFinishPlantTask(selectedPlant)
+          }
+          onDelete={(selectedPlant) =>
+            this.myGardenViewModel.handleDeletePlant(selectedPlant)
+          }
+        />
         <BackdropFormComponent
           modalState={modalState}
+          defaultData={form}
+          species={species}
+          speciesLoading={getSpeciesLoading}
+          errors={formErrors}
+          onSubmitSpecieSearch={(search) =>
+            this.myGardenViewModel.handleSearchSpecies(search)
+          }
+          onChange={(key, value) =>
+            this.myGardenViewModel.handleChangeForm(key, value)
+          }
           onClose={(closeState) =>
-            this.myGardenViewModel.handleModalState(closeState)
+            this.myGardenViewModel.handleChangeModalState(closeState)
+          }
+          onSubmit={(formData) =>
+            this.myGardenViewModel[
+              formData.id ? 'handleUpdatePlant' : 'handleSavePlant'
+            ]()
           }
         />
+        {saveLoading || deletePlantLoading ? <PageLoadingComponent /> : null}
       </Container>
     );
   }

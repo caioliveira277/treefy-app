@@ -5,7 +5,8 @@ import { ArticlesRequest } from '@/@types/request';
 export class ArticleDataSource implements BaseDataSource {
   public data: ArticlesRequest['data'];
 
-  private readonly baseUrl = process.env.API_BASE_URL;
+  private readonly baseUrl =
+    process.env.NODE_ENV !== 'production' ? process.env.API_BASE_URL : '';
 
   constructor(data: ArticlesRequest['data']) {
     this.data = data;
@@ -21,8 +22,8 @@ export class ArticleDataSource implements BaseDataSource {
         id: category.id,
         title: category.attributes.title,
       })),
-      banner: article.attributes.banner.data.attributes.url,
-      thumbnail: article.attributes.thumbnail.data.attributes.url,
+      banner: `${this.baseUrl}${article.attributes.banner.data.attributes.url}`,
+      thumbnail: `${this.baseUrl}${article.attributes.thumbnail.data.attributes.url}`,
       author: {
         name: `${article.attributes.updatedBy.data.attributes.firstname} ${article.attributes.updatedBy.data.attributes.lastname}`,
         createdAt: new Date(

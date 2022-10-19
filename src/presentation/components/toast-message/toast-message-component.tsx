@@ -24,7 +24,10 @@ export const ToastMessageComponent: React.FC<ToastMessageComponentProps> = ({
   const theme = useTheme();
   return (
     <Container>
-      <Toast theme={theme} style={{ ...theme.shadows.sm }}>
+      <Toast
+        theme={theme}
+        style={{ borderColor: theme.colors.placeholder_light, borderWidth: 1 }}
+      >
         <Image source={ToastBackground} resizeMode="center" />
         <Status theme={theme} type={type} />
         <Content>

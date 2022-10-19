@@ -22,6 +22,7 @@ import {
   CardContainerColumnImage,
   CardImageBackground,
   CardImage,
+  styles,
 } from './styles';
 import { formatDateTime, getIcon } from '@/presentation/utils';
 import { useTheme } from 'styled-components';
@@ -29,7 +30,7 @@ import backgroundCardIlustration from '@assets/images/background-card-ilustratio
 import { StyleProp, ViewStyle } from 'react-native';
 import { ArticleModel } from '@/domain/models';
 import { InformativeContentsLoading } from './informative-contents-loading';
-import { InformativeContentsEmpty } from './informative-contents-empty';
+import { EmptyContentComponent } from '@/presentation/components';
 
 export interface InformativeContentsComponentProps {
   style?: StyleProp<ViewStyle>;
@@ -49,8 +50,11 @@ export const InformativeContentsComponent: React.FC<
 
       {loading ? (
         <InformativeContentsLoading />
-      ) : !articles.length ? (
-        <InformativeContentsEmpty />
+      ) : !loading && !articles.length ? (
+        <EmptyContentComponent
+          style={styles.empty}
+          description="Oops! Nenhum conteúdo encontrado :("
+        />
       ) : (
         articles.map((article) => (
           <TransparentContainer key={article.id}>

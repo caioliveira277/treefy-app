@@ -5,7 +5,8 @@ import { CategoriesRequest } from '@/@types/request';
 export class CategoryDataSource implements BaseDataSource {
   public data: CategoriesRequest['data'];
 
-  private readonly baseUrl = process.env.API_BASE_URL;
+  private readonly baseUrl =
+    process.env.NODE_ENV !== 'production' ? process.env.API_BASE_URL : '';
 
   constructor(data: CategoriesRequest['data']) {
     this.data = data;
@@ -17,7 +18,7 @@ export class CategoryDataSource implements BaseDataSource {
       createdAt: new Date(category.attributes.createdAt),
       updatedAt: new Date(category.attributes.updatedAt),
       title: category.attributes.title,
-      image: category.attributes.image.data.attributes.url,
+      image: `${this.baseUrl}${category.attributes.image.data.attributes.url}`,
     }));
   }
 }
