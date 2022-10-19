@@ -110,7 +110,7 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
         <Description>
           Arraste para o lado <TextBold>direito</TextBold> para{' '}
           <TextBold>concluir</TextBold> e para o lado{' '}
-          <TextBold>esquerdo</TextBold> para <TextBold>leftar</TextBold>. {'\n'}
+          <TextBold>esquerdo</TextBold> para <TextBold>editar</TextBold>. {'\n'}
           Caso queira <TextBold>excluir</TextBold>, pressione e segure o item
           desejado.
         </Description>
