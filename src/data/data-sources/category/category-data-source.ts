@@ -6,7 +6,7 @@ export class CategoryDataSource implements BaseDataSource {
   public data: CategoriesRequest['data'];
 
   private readonly baseUrl =
-    process.env.NODE_ENV !== 'production' ? process.env.API_BASE_URL : '';
+    process.env.NODE_ENV === 'dev' ? process.env.API_BASE_URL : '';
 
   constructor(data: CategoriesRequest['data']) {
     this.data = data;
