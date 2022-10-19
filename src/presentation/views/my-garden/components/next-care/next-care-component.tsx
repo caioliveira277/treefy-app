@@ -13,6 +13,7 @@ import {
 } from '@/presentation/@types/generics';
 import { HiddenItemComponent } from './hidden-item-component';
 import { BackdropDeleteConfirmComponent } from './backdrop-delete-confirm';
+import * as Notifications from 'expo-notifications';
 
 export interface NextCareComponentProps {
   style?: StyleProp<ViewStyle>;
@@ -97,7 +98,9 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
   };
 
   useEffect(() => {
-    setList(getFormatedList(plants));
+    Notifications.cancelAllScheduledNotificationsAsync().finally(() => {
+      setList(getFormatedList(plants));
+    });
   }, [plants]);
 
   return (

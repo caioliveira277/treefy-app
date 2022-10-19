@@ -1,5 +1,9 @@
 import { MyGardenCardType, MyGardenItem } from '@/presentation/@types/generics';
-import { getIcon, IconName } from '@/presentation/utils';
+import {
+  formatDateTimeToComplete,
+  getIcon,
+  IconName,
+} from '@/presentation/utils';
 import { MotiView, useAnimationState } from 'moti';
 import { ListRenderItemInfo } from 'react-native';
 import { useTheme } from 'styled-components';
@@ -17,6 +21,8 @@ import {
   ItemTitle,
   styles,
 } from './styles';
+import { useCallback, useEffect, useState } from 'react';
+import * as Notifications from 'expo-notifications';
 
 export interface ItemComponentProps extends ListRenderItemInfo<MyGardenItem> {
   onLongPress?: () => void;
@@ -26,6 +32,7 @@ export const ItemComponent: React.FC<ItemComponentProps> = ({
   item,
   onLongPress = () => null,
 }) => {
+  const [currentTime, setCurrentTime] = useState('');
   const theme = useTheme();
   const pressAnimated = useAnimationState({
     pressOut: {
@@ -37,6 +44,47 @@ export const ItemComponent: React.FC<ItemComponentProps> = ({
   });
 
   const isSun = (type: MyGardenCardType) => type === 'sun';
+
+  const updateTime = useCallback(() => {
+    setCurrentTime(
+      isSun(item.type)
+        ? formatDateTimeToComplete(
+            item.lastSunExposure,
+            item.sunTimes,
+            item.sunRange
+          ).distance
+        : formatDateTimeToComplete(
+            item.lastWatering,
+            item.waterTimes,
+            item.waterRange
+          ).distance
+    );
+  }, []);
+
+  useEffect(() => {
+    const intervalID = setInterval(updateTime, 10000);
+    updateTime();
+    return () => clearInterval(intervalID);
+  }, [updateTime]);
+
+  useEffect(() => {
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: `Oba! Já é hora de cuidar da sua plantinha 🌱`,
+        body: `A ${item.name} precisa ${
+          isSun(item.type) ? 'tomar sol' : 'ser regada'
+        } agora!`,
+      },
+      trigger: {
+        date: formatDateTimeToComplete(
+          item.lastSunExposure,
+          item.sunTimes,
+          item.sunRange
+        ).dateTime,
+      },
+    });
+  }, [item]);
+
   return (
     <ContainerContent
       key={item.id}
@@ -75,8 +123,8 @@ export const ItemComponent: React.FC<ItemComponentProps> = ({
                 <ItemTitle type={item.type}>Arraste para iniciar</ItemTitle>
               ) : (
                 <ItemTitle type={item.type}>
-                  {isSun(item.type) ? 'Expor ao sol' : 'Regar'}{' '}
-                  {isSun(item.type) ? item.sunRange : item.waterRange}
+                  {isSun(item.type) ? 'Expor ao sol' : 'Regar'}
+                  {!currentTime ? ' agora!' : ` daqui a: ${currentTime}`}
                 </ItemTitle>
               )}
             </ContainerItemTitle>

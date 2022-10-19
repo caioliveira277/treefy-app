@@ -21,6 +21,7 @@ import {
   RobotoSlab_700Bold,
 } from '@expo-google-fonts/roboto-slab';
 import { AccountModel } from '@/domain/models';
+import { registerForPushNotificationsAsync } from './factories/services';
 
 AWSCognitoIdentityProvider.configure();
 SplashScreen.preventAutoHideAsync();
@@ -39,6 +40,7 @@ function App() {
 
   useEffect(() => {
     if (!fontsLoaded) return;
+    registerForPushNotificationsAsync();
     async function prepare() {
       try {
         const user = await remoteAuthentication.getAuthenticatedUser();
