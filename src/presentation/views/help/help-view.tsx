@@ -16,6 +16,9 @@ import {
 import { currentTheme } from '@/presentation/themes';
 import { ButtonComponent, LinkComponent } from '@/presentation/components';
 import { BaseView } from '../base-view';
+import { TREEFY_SUPPORT } from '@/presentation/constants';
+import { Linking } from 'react-native';
+import * as MailComposer from 'expo-mail-composer';
 
 export interface HelpViewProps
   extends NativeStackScreenProps<StackParamList, 'Help'> {
@@ -66,15 +69,14 @@ export class HelpView
               color={currentTheme.colors.body}
               fontSize={currentTheme.fonts.sizes.sm}
               style={spacing.link}
+              onPress={() =>
+                MailComposer.composeAsync({
+                  recipients: [TREEFY_SUPPORT.email],
+                  subject: 'Ajuda - contato via App',
+                })
+              }
             >
-              contato@treefy.com.br
-            </LinkComponent>
-            <LinkComponent
-              color={currentTheme.colors.body}
-              fontSize={currentTheme.fonts.sizes.sm}
-              style={spacing.link}
-            >
-              sugestoes@treefy.com.br
+              {TREEFY_SUPPORT.email}
             </LinkComponent>
           </ContainerLink>
         </ContainerComunicationChannel>
@@ -88,15 +90,25 @@ export class HelpView
               color={currentTheme.colors.body}
               fontSize={currentTheme.fonts.sizes.sm}
               style={spacing.link}
+              onPress={() =>
+                Linking.openURL(
+                  `http://api.whatsapp.com/send?phone=55${TREEFY_SUPPORT.cel1}`
+                )
+              }
             >
-              (39) 9 8781-8187
+              {TREEFY_SUPPORT.cel1}
             </LinkComponent>
             <LinkComponent
               color={currentTheme.colors.body}
               fontSize={currentTheme.fonts.sizes.sm}
               style={spacing.link}
+              onPress={() =>
+                Linking.openURL(
+                  `http://api.whatsapp.com/send?phone=55${TREEFY_SUPPORT.cel2}`
+                )
+              }
             >
-              (39) 3030-3030
+              {TREEFY_SUPPORT.cel2}
             </LinkComponent>
           </ContainerLink>
         </ContainerComunicationChannel>

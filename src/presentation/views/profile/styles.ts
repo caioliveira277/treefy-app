@@ -6,7 +6,7 @@ export const Separator = styled.View`
   height: 0.5px;
   background: ${({ theme }) => theme.colors.placeholder_light};
   align-self: center;
-  margin: 40px 0px;
+  margin: 40px 0px 30px;
 `;
 
 export const spacing = StyleSheet.create({

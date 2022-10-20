@@ -54,7 +54,8 @@
     "styled-components": "^5.3.5",
     "expo-linking": "~3.0.0",
     "expo-notifications": "~0.14.0",
-    "expo-device": "~4.1.0"
+    "expo-device": "~4.1.0",
+    "expo-mail-composer": "~11.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

@@ -57,12 +57,15 @@ export class ProfileView
   }
 
   render() {
-    const username =
-      this.props.contextConsumer?.authentication?.authenticatedUser.name || '';
+    const user = this.props.contextConsumer?.authentication?.authenticatedUser;
 
     const { countFeedback, viewedArticles, statusLoading } = this.state;
     return (
-      <ProfileLayout title={username} image={getProfile(username)} imageRounded>
+      <ProfileLayout
+        title={user?.name || ''}
+        image={getProfile(user?.name || '')}
+        imageRounded
+      >
         <StatusComponent
           countFeedback={countFeedback}
           viewedArticles={viewedArticles}
@@ -70,6 +73,7 @@ export class ProfileView
         />
         <Separator />
         <NavigationComponent
+          user={user}
           onPress={(routeName) =>
             this.profileViewModel.handleNavigation(routeName)
           }
