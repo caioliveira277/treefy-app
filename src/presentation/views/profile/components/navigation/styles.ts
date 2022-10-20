@@ -53,6 +53,6 @@ export const Description = styled.Text`
 export const ArrowIcon = styled.Image`
   width: 7px;
   height: 15px;
-  right: 14px;
+  right: 18px;
   position: absolute;
 `;

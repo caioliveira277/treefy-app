@@ -21,7 +21,7 @@ export const StatusItemContainer = styled.View`
   justify-content: center;
   position: relative;
   margin: 0px 15px;
-  padding-bottom: 25px;
+  padding-bottom: 10px;
 `;
 
 export const StatusTitle = styled.Text`
