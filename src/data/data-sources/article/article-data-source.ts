@@ -6,7 +6,7 @@ export class ArticleDataSource implements BaseDataSource {
   public data: ArticlesRequest['data'];
 
   private readonly baseUrl =
-    process.env.NODE_ENV === 'dev' ? process.env.API_BASE_URL : '';
+    process.env.MODE === 'dev' ? process.env.API_BASE_URL : '';
 
   constructor(data: ArticlesRequest['data']) {
     this.data = data;

@@ -59,7 +59,7 @@ export const ItemComponent: React.FC<ItemComponentProps> = ({
             item.waterRange
           ).distance
     );
-  }, []);
+  }, [item]);
 
   useEffect(() => {
     const intervalID = setInterval(updateTime, 10000);
