@@ -15,7 +15,7 @@ export interface HomeViewModel extends BaseViewModel {
   loadingCategories: boolean;
 
   handleSelectCategory(selectedCategoryId: number): void;
-  handleGetCategories(): Promise<void>;
+  handleGetCategories(page?: number): Promise<void>;
   handleGetArticles(): Promise<void>;
   handleSearchArticles(search: string): Promise<void>;
   handleNavigateToArticle(articleId: number): void;

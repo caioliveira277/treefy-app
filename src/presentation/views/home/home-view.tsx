@@ -103,6 +103,9 @@ export class HomeView
               this.homeViewModel.handleSelectCategory(categoryId);
               this.homeViewModel.handleGetArticles();
             }}
+            onLoadMoreData={(page) =>
+              this.homeViewModel.handleGetCategories(page)
+            }
             loading={loadingCategories}
             style={spacing.carrousel}
           />

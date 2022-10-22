@@ -10,9 +10,10 @@ import {
   ActivePoint,
   customStyle,
 } from './styles';
-import { StyleProp, ViewStyle } from 'react-native';
+import { FlatList, StyleProp, ViewStyle } from 'react-native';
 import { CategoryModel } from '@/domain/models';
 import { CategoriesCarouselLoading } from './categories-carousel-loading';
+import { useState } from 'react';
 
 export interface CategoriesCarrouselComponentProps {
   style?: StyleProp<ViewStyle>;
@@ -20,13 +21,21 @@ export interface CategoriesCarrouselComponentProps {
   loading: boolean;
   selectedCategoryId: number | null;
   onSelectCategory: (categoryId: number) => void;
+  onLoadMoreData: (page: number) => void;
 }
 
 export const CategoriesCarrouselComponent: React.FC<
   CategoriesCarrouselComponentProps
-> = ({ style, categories, onSelectCategory, loading, selectedCategoryId }) => {
+> = ({
+  style,
+  categories,
+  onSelectCategory,
+  loading,
+  selectedCategoryId,
+  onLoadMoreData,
+}) => {
   const theme = useTheme();
-
+  const [currentPage, setCurrentPage] = useState(1);
   const handleSelectItem = (id: number) => {
     onSelectCategory(id);
   };
@@ -37,11 +46,23 @@ export const CategoriesCarrouselComponent: React.FC<
   return (
     <Container style={style}>
       <Title>Categorias</Title>
-      <Corrousel horizontal={true} showsHorizontalScrollIndicator={false}>
-        {loading ? (
+      {loading ? (
+        <Corrousel horizontal={true}>
           <CategoriesCarouselLoading />
-        ) : (
-          categories.map((item, index) => (
+        </Corrousel>
+      ) : (
+        <FlatList
+          contentContainerStyle={{ paddingBottom: 8 }}
+          data={categories}
+          horizontal={true}
+          showsHorizontalScrollIndicator={true}
+          onEndReached={() => {
+            const page = currentPage + 1;
+            setCurrentPage(page);
+            onLoadMoreData(page);
+          }}
+          onEndReachedThreshold={0.1}
+          renderItem={({ item, index }) => (
             <ItemContainer
               active={isActive(item.id)}
               style={isLast(index) ? customStyle.lastItem : customStyle.item}
@@ -61,9 +82,9 @@ export const CategoriesCarrouselComponent: React.FC<
               <ItemText active={isActive(item.id)}>{item.title}</ItemText>
               {isActive(item.id) ? <ActivePoint /> : null}
             </ItemContainer>
-          ))
-        )}
-      </Corrousel>
+          )}
+        />
+      )}
     </Container>
   );
 };

@@ -52,13 +52,21 @@ export class HomeViewModelImpl
     this.notifyViewAboutChanges();
   }
 
-  public async handleGetCategories(): Promise<void> {
-    this.handleSetCategoriesLoading(true);
+  public async handleGetCategories(page?: number): Promise<void> {
+    if (!page) {
+      this.handleSetCategoriesLoading(true);
+    }
 
-    const categories = await this.getCategories.all();
-    this.categories = categories;
+    const categories = await this.getCategories.all({
+      pagination: {
+        page,
+      },
+    });
+    this.categories.push(...categories);
 
-    this.handleSelectCategory(categories[0]?.id);
+    if (!this.selectedCategoryId) {
+      this.handleSelectCategory(categories[0]?.id);
+    }
     this.handleSetCategoriesLoading(false);
   }
 
