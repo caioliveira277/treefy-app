@@ -45,6 +45,7 @@ export const CategoriesCarrouselComponent: React.FC<
 }) => {
   const theme = useTheme();
   const [currentPage, setCurrentPage] = useState(1);
+
   const handleSelectItem = (id: number) => {
     onSelectCategory(id);
   };
@@ -76,6 +77,7 @@ export const CategoriesCarrouselComponent: React.FC<
           <FlatList
             contentContainerStyle={{ paddingBottom: 8 }}
             data={categories}
+            initialNumToRender={5}
             horizontal={true}
             showsHorizontalScrollIndicator={true}
             onEndReached={() => {

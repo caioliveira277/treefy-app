@@ -17,8 +17,6 @@ export class HomeViewModelImpl
 
   public articles: ArticleModel[];
 
-  public isArticleSearch: boolean;
-
   public loadingArticles: boolean;
 
   public loadingCategories: boolean;
@@ -26,6 +24,8 @@ export class HomeViewModelImpl
   public selectedCategoryId: number | null;
 
   public hideCategories: boolean;
+
+  public search: string;
 
   constructor(
     getCategories: GetCategories,
@@ -39,10 +39,10 @@ export class HomeViewModelImpl
     this.categories = [];
     this.selectedCategoryId = null;
     this.articles = [];
-    this.isArticleSearch = false;
     this.loadingArticles = true;
     this.loadingCategories = true;
     this.hideCategories = false;
+    this.search = '';
   }
 
   private handleSetArticlesLoading(state: boolean): void {
@@ -79,6 +79,7 @@ export class HomeViewModelImpl
 
   public async handleGetArticles(page?: number): Promise<void> {
     if (!page) {
+      this.articles = [];
       this.handleSetArticlesLoading(true);
     }
 
@@ -89,6 +90,7 @@ export class HomeViewModelImpl
           page,
         },
       });
+
       this.articles.push(...articles);
     } else {
       this.articles = [];
@@ -97,19 +99,31 @@ export class HomeViewModelImpl
     this.handleSetArticlesLoading(false);
   }
 
-  public async handleSearchArticles(search: string): Promise<void> {
+  public async handleSearchArticles(
+    search: string,
+    page?: number
+  ): Promise<void> {
+    this.search = search;
+    this.notifyViewAboutChanges();
+
     if (!search) {
-      this.isArticleSearch = false;
       await this.handleGetArticles();
       return;
     }
-    this.handleSetArticlesLoading(true);
+
+    if (!page) {
+      this.handleSetArticlesLoading(true);
+      this.articles = [];
+    }
+
     const articles = await this.getArticles.allBySearch({
       search,
+      pagination: {
+        page,
+      },
     });
 
-    this.articles = articles;
-    this.isArticleSearch = true;
+    this.articles.push(...articles);
     this.handleSetArticlesLoading(false);
   }
 

@@ -142,7 +142,9 @@ export const CardFooterRateText = styled.Text`
 
 export const styles = StyleSheet.create({
   empty: {
-    marginTop: 20,
+    marginTop: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   containerList: { paddingLeft: 20, paddingRight: 20 },
 });

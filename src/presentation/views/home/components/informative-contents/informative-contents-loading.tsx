@@ -1,4 +1,5 @@
 import { SkeletonLoadingComponent } from '@/presentation/components';
+import { styles } from './styles';
 
 export const InformativeContentsLoading: React.FC = () => {
   const quantity = 2;
@@ -19,6 +20,7 @@ export const InformativeContentsLoading: React.FC = () => {
               },
             ]}
             show={true}
+            containerStyle={styles.containerList}
           />
         ))}
     </>

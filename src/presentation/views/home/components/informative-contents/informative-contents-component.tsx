@@ -31,7 +31,7 @@ import { FlatList, StyleProp, ViewStyle } from 'react-native';
 import { ArticleModel } from '@/domain/models';
 import { InformativeContentsLoading } from './informative-contents-loading';
 import { EmptyContentComponent } from '@/presentation/components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface InformativeContentsComponentProps {
   style?: StyleProp<ViewStyle>;
@@ -40,6 +40,8 @@ export interface InformativeContentsComponentProps {
   loading: boolean;
   onLoadMoreData: (page: number) => void;
   onMoveScroll?: (positionY: number) => void;
+  selectedCategoryId: number | null;
+  search: string;
 }
 
 export const InformativeContentsComponent: React.FC<
@@ -51,9 +53,15 @@ export const InformativeContentsComponent: React.FC<
   loading,
   onMoveScroll = () => null,
   onLoadMoreData,
+  selectedCategoryId,
+  search,
 }) => {
   const theme = useTheme();
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategoryId, search]);
 
   return (
     <Container style={style}>
@@ -71,6 +79,7 @@ export const InformativeContentsComponent: React.FC<
           data={articles}
           keyExtractor={(item) => String(item.id)}
           contentContainerStyle={styles.containerList}
+          initialNumToRender={3}
           onEndReached={() => {
             const page = currentPage + 1;
             setCurrentPage(page);
