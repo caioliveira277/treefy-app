@@ -25,6 +25,8 @@ export class HomeViewModelImpl
 
   public selectedCategoryId: number | null;
 
+  public hideCategories: boolean;
+
   constructor(
     getCategories: GetCategories,
     getArticles: GetArticles,
@@ -40,6 +42,7 @@ export class HomeViewModelImpl
     this.isArticleSearch = false;
     this.loadingArticles = true;
     this.loadingCategories = true;
+    this.hideCategories = false;
   }
 
   private handleSetArticlesLoading(state: boolean): void {
@@ -74,14 +77,19 @@ export class HomeViewModelImpl
     this.selectedCategoryId = selectedCategoryId;
   }
 
-  public async handleGetArticles(): Promise<void> {
-    this.handleSetArticlesLoading(true);
+  public async handleGetArticles(page?: number): Promise<void> {
+    if (!page) {
+      this.handleSetArticlesLoading(true);
+    }
 
     if (this.selectedCategoryId) {
       const articles = await this.getArticles.allByCategoryId({
         categoryId: this.selectedCategoryId,
+        pagination: {
+          page,
+        },
       });
-      this.articles = articles;
+      this.articles.push(...articles);
     } else {
       this.articles = [];
     }
@@ -115,5 +123,10 @@ export class HomeViewModelImpl
         },
       },
     });
+  }
+
+  public handleChangeHideCategoriesState(state: boolean): void {
+    this.hideCategories = state;
+    this.notifyViewAboutChanges();
   }
 }

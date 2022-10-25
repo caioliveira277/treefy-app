@@ -27,22 +27,33 @@ import {
 import { formatDateTime, getIcon } from '@/presentation/utils';
 import { useTheme } from 'styled-components';
 import backgroundCardIlustration from '@assets/images/background-card-ilustration.png';
-import { StyleProp, ViewStyle } from 'react-native';
+import { FlatList, StyleProp, ViewStyle } from 'react-native';
 import { ArticleModel } from '@/domain/models';
 import { InformativeContentsLoading } from './informative-contents-loading';
 import { EmptyContentComponent } from '@/presentation/components';
+import { useState } from 'react';
 
 export interface InformativeContentsComponentProps {
   style?: StyleProp<ViewStyle>;
   onPress: (articleId: number) => void;
   articles: ArticleModel[];
   loading: boolean;
+  onLoadMoreData: (page: number) => void;
+  onMoveScroll?: (positionY: number) => void;
 }
 
 export const InformativeContentsComponent: React.FC<
   InformativeContentsComponentProps
-> = ({ style, onPress, articles, loading }) => {
+> = ({
+  style,
+  onPress,
+  articles,
+  loading,
+  onMoveScroll = () => null,
+  onLoadMoreData,
+}) => {
   const theme = useTheme();
+  const [currentPage, setCurrentPage] = useState(1);
 
   return (
     <Container style={style}>
@@ -56,71 +67,83 @@ export const InformativeContentsComponent: React.FC<
           description="Oops! Nenhum conteúdo encontrado :("
         />
       ) : (
-        articles.map((article) => (
-          <TransparentContainer key={article.id}>
-            <CardContainer
-              activeOpacity={0.8}
-              style={{ ...theme.shadows.sm }}
-              onPress={() => onPress(article.id)}
-            >
-              <CardContainerColumnContent>
-                <CardTitle>{article.title}</CardTitle>
-                <CardDescription>{article.description}</CardDescription>
-                <CardAuthor>Autor: {article.author.name}</CardAuthor>
-                <CardCategoriesContainer>
-                  <CardCategoriesTitle>Categorias:</CardCategoriesTitle>
-                  <CardCategoriesItemsContainer>
-                    {article.categories.map((category, categoryIndex) => (
-                      <CardCategoriesItemWrap key={category.id}>
-                        <CardCategoriesItem>
-                          {category.title}
-                        </CardCategoriesItem>
-                        {article.categories.length ===
-                        categoryIndex + 1 ? null : (
-                          <CardCategoriesItemPoint />
-                        )}
-                      </CardCategoriesItemWrap>
-                    ))}
-                  </CardCategoriesItemsContainer>
-                </CardCategoriesContainer>
-              </CardContainerColumnContent>
-              <CardContainerColumnImage>
-                <CardImageBackground
-                  source={backgroundCardIlustration}
-                  resizeMode="center"
-                />
-                <CardImage
-                  source={{
-                    uri: article.thumbnail,
-                  }}
-                  resizeMode="center"
-                />
-              </CardContainerColumnImage>
-              <CardFooterContainer>
-                <CardFooterDateContainer>
-                  <CardFooterIcon
-                    source={getIcon('calendar')}
+        <FlatList
+          data={articles}
+          keyExtractor={(item) => String(item.id)}
+          contentContainerStyle={styles.containerList}
+          onEndReached={() => {
+            const page = currentPage + 1;
+            setCurrentPage(page);
+            onLoadMoreData(page);
+          }}
+          onScroll={({ nativeEvent }) =>
+            onMoveScroll(nativeEvent.contentOffset.y)
+          }
+          onEndReachedThreshold={0.1}
+          renderItem={({ item }) => (
+            <TransparentContainer>
+              <CardContainer
+                activeOpacity={0.8}
+                style={{ ...theme.shadows.sm }}
+                onPress={() => onPress(item.id)}
+              >
+                <CardContainerColumnContent>
+                  <CardTitle>{item.title}</CardTitle>
+                  <CardDescription>{item.description}</CardDescription>
+                  <CardAuthor>Autor: {item.author.name}</CardAuthor>
+                  <CardCategoriesContainer>
+                    <CardCategoriesTitle>Categorias:</CardCategoriesTitle>
+                    <CardCategoriesItemsContainer>
+                      {item.categories.map((category, categoryIndex) => (
+                        <CardCategoriesItemWrap key={category.id}>
+                          <CardCategoriesItem>
+                            {category.title}
+                          </CardCategoriesItem>
+                          {item.categories.length ===
+                          categoryIndex + 1 ? null : (
+                            <CardCategoriesItemPoint />
+                          )}
+                        </CardCategoriesItemWrap>
+                      ))}
+                    </CardCategoriesItemsContainer>
+                  </CardCategoriesContainer>
+                </CardContainerColumnContent>
+                <CardContainerColumnImage>
+                  <CardImageBackground
+                    source={backgroundCardIlustration}
                     resizeMode="center"
                   />
-                  <CardFooterDateText>
-                    {formatDateTime(article.publishedAt)}
-                  </CardFooterDateText>
-                </CardFooterDateContainer>
-                <CardFooterRateContainer>
-                  <CardFooterIcon
-                    source={getIcon('rate')}
+                  <CardImage
+                    source={{
+                      uri: item.thumbnail,
+                    }}
                     resizeMode="center"
                   />
-                  <CardFooterRateText>
-                    {article.averageRating === null
-                      ? '-'
-                      : article.averageRating}
-                  </CardFooterRateText>
-                </CardFooterRateContainer>
-              </CardFooterContainer>
-            </CardContainer>
-          </TransparentContainer>
-        ))
+                </CardContainerColumnImage>
+                <CardFooterContainer>
+                  <CardFooterDateContainer>
+                    <CardFooterIcon
+                      source={getIcon('calendar')}
+                      resizeMode="center"
+                    />
+                    <CardFooterDateText>
+                      {formatDateTime(item.publishedAt)}
+                    </CardFooterDateText>
+                  </CardFooterDateContainer>
+                  <CardFooterRateContainer>
+                    <CardFooterIcon
+                      source={getIcon('rate')}
+                      resizeMode="center"
+                    />
+                    <CardFooterRateText>
+                      {item.averageRating === null ? '-' : item.averageRating}
+                    </CardFooterRateText>
+                  </CardFooterRateContainer>
+                </CardFooterContainer>
+              </CardContainer>
+            </TransparentContainer>
+          )}
+        />
       )}
     </Container>
   );

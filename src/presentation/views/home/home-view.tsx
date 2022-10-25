@@ -24,6 +24,7 @@ export interface HomeViewState {
   loadingArticles: boolean;
   loadingCategories: boolean;
   selectedCategoryId: number | null;
+  hideCategories: boolean;
 }
 
 export class HomeView
@@ -45,6 +46,7 @@ export class HomeView
       loadingArticles: homeViewModel.loadingArticles,
       loadingCategories: homeViewModel.loadingCategories,
       selectedCategoryId: homeViewModel.selectedCategoryId,
+      hideCategories: homeViewModel.hideCategories,
     };
   }
 
@@ -66,6 +68,7 @@ export class HomeView
       loadingArticles: this.homeViewModel.loadingArticles,
       loadingCategories: this.homeViewModel.loadingCategories,
       selectedCategoryId: this.homeViewModel.selectedCategoryId,
+      hideCategories: this.homeViewModel.hideCategories,
     });
   }
 
@@ -77,6 +80,7 @@ export class HomeView
       loadingArticles,
       loadingCategories,
       selectedCategoryId,
+      hideCategories,
     } = this.state;
     return (
       <Container>
@@ -99,15 +103,18 @@ export class HomeView
           <CategoriesCarrouselComponent
             categories={categories}
             selectedCategoryId={selectedCategoryId}
+            hideCategories={hideCategories}
             onSelectCategory={(categoryId) => {
               this.homeViewModel.handleSelectCategory(categoryId);
               this.homeViewModel.handleGetArticles();
             }}
+            onHideCategories={(state) =>
+              this.homeViewModel.handleChangeHideCategoriesState(state)
+            }
             onLoadMoreData={(page) =>
               this.homeViewModel.handleGetCategories(page)
             }
             loading={loadingCategories}
-            style={spacing.carrousel}
           />
         )}
         <InformativeContentsComponent
@@ -116,6 +123,10 @@ export class HomeView
           loading={loadingArticles}
           onPress={(articleId) =>
             this.homeViewModel.handleNavigateToArticle(articleId)
+          }
+          onLoadMoreData={(page) => this.homeViewModel.handleGetArticles(page)}
+          onMoveScroll={(positionY) =>
+            this.homeViewModel.handleChangeHideCategoriesState(positionY > 300)
           }
         />
       </Container>
