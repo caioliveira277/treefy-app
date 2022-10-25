@@ -7,7 +7,7 @@ import { HttpClient, HttpStatusCode } from '@/data/protocols';
 import { UserPlantModel } from '@/domain/models';
 import { UserPlantRequest } from '@/@types/request';
 import { UserPlantDataSource } from '@/data/data-sources';
-import { endOfDay, formatISO } from 'date-fns';
+import { formatISO } from 'date-fns';
 
 export class RemoteUpdateUserPlants implements UpdateUserPlants {
   private readonly httpClient: HttpClient;
@@ -38,7 +38,7 @@ export class RemoteUpdateUserPlants implements UpdateUserPlants {
     const formatedBody: { data: { [key: string]: string | number } } = {
       data: {
         [params.type === 'sun' ? 'lastSunExposure' : 'lastWatering']: formatISO(
-          endOfDay(new Date())
+          new Date()
         ),
       },
     };

@@ -3,7 +3,7 @@ import { add, format, formatDistanceToNowStrict, isBefore } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
 export const formatDateTime = (dateTime: Date) =>
-  format(dateTime, 'dd/MM/yy - HH:MM');
+  format(dateTime, 'dd/MM/yy - HH:mm');
 
 export const formatDate = (dateTime: Date) => format(dateTime, 'dd/MM/yy');
 
