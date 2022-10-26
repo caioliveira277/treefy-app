@@ -111,6 +111,9 @@ export class MyGardenView
           onDelete={(selectedPlant) =>
             this.myGardenViewModel.handleDeletePlant(selectedPlant)
           }
+          onLoadMoreData={(page) =>
+            this.myGardenViewModel.handleGetPlants(page)
+          }
         />
         <BackdropFormComponent
           modalState={modalState}
