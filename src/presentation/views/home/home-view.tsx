@@ -20,10 +20,11 @@ export interface HomeViewProps
 export interface HomeViewState {
   categories: CategoryModel[];
   articles: ArticleModel[];
-  isArticleSearch: boolean;
   loadingArticles: boolean;
   loadingCategories: boolean;
   selectedCategoryId: number | null;
+  hideCategories: boolean;
+  search: string;
 }
 
 export class HomeView
@@ -41,10 +42,11 @@ export class HomeView
     this.state = {
       categories: homeViewModel.categories,
       articles: homeViewModel.articles,
-      isArticleSearch: homeViewModel.isArticleSearch,
       loadingArticles: homeViewModel.loadingArticles,
       loadingCategories: homeViewModel.loadingCategories,
       selectedCategoryId: homeViewModel.selectedCategoryId,
+      hideCategories: homeViewModel.hideCategories,
+      search: homeViewModel.search,
     };
   }
 
@@ -62,10 +64,11 @@ export class HomeView
     this.setState({
       categories: this.homeViewModel.categories,
       articles: this.homeViewModel.articles,
-      isArticleSearch: this.homeViewModel.isArticleSearch,
       loadingArticles: this.homeViewModel.loadingArticles,
       loadingCategories: this.homeViewModel.loadingCategories,
       selectedCategoryId: this.homeViewModel.selectedCategoryId,
+      hideCategories: this.homeViewModel.hideCategories,
+      search: this.homeViewModel.search,
     });
   }
 
@@ -73,10 +76,11 @@ export class HomeView
     const {
       categories,
       articles,
-      isArticleSearch,
       loadingArticles,
       loadingCategories,
       selectedCategoryId,
+      hideCategories,
+      search,
     } = this.state;
     return (
       <Container>
@@ -90,29 +94,46 @@ export class HomeView
         <SearchInputComponent
           titleFontSize="xl"
           style={spacing.searchInput}
-          onSubmit={(search) => this.homeViewModel.handleSearchArticles(search)}
+          onSubmit={(searchValue) =>
+            this.homeViewModel.handleSearchArticles(searchValue)
+          }
           placeholder="Encontre conteúdos relacionados"
           infoMessage="Ex: Como cuidar, dicas, girassóis, adubo..."
         />
-        {isArticleSearch ||
-        (!loadingCategories && !categories.length) ? null : (
+        {search || (!loadingCategories && !categories.length) ? null : (
           <CategoriesCarrouselComponent
             categories={categories}
             selectedCategoryId={selectedCategoryId}
+            hideCategories={hideCategories}
             onSelectCategory={(categoryId) => {
               this.homeViewModel.handleSelectCategory(categoryId);
               this.homeViewModel.handleGetArticles();
             }}
+            onHideCategories={(state) =>
+              this.homeViewModel.handleChangeHideCategoriesState(state)
+            }
+            onLoadMoreData={(page) =>
+              this.homeViewModel.handleGetCategories(page)
+            }
             loading={loadingCategories}
-            style={spacing.carrousel}
           />
         )}
         <InformativeContentsComponent
           style={spacing.informativeContents}
           articles={articles}
           loading={loadingArticles}
+          selectedCategoryId={selectedCategoryId}
+          search={search}
           onPress={(articleId) =>
             this.homeViewModel.handleNavigateToArticle(articleId)
+          }
+          onLoadMoreData={(page) =>
+            search
+              ? this.homeViewModel.handleSearchArticles(search, page)
+              : this.homeViewModel.handleGetArticles(page)
+          }
+          onMoveScroll={(positionY) =>
+            this.homeViewModel.handleChangeHideCategoriesState(positionY > 300)
           }
         />
       </Container>

@@ -17,13 +17,15 @@ export class HomeViewModelImpl
 
   public articles: ArticleModel[];
 
-  public isArticleSearch: boolean;
-
   public loadingArticles: boolean;
 
   public loadingCategories: boolean;
 
   public selectedCategoryId: number | null;
+
+  public hideCategories: boolean;
+
+  public search: string;
 
   constructor(
     getCategories: GetCategories,
@@ -37,9 +39,10 @@ export class HomeViewModelImpl
     this.categories = [];
     this.selectedCategoryId = null;
     this.articles = [];
-    this.isArticleSearch = false;
     this.loadingArticles = true;
     this.loadingCategories = true;
+    this.hideCategories = false;
+    this.search = '';
   }
 
   private handleSetArticlesLoading(state: boolean): void {
@@ -52,13 +55,21 @@ export class HomeViewModelImpl
     this.notifyViewAboutChanges();
   }
 
-  public async handleGetCategories(): Promise<void> {
-    this.handleSetCategoriesLoading(true);
+  public async handleGetCategories(page?: number): Promise<void> {
+    if (!page) {
+      this.handleSetCategoriesLoading(true);
+    }
 
-    const categories = await this.getCategories.all();
-    this.categories = categories;
+    const categories = await this.getCategories.all({
+      pagination: {
+        page,
+      },
+    });
+    this.categories.push(...categories);
 
-    this.handleSelectCategory(categories[0]?.id);
+    if (!this.selectedCategoryId) {
+      this.handleSelectCategory(categories[0]?.id);
+    }
     this.handleSetCategoriesLoading(false);
   }
 
@@ -66,14 +77,21 @@ export class HomeViewModelImpl
     this.selectedCategoryId = selectedCategoryId;
   }
 
-  public async handleGetArticles(): Promise<void> {
-    this.handleSetArticlesLoading(true);
+  public async handleGetArticles(page?: number): Promise<void> {
+    if (!page) {
+      this.articles = [];
+      this.handleSetArticlesLoading(true);
+    }
 
     if (this.selectedCategoryId) {
       const articles = await this.getArticles.allByCategoryId({
         categoryId: this.selectedCategoryId,
+        pagination: {
+          page,
+        },
       });
-      this.articles = articles;
+
+      this.articles.push(...articles);
     } else {
       this.articles = [];
     }
@@ -81,19 +99,31 @@ export class HomeViewModelImpl
     this.handleSetArticlesLoading(false);
   }
 
-  public async handleSearchArticles(search: string): Promise<void> {
+  public async handleSearchArticles(
+    search: string,
+    page?: number
+  ): Promise<void> {
+    this.search = search;
+    this.notifyViewAboutChanges();
+
     if (!search) {
-      this.isArticleSearch = false;
       await this.handleGetArticles();
       return;
     }
-    this.handleSetArticlesLoading(true);
+
+    if (!page) {
+      this.handleSetArticlesLoading(true);
+      this.articles = [];
+    }
+
     const articles = await this.getArticles.allBySearch({
       search,
+      pagination: {
+        page,
+      },
     });
 
-    this.articles = articles;
-    this.isArticleSearch = true;
+    this.articles.push(...articles);
     this.handleSetArticlesLoading(false);
   }
 
@@ -107,5 +137,10 @@ export class HomeViewModelImpl
         },
       },
     });
+  }
+
+  public handleChangeHideCategoriesState(state: boolean): void {
+    this.hideCategories = state;
+    this.notifyViewAboutChanges();
   }
 }

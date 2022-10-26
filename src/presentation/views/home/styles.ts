@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.contrast};
 `;
@@ -19,15 +19,12 @@ export const ContainerPadding = styled.View`
 export const spacing = StyleSheet.create({
   salutation: {
     marginTop: 40,
-    marginBottom: 30,
+    marginBottom: 20,
   },
   searchInput: {
-    marginBottom: 30,
+    marginBottom: 20,
     paddingRight: 20,
     paddingLeft: 20,
-  },
-  carrousel: {
-    marginBottom: 30,
   },
   informativeContents: {
     marginBottom: 20,

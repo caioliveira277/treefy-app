@@ -27,6 +27,7 @@ export type IconName =
   | 'close'
   | 'incompleted'
   | 'content'
+  | 'up'
   | 'play';
 
 export const getIcon = (iconName: IconName) => {
@@ -89,5 +90,7 @@ export const getIcon = (iconName: IconName) => {
       return require('@assets/icons/incompleted.png');
     case 'play':
       return require('@assets/icons/play.png');
+    case 'up':
+      return require('@assets/icons/up.png');
   }
 };

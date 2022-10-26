@@ -2,7 +2,9 @@ import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import * as HomeStyles from '../../styles';
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  margin-bottom: 10px;
+`;
 
 export const Corrousel = styled.ScrollView`
   padding-bottom: 10px;
@@ -14,8 +16,7 @@ export const ItemContainer = styled.View<{ active: boolean }>`
 `;
 
 export const Title = styled(HomeStyles.Title)`
-  margin-left: 20px;
-  margin-bottom: 15px;
+  margin: 0 10px 4px 20px;
 `;
 
 export const ContainerShadow = styled.TouchableOpacity`
@@ -48,6 +49,17 @@ export const ActivePoint = styled.View`
   border-radius: 12px;
   background-color: ${({ theme }) => theme.colors.primary};
   margin-bottom: 5px;
+`;
+
+export const Icon = styled.Image`
+  width: 10px;
+  height: 5px;
+`;
+
+export const Button = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
 `;
 
 export const customStyle = StyleSheet.create({

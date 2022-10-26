@@ -14,14 +14,16 @@ import {
 import { HiddenItemComponent } from './hidden-item-component';
 import { BackdropDeleteConfirmComponent } from './backdrop-delete-confirm';
 import * as Notifications from 'expo-notifications';
+import { shortDistanceToComplete } from '@/presentation/utils';
 
 export interface NextCareComponentProps {
   style?: StyleProp<ViewStyle>;
   plants: UserPlantModel[];
+  loading: boolean;
   onFinish?: (selectedPlant: MyGardenItem) => void;
   onEdit?: (selectedPlant: UserPlantModel) => void;
   onDelete?: (selectedPlant: UserPlantModel) => void;
-  loading: boolean;
+  onLoadMoreData: (page: number) => void;
 }
 
 export const NextCareComponent: React.FC<NextCareComponentProps> = ({
@@ -31,11 +33,13 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
   onFinish = () => null,
   onEdit = () => null,
   onDelete = () => null,
+  onLoadMoreData,
 }) => {
   const [list, setList] = useState<MyGardenItem[]>([]);
   const [confirmDeleteItem, setConfirmDeleteItem] =
     useState<null | MyGardenItem>(null);
   const [openConfirmDelete, setOpenConfirmDelete] = useState(ModalState.close);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const movement = {
     right: -75,
@@ -67,7 +71,7 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
         result.push(createItem(plant, 'incompleted', false));
     });
 
-    return result;
+    return result.sort((a, b) => shortDistanceToComplete([a, b]));
   };
 
   const handleOpenRow = (
@@ -122,7 +126,15 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
           </Container>
         ) : (
           <SwipeListView
+            useFlatList={true}
             data={list}
+            initialNumToRender={8}
+            onEndReached={() => {
+              const page = currentPage + 1;
+              setCurrentPage(page);
+              onLoadMoreData(page);
+            }}
+            onEndReachedThreshold={0.1}
             renderItem={(props) => (
               <SwipeRow
                 disableLeftSwipe={props.item.type === 'incompleted'}
@@ -140,6 +152,7 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
                 />
               </SwipeRow>
             )}
+            extraData={plants}
             keyExtractor={(_, i) => i.toString()}
             contentContainerStyle={styles.containerStyle}
             onRowDidOpen={handleOpenRow}

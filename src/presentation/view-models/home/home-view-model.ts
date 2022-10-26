@@ -10,13 +10,15 @@ export interface HomeViewModel extends BaseViewModel {
   categories: CategoryModel[];
   selectedCategoryId: number | null;
   articles: ArticleModel[];
-  isArticleSearch: boolean;
   loadingArticles: boolean;
   loadingCategories: boolean;
+  hideCategories: boolean;
+  search: string;
 
   handleSelectCategory(selectedCategoryId: number): void;
-  handleGetCategories(): Promise<void>;
-  handleGetArticles(): Promise<void>;
-  handleSearchArticles(search: string): Promise<void>;
+  handleGetCategories(page?: number): Promise<void>;
+  handleGetArticles(page?: number): Promise<void>;
+  handleSearchArticles(search: string, page?: number): Promise<void>;
+  handleChangeHideCategoriesState(state: boolean): void;
   handleNavigateToArticle(articleId: number): void;
 }

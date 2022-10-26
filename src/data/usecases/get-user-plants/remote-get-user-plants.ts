@@ -9,8 +9,11 @@ export class RemoteGetUserPlants implements GetUserPlants {
 
   private readonly baseUrl = `${process.env.API_BASE_URL}/api/user-plants`;
 
+  private pageLimit: number;
+
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
+    this.pageLimit = 0;
   }
 
   private formatParams(params: Record<string, any>) {
@@ -26,6 +29,9 @@ export class RemoteGetUserPlants implements GetUserPlants {
 
   public async all(params: GetUserPlantsAllParams): Promise<UserPlantModel[]> {
     try {
+      if (this.pageLimit && (params.pagination?.page || 1) > this.pageLimit)
+        throw new Error('Page limit exceeded');
+
       const response = await this.httpClient.request<UserPlantsRequest>({
         method: 'GET',
         url: this.baseUrl,
@@ -38,6 +44,9 @@ export class RemoteGetUserPlants implements GetUserPlants {
         response.statusCode === HttpStatusCode.ok &&
         response?.body?.data?.length
       ) {
+        if (!this.pageLimit)
+          this.pageLimit = response.body.meta.pagination.pageCount;
+
         return new UserPlantDataSource(response.body.data).toModel();
       }
       return [];

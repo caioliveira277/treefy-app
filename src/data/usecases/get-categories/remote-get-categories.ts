@@ -10,10 +10,13 @@ import { CategoryDataSource } from '@/data/data-sources';
 export class RemoteGetCategories implements GetCategories {
   private readonly httpClient: HttpClient;
 
+  private pageLimit: number;
+
   private readonly baseUrl = `${process.env.API_BASE_URL}/api/categories`;
 
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
+    this.pageLimit = 0;
   }
 
   private formatParams(params: Record<string, any>) {
@@ -30,6 +33,9 @@ export class RemoteGetCategories implements GetCategories {
     params: GetCategoriesAllCategoryParams
   ): Promise<CategoryModel[]> {
     try {
+      if (this.pageLimit && (params.pagination?.page || 1) > this.pageLimit)
+        throw new Error('Page limit exceeded');
+
       const response = await this.httpClient.request<CategoriesRequest>({
         method: 'GET',
         url: this.baseUrl,
@@ -39,6 +45,9 @@ export class RemoteGetCategories implements GetCategories {
         response.statusCode === HttpStatusCode.ok &&
         response?.body?.data?.length
       ) {
+        if (!this.pageLimit)
+          this.pageLimit = response.body.meta.pagination.pageCount;
+
         return new CategoryDataSource(response.body.data).toModel();
       }
       return [];

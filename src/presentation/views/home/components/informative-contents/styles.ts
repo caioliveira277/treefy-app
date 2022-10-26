@@ -2,13 +2,16 @@ import styled from 'styled-components/native';
 import * as HomeStyles from '../../styles';
 import { StyleSheet } from 'react-native';
 
-export const Container = styled(HomeStyles.ContainerPadding)``;
+export const Container = styled.View`
+  flex: 1;
+`;
 
 export const Title = styled(HomeStyles.Title)`
   font-family: ${({ theme }) => theme.fonts.families.medium};
   color: ${({ theme }) => theme.colors.secondary};
   font-size: ${({ theme }) => theme.fonts.sizes.xl};
   margin-bottom: 10px;
+  padding: 0 20px;
 `;
 
 export const TransparentContainer = styled.View`
@@ -139,6 +142,9 @@ export const CardFooterRateText = styled.Text`
 
 export const styles = StyleSheet.create({
   empty: {
-    marginTop: 20,
+    marginTop: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
+  containerList: { paddingLeft: 20, paddingRight: 20 },
 });
