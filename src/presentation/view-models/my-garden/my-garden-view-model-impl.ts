@@ -88,7 +88,7 @@ export class MyGardenViewModelImpl
       },
     });
 
-    this.userPlants.push(...userPlants);
+    this.userPlants = [...this.userPlants, ...userPlants];
 
     this.handleChangeGetPlantsLoadingState(false);
   }

@@ -65,7 +65,7 @@ export class HomeViewModelImpl
         page,
       },
     });
-    this.categories.push(...categories);
+    this.categories = [...this.categories, ...categories];
 
     if (!this.selectedCategoryId) {
       this.handleSelectCategory(categories[0]?.id);
@@ -91,7 +91,7 @@ export class HomeViewModelImpl
         },
       });
 
-      this.articles.push(...articles);
+      this.articles = [...this.articles, ...articles];
     } else {
       this.articles = [];
     }
@@ -123,7 +123,7 @@ export class HomeViewModelImpl
       },
     });
 
-    this.articles.push(...articles);
+    this.articles = [...this.articles, ...articles];
     this.handleSetArticlesLoading(false);
   }
 

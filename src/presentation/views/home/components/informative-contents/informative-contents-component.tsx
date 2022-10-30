@@ -80,6 +80,7 @@ export const InformativeContentsComponent: React.FC<
           keyExtractor={(item) => String(item.id)}
           contentContainerStyle={styles.containerList}
           initialNumToRender={3}
+          extraData={articles}
           onEndReached={() => {
             const page = currentPage + 1;
             setCurrentPage(page);
