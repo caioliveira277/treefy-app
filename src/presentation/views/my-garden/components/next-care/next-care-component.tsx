@@ -1,10 +1,13 @@
-import { StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import { Container, Title, Description, TextBold, styles } from './styles';
 import { RowMap, SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import { UserPlantModel } from '@/domain/models';
 import React, { useEffect, useState } from 'react';
 import { NextCareLoadingComponent } from './next-care-loading-component';
-import { EmptyContentComponent } from '@/presentation/components';
+import {
+  EmptyContentComponent,
+  LoadingOverlayComponent,
+} from '@/presentation/components';
 import { ItemComponent } from './item-component';
 import {
   ModalState,
@@ -118,45 +121,48 @@ export const NextCareComponent: React.FC<NextCareComponentProps> = ({
           Caso queira <TextBold>excluir</TextBold>, pressione e segure o item
           desejado.
         </Description>
-        {loading ? (
+        {loading && !plants.length ? (
           <NextCareLoadingComponent />
         ) : !loading && !plants.length ? (
           <Container style={styles.empty}>
             <EmptyContentComponent description="Oops! Você ainda não cadastrou nenhuma planta :(" />
           </Container>
         ) : (
-          <SwipeListView
-            useFlatList={true}
-            data={list}
-            initialNumToRender={8}
-            onEndReached={() => {
-              const page = currentPage + 1;
-              setCurrentPage(page);
-              onLoadMoreData(page);
-            }}
-            onEndReachedThreshold={0.1}
-            renderItem={(props) => (
-              <SwipeRow
-                disableLeftSwipe={props.item.type === 'incompleted'}
-                stopLeftSwipe={movement.left}
-                leftOpenValue={movement.left}
-                stopRightSwipe={movement.right}
-                rightOpenValue={movement.right}
-                item={props.item}
-                swipeToOpenPercent={90}
-              >
-                <HiddenItemComponent {...props} />
-                <ItemComponent
-                  {...props}
-                  onLongPress={() => handleDeleteItem(props.item)}
-                />
-              </SwipeRow>
-            )}
-            extraData={plants}
-            keyExtractor={(_, i) => i.toString()}
-            contentContainerStyle={styles.containerStyle}
-            onRowDidOpen={handleOpenRow}
-          />
+          <View style={{ flex: 1 }}>
+            {loading ? <LoadingOverlayComponent adjustYPosition={100} /> : null}
+            <SwipeListView
+              useFlatList={true}
+              data={list}
+              initialNumToRender={8}
+              onEndReached={() => {
+                const page = currentPage + 1;
+                setCurrentPage(page);
+                onLoadMoreData(page);
+              }}
+              onEndReachedThreshold={0.1}
+              renderItem={(props) => (
+                <SwipeRow
+                  disableLeftSwipe={props.item.type === 'incompleted'}
+                  stopLeftSwipe={movement.left}
+                  leftOpenValue={movement.left}
+                  stopRightSwipe={movement.right}
+                  rightOpenValue={movement.right}
+                  item={props.item}
+                  swipeToOpenPercent={90}
+                >
+                  <HiddenItemComponent {...props} />
+                  <ItemComponent
+                    {...props}
+                    onLongPress={() => handleDeleteItem(props.item)}
+                  />
+                </SwipeRow>
+              )}
+              extraData={plants}
+              keyExtractor={(_, i) => i.toString()}
+              contentContainerStyle={{ paddingBottom: 30 }}
+              onRowDidOpen={handleOpenRow}
+            />
+          </View>
         )}
       </Container>
       <BackdropDeleteConfirmComponent

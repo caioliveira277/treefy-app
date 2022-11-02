@@ -99,7 +99,6 @@ export class MyGardenView
           }
         />
         <NextCareComponent
-          style={spacing.nextCare}
           loading={getPlantsLoading}
           plants={userPlants}
           onEdit={(selectedPlant) =>

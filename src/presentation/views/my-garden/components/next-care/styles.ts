@@ -3,7 +3,9 @@ import { ThemeColors } from '@/presentation/themes/theme';
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  flex: 1;
+`;
 
 export const Title = styled.Text`
   font-size: ${({ theme }) => theme.fonts.sizes.lg};
@@ -146,9 +148,6 @@ export const ContainerItem = styled.View<{
 `;
 
 export const styles = StyleSheet.create({
-  containerStyle: {
-    paddingBottom: 190,
-  },
   empty: {
     paddingLeft: 20,
     paddingRight: 20,

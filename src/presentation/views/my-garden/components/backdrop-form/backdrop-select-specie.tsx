@@ -20,9 +20,10 @@ import { SpecieModel } from '@/domain/models';
 import {
   ButtonComponent,
   EmptyContentComponent,
+  LoadingOverlayComponent,
   SearchInputComponent,
 } from '@/presentation/components';
-import { ListRenderItem } from 'react-native';
+import { ListRenderItem, View } from 'react-native';
 import { useTheme } from 'styled-components';
 import { useDebounce } from '@/presentation/hooks';
 import { SpeciesLoadingComponent } from './species-loading-component';
@@ -108,6 +109,7 @@ export const BackdropSelectSpecieComponent: React.FC<
       snapPoints={snapPoints}
       enablePanDownToClose
       index={-1}
+      style={{ flex: 1 }}
       onClose={handleClose}
       containerStyle={{
         backgroundColor: isOpen() ? '#00000040' : 'transparent',
@@ -129,7 +131,7 @@ export const BackdropSelectSpecieComponent: React.FC<
           />
         </Container>
       </BottomSheetView>
-      {loading ? (
+      {loading && !species.length ? (
         <SpeciesLoadingComponent />
       ) : !loading && !species.length ? (
         <EmptyContentComponent
@@ -137,20 +139,23 @@ export const BackdropSelectSpecieComponent: React.FC<
           description="Oops! Não encontramos espécies com esse nome :("
         />
       ) : (
-        <BottomSheetFlatList
-          data={species}
-          renderItem={renderItem}
-          initialNumToRender={4}
-          extraData={species}
-          keyExtractor={(_, i) => String(i)}
-          onEndReached={() => {
-            const page = currentPage + 1;
-            setCurrentPage(page);
-            onSubmit(search, page);
-          }}
-          onEndReachedThreshold={0.1}
-          contentContainerStyle={{ paddingBottom: 40 }}
-        />
+        <View style={{ flex: 1 }}>
+          {loading ? <LoadingOverlayComponent /> : null}
+          <BottomSheetFlatList
+            data={species}
+            renderItem={renderItem}
+            initialNumToRender={4}
+            extraData={species}
+            keyExtractor={(_, i) => String(i)}
+            onEndReached={() => {
+              const page = currentPage + 1;
+              setCurrentPage(page);
+              onSubmit(search, page);
+            }}
+            onEndReachedThreshold={0.1}
+            contentContainerStyle={{ paddingBottom: haveSelected ? 0 : 40 }}
+          />
+        </View>
       )}
       {haveSelected ? (
         <ButtonComponent

@@ -74,9 +74,7 @@ export class MyGardenViewModelImpl
   }
 
   public async handleGetPlants(page?: number): Promise<void> {
-    if (!page) {
-      this.handleChangeGetPlantsLoadingState(true);
-    }
+    this.handleChangeGetPlantsLoadingState(true);
 
     const user =
       this.baseView?.props.contextConsumer?.authentication?.authenticatedUser;
@@ -257,9 +255,7 @@ export class MyGardenViewModelImpl
     search: string,
     page?: number
   ): Promise<void> {
-    if (!page) {
-      this.handleChangeGetSpeciesLoadingState(true);
-    }
+    this.handleChangeGetSpeciesLoadingState(true);
 
     if (page === 1) this.species = [];
 

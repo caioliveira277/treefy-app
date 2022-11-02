@@ -11,7 +11,4 @@ export const spacing = StyleSheet.create({
     marginTop: 40,
     marginBottom: 10,
   },
-  nextCare: {
-    marginBottom: 30,
-  },
 });
