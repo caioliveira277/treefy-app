@@ -56,9 +56,7 @@ export class HomeViewModelImpl
   }
 
   public async handleGetCategories(page?: number): Promise<void> {
-    if (!page) {
-      this.handleSetCategoriesLoading(true);
-    }
+    this.handleSetCategoriesLoading(true);
 
     const categories = await this.getCategories.all({
       pagination: {
@@ -78,9 +76,10 @@ export class HomeViewModelImpl
   }
 
   public async handleGetArticles(page?: number): Promise<void> {
+    this.handleSetArticlesLoading(true);
+
     if (!page) {
       this.articles = [];
-      this.handleSetArticlesLoading(true);
     }
 
     if (this.selectedCategoryId) {
@@ -111,8 +110,9 @@ export class HomeViewModelImpl
       return;
     }
 
+    this.handleSetArticlesLoading(true);
+
     if (!page) {
-      this.handleSetArticlesLoading(true);
       this.articles = [];
     }
 
