@@ -253,14 +253,25 @@ export class MyGardenViewModelImpl
     }
   }
 
-  public async handleSearchSpecies(search: string): Promise<void> {
-    this.handleChangeGetSpeciesLoadingState(true);
+  public async handleSearchSpecies(
+    search: string,
+    page?: number
+  ): Promise<void> {
+    if (!page) {
+      this.handleChangeGetSpeciesLoadingState(true);
+    }
+
+    if (page === 1) this.species = [];
 
     const species = await this.getSpecies.byName({
       name: search,
+      pagination: {
+        page,
+      },
     });
 
-    this.species = species;
+    this.species = [...this.species, ...species];
+
     this.handleChangeGetSpeciesLoadingState(false);
   }
 

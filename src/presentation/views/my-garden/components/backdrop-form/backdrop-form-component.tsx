@@ -36,7 +36,7 @@ export interface BackdropFormComponentProps {
   errors: Record<keyof UserPlantModel, string>;
   species: SpecieModel[];
   speciesLoading: boolean;
-  onSubmitSpecieSearch?: (search: string) => void;
+  onSubmitSpecieSearch?: (search: string, page: number) => void;
   onClose?: (closeState: ModalState) => void;
   onChange?: (key: keyof UserPlantModel, value: any) => void;
   onSubmit?: (formData: UserPlantModel) => void;

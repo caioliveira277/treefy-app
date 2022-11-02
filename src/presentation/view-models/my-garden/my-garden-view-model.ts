@@ -29,7 +29,7 @@ export interface MyGardenViewModel extends BaseViewModel {
   form: UserPlantModel;
   formErrors: Record<keyof UserPlantModel, string>;
 
-  handleSearchSpecies(search: string): Promise<void>;
+  handleSearchSpecies(search: string, page?: number): Promise<void>;
   handleGetPlants(page?: number): Promise<void>;
   handleChangeModalState(state: ModalState): void;
   handleChangeForm(key: keyof UserPlantModel, value: any): void;

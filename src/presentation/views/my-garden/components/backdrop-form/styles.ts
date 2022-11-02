@@ -129,7 +129,9 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonRemoveSelection: {
-    marginTop: 30,
+    marginTop: 'auto',
+    paddingTop: 30,
+    marginBottom: 40,
   },
   noPaddingX: {
     paddingLeft: 0,
