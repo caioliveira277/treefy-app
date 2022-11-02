@@ -146,5 +146,9 @@ export const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
   },
-  containerList: { paddingLeft: 20, paddingRight: 20 },
+  containerList: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 30,
+  },
 });

@@ -119,7 +119,6 @@ export class HomeView
           />
         )}
         <InformativeContentsComponent
-          style={spacing.informativeContents}
           articles={articles}
           loading={loadingArticles}
           selectedCategoryId={selectedCategoryId}
@@ -133,7 +132,7 @@ export class HomeView
               : this.homeViewModel.handleGetArticles(page)
           }
           onMoveScroll={(positionY) =>
-            this.homeViewModel.handleChangeHideCategoriesState(positionY > 300)
+            this.homeViewModel.handleChangeHideCategoriesState(positionY > 100)
           }
         />
       </Container>

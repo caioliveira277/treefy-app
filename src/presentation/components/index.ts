@@ -9,3 +9,4 @@ export * from './skeleton-loading/skeleton-loading-component';
 export * from './empty-content/empty-content-component';
 export * from './search-input/search-input-component';
 export * from './animated-height/animated-height';
+export * from './loading-overlay/loading-overlay-component';

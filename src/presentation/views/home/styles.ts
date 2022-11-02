@@ -26,7 +26,4 @@ export const spacing = StyleSheet.create({
     paddingRight: 20,
     paddingLeft: 20,
   },
-  informativeContents: {
-    marginBottom: 20,
-  },
 });

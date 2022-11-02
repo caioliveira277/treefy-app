@@ -9,9 +9,6 @@ export const Container = styled.View`
 export const spacing = StyleSheet.create({
   header: {
     marginTop: 40,
-    marginBottom: 30,
-  },
-  nextCare: {
-    marginBottom: 30,
+    marginBottom: 10,
   },
 });

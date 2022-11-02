@@ -56,16 +56,14 @@ export class HomeViewModelImpl
   }
 
   public async handleGetCategories(page?: number): Promise<void> {
-    if (!page) {
-      this.handleSetCategoriesLoading(true);
-    }
+    this.handleSetCategoriesLoading(true);
 
     const categories = await this.getCategories.all({
       pagination: {
         page,
       },
     });
-    this.categories.push(...categories);
+    this.categories = [...this.categories, ...categories];
 
     if (!this.selectedCategoryId) {
       this.handleSelectCategory(categories[0]?.id);
@@ -78,9 +76,10 @@ export class HomeViewModelImpl
   }
 
   public async handleGetArticles(page?: number): Promise<void> {
+    this.handleSetArticlesLoading(true);
+
     if (!page) {
       this.articles = [];
-      this.handleSetArticlesLoading(true);
     }
 
     if (this.selectedCategoryId) {
@@ -91,7 +90,7 @@ export class HomeViewModelImpl
         },
       });
 
-      this.articles.push(...articles);
+      this.articles = [...this.articles, ...articles];
     } else {
       this.articles = [];
     }
@@ -111,8 +110,9 @@ export class HomeViewModelImpl
       return;
     }
 
+    this.handleSetArticlesLoading(true);
+
     if (!page) {
-      this.handleSetArticlesLoading(true);
       this.articles = [];
     }
 
@@ -123,7 +123,7 @@ export class HomeViewModelImpl
       },
     });
 
-    this.articles.push(...articles);
+    this.articles = [...this.articles, ...articles];
     this.handleSetArticlesLoading(false);
   }
 

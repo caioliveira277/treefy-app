@@ -99,7 +99,6 @@ export class MyGardenView
           }
         />
         <NextCareComponent
-          style={spacing.nextCare}
           loading={getPlantsLoading}
           plants={userPlants}
           onEdit={(selectedPlant) =>
@@ -121,8 +120,8 @@ export class MyGardenView
           species={species}
           speciesLoading={getSpeciesLoading}
           errors={formErrors}
-          onSubmitSpecieSearch={(search) =>
-            this.myGardenViewModel.handleSearchSpecies(search)
+          onSubmitSpecieSearch={(search, page) =>
+            this.myGardenViewModel.handleSearchSpecies(search, page)
           }
           onChange={(key, value) =>
             this.myGardenViewModel.handleChangeForm(key, value)

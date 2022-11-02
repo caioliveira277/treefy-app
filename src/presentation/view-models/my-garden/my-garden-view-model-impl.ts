@@ -74,9 +74,7 @@ export class MyGardenViewModelImpl
   }
 
   public async handleGetPlants(page?: number): Promise<void> {
-    if (!page) {
-      this.handleChangeGetPlantsLoadingState(true);
-    }
+    this.handleChangeGetPlantsLoadingState(true);
 
     const user =
       this.baseView?.props.contextConsumer?.authentication?.authenticatedUser;
@@ -88,7 +86,7 @@ export class MyGardenViewModelImpl
       },
     });
 
-    this.userPlants.push(...userPlants);
+    this.userPlants = [...this.userPlants, ...userPlants];
 
     this.handleChangeGetPlantsLoadingState(false);
   }
@@ -253,14 +251,23 @@ export class MyGardenViewModelImpl
     }
   }
 
-  public async handleSearchSpecies(search: string): Promise<void> {
+  public async handleSearchSpecies(
+    search: string,
+    page?: number
+  ): Promise<void> {
     this.handleChangeGetSpeciesLoadingState(true);
+
+    if (page === 1) this.species = [];
 
     const species = await this.getSpecies.byName({
       name: search,
+      pagination: {
+        page,
+      },
     });
 
-    this.species = species;
+    this.species = [...this.species, ...species];
+
     this.handleChangeGetSpeciesLoadingState(false);
   }
 

@@ -9,14 +9,17 @@ export class RemoteGetSpecies implements GetSpecies {
 
   private readonly baseUrl = `${process.env.API_BASE_URL}/api/species`;
 
+  private pageLimit: number;
+
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
+    this.pageLimit = 0;
   }
 
   private formatParams(params: Record<string, any>) {
     const formatedParams: { [key: string]: string | number } = {
       'pagination[page]': params?.pagination?.page || 1,
-      'pagination[pageSize]': params?.pagination?.size || 1,
+      'pagination[pageSize]': params?.pagination?.size || 10,
       'filters[name][$containsi]': params?.name || '',
       'populate[image][fields][0]': 'url',
     };
@@ -26,6 +29,9 @@ export class RemoteGetSpecies implements GetSpecies {
 
   public async byName(params: GetSpeciesByNameParams): Promise<SpecieModel[]> {
     try {
+      if (this.pageLimit && (params.pagination?.page || 1) > this.pageLimit)
+        throw new Error('Page limit exceeded');
+
       const response = await this.httpClient.request<SpeciesRequest>({
         method: 'GET',
         url: this.baseUrl,
@@ -36,6 +42,9 @@ export class RemoteGetSpecies implements GetSpecies {
         response.statusCode === HttpStatusCode.ok &&
         response?.body?.data?.length
       ) {
+        if (!this.pageLimit)
+          this.pageLimit = response.body.meta.pagination.pageCount;
+
         return new SpecieDataSource(response.body.data).toModel();
       }
       return [];

@@ -89,9 +89,9 @@ export const NavigationComponent: React.FC<NavigationComponentProps> = ({
             body:
               'Olá Treefy Team.\n\n' +
               `Me chamo ${user?.name} e gostaria de fazer parte do time de criação de conteúdos informativos para a plataforma.\n\n` +
-              '[Escreva aqui um pouco sobre a sua experiência com plantas e conhecimentos relacionados]\n\n' +
+              '[Fale um pouco sobre a sua experiência com plantas e conhecimentos relacionados]\n\n' +
               'Att.\n' +
-              `Email associado à minha conta: ${user?.email}`,
+              `Email associado à minha conta: \n${user?.email}`,
           });
         }}
       />

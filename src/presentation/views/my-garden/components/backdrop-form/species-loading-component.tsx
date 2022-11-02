@@ -2,7 +2,7 @@ import { SkeletonLoadingComponent } from '@/presentation/components';
 import { View } from 'moti';
 
 export const SpeciesLoadingComponent: React.FC = () => {
-  const quantity = 3;
+  const quantity = 2;
 
   return (
     <View
