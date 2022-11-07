@@ -79,6 +79,7 @@ exports[`TextInputComponent Should match with a snapshot 1`] = `
     anyLabel
   </Text>
   <View
+    editable={true}
     hasError={false}
     style={
       Array [
@@ -168,6 +169,7 @@ exports[`TextInputComponent Should match with a snapshot 1`] = `
     />
     <TextInput
       allowFontScaling={true}
+      editable={true}
       keyboardType="default"
       multiline={false}
       onChangeText={[Function]}
