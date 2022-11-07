@@ -29,6 +29,7 @@ export interface TextInputComponentProps {
   infoMessage?: string;
   enforceErrorFocus?: boolean;
   onChangeText?: (value: string) => void;
+  editable?: boolean;
 }
 
 export const TextInputComponent: React.FC<TextInputComponentProps> = ({
@@ -45,6 +46,7 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
   infoMessage,
   onChangeText,
   enforceErrorFocus,
+  editable = true,
 }) => {
   const theme = useTheme();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
@@ -74,6 +76,7 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
         theme={theme}
         style={isTextarea() ? textareaStyles.container : {}}
         hasError={!!errorMessage || !!enforceErrorFocus}
+        editable={editable}
       >
         <GenericIcon
           iconSize={iconSize}
@@ -97,6 +100,7 @@ export const TextInputComponent: React.FC<TextInputComponentProps> = ({
             ...(isTextarea() ? textareaStyles.input : {}),
             ...(styleInput as Object),
           }}
+          editable={editable}
         />
         {type === 'password' ? (
           <VisibilityPasswordButton

@@ -108,6 +108,7 @@ export class ChangeProfileView
           label="Email cadastrado:"
           value={email}
           placeholderText="Email cadastrado"
+          editable={false}
         />
         <LegendComponent>Alteração de senha:</LegendComponent>
         <TextInputComponent

@@ -12,7 +12,10 @@ export const Label = styled.Text`
   margin-bottom: 10px;
 `;
 
-export const ContainerInput = styled.View<{ hasError: boolean }>`
+export const ContainerInput = styled.View<{
+  hasError: boolean;
+  editable: boolean;
+}>`
   width: 100%;
   align-items: center;
   flex-direction: row;
@@ -20,7 +23,8 @@ export const ContainerInput = styled.View<{ hasError: boolean }>`
   border-radius: ${({ theme }) => theme.borders.border_radius_sm};
   border-color: ${({ theme, hasError }) =>
     hasError ? theme.colors.error : theme.colors.placeholder_light};
-  background: ${({ theme }) => theme.colors.white};
+  background: ${({ theme, editable }) =>
+    !editable ? theme.colors.placeholder_light : theme.colors.white};
   min-height: 45px;
   position: relative;
 `;
@@ -44,13 +48,14 @@ export const VisibilityPasswordButton = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-export const Input = styled.TextInput`
+export const Input = styled.TextInput<{ editable: boolean }>`
   width: 100%;
   font-size: ${({ theme }) => theme.fonts.sizes.md};
   padding-left: 38px;
   padding-right: 42px;
   font-family: ${({ theme }) => theme.fonts.families.regular};
-  color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme, editable }) =>
+    !editable ? theme.colors.placeholder : theme.colors.secondary};
 `;
 
 export const TextError = styled.Text`
