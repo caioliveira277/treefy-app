@@ -19,6 +19,7 @@ export interface SearchInputComponentProps {
   infoMessage?: string;
   placeholder?: string;
   titleFontSize: keyof DefaultTheme['fonts']['sizes'];
+  editable?: boolean;
 }
 
 export const SearchInputComponent: React.FC<SearchInputComponentProps> = ({
@@ -27,6 +28,7 @@ export const SearchInputComponent: React.FC<SearchInputComponentProps> = ({
   infoMessage,
   placeholder = '',
   titleFontSize,
+  editable = true,
 }) => {
   const [search, setSearch] = useState('');
   const searchDebounce = useDebounce<string>(search, 500);
@@ -48,6 +50,7 @@ export const SearchInputComponent: React.FC<SearchInputComponentProps> = ({
           value={search}
           placeholderTextColor={theme.colors.placeholder}
           placeholder={placeholder}
+          editable={editable}
         />
         <Button onPress={handleClear}>
           {search ? (
