@@ -23,7 +23,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.treefy.treefy",
@@ -39,6 +41,11 @@
     },
     "web": {
       "favicon": "./assets/images/adaptive-icon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "84478004-95e8-4ffa-a942-63c322add2e1"
+      }
     }
   }
 }

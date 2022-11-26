@@ -10,6 +10,7 @@ import {
   AuthenticationUpdateUserAccountParams,
 } from '@/domain/usecases';
 import { Amplify, Auth } from 'aws-amplify';
+import { Alert } from 'react-native';
 
 class AWSCognitoIdentityProviderClass implements IdentityProvider {
   public configure(): void {
@@ -33,6 +34,7 @@ class AWSCognitoIdentityProviderClass implements IdentityProvider {
       });
       return true;
     } catch (_error) {
+      Alert.alert('error', JSON.stringify(_error));
       return false;
     }
   }
